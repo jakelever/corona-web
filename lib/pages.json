@@ -1,0 +1,57 @@
+[
+	{
+		"name": "Drug Repurposing",
+		"page": "drugrepurposing",
+		"icon": "faPrescriptionBottleAlt"
+	},
+	{
+		"name": "Novel Therapeutics",
+		"page": "noveltherapeutics",
+		"icon": "faVials"
+	},
+	{
+		"name": "Vaccines",
+		"page": "vaccines",
+		"icon": "faSyringe"
+	},
+	{
+		"name": "Strategy",
+		"page": "strategy",
+		"icon": "faChessKnight"
+	},
+	{
+		"name": "Imaging",
+		"page": "imaging",
+		"icon": "faCamera"
+	},
+	{
+		"name": "Transmission",
+		"page": "transmission",
+		"icon": "faHandshake"
+	},
+	{
+		"name": "Case Reports",
+		"page": "casereports",
+		"icon": "faNotesMedical"
+	},
+	{
+		"name": "Diagnostics",
+		"page": "diagnostics",
+		"icon": "faStethoscope"
+	},
+	{
+		"name": "Host Biology",
+		"page": "hostbiology",
+		"icon": "faDna"
+	},
+	{
+		"name": "Viral Biology",
+		"page": "viralbiology",
+		"icon": "faStethoscope"
+	},
+	{
+		"name": "Disease Modelling",
+		"page": "diseasemodelling",
+		"icon": "faChartBar"
+	}
+]
