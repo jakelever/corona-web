@@ -22,6 +22,7 @@
     "react-bootstrap-typeahead": "^5.0.0-rc.1",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "16.13.1",
+    "react-ga": "^2.7.0",
     "serverless-mysql": "^1.5.4",
     "sql-template-strings": "^2.2.2"
   }
