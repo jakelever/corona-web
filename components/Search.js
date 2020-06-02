@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Typeahead, Highlighter } from 'react-bootstrap-typeahead'
+import { Badge } from 'react-bootstrap';
 
 class Search extends Component {
 	constructor(props) {
@@ -14,11 +15,11 @@ class Search extends Component {
 	render() {
 		
 		var data = [
-		{name:'UK',population:66.65*1000000},
-		{name:'France',population:66.99*1000000},
-		{name:'Italy',population:60.36*1000000},
-		{name:'Germany',population:83.02*1000000},
-		{name:'Spain',population:46.94*1000000},
+		{name:'remdesivir',type:'drug'},
+		{name:'lopinavir',type:'drug'},
+		{name:'ribavirin',type:'drug'},
+		{name:'darunavir',type:'drug'},
+		{name:'Spain',type:'place'},
 		];
 		
 		var _renderMenuItemChildren = (option, props, index) => {
@@ -26,10 +27,10 @@ class Search extends Component {
 			  <Highlighter key="name" search={props.text}>
 				{option.name}
 			  </Highlighter>,
-			  <div key="population">
-				<small>
-				  Population: {option.population.toLocaleString()}
-				</small>
+			  <div key="type" style={{float:"right"}}>
+				<Badge variant="secondary">
+				  {option.type}
+				</Badge>
 			  </div>,
 			];
 		  }
@@ -43,7 +44,7 @@ class Search extends Component {
 					renderMenuItemChildren={_renderMenuItemChildren}
 					labelKey="name"
 					options={data}
-					placeholder="Choose a state..."
+					placeholder="Search by a drug, gene, place or for a specific paper"
 				  />
 				
 				<div className="input-group-append">
