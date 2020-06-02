@@ -2,56 +2,67 @@
 	{
 		"name": "Drug Repurposing",
 		"page": "drugrepurposing",
-		"icon": "faPrescriptionBottleAlt"
+		"icon": "faPrescriptionBottleAlt",
+		"table_columns": {"Drug":"entities:drug","Stage":"entities:stage"}
 	},
 	{
 		"name": "Novel Therapeutics",
 		"page": "noveltherapeutics",
-		"icon": "faVials"
+		"icon": "faVials",
+		"table_columns": {"Chemical":"entities:chemical","Stage":"entities:stage"}
 	},
 	{
 		"name": "Vaccines",
 		"page": "vaccines",
-		"icon": "faSyringe"
+		"icon": "faSyringe",
+		"table_columns": {"Vaccine Type":"entities:vaccine_type","Stage":"entities:stage"}
 	},
 	{
 		"name": "Strategy",
 		"page": "strategy",
-		"icon": "faChessKnight"
+		"icon": "faChessKnight",
+		"table_columns": {}
 	},
 	{
 		"name": "Imaging",
 		"page": "imaging",
-		"icon": "faCamera"
+		"icon": "faCamera",
+		"table_columns": {"Method":"entities:imaging_method"}
 	},
 	{
 		"name": "Transmission",
 		"page": "transmission",
-		"icon": "faHandshake"
+		"icon": "faHandshake",
+		"table_columns": {}
 	},
 	{
 		"name": "Case Reports",
 		"page": "casereports",
-		"icon": "faNotesMedical"
+		"icon": "faNotesMedical",
+		"table_columns": {"Location":"entities:location"}
 	},
 	{
 		"name": "Diagnostics",
 		"page": "diagnostics",
-		"icon": "faStethoscope"
+		"icon": "faStethoscope",
+		"table_columns": {"Test Type":"entities:test_type"}
 	},
 	{
 		"name": "Host Biology",
 		"page": "hostbiology",
-		"icon": "faDna"
+		"icon": "faDna",
+		"table_columns": {"Human Gene/Protein":"entities:human_gene_protein"}
 	},
 	{
 		"name": "Viral Biology",
 		"page": "viralbiology",
-		"icon": "faStethoscope"
+		"icon": "faStethoscope",
+		"table_columns": {"Viral Protein":"entities:viral_protein"}
 	},
 	{
 		"name": "Disease Modelling",
 		"page": "diseasemodelling",
-		"icon": "faChartBar"
+		"icon": "faChartBar",
+		"table_columns": {}
 	}
 ]

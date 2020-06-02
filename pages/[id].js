@@ -161,7 +161,7 @@ class Page extends Component {
 		//var columns = {Title:'title',Journal:'journal'}
 		//console.log(json)
 		//json = []
-		var columns = {Virus:'entities:virus',Drug:'entities:drug',Stage:'entities:stage',Journal:'journal','Date':'publish_year',Title:'title'}
+		var columns = {Virus:'entities:virus',...this.props.page_info.table_columns,Journal:'journal','Date':'publish_year',Title:'title'}
 		
 		var labels = this.props.chartdata.map(c => c.entity_name)
 		var counts = this.props.chartdata.map(c => c.count)
