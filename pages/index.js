@@ -1,6 +1,4 @@
-import Head from 'next/head'
-import Sidebar from '../components/Sidebar.js'
-import Topbar from '../components/Topbar.js'
+import Layout from '../components/Layout.js'
 
 import { Doughnut, Line } from 'react-chartjs-2';
 
@@ -237,218 +235,182 @@ export default function Home(props) {
 	
 	
 	return (
-		<div id="wrapper">
-			{/* Page Wrapper */}
-			<Head>
-				<title>CoronaHub</title>
-			</Head>
+		<Layout title="Alpha" page="/">
 
-			<Sidebar page="/" />
-
-			{/* Content Wrapper */}
-			<div id="content-wrapper" className="d-flex flex-column">
-
-				{/* Main Content */}
-				<div id="content">
-
-					<Topbar />
-
-					{/* Begin Page Content */}
-					<div className="container-fluid">
-
-						{/* Page Heading */}
-						<div className="d-sm-flex align-items-center justify-content-between mb-4">
-							<h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
-						</div>
-
-						{/* Content Row */}
-						<div className="row">
-
-							{/* Earnings (Monthly) Card Example */}
-							<div className="col-xl-3 col-md-6 mb-4">
-								<div className="card border-left-primary shadow h-100 py-2">
-									<div className="card-body">
-										<div className="row no-gutters align-items-center">
-											<div className="col mr-2">
-												<div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Coronavirus Papers (Total)</div>
-												<div className="h5 mb-0 font-weight-bold text-gray-800">{numberWithCommas(props.summaryStatistics.allDocCount)}</div>
-											</div>
-											<div className="col-auto text-gray-300">
-												<FontAwesomeIcon icon={faBookOpen} size="2x"  />
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							{/* Earnings (Monthly) Card Example */}
-							<div className="col-xl-3 col-md-6 mb-4">
-								<div className="card border-left-success shadow h-100 py-2">
-									<div className="card-body">
-										<div className="row no-gutters align-items-center">
-											<div className="col mr-2">
-												<div className="text-xs font-weight-bold text-success text-uppercase mb-1">Coronavirus Papers (Last 7 Days)</div>
-												<div className="h5 mb-0 font-weight-bold text-gray-800">{numberWithCommas(props.summaryStatistics.lastWeekDocCount)}</div>
-											</div>
-											<div className="col-auto text-gray-300">
-												<FontAwesomeIcon icon={faCalendarAlt} size="2x"  />
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							{/* Earnings (Monthly) Card Example */}
-							<div className="col-xl-3 col-md-6 mb-4">
-								<div className="card border-left-warning shadow h-100 py-2">
-									<div className="card-body">
-										<div className="row no-gutters align-items-center">
-											<div className="col mr-2">
-												<div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Topics Curated</div>
-												<div className="h5 mb-0 font-weight-bold text-gray-800">{props.summaryStatistics.topicCount}</div>
-											</div>
-											<div className="col-auto text-gray-300">
-												<FontAwesomeIcon icon={faLightbulb} size="2x"  />
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							{/* Pending Requests Card Example */}
-							<div className="col-xl-3 col-md-6 mb-4">
-								<div className="card border-left-info shadow h-100 py-2">
-									<div className="card-body">
-										<div className="row no-gutters align-items-center">
-											<div className="col mr-2">
-												<div className="text-xs font-weight-bold text-info text-uppercase mb-1">Machine Learning Accuracy</div>
-												<div className="row no-gutters align-items-center">
-													<div className="col-auto">
-														<div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">?</div>
-													</div>
-													<div className="col">
-														<div className="progress progress-sm mr-2">
-															<div className="progress-bar bg-info" role="progressbar" style={{width: "50%"}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-														</div>
-													</div>
-												</div>
-											
-												
-											</div>
-											<div className="col-auto text-gray-300	">
-												<FontAwesomeIcon icon={faBrain} size="2x"  />
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						{/* Content Row */}
-
-						<div className="row">
-
-							{/* Area Chart */}
-							<div className="col-xl-8 col-lg-7">
-								<div className="card shadow mb-4">
-									{/* Card Header - Dropdown */}
-									<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-										<h6 className="m-0 font-weight-bold text-primary">Coronavirus Research</h6>
-										<div className="dropdown no-arrow">
-											<a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												<i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-											</a>
-											<div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-												<div className="dropdown-header">Dropdown Header:</div>
-												<a className="dropdown-item" href="#">Action</a>
-												<a className="dropdown-item" href="#">Another action</a>
-												<div className="dropdown-divider"></div>
-												<a className="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									{/* Card Body */}
-									<div className="card-body">
-										<div className="chart-area">
-										{/*<Line
-												data={{
-													labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-													datasets: [{
-														label: '# of Votes',
-														data: [12, 19, 3, 5, 2, 3],
-													}]
-												}}
-												options={{ maintainAspectRatio: false, legend: false }}
-										/>*/}
-										
-											<Line
-												data={{
-													labels: props.virusByYearsPlotData.labels,
-													datasets: props.virusByYearsPlotData.datasets
-												}}
-												options={{ maintainAspectRatio: false }}
-											/>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							{/* Pie Chart */}
-							<div className="col-xl-4 col-lg-5">
-								<div className="card shadow mb-4">
-									{/* Card Header - Dropdown */}
-									<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-										<h6 className="m-0 font-weight-bold text-primary">Virus Focus</h6>
-										<div className="dropdown no-arrow">
-											<a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												<i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-											</a>
-											<div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-												<div className="dropdown-header">Dropdown Header:</div>
-												<a className="dropdown-item" href="#">Action</a>
-												<a className="dropdown-item" href="#">Another action</a>
-												<div className="dropdown-divider"></div>
-												<a className="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									{/* Card Body */}
-									<div className="card-body">
-										<div className="chart-pie pt-4 pb-2">
-											
-											<Doughnut
-												data={{
-													labels: props.virusCountsPlotData.labels,
-													datasets: props.virusCountsPlotData.datasets
-												}}
-												options={{ maintainAspectRatio: false, legend: false }}
-											/>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-					</div>
-					{/* /.container-fluid */}
-
-				</div>
-				{/* End of Main Content */}
-
-				{/* Footer */}
-				<footer className="sticky-footer bg-white">
-					<div className="container my-auto">
-						<div className="copyright text-center my-auto">
-							<span>All data (where possible) are released under a Creative Commons Zero (CC0) licence.</span>
-						</div>
-					</div>
-				</footer>
-				{/* End of Footer */}
-
+			{/* Page Heading */}
+			<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
 			</div>
-			{/* End of Content Wrapper */}
 
-		</div>
+			{/* Content Row */}
+			<div className="row">
+
+				{/* Earnings (Monthly) Card Example */}
+				<div className="col-xl-3 col-md-6 mb-4">
+					<div className="card border-left-primary shadow h-100 py-2">
+						<div className="card-body">
+							<div className="row no-gutters align-items-center">
+								<div className="col mr-2">
+									<div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Coronavirus Papers (Total)</div>
+									<div className="h5 mb-0 font-weight-bold text-gray-800">{numberWithCommas(props.summaryStatistics.allDocCount)}</div>
+								</div>
+								<div className="col-auto text-gray-300">
+									<FontAwesomeIcon icon={faBookOpen} size="2x"  />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Earnings (Monthly) Card Example */}
+				<div className="col-xl-3 col-md-6 mb-4">
+					<div className="card border-left-success shadow h-100 py-2">
+						<div className="card-body">
+							<div className="row no-gutters align-items-center">
+								<div className="col mr-2">
+									<div className="text-xs font-weight-bold text-success text-uppercase mb-1">Coronavirus Papers (Last 7 Days)</div>
+									<div className="h5 mb-0 font-weight-bold text-gray-800">{numberWithCommas(props.summaryStatistics.lastWeekDocCount)}</div>
+								</div>
+								<div className="col-auto text-gray-300">
+									<FontAwesomeIcon icon={faCalendarAlt} size="2x"  />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Earnings (Monthly) Card Example */}
+				<div className="col-xl-3 col-md-6 mb-4">
+					<div className="card border-left-warning shadow h-100 py-2">
+						<div className="card-body">
+							<div className="row no-gutters align-items-center">
+								<div className="col mr-2">
+									<div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Topics Curated</div>
+									<div className="h5 mb-0 font-weight-bold text-gray-800">{props.summaryStatistics.topicCount}</div>
+								</div>
+								<div className="col-auto text-gray-300">
+									<FontAwesomeIcon icon={faLightbulb} size="2x"  />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Pending Requests Card Example */}
+				<div className="col-xl-3 col-md-6 mb-4">
+					<div className="card border-left-info shadow h-100 py-2">
+						<div className="card-body">
+							<div className="row no-gutters align-items-center">
+								<div className="col mr-2">
+									<div className="text-xs font-weight-bold text-info text-uppercase mb-1">Machine Learning Accuracy</div>
+									<div className="row no-gutters align-items-center">
+										<div className="col-auto">
+											<div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">?</div>
+										</div>
+										<div className="col">
+											<div className="progress progress-sm mr-2">
+												<div className="progress-bar bg-info" role="progressbar" style={{width: "50%"}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</div>
+									</div>
+								
+									
+								</div>
+								<div className="col-auto text-gray-300	">
+									<FontAwesomeIcon icon={faBrain} size="2x"  />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* Content Row */}
+
+			<div className="row">
+
+				{/* Area Chart */}
+				<div className="col-xl-8 col-lg-7">
+					<div className="card shadow mb-4">
+						{/* Card Header - Dropdown */}
+						<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 className="m-0 font-weight-bold text-primary">Coronavirus Research</h6>
+							<div className="dropdown no-arrow">
+								<a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+								</a>
+								<div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+									<div className="dropdown-header">Dropdown Header:</div>
+									<a className="dropdown-item" href="#">Action</a>
+									<a className="dropdown-item" href="#">Another action</a>
+									<div className="dropdown-divider"></div>
+									<a className="dropdown-item" href="#">Something else here</a>
+								</div>
+							</div>
+						</div>
+						{/* Card Body */}
+						<div className="card-body">
+							<div className="chart-area">
+							{/*<Line
+									data={{
+										labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+										datasets: [{
+											label: '# of Votes',
+											data: [12, 19, 3, 5, 2, 3],
+										}]
+									}}
+									options={{ maintainAspectRatio: false, legend: false }}
+							/>*/}
+							
+								<Line
+									data={{
+										labels: props.virusByYearsPlotData.labels,
+										datasets: props.virusByYearsPlotData.datasets
+									}}
+									options={{ maintainAspectRatio: false }}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Pie Chart */}
+				<div className="col-xl-4 col-lg-5">
+					<div className="card shadow mb-4">
+						{/* Card Header - Dropdown */}
+						<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 className="m-0 font-weight-bold text-primary">Virus Focus</h6>
+							<div className="dropdown no-arrow">
+								<a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+								</a>
+								<div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+									<div className="dropdown-header">Dropdown Header:</div>
+									<a className="dropdown-item" href="#">Action</a>
+									<a className="dropdown-item" href="#">Another action</a>
+									<div className="dropdown-divider"></div>
+									<a className="dropdown-item" href="#">Something else here</a>
+								</div>
+							</div>
+						</div>
+						{/* Card Body */}
+						<div className="card-body">
+							<div className="chart-pie pt-4 pb-2">
+								
+								<Doughnut
+									data={{
+										labels: props.virusCountsPlotData.labels,
+										datasets: props.virusCountsPlotData.datasets
+									}}
+									options={{ maintainAspectRatio: false, legend: false }}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</Layout>
+	
 	)
 }

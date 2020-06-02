@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Head from 'next/head'
-import Sidebar from '../components/Sidebar.js'
-import Topbar from '../components/Topbar.js'
+import Layout from '../components/Layout.js'
 import Table from '../components/Table.js'
 
 import fetch from 'isomorphic-unfetch'
@@ -180,59 +178,26 @@ class Page extends Component {
 		var filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
 
 		return (
-		<div id="wrapper">
-			{/* Page Wrapper */}
-
-			<Sidebar page={this.props.page_info.page}/>
-
-			{/* Content Wrapper */}
-			<div id="content-wrapper" className="d-flex flex-column">
-
-				{/* Main Content */}
-				<div id="content">
-
-					<Topbar updateVirus={this.updateVirus} />
-
-					{/* Begin Page Content */}
-					<div className="container-fluid">
-
-						{/* Page Heading */}
-						<div className="d-sm-flex align-items-center justify-content-between mb-4">
-							<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
-						</div>
-						
-						<div style={{position: 'relative', height:'40vh', width:'100%'}}>
-							<Bar
-							  data={bardata}
-							  width={100}
-							  height={50}
-							  options={{ maintainAspectRatio: false, legend: false }}
-							  onElementsClick={elems => this.barClick(elems)}
-							/>
-						</div>
-
-						<Table data={filteredData} columns={columns} loading={false} error={false} />
-
-					</div>
-					{/* /.container-fluid */}
-
+			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateVirus={this.updateVirus}>
+		
+				{/* Page Heading */}
+				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+					<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
 				</div>
-				{/* End of Main Content */}
+				
+				<div style={{position: 'relative', height:'40vh', width:'100%'}}>
+					<Bar
+					  data={bardata}
+					  width={100}
+					  height={50}
+					  options={{ maintainAspectRatio: false, legend: false }}
+					  onElementsClick={elems => this.barClick(elems)}
+					/>
+				</div>
 
-				{/* Footer */}
-				<footer className="sticky-footer bg-white">
-					<div className="container my-auto">
-						<div className="copyright text-center my-auto">
-							<span>All data (where possible) are released under a Creative Commons Zero (CC0) licence.</span>
-						</div>
-					</div>
-				</footer>
-				{/* End of Footer */}
+				<Table data={filteredData} columns={columns} loading={false} error={false} />
 
-			</div>
-			{/* End of Content Wrapper */}
-
-		</div>
+			</Layout>
 		)
 	}
 }
