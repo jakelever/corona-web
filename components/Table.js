@@ -119,17 +119,22 @@ class Table extends Component {
 		
 		var records = this.props.data;
 	
-		function compareString(a,b,column,ascending) {
+		function compare(a,b,column,ascending) {
 			if (!(column in a) || !(column in b))
 				return 0;
 			
-			var bandA = a[column].toUpperCase().trim();
-			var bandB = b[column].toUpperCase().trim();
+			var valA = a[column]
+			var valB = b[column]
+			
+			if (typeof valA === 'string')
+				valA = valA.toUpperCase().trim()
+			if (typeof valB === 'string')
+				valB = valB.toUpperCase().trim()
 
 			let comparison = 0;
-			if (bandA > bandB) {
+			if (valA > valB) {
 				comparison = 1;
-			} else if (bandA < bandB) {
+			} else if (valA < valB) {
 				comparison = -1;
 			}
 			
@@ -164,7 +169,7 @@ class Table extends Component {
 				var entity_type = this.state.sortCol.substr('entities:'.length)
 				records.sort( (a,b) => compareEntities(a,b,entity_type,this.state.ascending) )
 			} else {
-				records.sort( (a,b) => compareString(a,b,this.state.sortCol,this.state.ascending) )
+				records.sort( (a,b) => compare(a,b,this.state.sortCol,this.state.ascending) )
 			}
 			
 		}
