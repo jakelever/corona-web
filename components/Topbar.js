@@ -13,6 +13,8 @@ class Topbar extends Component {
 		
 		this.dropdownToggle = this.dropdownToggle.bind(this);
 		this.menuItemClickedThatShouldntCloseDropdown = this.menuItemClickedThatShouldntCloseDropdown.bind(this);
+		
+		this.updateVirus = this.updateVirus.bind(this);
 	}
 	
 	dropdownToggle(newValue){
@@ -26,6 +28,12 @@ class Topbar extends Component {
 	
 	menuItemClickedThatShouldntCloseDropdown(){
 		this._forceOpen = true;
+	}
+	
+	updateVirus(virus,isSelected) {
+		if (this.props.updateVirus) {
+			this.props.updateVirus(virus,isSelected)
+		}
 	}
 	
 	render() {
@@ -46,13 +54,13 @@ class Topbar extends Component {
 
 			<Dropdown.Menu>
 				<Dropdown.Item href="#/" onClick={() => this.menuItemClickedThatShouldntCloseDropdown()}>
-					<Form.Check type="checkbox" id="default-checkbox1" label="SARS-CoV-2" onChange={event => this.props.updateVirus('SARS-CoV-2',event.target.checked)} />
+					<Form.Check type="checkbox" id="default-checkbox1" label="SARS-CoV-2" onChange={event => this.updateVirus('SARS-CoV-2',event.target.checked)} />
 				</Dropdown.Item>
 				<Dropdown.Item href="#/" onClick={() => this.menuItemClickedThatShouldntCloseDropdown()}>
-					<Form.Check type="checkbox" id="default-checkbox2" label="MERS-CoV" onChange={event => this.props.updateVirus('MERS-CoV',event.target.checked)} />
+					<Form.Check type="checkbox" id="default-checkbox2" label="MERS-CoV" onChange={event => this.updateVirus('MERS-CoV',event.target.checked)} />
 				</Dropdown.Item>
 				<Dropdown.Item href="#/" onClick={() => this.menuItemClickedThatShouldntCloseDropdown()}>
-					<Form.Check type="checkbox" id="default-checkbox3" label="SARS-CoV" onChange={event => this.props.updateVirus('SARS-CoV',event.target.checked)} />
+					<Form.Check type="checkbox" id="default-checkbox3" label="SARS-CoV" onChange={event => this.updateVirus('SARS-CoV',event.target.checked)} />
 				</Dropdown.Item>
 			</Dropdown.Menu>
 		</Dropdown>
