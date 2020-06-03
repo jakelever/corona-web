@@ -13,7 +13,7 @@ class Layout extends Component {
 			initGA()
 			window.GA_INITIALIZED = true
 		}
-		logPageView()
+		logPageView(this.props.title)
 	}
 	
 	componentDidUpdate() {
@@ -22,7 +22,7 @@ class Layout extends Component {
 			initGA()
 			window.GA_INITIALIZED = true
 		}
-		logPageView()
+		logPageView(this.props.title)
 	}
 	
 	render() {
