@@ -31,6 +31,7 @@ class Layout extends Component {
 				{/* Page Wrapper */}
 				<Head>
 					<title>{this.props.title}</title>
+					<link rel="icon" href="/favicon.png" type="image/png" />
 				</Head>
 
 				<Sidebar page={this.props.page} />
