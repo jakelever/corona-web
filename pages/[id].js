@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
 import Table from '../components/Table.js'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
+
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 
@@ -183,6 +186,9 @@ class Page extends Component {
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
+					<a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
+					</a>
 				</div>
 				
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
