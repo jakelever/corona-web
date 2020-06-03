@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSortUp } from '@fortawesome/free-solid-svg-icons'
+import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 
 class Table extends Component {
 	constructor(props) {
@@ -181,7 +184,12 @@ class Table extends Component {
 	
 	renderHeaders() {
 		//var headers = ['Virus','Drug','Stage','Journal','Date','Title',''];
-		return Object.keys(this.props.columns).map((header,i) => <th key={'header_'+i}><a href="#" onClick={event => this.sort(event,header)}>{header}</a> {this.state.sortCol == this.props.columns[header] ? ( this.state.ascending ? <i className="fas fa-sort-up"></i> : <i className="fas fa-sort-down"></i>) : ''}</th>)
+		return Object.keys(this.props.columns).map((header,i) => 
+			<th key={'header_'+i}>
+				<div style={{whiteSpace: 'nowrap'}}>
+					<a href="#" onClick={event => this.sort(event,header)}>{header}</a> {this.state.sortCol == this.props.columns[header] ? ( <FontAwesomeIcon icon={this.state.ascending ? faSortUp : faSortDown} />) : ''}
+				</div>
+			</th>)
 	}
 	
 	render() {
@@ -190,7 +198,14 @@ class Table extends Component {
 		
 		if (this.props.loading)
 			//return <div style={{width:"100%", textAlign:"center"}}><b>LOADING</b></div>
-			return <div style={{width:"100%"}}><div style={{margin: "0 auto", width:"80px"}}><div style={{width:"100%"}}><div style={{margin: "0 auto"}} className="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div></div></div>
+			return (
+				<div style={{width:"100%"}}>
+					<div style={{margin: "0 auto", width:"80px"}}>
+						<div style={{width:"100%"}}><div style={{margin: "0 auto"}} className="lds-ellipsis">
+							<div></div><div></div><div></div><div></div></div>
+						</div>
+					</div>
+				</div>)
 		if (this.props.error)
 			return <div style={{width:"100%", textAlign:"center"}}><b>ERROR: {this.props.error}</b></div>
 		
