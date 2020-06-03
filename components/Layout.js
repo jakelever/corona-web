@@ -8,6 +8,16 @@ import { initGA, logPageView } from '../lib/analytics.js'
 class Layout extends Component {
 	
 	componentDidMount () {
+		//console.log('componentDidMount')
+		if (!window.GA_INITIALIZED) {
+			initGA()
+			window.GA_INITIALIZED = true
+		}
+		logPageView()
+	}
+	
+	componentDidUpdate() {
+		//console.log('componentDidUpdate')
 		if (!window.GA_INITIALIZED) {
 			initGA()
 			window.GA_INITIALIZED = true
