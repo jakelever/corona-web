@@ -185,6 +185,10 @@ class Page extends Component {
 					<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
 				</div>
 				
+				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+					<h6 className="h6 mb-0 text-gray-800">{ this.props.page_info.description ? this.props.page_info.description : ""}</h6>
+				</div>
+				
 				<div style={{position: 'relative', height:'40vh', width:'100%'}}>
 					<Bar
 					  data={bardata}

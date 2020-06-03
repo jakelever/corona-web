@@ -241,6 +241,76 @@ export default function Home(props) {
 			<div className="d-sm-flex align-items-center justify-content-between mb-4">
 				<h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
 			</div>
+			<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<h3 className="h6 mb-0 text-gray-800"></h3>
+			</div>
+			
+			<div className="row">
+				<div className="col-lg-4 mb-4">
+
+				  <div className="card shadow mb-4 h-100">
+					<div className="card-header py-3">
+					  <h6 className="m-0 font-weight-bold text-primary">Overview</h6>
+					</div>
+					<div className="card-body">
+					  <p>
+						This resource surveys research papers for <a href="#">SARS-CoV-2</a>, <a href="#">MERS-CoV</a> and <a href="#">SARS-CoV</a>. Select a <a href="#">topic</a> from the left, or <a href="#">search</a> for subjects of interest above.
+					  </p>
+					  <p>
+					    If you <a href="#">spot a mistake</a>, please flag it using the flag icon beside it.
+				      </p>
+					  <p>
+					    For more information, use the <a href="#">Help</a> option, the <a href="#">Frequently Asked Questions</a> or the <a href="#">About</a> page.
+					  </p>
+					</div>
+				  </div>
+				</div>
+				
+				{/* Area Chart */}
+				<div className="col-lg-8 mb-4">
+					<div className="card shadow mb-4  h-100">
+						{/* Card Header - Dropdown */}
+						<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 className="m-0 font-weight-bold text-primary">Coronavirus Research</h6>
+							<div className="dropdown no-arrow">
+								<a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+								</a>
+								<div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+									<div className="dropdown-header">Dropdown Header:</div>
+									<a className="dropdown-item" href="#">Action</a>
+									<a className="dropdown-item" href="#">Another action</a>
+									<div className="dropdown-divider"></div>
+									<a className="dropdown-item" href="#">Something else here</a>
+								</div>
+							</div>
+						</div>
+						{/* Card Body */}
+						<div className="card-body">
+							<div className="chart-area">
+							{/*<Line
+									data={{
+										labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+										datasets: [{
+											label: '# of Votes',
+											data: [12, 19, 3, 5, 2, 3],
+										}]
+									}}
+									options={{ maintainAspectRatio: false, legend: false }}
+							/>*/}
+							
+								<Line
+									data={{
+										labels: props.virusByYearsPlotData.labels,
+										datasets: props.virusByYearsPlotData.datasets
+									}}
+									options={{ maintainAspectRatio: false }}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			{/* Content Row */}
 			<div className="row">
@@ -329,50 +399,7 @@ export default function Home(props) {
 
 			<div className="row">
 
-				{/* Area Chart */}
-				<div className="col-xl-8 col-lg-7">
-					<div className="card shadow mb-4">
-						{/* Card Header - Dropdown */}
-						<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-							<h6 className="m-0 font-weight-bold text-primary">Coronavirus Research</h6>
-							<div className="dropdown no-arrow">
-								<a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-								</a>
-								<div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-									<div className="dropdown-header">Dropdown Header:</div>
-									<a className="dropdown-item" href="#">Action</a>
-									<a className="dropdown-item" href="#">Another action</a>
-									<div className="dropdown-divider"></div>
-									<a className="dropdown-item" href="#">Something else here</a>
-								</div>
-							</div>
-						</div>
-						{/* Card Body */}
-						<div className="card-body">
-							<div className="chart-area">
-							{/*<Line
-									data={{
-										labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-										datasets: [{
-											label: '# of Votes',
-											data: [12, 19, 3, 5, 2, 3],
-										}]
-									}}
-									options={{ maintainAspectRatio: false, legend: false }}
-							/>*/}
-							
-								<Line
-									data={{
-										labels: props.virusByYearsPlotData.labels,
-										datasets: props.virusByYearsPlotData.datasets
-									}}
-									options={{ maintainAspectRatio: false }}
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 
 				{/* Pie Chart */}
 				<div className="col-xl-4 col-lg-5">
@@ -402,7 +429,7 @@ export default function Home(props) {
 										labels: props.virusCountsPlotData.labels,
 										datasets: props.virusCountsPlotData.datasets
 									}}
-									options={{ maintainAspectRatio: false, legend: false }}
+									options={{ maintainAspectRatio: false, legend: false, cutoutPercentage: 70 }}
 								/>
 							</div>
 						</div>

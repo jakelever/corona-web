@@ -3,18 +3,21 @@
 		"name": "Drug Repurposing",
 		"page": "drugrepurposing",
 		"icon": "faPrescriptionBottleAlt",
+		"description": "Research focussing on finding an existing drug to use for treatment",
 		"table_columns": {"Drug":"entities:drug","Stage":"entities:stage"}
 	},
 	{
 		"name": "Novel Therapeutics",
 		"page": "noveltherapeutics",
 		"icon": "faVials",
+		"description": "Research focussing on finding a new drug to use for treatment",
 		"table_columns": {"Chemical":"entities:chemical","Stage":"entities:stage"}
 	},
 	{
 		"name": "Vaccines",
 		"page": "vaccines",
 		"icon": "faSyringe",
+		"description": "Research focussing on the development of a vaccine for SARS-CoV-2, MERS-CoV or SARS-CoV",
 		"table_columns": {"Vaccine Type":"entities:vaccine_type","Stage":"entities:stage"}
 	},
 	{
