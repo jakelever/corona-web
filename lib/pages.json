@@ -1,17 +1,10 @@
 [
 	{
-		"name": "Drug Repurposing",
-		"page": "drugrepurposing",
+		"name": "Therapeutics",
+		"page": "therapeutics",
 		"icon": "faPrescriptionBottleAlt",
-		"description": "Research focussing on finding an existing drug to use for treatment",
-		"table_columns": {"Drug":"entities:drug","Stage":"entities:stage"}
-	},
-	{
-		"name": "Novel Therapeutics",
-		"page": "noveltherapeutics",
-		"icon": "faVials",
-		"description": "Research focussing on finding a new drug to use for treatment",
-		"table_columns": {"Chemical":"entities:chemical","Stage":"entities:stage"}
+		"description": "Research focussing on finding a novel and existing drug to use for treatment",
+		"table_columns": {"Drug":"entities:drug","Stage":"entities:stage","Pub types":"entities:pubtype"}
 	},
 	{
 		"name": "Vaccines",
@@ -21,51 +14,52 @@
 		"table_columns": {"Vaccine Type":"entities:vaccine_type","Stage":"entities:stage"}
 	},
 	{
-		"name": "Strategy",
-		"page": "strategy",
-		"icon": "faChessKnight",
-		"table_columns": {}
-	},
-	{
-		"name": "Imaging",
-		"page": "imaging",
-		"icon": "faCamera",
-		"table_columns": {"Method":"entities:imaging_method"}
-	},
-	{
-		"name": "Transmission",
-		"page": "transmission",
-		"icon": "faHandshake",
-		"table_columns": {}
-	},
-	{
-		"name": "Case Reports",
-		"page": "casereports",
-		"icon": "faNotesMedical",
-		"table_columns": {"Location":"entities:location"}
+		"name": "Clinical Trials",
+		"page": "clinicaltrials",
+		"icon": "faPrescriptionBottleAlt",
+		"description": "Research discussing the results of a clinical trial",
+		"table_columns": {"Drug":"entities:drug"}
 	},
 	{
 		"name": "Diagnostics",
 		"page": "diagnostics",
 		"icon": "faStethoscope",
+		"description": "Research discussing methods to identify patients with different viruses, using molecular biology, imaging or clinical techniques",
 		"table_columns": {"Test Type":"entities:test_type"}
 	},
 	{
-		"name": "Host Biology",
-		"page": "hostbiology",
+		"name": "Molecular Biology",
+		"page": "molecularbiology",
 		"icon": "faDna",
+		"description": "Research investigating the biological underpinnings of the viruses and their interactions with the human body",
 		"table_columns": {"Human Gene/Protein":"entities:human_gene_protein"}
 	},
 	{
-		"name": "Viral Biology",
-		"page": "viralbiology",
-		"icon": "faStethoscope",
-		"table_columns": {"Viral Protein":"entities:viral_protein"}
+		"name": "Transmission",
+		"page": "transmission",
+		"icon": "faHandshake",
+		"description": "Research investigating the modes of transmissions for the viruses",
+		"table_columns": {}
+	},
+	{
+		"name": "Patient Reports",
+		"page": "patientreports",
+		"icon": "faNotesMedical",
+		"description": "Reports of individual patients and cohorts that may provide insight into symptoms and clinical outcomes",
+		"table_columns": {"Location":"entities:location"}
 	},
 	{
 		"name": "Disease Modelling",
 		"page": "diseasemodelling",
 		"icon": "faChartBar",
+		"description": "Reports of individual patients and cohorts that may provide insight into symptoms and clinical outcomes",
+		"table_columns": {}
+	},
+	{
+		"name": "Reviews",
+		"page": "reviews",
+		"icon": "faChartBar",
+		"description": "Review articles that summarise existing research on a virus, or a specific subtopic of the virus",
 		"table_columns": {}
 	}
 ]

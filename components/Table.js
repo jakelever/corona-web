@@ -91,6 +91,10 @@ class Table extends Component {
 			}
 		} else if (col == 'title' && col in row && 'url' in row) {
 			content = <a href={row['url']} target="_blank">{row[col]}</a>;
+		} else if (col == 'doi') {
+			content = <div className='altmetric-embed' data-badge-type='donut' data-doi="10.1038/nature.2012.9872"></div>
+			//content = <div className='altmetric-embed' data-badge-type='donut' data-doi="10.1101/2020.04.14.20062463"></div>
+			//content = "WHOOPS"
 		} else if (col in row) {
 			content = row[col];
 		} else {

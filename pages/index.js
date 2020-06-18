@@ -125,6 +125,7 @@ function chartifyEntityYearData(data) {
 	const minYear = Math.min(...data.map(d => d.publish_year))
 	const maxYear = Math.max(...data.map(d => d.publish_year))
 	
+	
 	var unrolled = {}
 	data.forEach(d => {
 		//console.log(d)
