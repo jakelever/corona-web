@@ -32,7 +32,18 @@ export async function getStaticProps({ params }) {
 	
 	const tabledata = await getTableData(page_info.name)
 	
-	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirus(page_info.name,page_info.chart_entity) : null
+	//const chartdata = 'chart_entity' in page_info ? await getChartDataByVirus(page_info.name,page_info.chart_entity) : null
+	
+	const chartdata = 'chart_entity' in page_info ? {
+		'': await getChartDataByVirus(page_info.name,page_info.chart_entity),
+		'MERS-CoV': await getChartDataByVirus(page_info.name,page_info.chart_entity,['MERS-CoV']),
+		'SARS-CoV': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV']),
+		'SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV-2']),
+		'MERS-CoV,SARS-CoV': await getChartDataByVirus(page_info.name,page_info.chart_entity,['MERS-CoV','SARS-CoV']),
+		'MERS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['MERS-CoV','SARS-CoV-2']),
+		'SARS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV','SARS-CoV-2']),
+		'MERS-CoV,SARS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity)
+	} : null
 	
 	return {
 		props: {
@@ -68,7 +79,7 @@ class Page extends Component {
 		
 		//console.log(new_selected_viruses)
 				
-		this.setState({viruses: new_selected_viruses})
+		this.setState({viruses: new_selected_viruses.sort()})
 	}
 	
 	
@@ -88,50 +99,16 @@ class Page extends Component {
 		var columns = {Virus:'entities:virus',...this.props.page_info.table_columns,Journal:'journal','Date':'publish_year',Title:'title'}
 		
 		var barChart = <div></div>
-		if (this.props.chartdata) {
-			//var labels = this.props.chartdata.map(c => c.entity_name)
-			//var counts = this.props.chartdata.map(c => c.count)
+		if (this.props.chartdata) {			
+			var virus_text = this.state.viruses.join(',')
+			//console.log(virus_text)
 			
-			var labels = this.props.chartdata.entities
-			var datasets = []
-			
-			/*Object.keys(this.props.chartdata.counts).forEach(v => {
-				var dataset = { label: v, data: this.props.chartdata.counts[v]}
-				datasets.push(dataset)
-			})*/
-			
-			//datasets = [datasets[0]]
-			
-			/*var datasets = [
-			{
-				label: 'Test',
-				data: this.props.chartdata.counts['SARS-CoV-2']
-			}
-			]*/
+			var chosenData = this.props.chartdata[virus_text]
 			
 			var bardata = {
-				labels: this.props.chartdata.labels,
-				datasets: this.props.chartdata.datasets
+				labels: chosenData.labels.slice(),
+				datasets: chosenData.datasets.map( dataset => { return {label:dataset.label, data:dataset.data.slice()} } )
 			}
-			
-			//console.log(datasets)
-			//console.log(datasets)
-			
-			/*bardata = {
-				labels: labels,
-				datasets: [
-					{
-						label:'Moo',
-						data: labels.map((l,i) => i)
-					}
-				]
-			}*/
-			
-			//console.log(labels)
-			//console.log(bardata.datasets[0].data[0])
-			//console.log(typeof datasets[0])
-			//console.log(datasets[0].label)
-			//console.log(bardata)
 			
 			var virusColors = {}
 			virusColors['SARS-CoV-2'] = '102,194,165'
@@ -143,8 +120,6 @@ class Page extends Component {
 				dataset.backgroundColor = "rgba("+rgb+", 0.9)"
 				dataset.borderColor = "rgba("+rgb+", 0.9)"
 			})
-			
-			console.log(datasets)
 			
 			var baroptions = {
 				maintainAspectRatio: false, 
@@ -158,6 +133,8 @@ class Page extends Component {
 					}]
 				}
 			}
+			
+			console.log(bardata.datasets)
 			
 			barChart = (<div style={{position: 'relative', height:'40vh', width:'100%'}}>
 						<Bar
