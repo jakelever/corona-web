@@ -4,7 +4,8 @@
 		"page": "therapeutics",
 		"icon": "faPrescriptionBottleAlt",
 		"description": "Research focussing on finding a novel and existing drug to use for treatment",
-		"table_columns": {"Drug":"entities:drug","Stage":"entities:stage","Pub types":"entities:pubtype"}
+		"table_columns": {"Drug":"entities:drug","Stage":"entities:stage","Pub types":"entities:pubtype"},
+		"chart_entity":"drug"
 	},
 	{
 		"name": "Vaccines",
@@ -18,7 +19,8 @@
 		"page": "clinicaltrials",
 		"icon": "faPrescriptionBottleAlt",
 		"description": "Research discussing the results of a clinical trial",
-		"table_columns": {"Drug":"entities:drug"}
+		"table_columns": {"Drug":"entities:drug"},
+		"chart_entity":"drug"
 	},
 	{
 		"name": "Diagnostics",
@@ -32,7 +34,8 @@
 		"page": "molecularbiology",
 		"icon": "faDna",
 		"description": "Research investigating the biological underpinnings of the viruses and their interactions with the human body",
-		"table_columns": {"Human Gene/Protein":"entities:human_gene_protein"}
+		"table_columns": {"Human Gene/Protein":"entities:human_gene_protein"},
+		"chart_entity":"human_gene_protein"
 	},
 	{
 		"name": "Transmission",
@@ -46,7 +49,8 @@
 		"page": "patientreports",
 		"icon": "faNotesMedical",
 		"description": "Reports of individual patients and cohorts that may provide insight into symptoms and clinical outcomes",
-		"table_columns": {"Location":"entities:location"}
+		"table_columns": {"Location":"entities:location"},
+		"chart_entity":"location"
 	},
 	{
 		"name": "Disease Modelling",

@@ -11,7 +11,7 @@ import { Bar } from 'react-chartjs-2';
 
 import pages from '../lib/pages.json'
 
-import { getTableData, getChartData } from '../lib/db-main.js'
+import { getTableData, getChartDataByVirus } from '../lib/db-main.js'
 
 
 export async function getStaticPaths() {
@@ -31,7 +31,8 @@ export async function getStaticProps({ params }) {
 	const page_info = pages.filter(p => p.page == params.id)[0];
 	
 	const tabledata = await getTableData(page_info.name)
-	const chartdata = await getChartData(page_info.name)
+	
+	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirus(page_info.name,page_info.chart_entity) : null
 	
 	return {
 		props: {
@@ -86,16 +87,87 @@ class Page extends Component {
 		//json = []
 		var columns = {Virus:'entities:virus',...this.props.page_info.table_columns,Journal:'journal','Date':'publish_year',Title:'title'}
 		
-		var labels = this.props.chartdata.map(c => c.entity_name)
-		var counts = this.props.chartdata.map(c => c.count)
-		
-		var bardata = {
-			labels: labels,
-			datasets: [{
-				label: '# of Votes',
-				data: counts,
-				backgroundColor: "#3e95cd"
-			}]
+		var barChart = <div></div>
+		if (this.props.chartdata) {
+			//var labels = this.props.chartdata.map(c => c.entity_name)
+			//var counts = this.props.chartdata.map(c => c.count)
+			
+			var labels = this.props.chartdata.entities
+			var datasets = []
+			
+			/*Object.keys(this.props.chartdata.counts).forEach(v => {
+				var dataset = { label: v, data: this.props.chartdata.counts[v]}
+				datasets.push(dataset)
+			})*/
+			
+			//datasets = [datasets[0]]
+			
+			/*var datasets = [
+			{
+				label: 'Test',
+				data: this.props.chartdata.counts['SARS-CoV-2']
+			}
+			]*/
+			
+			var bardata = {
+				labels: this.props.chartdata.labels,
+				datasets: this.props.chartdata.datasets
+			}
+			
+			//console.log(datasets)
+			//console.log(datasets)
+			
+			/*bardata = {
+				labels: labels,
+				datasets: [
+					{
+						label:'Moo',
+						data: labels.map((l,i) => i)
+					}
+				]
+			}*/
+			
+			//console.log(labels)
+			//console.log(bardata.datasets[0].data[0])
+			//console.log(typeof datasets[0])
+			//console.log(datasets[0].label)
+			//console.log(bardata)
+			
+			var virusColors = {}
+			virusColors['SARS-CoV-2'] = '102,194,165'
+			virusColors['SARS-CoV'] = '252,141,98'
+			virusColors['MERS-CoV'] = '141,160,203'
+			
+			bardata.datasets.forEach(dataset => {
+				var rgb = virusColors[dataset.label]
+				dataset.backgroundColor = "rgba("+rgb+", 0.9)"
+				dataset.borderColor = "rgba("+rgb+", 0.9)"
+			})
+			
+			console.log(datasets)
+			
+			var baroptions = {
+				maintainAspectRatio: false, 
+				
+				scales: {
+					xAxes: [{
+						stacked: true
+					}],
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
+			
+			barChart = (<div style={{position: 'relative', height:'40vh', width:'100%'}}>
+						<Bar
+						  data={bardata}
+						  width={100}
+						  height={50}
+						  options={baroptions}
+						  onElementsClick={elems => this.barClick(elems)}
+						/>
+					</div>)
 		}
 				
 		var filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
@@ -115,15 +187,7 @@ class Page extends Component {
 					<h6 className="h6 mb-0 text-gray-800">{ this.props.page_info.description ? this.props.page_info.description : ""}</h6>
 				</div>
 				
-				<div style={{position: 'relative', height:'40vh', width:'100%'}}>
-					<Bar
-					  data={bardata}
-					  width={100}
-					  height={50}
-					  options={{ maintainAspectRatio: false, legend: false }}
-					  onElementsClick={elems => this.barClick(elems)}
-					/>
-				</div>
+				{barChart}
 
 				<Table data={filteredData} columns={columns} loading={false} error={false} />
 
