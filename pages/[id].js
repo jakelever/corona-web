@@ -40,8 +40,8 @@ export async function getStaticProps({ params }) {
 		'SARS-CoV': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV']),
 		'SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV-2']),
 		'MERS-CoV,SARS-CoV': await getChartDataByVirus(page_info.name,page_info.chart_entity,['MERS-CoV','SARS-CoV']),
-		'MERS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['MERS-CoV','SARS-CoV-2']),
-		'SARS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV','SARS-CoV-2']),
+		'MERS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV-2','MERS-CoV']),
+		'SARS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV-2','SARS-CoV']),
 		'MERS-CoV,SARS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity)
 	} : null
 	
@@ -64,6 +64,7 @@ class Page extends Component {
 		this.barClick = this.barClick.bind(this);
 		this.updateVirus = this.updateVirus.bind(this);
 		this.filterForVirus = this.filterForVirus.bind(this);
+		this.downloadJSON = this.downloadJSON.bind(this);
 	}
 
 	barClick(elems) {
@@ -91,6 +92,30 @@ class Page extends Component {
 		var overlap = this.state.viruses.filter(v => row_viruses.includes(v))
 		return overlap.length > 0
 	}
+	
+	// https://codepen.io/Jacqueline34/pen/pyVoWr
+	downloadJSON(event, data) {
+		const link = document.createElement('a')
+		/*let csv = convertArrayOfObjectsToCSV(array);
+		if (csv == null) return;
+
+		const filename = 'export.csv';
+
+		if (!csv.match(/^data:text\/csv/i)) {
+			csv = `data:text/csv;charset=utf-8,${csv}`;
+		}*/
+		
+		var json = JSON.stringify(data)
+		const filename = this.props.page_info.page + '.json'
+		
+		json = `data:text/json;charset=utf-8,${json}`
+
+		link.setAttribute('href', encodeURI(json))
+		link.setAttribute('download', filename)
+		link.click()
+		
+		event.preventDefault()
+	}
 
 	render() {
 		//var columns = {Title:'title',Journal:'journal'}
@@ -101,7 +126,6 @@ class Page extends Component {
 		var barChart = <div></div>
 		if (this.props.chartdata) {			
 			var virus_text = this.state.viruses.join(',')
-			//console.log(virus_text)
 			
 			var chosenData = this.props.chartdata[virus_text]
 			
@@ -134,8 +158,6 @@ class Page extends Component {
 				}
 			}
 			
-			console.log(bardata.datasets)
-			
 			barChart = (<div style={{position: 'relative', height:'40vh', width:'100%'}}>
 						<Bar
 						  data={bardata}
@@ -149,13 +171,29 @@ class Page extends Component {
 				
 		var filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
 
+		//var res = "hello,i,am,a,csv,file"
+		//var data = new Blob([res], {type: 'text/csv'});
+		//var csvURL = window.URL.createObjectURL(data);
+		
+		
+		var moo = <a href="/api/hello" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
+					</a>
+					
+		/*var dataAsJSON = JSON.stringify(filteredData)
+		var baa = <form action="/api/download" method="post">
+						<input type="hidden" name="filename" value={this.props.page_info.page + '.json'} />
+						<input type="hidden" name="data" value={dataAsJSON} />
+						<input className="btn btn-sm btn-sm btn-primary shadow-sm" type="submit" value="Download" />
+					</form>*/
+
 		return (
 			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateVirus={this.updateVirus}>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
-					<a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+					<a href="#" onClick={event => this.downloadJSON(event,filteredData)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
 					</a>
 				</div>
