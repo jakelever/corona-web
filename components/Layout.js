@@ -40,7 +40,7 @@ export default class Layout extends Component {
 					{/* Main Content */}
 					<div id="content">
 
-						<Topbar updateVirus={this.props.updateVirus} />
+						<Topbar updateVirus={this.props.updateVirus} showVirusSelector={this.props.showVirusSelector} />
 
 						{/* Begin Page Content */}
 						<div className="container-fluid">

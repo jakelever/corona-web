@@ -217,7 +217,7 @@ export async function getStaticProps({ params }) {
 export default function Home(props) {
 	
 	return (
-		<Layout title="Alpha" page="/">
+		<Layout title="Alpha" page="/" showVirusSelector>
 
 			{/* Page Heading */}
 			<div className="d-sm-flex align-items-center justify-content-between mb-4">

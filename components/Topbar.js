@@ -37,17 +37,7 @@ export default class Topbar extends Component {
 	}
 	
 	render() {
-		return (
-	<nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-		{/* Sidebar Toggle (Topbar) */}
-		<button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
-			<i className="fa fa-bars"></i>
-		</button>
-
-		<Search />
-
-		<Dropdown show={this.state.menuOpen} onToggle={val => this.dropdownToggle(val)}>
+		const virusSelector = this.props.showVirusSelector ? <Dropdown show={this.state.menuOpen} onToggle={val => this.dropdownToggle(val)}>
 			<Dropdown.Toggle variant="secondary" id="dropdown-basic">
 				Select virus of interest
 			</Dropdown.Toggle>
@@ -63,7 +53,19 @@ export default class Topbar extends Component {
 					<Form.Check type="checkbox" id="default-checkbox3" label="SARS-CoV" onChange={event => this.updateVirus('SARS-CoV',event.target.checked)} />
 				</Dropdown.Item>
 			</Dropdown.Menu>
-		</Dropdown>
+		</Dropdown> : ''
+		
+		return (
+	<nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+		{/* Sidebar Toggle (Topbar) */}
+		<button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
+			<i className="fa fa-bars"></i>
+		</button>
+
+		<Search />
+
+		{virusSelector}
 
 		{/* End of Topbar */}
 	</nav>

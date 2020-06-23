@@ -35,7 +35,7 @@ export default class DocPage extends Component {
 	
 	render() {
 		
-		return <Layout title="Hello" page="a" updateVirus={null}>
+		return <Layout title={this.props.doc.title + ' | CoronaHub'} page={null} updateVirus={null}>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">

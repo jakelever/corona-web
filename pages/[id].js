@@ -165,7 +165,7 @@ export default class Page extends Component {
 		const table = <CustomTable columns={columns} data={filteredData} />
 
 		return (
-			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateVirus={this.updateVirus}>
+			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateVirus={this.updateVirus} showVirusSelector>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
