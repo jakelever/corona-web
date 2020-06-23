@@ -74,8 +74,6 @@ export default class Page extends Component {
 			new_selected_viruses.push(virus)
 		}
 		
-		//console.log(new_selected_viruses)
-				
 		this.setState({viruses: new_selected_viruses.sort()})
 	}
 	

@@ -25,7 +25,6 @@ export default class FlagModal extends Component {
 	}
 	
 	submitForm () {
-		console.log(this.props.doc)
 		const data = {
 			doi: this.props.doc.doi,
 			issue: this.state.textvalue,

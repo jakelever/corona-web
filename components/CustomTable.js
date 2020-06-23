@@ -9,6 +9,10 @@ import { faExclamationCircle, faExclamationTriangle, faExclamation } from '@fort
 
 import DataTable from 'react-data-table-component';
 
+// Links to the DataTable component for ease
+// https://www.npmjs.com/package/react-data-table-component
+// https://github.com/jbetancur/react-data-table-component
+
 function getColumnMetadata(column) {
 	var metadata
 	if (column.selector.startsWith('entities:')) {
@@ -25,7 +29,7 @@ function getColumnMetadata(column) {
 			},
 			wrap: true,
 			cell: row => { 
-				var entities = row.entities.filter( e => e.type==entity_type ).map( e => <a href="">{e.name}</a> )
+				var entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <a key={'entity_'+i} href="">{e.name}</a> )
 				
 				var combined = entities.length > 0 ? entities.reduce((prev, curr) => [prev, ', ', curr]) : ''
 				
@@ -111,14 +115,14 @@ export default class CustomTable extends Component {
 
 		var columnsWithFormating = this.props.columns.map( column => getColumnMetadata(column) )
 		columnsWithFormating.push( flagButtonColumn )
-			
+		
 		const table = <DataTable
 					noHeader
 					columns={columnsWithFormating}
 					data={this.props.data}
 					defaultSortField="title"
-					keyField="uuid"
 					customStyles={customStyles}
+					keyField="document_id"
 					pagination
 					highlightOnHover
 					sortIcon={<FontAwesomeIcon icon={faSortDown} />}
