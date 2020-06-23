@@ -121,14 +121,13 @@ async function getVirusCounts() {
 function chartifyEntityYearData(data) {
 	data = data.filter(d => d.publish_year && d.entity_name )
 	const entities = [...new Set(data.map(d => d.entity_name))]
-	//console.log(entities)
+	
 	const minYear = Math.min(...data.map(d => d.publish_year))
 	const maxYear = Math.max(...data.map(d => d.publish_year))
 	
 	
 	var unrolled = {}
 	data.forEach(d => {
-		//console.log(d)
 		if (! (d.entity_name in unrolled))
 			unrolled[d.entity_name] = {}
 		unrolled[d.entity_name][d.publish_year] = d.count
@@ -146,7 +145,6 @@ function chartifyEntityYearData(data) {
 
 function setAreaChartColors(data, label, rgb) {
 	var index = data.datasets.map(ds => ds.label).indexOf(label)
-	//console.log(index) 
 	var dataset = data.datasets[index]
 	
 	dataset['backgroundColor'] = "rgba("+rgb+", 0.05)";
@@ -163,7 +161,6 @@ function setAreaChartColors(data, label, rgb) {
 
 function setDoughnutColors(data, label, rgb) {
 	var index = data.labels.indexOf(label)
-	//console.log(index) 
 	var dataset = data.datasets[index]
 	
 	dataset['backgroundColor'] = "rgba("+rgb+", 1)";
@@ -195,11 +192,8 @@ export async function getStaticProps({ params }) {
 	Object.keys(virusColors).forEach(virusName => {
 		setAreaChartColors(virusByYearsPlotData, virusName, virusColors[virusName])
 	})
-	//setAreaChartColors(virusByYearsPlotData, 'SARS-CoV-2', '102,194,165')
-	//setAreaChartColors(virusByYearsPlotData, 'SARS-CoV', '252,141,98')
-	//setAreaChartColors(virusByYearsPlotData, 'MERS-CoV', '141,160,203')
+	
 	reorderDatasets(virusByYearsPlotData, ['SARS-CoV','MERS-CoV','SARS-CoV-2'])
-	//console.log(virusByYearsPlotData)
 	
 	var labels = virusCounts.map(v => v.entity_name)
 	var datasets = [{data: virusCounts.map(v => v.count), backgroundColor: virusCounts.map(v => "rgba("+virusColors[v.entity_name]+", 1)") }]
@@ -208,12 +202,6 @@ export async function getStaticProps({ params }) {
 		labels: labels,
 		datasets: datasets
 	}
-	
-	//console.log(datasets)
-	
-	//setDoughnutColors(virusCountsPlotData, 'SARS-CoV-2', '102,194,165')
-	//setDoughnutColors(virusCountsPlotData, 'SARS-CoV', '102,194,165')
-	//setDoughnutColors(virusCountsPlotData, 'MERS-CoV', '102,194,165')
 	
 	
 	return {
@@ -226,14 +214,7 @@ export async function getStaticProps({ params }) {
 	}
 }
 
-//$colors['SARS-CoV-2'] = "102,194,165";
-//$colors['SARS-CoV'] = "252,141,98";
-//$colors['MERS-CoV'] = "141,160,203";
-
 export default function Home(props) {
-	
-	//console.log(props.journalCounts.length)
-	
 	
 	return (
 		<Layout title="Alpha" page="/">

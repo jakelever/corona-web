@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import pages from '../lib/pages.json'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faViruses } from '@fortawesome/free-solid-svg-icons'
@@ -16,12 +17,6 @@ import { faDna } from '@fortawesome/free-solid-svg-icons'
 import { faMicroscope } from '@fortawesome/free-solid-svg-icons'
 import { faChartBar } from '@fortawesome/free-solid-svg-icons'
 
-//import { dom } from '@fortawesome/fontawesome-svg-core'
-
-//import $ from 'jquery'
- 
-
-import pages from '../lib/pages.json'
 
 /*function toggleSidebar(event) {
 	$("body").toggleClass("sidebar-toggled");
@@ -66,9 +61,6 @@ export default function Sidebar(props) {
 		}
 	};
 
-	// <FontAwesomeIcon icon={iconMapping[p.icon]} fixedWidth  />
-	// color: "color: rgba(255, 255, 255, 0.1)"
-	// <i className="fas fa-fw fa-chart-area"></i>
 	var links = pages.map( (p,i) => (
 		<li className={p.page==props.page ? "nav-item active" : "nav-item"} key={'link_'+i}>
 			<Link href="/[id]" as={`/${p.page}`}>
@@ -81,10 +73,6 @@ export default function Sidebar(props) {
 			</Link>
 		</li> ) )
 	
-	//<i className="fas fa-fw fa-tachometer-alt"></i>
-	// <FontAwesomeIcon icon={faViruses} size="2x" />
-	// <FontAwesomeIcon icon={faTachometerAlt} fixedWidth />
-	/* Sidebar */
 	return (
 	
 <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">

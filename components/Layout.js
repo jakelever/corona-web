@@ -8,7 +8,6 @@ import { initGA, logPageView } from '../lib/analytics.js'
 export default class Layout extends Component {
 	
 	componentDidMount () {
-		//console.log('componentDidMount')
 		if (!window.GA_INITIALIZED) {
 			initGA()
 			window.GA_INITIALIZED = true
@@ -17,15 +16,12 @@ export default class Layout extends Component {
 	}
 	
 	componentDidUpdate() {
-		//console.log('componentDidUpdate')
 		if (!window.GA_INITIALIZED) {
 			initGA()
 			window.GA_INITIALIZED = true
 		}
 		logPageView(this.props.title)
 	}
-	
-	// <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 	
 	render() {
 		return (
@@ -34,9 +30,6 @@ export default class Layout extends Component {
 				<Head>
 					<title>{this.props.title}</title>
 					<link rel="icon" href="/favicon.png" type="image/png" />
-					
-					
-   
 				</Head>
 
 				<Sidebar page={this.props.page} />

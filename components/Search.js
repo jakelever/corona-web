@@ -10,8 +10,6 @@ export default class Search extends Component {
 			}
 	}
 	
-	// <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-	
 	render() {
 		
 		var data = [

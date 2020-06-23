@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
+import Link from 'next/link'
+
 import Layout from '../components/Layout.js'
 import CustomTable from '../components/CustomTable.js'
+import pages from '../lib/pages.json'
+import { getTableData, getChartDataByVirus } from '../lib/db-main.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
-
-import Link from 'next/link'
-
 import { Bar } from 'react-chartjs-2';
-
-import pages from '../lib/pages.json'
-
-import { getTableData, getChartDataByVirus } from '../lib/db-main.js'
 
 
 export async function getStaticPaths() {
-	//console.log(pages)
 	const paths = pages.map(function(p) {
 		return { params: {id: p.page} }
 	} )
-	//console.log(paths)
-	//const paths = [{ params: {id: 'DrugRepurposing'}}]
+	
 	return {
 		paths,
 		fallback: false
@@ -31,8 +26,6 @@ export async function getStaticProps({ params }) {
 	const page_info = pages.filter(p => p.page == params.id)[0];
 	
 	const tabledata = await getTableData(page_info.name)
-	
-	//const chartdata = 'chart_entity' in page_info ? await getChartDataByVirus(page_info.name,page_info.chart_entity) : null
 	
 	const chartdata = 'chart_entity' in page_info ? {
 		'': await getChartDataByVirus(page_info.name,page_info.chart_entity),
@@ -99,15 +92,7 @@ export default class Page extends Component {
 	// https://codepen.io/Jacqueline34/pen/pyVoWr
 	downloadJSON(event, data) {
 		const link = document.createElement('a')
-		/*let csv = convertArrayOfObjectsToCSV(array);
-		if (csv == null) return;
 
-		const filename = 'export.csv';
-
-		if (!csv.match(/^data:text\/csv/i)) {
-			csv = `data:text/csv;charset=utf-8,${csv}`;
-		}*/
-		
 		var json = JSON.stringify(data)
 		const filename = this.props.page_info.page + '.json'
 		
@@ -122,7 +107,7 @@ export default class Page extends Component {
 	
 
 	render() {
-		// ...this.props.page_info.extra_table_columns,
+		
 		var columns = [
 				{ "header":"Virus", "selector":"entities:virus" },
 				...this.props.page_info.extra_table_columns,
@@ -130,8 +115,6 @@ export default class Page extends Component {
 				{ "header":"Date", "selector":"publish_year", "width":"10%" },
 				{ "header":"Title", "selector":"title", link: true }
 			]
-			
-		console.log(columns)
 		
 		var barChart = <div></div>
 		if (this.props.chartdata) {			
