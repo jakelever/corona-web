@@ -54,7 +54,7 @@ export async function getStaticProps({ params }) {
 	}
 }
 
-class Page extends Component {
+export default class Page extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -218,6 +218,4 @@ class Page extends Component {
 		)
 	}
 }
-
-export default Page
 

@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Search from '../components/Search.js'
 
 /* Topbar */
-class Topbar extends Component {
+export default class Topbar extends Component {
 	constructor(props) {
 		super(props) //since we are extending className Table so we have to use super in order to override Component className constructor
 		this.state = { 
@@ -70,5 +70,3 @@ class Topbar extends Component {
 	)
 	}
 }
-
-export default Topbar

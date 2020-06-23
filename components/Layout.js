@@ -5,7 +5,7 @@ import Topbar from '../components/Topbar.js'
 
 import { initGA, logPageView } from '../lib/analytics.js'
 
-class Layout extends Component {
+export default class Layout extends Component {
 	
 	componentDidMount () {
 		//console.log('componentDidMount')
@@ -75,5 +75,3 @@ class Layout extends Component {
 		)
 	}
 }
-
-export default Layout

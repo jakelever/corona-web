@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Typeahead, Highlighter } from 'react-bootstrap-typeahead'
 import { Badge } from 'react-bootstrap';
 
-class Search extends Component {
+export default class Search extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -58,4 +58,3 @@ class Search extends Component {
 	}
 }
 
-export default Search
