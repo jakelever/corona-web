@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
 import Table from '../components/Table.js'
+import FlagModal from '../components/FlagModal.js'
 
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
@@ -65,23 +64,24 @@ class Page extends Component {
 		super(props)
 		this.state = {
 			viruses: [],
-			showModal: false
+			showFlagModal: false,
+			flagModalDoc: null
 			}
 		
 		this.barClick = this.barClick.bind(this);
 		this.updateVirus = this.updateVirus.bind(this);
 		this.filterForVirus = this.filterForVirus.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
-		this.modalClose = this.modalClose.bind(this);
-		this.modalShow = this.modalShow.bind(this);
+		this.closeFlagModal = this.closeFlagModal.bind(this);
+		this.showFlagModal = this.showFlagModal.bind(this);
 	}
 	
-	modalClose() {
-		this.setState({showModal: false})
+	closeFlagModal() {
+		this.setState({showFlagModal: false})
 	}
 	
-	modalShow() {
-		this.setState({showModal: true})
+	showFlagModal(doc) {
+		this.setState({showFlagModal: true, flagModalDoc:doc })
 	}
 
 	barClick(elems) {
@@ -284,7 +284,7 @@ class Page extends Component {
 			},
 			{
 				id: 'buttonthing',
-				cell: () => <a className="flagtime" href="#" onClick={event => {this.modalShow(); event.preventDefault()}}><FontAwesomeIcon icon={faFlag} size="lg" /></a>,
+				cell: row => <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faFlag} size="lg" /></a>,
 				ignoreRowClick: true,
 				allowOverflow: true,
 				button: true,
@@ -338,20 +338,7 @@ class Page extends Component {
 					</div>
 				</div>
 				
-				<Modal show={this.state.showModal} onHide={this.modalClose}>
-					<Modal.Header closeButton>
-					  <Modal.Title>Modal heading</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-					<Modal.Footer>
-					  <Button variant="secondary" onClick={this.modalClose}>
-						Close
-					  </Button>
-					  <Button variant="primary" onClick={this.modalClose}>
-						Save Changes
-					  </Button>
-					</Modal.Footer>
-				  </Modal>
+				<FlagModal doc={this.state.flagModalDoc} show={this.state.showFlagModal} closeFunc={this.closeFlagModal} />
 
 			</Layout>
 		)
