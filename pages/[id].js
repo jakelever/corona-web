@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
+import { faExclamationCircle, faExclamationTriangle, faExclamation } from '@fortawesome/free-solid-svg-icons'
 
 import Link from 'next/link'
 
@@ -233,7 +234,7 @@ class Page extends Component {
 				id: 'viruses',
 				name: 'Viruses',
 				sortable: false,
-				width: '200px',
+				width: '15%',
 				style: {
 				  fontSize: '16px',
 				  padding: '14px'
@@ -252,7 +253,7 @@ class Page extends Component {
 				name: 'Journal',
 				selector: 'journal',
 				sortable: true,
-				width: '200px',
+				width: '15%',
 				style: {
 				  fontSize: '16px',
 				  padding: '14px'
@@ -284,7 +285,7 @@ class Page extends Component {
 			},
 			{
 				id: 'buttonthing',
-				cell: row => <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faFlag} size="lg" /></a>,
+				cell: row => <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>,
 				ignoreRowClick: true,
 				allowOverflow: true,
 				button: true,
