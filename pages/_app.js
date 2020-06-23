@@ -1,5 +1,5 @@
 import '../css/sb-admin-2.css'
-import '../css/test.css'
+import '../css/custom.css'
 
 import 'leaflet/dist/leaflet.css'
 

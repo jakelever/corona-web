@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
 import Table from '../components/Table.js'
 
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import { faFlag } from '@fortawesome/free-solid-svg-icons'
+import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 
 import Link from 'next/link'
 
@@ -13,6 +18,7 @@ import pages from '../lib/pages.json'
 
 import { getTableData, getChartDataByVirus } from '../lib/db-main.js'
 
+import DataTable from 'react-data-table-component';
 
 export async function getStaticPaths() {
 	//console.log(pages)
@@ -58,13 +64,24 @@ class Page extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: []
+			viruses: [],
+			showModal: false
 			}
 		
 		this.barClick = this.barClick.bind(this);
 		this.updateVirus = this.updateVirus.bind(this);
 		this.filterForVirus = this.filterForVirus.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
+		this.modalClose = this.modalClose.bind(this);
+		this.modalShow = this.modalShow.bind(this);
+	}
+	
+	modalClose() {
+		this.setState({showModal: false})
+	}
+	
+	modalShow() {
+		this.setState({showModal: true})
 	}
 
 	barClick(elems) {
@@ -116,6 +133,7 @@ class Page extends Component {
 		
 		event.preventDefault()
 	}
+	
 
 	render() {
 		//var columns = {Title:'title',Journal:'journal'}
@@ -186,6 +204,109 @@ class Page extends Component {
 						<input type="hidden" name="data" value={dataAsJSON} />
 						<input className="btn btn-sm btn-sm btn-primary shadow-sm" type="submit" value="Download" />
 					</form>*/
+					
+		// 
+		
+		const customStyles = {
+		  headRow: {
+			style: {
+			  border: 'none',
+			},
+		  },
+		  headCells: {
+			style: {
+			  color: '#202124',
+			  fontSize: '18px',
+			},
+		  },
+		  pagination: {
+			style: {
+			  border: 'none',
+			},
+		  },
+		}
+
+		
+		const table_columns = 
+		[
+			{
+				id: 'viruses',
+				name: 'Viruses',
+				sortable: false,
+				width: '200px',
+				style: {
+				  fontSize: '16px',
+				  padding: '14px'
+				},
+				wrap: true,
+				cell: row => { 
+					var viruses = row.entities.filter( e => e.type=='virus' ).map( e => <a href="">{e.name}</a> )
+					
+					var combined = viruses ? viruses.reduce((prev, curr) => [prev, ', ', curr]) : ''
+					
+					return combined
+				}
+			},
+			{
+				id: 'journal',
+				name: 'Journal',
+				selector: 'journal',
+				sortable: true,
+				width: '200px',
+				style: {
+				  fontSize: '16px',
+				  padding: '14px'
+				},
+				wrap: true
+			},
+			{
+				id: 'year',
+				name: 'Year',
+				selector: 'publish_year',
+				sortable: true,
+				width: '100px',
+				style: {
+				  fontSize: '16px',
+				  padding: '14px'
+				}
+			},
+			{
+				id: 'title',
+				name: 'Title',
+				selector: 'title',
+				sortable: true,
+				wrap: true,
+				style: {
+				  fontSize: '16px',
+				  padding: '14px'
+				},
+				cell: row => <a href={row.url} target="_blank">{row.title}</a>
+			},
+			{
+				id: 'buttonthing',
+				cell: () => <a className="flagtime" href="#" onClick={event => {this.modalShow(); event.preventDefault()}}><FontAwesomeIcon icon={faFlag} size="lg" /></a>,
+				ignoreRowClick: true,
+				allowOverflow: true,
+				button: true,
+			}
+		]
+		
+		var table
+		if (false) {
+			table = <Table data={filteredData} columns={columns} loading={false} error={false} />
+		} else {
+			table = <DataTable
+					noHeader
+					columns={table_columns}
+					data={filteredData}
+					defaultSortField="title"
+					keyField="uuid"
+					customStyles={customStyles}
+					pagination
+					highlightOnHover
+					sortIcon={<FontAwesomeIcon icon={faSortDown} />}
+				/>
+		}
 
 		return (
 			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateVirus={this.updateVirus}>
@@ -202,9 +323,35 @@ class Page extends Component {
 					<h6 className="h6 mb-0 text-gray-800">{ this.props.page_info.description ? this.props.page_info.description : ""}</h6>
 				</div>
 				
-				{barChart}
+						{barChart}
 
-				<Table data={filteredData} columns={columns} loading={false} error={false} />
+				<div className="card shadow mb-4">
+					<div className="card-header py-3">
+						<h6 className="m-0 font-weight-bold text-primary">Published and Preprint Papers</h6>
+					</div>
+					<div className="card-body">
+						<div className="table-responsive">
+								
+								{table}
+								
+						</div>
+					</div>
+				</div>
+				
+				<Modal show={this.state.showModal} onHide={this.modalClose}>
+					<Modal.Header closeButton>
+					  <Modal.Title>Modal heading</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+					<Modal.Footer>
+					  <Button variant="secondary" onClick={this.modalClose}>
+						Close
+					  </Button>
+					  <Button variant="primary" onClick={this.modalClose}>
+						Save Changes
+					  </Button>
+					</Modal.Footer>
+				  </Modal>
 
 			</Layout>
 		)
