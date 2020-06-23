@@ -4,66 +4,108 @@
 		"page": "therapeutics",
 		"icon": "faPrescriptionBottleAlt",
 		"description": "Research focussing on finding a novel and existing drug to use for treatment",
-		"table_columns": {"Drug":"entities:drug","Stage":"entities:stage","Pub types":"entities:pubtype"},
-		"chart_entity":"drug"
+		"extra_table_columns": [
+			{
+				"header": "Drug",
+				"selector": "entities:drug"
+			},
+			{
+				"header": "Stage",
+				"selector": "entities:stage"
+			},
+			{
+				"header": "Pub Types",
+				"selector": "entities:pubtype"
+			}
+		],
+		"chart_entity": "drug"
 	},
 	{
 		"name": "Vaccines",
 		"page": "vaccines",
 		"icon": "faSyringe",
 		"description": "Research focussing on the development of a vaccine for SARS-CoV-2, MERS-CoV or SARS-CoV",
-		"table_columns": {"Vaccine Type":"entities:vaccine_type","Stage":"entities:stage"}
+		"extra_table_columns": [
+			{
+				"header": "Vaccine Type",
+				"selector": "entities:vaccine_type"
+			},
+			{
+				"header": "Stage",
+				"selector": "entities:stage"
+			}
+		]
 	},
 	{
 		"name": "Clinical Trials",
 		"page": "clinicaltrials",
 		"icon": "faPrescriptionBottleAlt",
 		"description": "Research discussing the results of a clinical trial",
-		"table_columns": {"Drug":"entities:drug"},
-		"chart_entity":"drug"
+		"extra_table_columns": [
+			{
+				"header": "Drug",
+				"selector": "entities:drug"
+			}
+		],
+		"chart_entity": "drug"
 	},
 	{
 		"name": "Diagnostics",
 		"page": "diagnostics",
 		"icon": "faStethoscope",
 		"description": "Research discussing methods to identify patients with different viruses, using molecular biology, imaging or clinical techniques",
-		"table_columns": {"Test Type":"entities:test_type"}
+		"extra_table_columns": [
+			{
+				"header": "Test Type",
+				"selector": "entities:test_type"
+			}
+		]
 	},
 	{
 		"name": "Molecular Biology",
 		"page": "molecularbiology",
 		"icon": "faDna",
 		"description": "Research investigating the biological underpinnings of the viruses and their interactions with the human body",
-		"table_columns": {"Human Gene/Protein":"entities:human_gene_protein"},
-		"chart_entity":"human_gene_protein"
+		"extra_table_columns": [
+			{
+				"header": "Human Gene/Protein",
+				"selector": "entities:human_gene_protein"
+			}
+		],
+		"chart_entity": "human_gene_protein"
 	},
 	{
 		"name": "Transmission",
 		"page": "transmission",
 		"icon": "faHandshake",
 		"description": "Research investigating the modes of transmissions for the viruses",
-		"table_columns": {}
+		"extra_table_columns": []
 	},
 	{
 		"name": "Patient Reports",
 		"page": "patientreports",
 		"icon": "faNotesMedical",
 		"description": "Reports of individual patients and cohorts that may provide insight into symptoms and clinical outcomes",
-		"table_columns": {"Location":"entities:location"},
-		"chart_entity":"location"
+		"extra_table_columns": [
+			{
+				"header": "Location",
+				"selector": "entities:location"
+			}
+		],
+		"chart_entity": "location"
 	},
 	{
 		"name": "Disease Modelling",
 		"page": "diseasemodelling",
 		"icon": "faChartBar",
 		"description": "Reports of individual patients and cohorts that may provide insight into symptoms and clinical outcomes",
-		"table_columns": {}
+		"extra_table_columns": []
 	},
 	{
 		"name": "Reviews",
 		"page": "reviews",
 		"icon": "faChartBar",
 		"description": "Review articles that summarise existing research on a virus, or a specific subtopic of the virus",
-		"table_columns": {}
+		"extra_table_columns": []
 	}
 ]

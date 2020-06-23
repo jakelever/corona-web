@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
-import Table from '../components/Table.js'
-import FlagModal from '../components/FlagModal.js'
-
+import CustomTable from '../components/CustomTable.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
-import { faFlag } from '@fortawesome/free-solid-svg-icons'
-import { faSortDown } from '@fortawesome/free-solid-svg-icons'
-import { faExclamationCircle, faExclamationTriangle, faExclamation } from '@fortawesome/free-solid-svg-icons'
 
 import Link from 'next/link'
 
@@ -18,7 +13,6 @@ import pages from '../lib/pages.json'
 
 import { getTableData, getChartDataByVirus } from '../lib/db-main.js'
 
-import DataTable from 'react-data-table-component';
 
 export async function getStaticPaths() {
 	//console.log(pages)
@@ -66,6 +60,7 @@ class Page extends Component {
 		this.state = {
 			viruses: [],
 			showFlagModal: false,
+			modalKey: 0,
 			flagModalDoc: null
 			}
 		
@@ -73,16 +68,6 @@ class Page extends Component {
 		this.updateVirus = this.updateVirus.bind(this);
 		this.filterForVirus = this.filterForVirus.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
-		this.closeFlagModal = this.closeFlagModal.bind(this);
-		this.showFlagModal = this.showFlagModal.bind(this);
-	}
-	
-	closeFlagModal() {
-		this.setState({showFlagModal: false})
-	}
-	
-	showFlagModal(doc) {
-		this.setState({showFlagModal: true, flagModalDoc:doc })
 	}
 
 	barClick(elems) {
@@ -137,10 +122,16 @@ class Page extends Component {
 	
 
 	render() {
-		//var columns = {Title:'title',Journal:'journal'}
-		//console.log(json)
-		//json = []
-		var columns = {Virus:'entities:virus',...this.props.page_info.table_columns,Journal:'journal','Date':'publish_year',Title:'title'}
+		// ...this.props.page_info.extra_table_columns,
+		var columns = [
+				{ "header":"Virus", "selector":"entities:virus" },
+				...this.props.page_info.extra_table_columns,
+				{ "header":"Journal", "selector":"journal" },
+				{ "header":"Date", "selector":"publish_year", "width":"10%" },
+				{ "header":"Title", "selector":"title", link: true }
+			]
+			
+		console.log(columns)
 		
 		var barChart = <div></div>
 		if (this.props.chartdata) {			
@@ -189,125 +180,8 @@ class Page extends Component {
 		}
 				
 		var filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
-
-		//var res = "hello,i,am,a,csv,file"
-		//var data = new Blob([res], {type: 'text/csv'});
-		//var csvURL = window.URL.createObjectURL(data);
 		
-		
-		var moo = <a href="/api/hello" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
-					</a>
-					
-		/*var dataAsJSON = JSON.stringify(filteredData)
-		var baa = <form action="/api/download" method="post">
-						<input type="hidden" name="filename" value={this.props.page_info.page + '.json'} />
-						<input type="hidden" name="data" value={dataAsJSON} />
-						<input className="btn btn-sm btn-sm btn-primary shadow-sm" type="submit" value="Download" />
-					</form>*/
-					
-		// 
-		
-		const customStyles = {
-		  headRow: {
-			style: {
-			  border: 'none',
-			},
-		  },
-		  headCells: {
-			style: {
-			  color: '#202124',
-			  fontSize: '18px',
-			},
-		  },
-		  pagination: {
-			style: {
-			  border: 'none',
-			},
-		  },
-		}
-
-		
-		const table_columns = 
-		[
-			{
-				id: 'viruses',
-				name: 'Viruses',
-				sortable: false,
-				width: '15%',
-				style: {
-				  fontSize: '16px',
-				  padding: '14px'
-				},
-				wrap: true,
-				cell: row => { 
-					var viruses = row.entities.filter( e => e.type=='virus' ).map( e => <a href="">{e.name}</a> )
-					
-					var combined = viruses ? viruses.reduce((prev, curr) => [prev, ', ', curr]) : ''
-					
-					return combined
-				}
-			},
-			{
-				id: 'journal',
-				name: 'Journal',
-				selector: 'journal',
-				sortable: true,
-				width: '15%',
-				style: {
-				  fontSize: '16px',
-				  padding: '14px'
-				},
-				wrap: true
-			},
-			{
-				id: 'year',
-				name: 'Year',
-				selector: 'publish_year',
-				sortable: true,
-				width: '100px',
-				style: {
-				  fontSize: '16px',
-				  padding: '14px'
-				}
-			},
-			{
-				id: 'title',
-				name: 'Title',
-				selector: 'title',
-				sortable: true,
-				wrap: true,
-				style: {
-				  fontSize: '16px',
-				  padding: '14px'
-				},
-				cell: row => <a href={row.url} target="_blank">{row.title}</a>
-			},
-			{
-				id: 'buttonthing',
-				cell: row => <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>,
-				ignoreRowClick: true,
-				allowOverflow: true,
-				button: true,
-			}
-		]
-		
-		var table
-		if (false) {
-			table = <Table data={filteredData} columns={columns} loading={false} error={false} />
-		} else {
-			table = <DataTable
-					noHeader
-					columns={table_columns}
-					data={filteredData}
-					defaultSortField="title"
-					keyField="uuid"
-					customStyles={customStyles}
-					pagination
-					highlightOnHover
-					sortIcon={<FontAwesomeIcon icon={faSortDown} />}
-				/>
-		}
+		const table = <CustomTable columns={columns} data={filteredData} />
 
 		return (
 			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateVirus={this.updateVirus}>
@@ -339,7 +213,6 @@ class Page extends Component {
 					</div>
 				</div>
 				
-				<FlagModal doc={this.state.flagModalDoc} show={this.state.showFlagModal} closeFunc={this.closeFlagModal} />
 
 			</Layout>
 		)
