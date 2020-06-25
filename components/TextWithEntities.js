@@ -1,4 +1,6 @@
 
+import Link from 'next/link'
+
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
 import Tooltip from 'react-bootstrap/Tooltip'
@@ -46,11 +48,12 @@ export default function TextWithEntities(props) {
 		textSpans.push(endSpan)
 	}
 	
-	const textObjects = textSpans.map( ts => {
+	const textObjects = textSpans.map( (ts,i) => {
 		if (ts.entity_name == null || ts.entity_type == null) {
-			return <span>{text.substring(ts.start_pos,ts.end_pos)}</span>
+			return <span key={'textspan_'+i}>{text.substring(ts.start_pos,ts.end_pos)}</span>
 		} else {
 			return <OverlayTrigger
+						key={'overlaytrigger_'+i}
 						placement="right"
 						delay={{ show: 250, hide: 400 }}
 						overlay={props => {
@@ -61,9 +64,9 @@ export default function TextWithEntities(props) {
 							);
 						}}
 					  >
-						<a href="#" onClick={event => event.preventDefault()}>
+						<span><Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+ts.entity_type+"/"+ts.entity_name}><a>
 							{text.substring(ts.start_pos,ts.end_pos)}
-						</a>
+						</a></Link></span>
 					</OverlayTrigger>
 		}
 	} )

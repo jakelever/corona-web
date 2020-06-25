@@ -31,7 +31,7 @@ function getColumnMetadata(column) {
 			},
 			wrap: true,
 			cell: row => { 
-				var entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <a key={'entity_'+i} href="">{e.name}</a> )
+				var entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+e.type+"/"+e.name}><a key={'entity_'+i}>{e.name}</a></Link> )
 				
 				var combined = entities.length > 0 ? entities.reduce((prev, curr) => [prev, ', ', curr]) : ''
 				
