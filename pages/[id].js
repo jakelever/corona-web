@@ -111,7 +111,7 @@ export default class Page extends Component {
 				...this.props.page_info.extra_table_columns,
 				{ "header":"Journal", "selector":"journal" },
 				{ "header":"Date", "selector":"publish_year", "width":"10%" },
-				{ "header":"Title", "selector":"title", link: true }
+				{ "header":"Title", "selector":"title", linkInternal: true }
 			]
 		
 		var barChart = <div></div>

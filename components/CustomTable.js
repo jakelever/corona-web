@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Link from 'next/link'
 
 import FlagModal from '../components/FlagModal.js'
 
@@ -6,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 import { faExclamationCircle, faExclamationTriangle, faExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 import DataTable from 'react-data-table-component';
 
@@ -55,8 +57,12 @@ function getColumnMetadata(column) {
 		metadata.width = column.width
 	}
 	
-	if (column.link) {
+	if (column.linkExternal) {
 		metadata.cell = row => <a href={row.url} target="_blank">{row[column.selector]}</a>
+	}
+	
+	if (column.linkInternal) {
+		metadata.cell = row => <Link href={"/doc/[id]"} as={"/doc/"+row.document_id}><a>{row[column.selector]}</a></Link>
 	}
 	
 	return metadata
@@ -103,11 +109,17 @@ export default class CustomTable extends Component {
 			},
 		  },
 		}
+		
+		const renderButtonColumn = row => {
+			const flag = <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>
+			const linkDoc = <a className="flagtime" href={row.url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" /></a>
 			
+			return <div><p>{linkDoc}</p><p>{flag}</p></div>
+		}
 		
 		const flagButtonColumn = {
 				id: 'buttonthing',
-				cell: row => <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>,
+				cell: renderButtonColumn,
 				ignoreRowClick: true,
 				allowOverflow: true,
 				button: true,
