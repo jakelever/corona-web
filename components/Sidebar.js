@@ -16,6 +16,8 @@ import { faSyringe } from '@fortawesome/free-solid-svg-icons'
 import { faDna } from '@fortawesome/free-solid-svg-icons'
 import { faMicroscope } from '@fortawesome/free-solid-svg-icons'
 import { faChartBar } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { faPenFancy } from '@fortawesome/free-solid-svg-icons'
 
 
 /*function toggleSidebar(event) {
@@ -44,6 +46,7 @@ export default function Sidebar(props) {
 		faDna:faDna,
 		faMicroscope:faMicroscope,
 		faChartBar:faChartBar,
+		faPenFancy:faPenFancy
 	}
 	
 	//<i className="fas fa-fw fa-chart-area"></i>
@@ -103,6 +106,19 @@ export default function Sidebar(props) {
 	</li>
 
 	{/* Divider */}
+	<hr className="sidebar-divider" />
+	
+	<li className={props.page=='/trending' ? "nav-item active" : "nav-item"}>
+		<Link href="/trending" as="/trending">
+			<a className="nav-link">
+				<span style={{marginRight: "0.25rem"}}>
+					<FontAwesomeIcon icon={faChartLine} fixedWidth  />
+				</span>
+				<span> Trending</span>
+			</a>
+		</Link>
+	</li>
+	
 	<hr className="sidebar-divider" />
 	
 	{links}

@@ -104,7 +104,7 @@
 	{
 		"name": "Reviews",
 		"page": "reviews",
-		"icon": "faChartBar",
+		"icon": "faPenFancy",
 		"description": "Review articles that summarise existing research on a virus, or a specific subtopic of the virus",
 		"extra_table_columns": []
 	}

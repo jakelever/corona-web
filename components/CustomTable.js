@@ -123,6 +123,29 @@ export default class CustomTable extends Component {
 				ignoreRowClick: true,
 				allowOverflow: true,
 				button: true,
+				style: {
+				  padding: '14px'
+				}
+			}
+			
+			
+		const renderAltmetricScore1Day = row => {
+			if (row.altmetric_id == -1)
+				return ''
+			
+			const badgeURL = "https://badges.altmetric.com/?size=64&score=" + row.altmetric_score_1day + "&types=" + row.altmetric_badgetype
+			const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
+			const img = <img src={badgeURL} />
+			return <a href={detailsURL} target="_blank">{img}</a>
+		}
+		const altmetric1DayColumn = {
+				id: 'altmetric_1day',
+				name: 'Altmetric 1 Day',
+				selector: 'altmetric_score_1day',
+				cell: renderAltmetricScore1Day,
+				sortable: true,
+				allowOverflow: true,
+				button: true,
 			}
 			
 		const renderAltmetricBadge = row => {
@@ -135,8 +158,8 @@ export default class CustomTable extends Component {
 			return <a href={detailsURL} target="_blank">{img}</a>
 		}
 			
-		const altmetricColumn = {
-				id: 'altmetric',
+		const altmetricScoreColumn = {
+				id: 'altmetric_score',
 				name: 'Altmetric',
 				selector: 'altmetric_score',
 				cell: renderAltmetricBadge,
@@ -146,14 +169,16 @@ export default class CustomTable extends Component {
 			}
 
 		var columnsWithFormating = this.props.columns.map( column => getColumnMetadata(column) )
-		columnsWithFormating.push( altmetricColumn )
+		if (this.props.showAltmetric1Day)
+			columnsWithFormating.push( altmetric1DayColumn )
+		columnsWithFormating.push( altmetricScoreColumn )
 		columnsWithFormating.push( flagButtonColumn )
 		
 		const table = <DataTable
 					noHeader
 					columns={columnsWithFormating}
 					data={this.props.data}
-					defaultSortField="altmetric_score"
+					defaultSortField={this.props.sort ? this.props.sort : "altmetric_score"}
 					defaultSortAsc={false}
 					customStyles={customStyles}
 					keyField="document_id"
