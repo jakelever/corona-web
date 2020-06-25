@@ -46,7 +46,7 @@ async function getSummaryStatistics() {
 	SELECT COUNT(*) as count
 	FROM entities e, entitytypes et
 	WHERE e.entitytype_id = et.entitytype_id
-	AND et.entitytype_name = 'topic'
+	AND et.name = 'topic'
 
 	`)
 	const topicCount = result[0].count
@@ -62,13 +62,13 @@ async function getSummaryStatistics() {
 async function getVirusByYears() {
 	var counts = await db.query(escape`
 
-	SELECT entity_name, publish_year, COUNT(*) as count FROM (
+	SELECT name as entity_name, publish_year, COUNT(*) as count FROM (
 	SELECT * FROM
-		(SELECT a.document_id as document_id1,e.entity_name 
+		(SELECT a.document_id as document_id1,e.name 
 		FROM annotations a, entities e, entitytypes et 
 		WHERE a.entity_id = e.entity_id 
 			AND e.entitytype_id = et.entitytype_id 
-			AND et.entitytype_name = 'virus') as tmp1 
+			AND et.name = 'virus') as tmp1 
 		JOIN 
 			(SELECT d.document_id as document_id2, d.publish_year 
 			FROM documents d) as tmp2 
@@ -98,13 +98,13 @@ async function getJournalCounts() {
 async function getVirusCounts() {
 	var counts = await db.query(escape`
 
-	SELECT entity_name, COUNT(*) as count FROM (
+	SELECT name as entity_name, COUNT(*) as count FROM (
 	SELECT * FROM
-		(SELECT a.document_id as document_id1,e.entity_name 
+		(SELECT a.document_id as document_id1,e.name 
 		FROM annotations a, entities e, entitytypes et 
 		WHERE a.entity_id = e.entity_id 
 			AND e.entitytype_id = et.entitytype_id 
-			AND et.entitytype_name = 'virus') as tmp1 
+			AND et.name = 'virus') as tmp1 
 		JOIN 
 			(SELECT d.document_id as document_id2, d.publish_year 
 			FROM documents d) as tmp2 
