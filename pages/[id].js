@@ -51,10 +51,7 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: [],
-			showFlagModal: false,
-			modalKey: 0,
-			flagModalDoc: null
+			viruses: []
 			}
 		
 		this.barClick = this.barClick.bind(this);
