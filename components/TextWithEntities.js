@@ -1,45 +1,13 @@
-//import { useState, useEffect } from 'react';
+
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
 import Tooltip from 'react-bootstrap/Tooltip'
 
-/* 
-const UpdatingPopover = React.forwardRef(
-  ({ popper, children, show: _, ...props }, ref) => {
-    useEffect(() => {
-      console.log('updating!');
-      popper.scheduleUpdate();
-    }, [children, popper]);
-
-    return (
-      <Popover ref={ref} content {...props}>
-        {children}
-      </Popover>
-    );
-  },
-);
-
-*/
-/*
-<OverlayTrigger
-	placement="top"
-	delay={{ show: 250, hide: 400 }}
-	overlay={this.renderTooltip}
-  >
-  <a href="#" onClick={event => event.preventDefault()}>Hover me to see</a>
-</OverlayTrigger>
-{this.props.doc.title}
-
-*/
-
 export default function TextWithEntities(props) {
-	
 	const in_title = props.isTitle ? 1 : 0
 	
 	var entitySpans = []
 	props.entities.forEach(e => {
-		//console.log(e.positions)
-		
 		e.positions.forEach( p => {
 			if (p.in_title == in_title) {
 				const entitySpan = { name:e.name, type:e.type, start_pos: p.start_pos, end_pos: p.end_pos, in_title: p.in_title}
@@ -47,26 +15,17 @@ export default function TextWithEntities(props) {
 			}
 		})
 	} )
-	//console.log(this.props.doc.entities)
-	//console.log(spans)
 	
 	// TODO: Error checking code to make sure there aren't overlapping entities
 	
-	//var starts = Object.keys(spans)
-	//starts.sort((a,b)=> parseInt(a) - parseInt(b))
-	
 	// Sort the spans by entity starting position
 	entitySpans.sort((a,b) => a.start_pos - b.start_pos)
-	
-	console.log(entitySpans)
 	
 	var text = props.text
 	
 	if (entitySpans.length == 0)
 		return text
 	
-	//const titleSpans = entitySpans.filter(s => s.in_title==1)
-	//console.log(titleSpans)
 	var textSpans = []
 	if (entitySpans[0].start_pos > 0) {
 		const startSpan = {start_pos:0, end_pos: entitySpans[0].start_pos, entity_name: null, entity_type: null}
@@ -86,34 +45,6 @@ export default function TextWithEntities(props) {
 		const endSpan = {start_pos:lastEntitySpan.end_pos, end_pos: text.length, entity_name: null, entity_type: null}
 		textSpans.push(endSpan)
 	}
-	console.log(textSpans)
-	
-	/* overlay={props => {
-							return (
-								<Tooltip id="button-tooltip" {...props}>
-									{ts.entity_name} [{ts.entity_type}]
-								</Tooltip>
-							);
-						}}
-						*/
-						
-	/*const longContent = `
-	  Very long
-	  Multiline content
-	  that is engaging and what-not
-	`;
-	const shortContent = 'Short and sweet!';
-
-	const [content, setContent] = useState(shortContent);
-						
-	useEffect(() => {
-		const timerId = setInterval(() => {
-		  setContent(content === shortContent ? longContent : shortContent);
-		}, 3000);
-
-		return () => clearInterval(timerId);
-	  });*/
-
 	
 	const textObjects = textSpans.map( ts => {
 		if (ts.entity_name == null || ts.entity_type == null) {
