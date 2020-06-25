@@ -157,7 +157,15 @@ export default class Page extends Component {
 					</div>)
 		}
 				
-		var filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
+		const filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
+		const filteredDataNoAltmetric = filteredData.map( row => {
+			var newRow = {}
+			Object.keys(row).forEach( k => {
+				if (!k.includes('altmetric'))
+					newRow[k] = row[k]
+			})
+			return newRow
+		})
 		
 		const table = <CustomTable columns={columns} data={filteredData} />
 
@@ -167,7 +175,7 @@ export default class Page extends Component {
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
-					<a href="#" onClick={event => this.downloadJSON(event,filteredData)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+					<a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
 					</a>
 				</div>

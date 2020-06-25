@@ -124,15 +124,37 @@ export default class CustomTable extends Component {
 				allowOverflow: true,
 				button: true,
 			}
+			
+		const renderAltmetricBadge = row => {
+			if (row.altmetric_id == -1)
+				return ''
+			
+			const badgeURL = "https://badges.altmetric.com/?size=64&score=" + row.altmetric_score + "&types=" + row.altmetric_badgetype
+			const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
+			const img = <img src={badgeURL} />
+			return <a href={detailsURL} target="_blank">{img}</a>
+		}
+			
+		const altmetricColumn = {
+				id: 'altmetric',
+				name: 'Altmetric',
+				selector: 'altmetric_score',
+				cell: renderAltmetricBadge,
+				sortable: true,
+				allowOverflow: true,
+				button: true,
+			}
 
 		var columnsWithFormating = this.props.columns.map( column => getColumnMetadata(column) )
+		columnsWithFormating.push( altmetricColumn )
 		columnsWithFormating.push( flagButtonColumn )
 		
 		const table = <DataTable
 					noHeader
 					columns={columnsWithFormating}
 					data={this.props.data}
-					defaultSortField="title"
+					defaultSortField="altmetric_score"
+					defaultSortAsc={false}
 					customStyles={customStyles}
 					keyField="document_id"
 					pagination
