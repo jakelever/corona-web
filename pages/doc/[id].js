@@ -58,6 +58,15 @@ export default class DocPage extends Component {
 		
 		const abstractText = this.props.doc.abstract ? <TextWithEntities text={this.props.doc.abstract} entities={this.props.doc.entities} isTitle={false} /> : <span style={{fontStyle: "italic"}}>No abstract associated with this document</span>
 		
+		var altmetricBadge = {}
+		if (this.props.doc.altmetric_id != -1) {
+			
+			const badgeURL = "https://badges.altmetric.com/?size=100&score=" + this.props.doc.altmetric_score + "&types=" + this.props.doc.altmetric_badgetype
+			const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + this.props.doc.altmetric_id
+			const img = <img src={badgeURL} />
+			altmetricBadge = <a href={detailsURL} target="_blank">{img}</a>
+		}
+		
 		return <Layout title={this.props.doc.title + ' | CoronaHub'}>
 		
 				{/* Page Heading */}
@@ -88,10 +97,22 @@ export default class DocPage extends Component {
 						  <h6 className="m-0 font-weight-bold text-primary">Metadata</h6>
 						</div>
 						<div className="card-body">
-							{ this.props.doc.doi ? <h6>DOI: <a href={"https://doi.org/"+this.props.doc.doi} target="_blank">{this.props.doc.doi}</a></h6> : "" }
-							<h6>Journal: {this.props.doc.journal}</h6>
-							{ this.props.doc.pubmed_id ? <h6>Pubmed ID: <a href={"https://pubmed.ncbi.nlm.nih.gov/"+this.props.doc.pubmed_id} target="_blank">{this.props.doc.pubmed_id}</a></h6> : "" }
-							{ this.props.doc.cord_uid ? <h6><a href="https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge" target="_blank">CORD UID</a>: {this.props.doc.cord_uid}</h6> : "" }
+							
+							<div class="container">
+								<div class="row">
+									<div class="col">
+									
+									{ this.props.doc.doi ? <h6>DOI: <a href={"https://doi.org/"+this.props.doc.doi} target="_blank">{this.props.doc.doi}</a></h6> : "" }
+									<h6>Journal: {this.props.doc.journal}</h6>
+									{ this.props.doc.pubmed_id ? <h6>Pubmed ID: <a href={"https://pubmed.ncbi.nlm.nih.gov/"+this.props.doc.pubmed_id} target="_blank">{this.props.doc.pubmed_id}</a></h6> : "" }
+									{ this.props.doc.cord_uid ? <h6><a href="https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge" target="_blank">CORD UID</a>: {this.props.doc.cord_uid}</h6> : "" }
+									
+									</div>
+									<div class="col-3">
+									{altmetricBadge}
+									</div>
+								</div>
+							</div>
 						</div>
 					  </div>
 					</div>
