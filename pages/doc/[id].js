@@ -98,9 +98,9 @@ export default class DocPage extends Component {
 						</div>
 						<div className="card-body">
 							
-							<div class="container">
-								<div class="row">
-									<div class="col">
+							<div className="container">
+								<div className="row">
+									<div className="col">
 									
 									{ this.props.doc.doi ? <h6>DOI: <a href={"https://doi.org/"+this.props.doc.doi} target="_blank">{this.props.doc.doi}</a></h6> : "" }
 									<h6>Journal: {this.props.doc.journal}</h6>
@@ -108,7 +108,7 @@ export default class DocPage extends Component {
 									{ this.props.doc.cord_uid ? <h6><a href="https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge" target="_blank">CORD UID</a>: {this.props.doc.cord_uid}</h6> : "" }
 									
 									</div>
-									<div class="col-3">
+									<div className="col-3">
 									{altmetricBadge}
 									</div>
 								</div>
