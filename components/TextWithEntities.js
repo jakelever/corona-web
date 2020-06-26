@@ -9,14 +9,16 @@ export default function TextWithEntities(props) {
 	const in_title = props.isTitle ? 1 : 0
 	
 	var entitySpans = []
-	props.entities.forEach(e => {
-		e.positions.forEach( p => {
-			if (p.in_title == in_title) {
-				const entitySpan = { name:e.name, type:e.type, start_pos: p.start_pos, end_pos: p.end_pos, in_title: p.in_title}
-				entitySpans.push(entitySpan)
-			}
-		})
-	} )
+	if (props.entities) {
+		props.entities.forEach(e => {
+			e.positions.forEach( p => {
+				if (p.in_title == in_title) {
+					const entitySpan = { name:e.name, type:e.type, start_pos: p.start_pos, end_pos: p.end_pos, in_title: p.in_title}
+					entitySpans.push(entitySpan)
+				}
+			})
+		} )
+	}
 	
 	// TODO: Error checking code to make sure there aren't overlapping entities
 	

@@ -4,7 +4,8 @@ import Link from 'next/link'
 import Layout from '../../components/Layout.js'
 import CustomTable from '../../components/CustomTable.js'
 //import { getTableData, getChartDataByVirus } from '../../lib/db-main.js'
-import { getAllEntities, getEntity, getPapersWithEntity } from '../../lib/db-entity.js'
+//import { getAllEntities } from '../../lib/db-entity.js'
+import { getEntity, getPapersWithEntity } from '../../lib/db-entity.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
@@ -12,10 +13,9 @@ import { Bar } from 'react-chartjs-2';
 
 
 export async function getStaticPaths() {
-	const entities = await getAllEntities()
+	//var entities = await getAllEntities()
 	
-	//const paths = [ {params: {typename: ['drug','ribavirin']}} ]
-	
+	const entities = []
 	
 	const paths = entities.map( e => {
 		return {params: {typename: [e.entity_type,e.entity_name]}}
@@ -23,18 +23,15 @@ export async function getStaticPaths() {
 	
 	return {
 		paths,
-		fallback: false
+		fallback: true
 	}
 }
 
 export async function getStaticProps({ params }) {
 	const [ entity_type, entity_name ] = params.typename
 	
-	//const page_info = pages.filter(p => p.page == params.id)[0];
-	//console.log(entity_type)
 	const entity = await getEntity(entity_type, entity_name)
 	const tableData = await getPapersWithEntity(entity.entity_id)
-	//console.log(entity.entity_id)
 	
 	return {
 		props: {
@@ -50,10 +47,12 @@ export default class EntityPage extends Component {
 		this.state = {
 			viruses: []
 			}
-		//console.log(props)
 	}
 
 	render() {
+		if (!this.props.entity)
+			return <div></div>
+		
 		var columns = [
 				{ "header":"Drugs", "selector":"entities:drug" },
 				{ "header":"Virus", "selector":"entities:virus" },
@@ -67,7 +66,6 @@ export default class EntityPage extends Component {
 		return (
 			<Layout title={this.props.entity.entity_name + " | CoronaHub|"} page={null}>
 		
-				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">{this.props.entity.entity_name}</h1>
 					

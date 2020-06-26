@@ -4,13 +4,15 @@ import Layout from '../../components/Layout.js'
 import TextWithEntities from '../../components/TextWithEntities.js'
 import Button from 'react-bootstrap/Button'
 
-import { getAllDocumentIDs, getDocument } from '../../lib/db-doc.js'
+//import { getAllDocumentIDs } from '../../lib/db-doc.js'
+import { getDocument } from '../../lib/db-doc.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 export async function getStaticPaths() {
-	const documents = await getAllDocumentIDs()
+	//const documents = await getAllDocumentIDs()
+	const documents = []
 	const paths = documents.map(function(d) {
 		return { params: {id: d.document_id.toString()} }
 	} )
@@ -36,9 +38,12 @@ export default class DocPage extends Component {
 	}
 	
 	render() {
-		const entityTypes = [...new Set(this.props.doc.entities.map( e => e.type ))]
+		if (!this.props.doc)
+			return <div></div>
 		
 		var entityGroups = {}
+		const entityTypes = [...new Set(this.props.doc.entities.map( e => e.type ))]
+		
 		entityTypes.forEach( entityType => {
 			const entities = this.props.doc.entities.filter( e => e.type==entityType )
 			
@@ -48,8 +53,6 @@ export default class DocPage extends Component {
 			
 			entityGroups[entityType] = combined
 		} )
-		
-		
 		
 		const titleText = <TextWithEntities text={this.props.doc.title} entities={this.props.doc.entities} isTitle={true} />
 		
