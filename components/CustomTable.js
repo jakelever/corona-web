@@ -38,8 +38,37 @@ function getColumnMetadata(column) {
 				return <div>{combined}</div>
 			}
 		}
-	}
-	else {
+	} else if (column.selector == 'publish_date') {
+		metadata = {
+			id: column.selector,
+			name: column.header,
+			selector: "publish_year",
+			sortable: true,
+			style: {
+			  fontSize: '16px',
+			  padding: '14px'
+			},
+			wrap: false, 
+			sortFunction: (rowA, rowB) => {
+				const dateA = (rowA.publish_year ? rowA.publish_year.toString().padStart(4,'0') : '0000') + (rowA.publish_month ? rowA.publish_month.toString().padStart(2,'0') : '00') + (rowA.publish_day ? rowA.publish_day.toString().padStart(2,'0') : '00')
+				const dateB = (rowB.publish_year ? rowB.publish_year.toString().padStart(4,'0') : '0000') + (rowB.publish_month ? rowB.publish_month.toString().padStart(2,'0') : '00') + (rowB.publish_day ? rowB.publish_day.toString().padStart(2,'0') : '00')
+				
+				//console.log(dateA + " " + dateB)
+				return parseInt(dateA) - parseInt(dateB)
+			},
+			cell: row => { 
+				if (row.publish_year && row.publish_month && row.publish_day) {
+					return row.publish_year.toString() + "-" + row.publish_month.toString().padStart(2,'0') + "-" + row.publish_day.toString().padStart(2,'0')
+				} else if (row.publish_year && row.publish_month) {
+					return row.publish_year.toString() + "-" + row.publish_month.toString().padStart(2,'0')
+				} else if (row.publish_year) {
+					return row.publish_year.toString()
+				} else {
+					return ""
+				}
+			}
+		}
+	} else {
 		metadata = {
 			id: column.selector,
 			name: column.header,

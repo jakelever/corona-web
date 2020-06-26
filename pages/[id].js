@@ -107,7 +107,7 @@ export default class Page extends Component {
 				{ "header":"Virus", "selector":"entities:virus" },
 				...this.props.page_info.extra_table_columns,
 				{ "header":"Journal", "selector":"journal" },
-				{ "header":"Date", "selector":"publish_year", "width":"10%" },
+				{ "header":"Date", "selector":"publish_date", "width":"13%" },
 				{ "header":"Title", "selector":"title", linkInternal: true }
 			]
 		

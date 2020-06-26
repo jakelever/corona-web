@@ -57,7 +57,7 @@ export default class EntityPage extends Component {
 				{ "header":"Drugs", "selector":"entities:drug" },
 				{ "header":"Virus", "selector":"entities:virus" },
 				{ "header":"Journal", "selector":"journal" },
-				{ "header":"Date", "selector":"publish_year", "width":"10%" },
+				{ "header":"Date", "selector":"publish_date", "width":"10%" },
 				{ "header":"Title", "selector":"title", linkInternal: true }
 			]
 			
