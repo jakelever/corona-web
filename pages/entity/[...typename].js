@@ -64,7 +64,7 @@ export default class EntityPage extends Component {
 		const table = <CustomTable columns={columns} data={this.props.tableData} />
 
 		return (
-			<Layout title={this.props.entity.entity_name + " | CoronaHub|"} page={null}>
+			<Layout title={this.props.entity.entity_name} page={null}>
 		
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">{this.props.entity.entity_name}</h1>

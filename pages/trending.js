@@ -89,7 +89,7 @@ export default class Page extends Component {
 		const table = <CustomTable columns={columns} data={filteredData} showAltmetric1Day sort="altmetric_score_1day" />
 
 		return (
-			<Layout title="Trending | CoronaHub" page="/trending" updateVirus={this.updateVirus} showVirusSelector>
+			<Layout title="Trending" page="/trending" updateVirus={this.updateVirus} showVirusSelector>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">

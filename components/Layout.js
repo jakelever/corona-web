@@ -24,15 +24,17 @@ export default class Layout extends Component {
 	}
 	
 	render() {
+		const projectName = "CoronaHub"
+		
 		return (
 			<div id="wrapper">
 				{/* Page Wrapper */}
 				<Head>
-					<title>{this.props.title}</title>
+					<title>{this.props.title + " | " + projectName}</title>
 					<link rel="icon" href="/favicon.png" type="image/png" />
 				</Head>
 
-				<Sidebar page={this.props.page} />
+				<Sidebar projectName={projectName} page={this.props.page} />
 
 				{/* Content Wrapper */}
 				<div id="content-wrapper" className="d-flex flex-column">

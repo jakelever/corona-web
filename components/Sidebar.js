@@ -86,7 +86,7 @@ export default function Sidebar(props) {
 			<div>
 				<FontAwesomeIcon icon={faViruses} size="2x" />
 			</div>
-			<div className="sidebar-brand-text mx-3">Alpha</div>
+			<div className="sidebar-brand-text mx-3">{props.projectName}</div>
 		</a>
 	</Link>
 

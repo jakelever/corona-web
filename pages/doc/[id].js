@@ -70,7 +70,7 @@ export default class DocPage extends Component {
 			altmetricBadge = <a href={detailsURL} target="_blank">{img}</a>
 		}
 		
-		return <Layout title={this.props.doc.title + ' | CoronaHub'}>
+		return <Layout title={this.props.doc.title}>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
