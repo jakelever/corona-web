@@ -4,15 +4,18 @@ import Layout from '../../components/Layout.js'
 import TextWithEntities from '../../components/TextWithEntities.js'
 import Button from 'react-bootstrap/Button'
 
-//import { getAllDocumentIDs } from '../../lib/db-doc.js'
+import { getAllDocumentIDs } from '../../lib/db-doc.js'
 import { getDocument } from '../../lib/db-doc.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 export async function getStaticPaths() {
-	//const documents = await getAllDocumentIDs()
-	const documents = []
+	// A workaround for NextJS error (below)
+	// Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+	const isDevelopment = (process.env.NODE_ENV == 'development')
+	const documents = isDevelopment ? await getAllDocumentIDs() : []
+	
 	const paths = documents.map(function(d) {
 		return { params: {id: d.document_id.toString()} }
 	} )

@@ -3,8 +3,7 @@ import Link from 'next/link'
 
 import Layout from '../../components/Layout.js'
 import CustomTable from '../../components/CustomTable.js'
-//import { getTableData, getChartDataByVirus } from '../../lib/db-main.js'
-//import { getAllEntities } from '../../lib/db-entity.js'
+import { getAllEntities } from '../../lib/db-entity.js'
 import { getEntity, getPapersWithEntity } from '../../lib/db-entity.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,9 +12,10 @@ import { Bar } from 'react-chartjs-2';
 
 
 export async function getStaticPaths() {
-	//var entities = await getAllEntities()
-	
-	const entities = []
+	// A workaround for NextJS error (below) with fallback: true
+	// Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+	const isDevelopment = (process.env.NODE_ENV == 'development')
+	const entities = isDevelopment ? await getAllEntities() : []
 	
 	const paths = entities.map( e => {
 		return {params: {typename: [e.entity_type,e.entity_name]}}
