@@ -138,12 +138,16 @@ export default class Page extends Component {
 				
 				scales: {
 					xAxes: [{
-						stacked: true
+						stacked: true,
+						ticks: {
+							autoSkip: false
+						}
 					}],
 					yAxes: [{
 						stacked: true
 					}]
 				}
+				
 			}
 			
 			barChart = (<div style={{position: 'relative', height:'40vh', width:'100%'}}>
