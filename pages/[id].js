@@ -103,9 +103,11 @@ export default class Page extends Component {
 
 	render() {
 		
+		const extra_columns = 'extra_table_columns' in this.props.page_info ? this.props.page_info.extra_table_columns : [];
+		
 		var columns = [
 				{ "header":"Virus", "selector":"entities:virus" },
-				...this.props.page_info.extra_table_columns,
+				...extra_columns,
 				{ "header":"Journal", "selector":"journal" },
 				{ "header":"Date", "selector":"publish_date", "width":"13%" },
 				{ "header":"Title", "selector":"title", linkInternal: true }

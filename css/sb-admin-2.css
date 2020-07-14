@@ -10112,7 +10112,11 @@ a:focus {
   top: 2px;
 }
 
-.sidebar .nav-item .collapse .collapse-inner {
+.sidebar .nav-item .collapsebox {
+  margin: 0 1rem;
+}
+
+.sidebar .nav-item .collapse-inner {
   border-radius: 0.35rem;
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
 }
@@ -10122,16 +10126,16 @@ a:focus {
   transition: none;
 }
 
-.sidebar .nav-item .collapse .collapse-inner,
-.sidebar .nav-item .collapsing .collapse-inner {
+.sidebar .nav-item .collapse-inner,
+.sidebar .nav-item .collapse-inner {
   padding: .5rem 0;
   min-width: 10rem;
   font-size: 0.85rem;
   margin: 0 0 1rem 0;
 }
 
-.sidebar .nav-item .collapse .collapse-inner .collapse-header,
-.sidebar .nav-item .collapsing .collapse-inner .collapse-header {
+.sidebar .nav-item .collapse-header,
+.sidebar .nav-item .collapse-header {
   margin: 0;
   white-space: nowrap;
   padding: .5rem 1.5rem;
@@ -10141,8 +10145,8 @@ a:focus {
   color: #b7b9cc;
 }
 
-.sidebar .nav-item .collapse .collapse-inner .collapse-item,
-.sidebar .nav-item .collapsing .collapse-inner .collapse-item {
+.sidebar .nav-item .collapse-item,
+.sidebar .nav-item .collapse-item {
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
   display: block;
@@ -10152,18 +10156,18 @@ a:focus {
   white-space: nowrap;
 }
 
-.sidebar .nav-item .collapse .collapse-inner .collapse-item:hover,
-.sidebar .nav-item .collapsing .collapse-inner .collapse-item:hover {
+.sidebar .nav-item .collapse-item:hover,
+.sidebar .nav-item .collapse-item:hover {
   background-color: #eaecf4;
 }
 
-.sidebar .nav-item .collapse .collapse-inner .collapse-item:active,
-.sidebar .nav-item .collapsing .collapse-inner .collapse-item:active {
+.sidebar .nav-item .collapse-item:active,
+.sidebar .nav-item .collapse-item:active {
   background-color: #dddfeb;
 }
 
-.sidebar .nav-item .collapse .collapse-inner .collapse-item.active,
-.sidebar .nav-item .collapsing .collapse-inner .collapse-item.active {
+.sidebar .nav-item .collapse-item.active,
+.sidebar .nav-item .collapse-item.active {
   color: #4e73df;
   font-weight: 700;
 }
@@ -10233,19 +10237,31 @@ a:focus {
   font-size: 0.65rem;
 }
 
+.sidebar .arrow {
+  display: none;
+}
+
+.sidebar .sideicon {
+  font-size: 1.5rem;
+}
+
 @media (min-width: 768px) {
   .sidebar {
     width: 14rem !important;
   }
-  .sidebar .nav-item .collapse {
+  
+  .sidebar .sideicon {
+    font-size: inherit;
+  }
+  .sidebar .nav-item .collapsebox {
     position: relative;
     left: 0;
-    z-index: 1;
+    z-index: 100;
     top: 0;
     -webkit-animation: none;
     animation: none;
   }
-  .sidebar .nav-item .collapse .collapse-inner {
+  .sidebar .nav-item .collapse-inner {
     border-radius: 0;
     box-shadow: none;
   }
@@ -10253,7 +10269,7 @@ a:focus {
     display: block;
     transition: height 0.15s ease;
   }
-  .sidebar .nav-item .collapse,
+  .sidebar .nav-item .collapsebox,
   .sidebar .nav-item .collapsing {
     margin: 0 1rem;
   }
@@ -10263,6 +10279,9 @@ a:focus {
     text-align: left;
     padding: 1rem;
     width: 14rem;
+  }
+  .sidebar .arrow {
+    display: block;
   }
   .sidebar .nav-item .nav-link i {
     font-size: 0.85rem;
@@ -10298,7 +10317,7 @@ a:focus {
     overflow: visible;
     width: 6.5rem !important;
   }
-  .sidebar.toggled .nav-item .collapse {
+  .sidebar.toggled .nav-item .collapsebox {
     position: absolute;
     left: calc(6.5rem + 1.5rem / 2);
     z-index: 1;
@@ -10310,7 +10329,7 @@ a:focus {
     -webkit-animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
     animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
   }
-  .sidebar.toggled .nav-item .collapse .collapse-inner {
+  .sidebar.toggled .nav-item .collapse-inner {
     box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
     border-radius: 0.35rem;
   }
@@ -10318,7 +10337,7 @@ a:focus {
     display: none;
     transition: none;
   }
-  .sidebar.toggled .nav-item .collapse,
+  .sidebar.toggled .nav-item .collapsebox,
   .sidebar.toggled .nav-item .collapsing {
     margin: 0;
   }

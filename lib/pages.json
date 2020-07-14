@@ -1,111 +1,168 @@
 [
 	{
-		"name": "Therapeutics",
-		"page": "therapeutics",
-		"icon": "faPrescriptionBottleAlt",
-		"description": "Research focussing on finding a novel and existing drug to use for treatment",
-		"extra_table_columns": [
-			{
-				"header": "Drug",
-				"selector": "entities:drug"
-			},
-			{
-				"header": "Stage",
-				"selector": "entities:stage"
-			},
-			{
-				"header": "Pub Types",
-				"selector": "entities:pubtype"
-			}
-		],
-		"chart_entity": "drug"
+		"name": "Forecasting & Modelling",
+		"page": "forecasting",
+		"icon": "faChartBar",
+		"group": "Epidemiology"
 	},
 	{
-		"name": "Vaccines",
-		"page": "vaccines",
-		"icon": "faSyringe",
-		"description": "Research focussing on the development of a vaccine for SARS-CoV-2, MERS-CoV or SARS-CoV",
-		"extra_table_columns": [
-			{
-				"header": "Vaccine Type",
-				"selector": "entities:vaccine_type"
-			},
-			{
-				"header": "Stage",
-				"selector": "entities:stage"
-			}
-		]
-	},
-	{
-		"name": "Clinical Trials",
-		"page": "clinicaltrials",
-		"icon": "faPrescriptionBottleAlt",
-		"description": "Research discussing the results of a clinical trial",
-		"extra_table_columns": [
-			{
-				"header": "Drug",
-				"selector": "entities:drug"
-			}
-		],
-		"chart_entity": "drug"
-	},
-	{
-		"name": "Diagnostics",
-		"page": "diagnostics",
-		"icon": "faStethoscope",
-		"description": "Research discussing methods to identify patients with different viruses, using molecular biology, imaging or clinical techniques",
-		"extra_table_columns": [
-			{
-				"header": "Test Type",
-				"selector": "entities:test_type"
-			}
-		]
-	},
-	{
-		"name": "Molecular Biology",
-		"page": "molecularbiology",
-		"icon": "faDna",
-		"description": "Research investigating the biological underpinnings of the viruses and their interactions with the human body",
-		"extra_table_columns": [
-			{
-				"header": "Human Gene/Protein",
-				"selector": "entities:human_gene_protein"
-			}
-		],
-		"chart_entity": "human_gene_protein"
+		"name": "Disease Spread",
+		"page": "diseasespread",
+		"group": "Epidemiology"
 	},
 	{
 		"name": "Transmission",
 		"page": "transmission",
-		"icon": "faHandshake",
-		"description": "Research investigating the modes of transmissions for the viruses",
-		"extra_table_columns": []
+		"group": "Epidemiology"
 	},
 	{
-		"name": "Patient Reports",
-		"page": "patientreports",
-		"icon": "faNotesMedical",
-		"description": "Reports of individual patients and cohorts that may provide insight into symptoms and clinical outcomes",
-		"extra_table_columns": [
-			{
-				"header": "Location",
-				"selector": "entities:location"
-			}
-		],
-		"chart_entity": "location"
+		"name": "Prevalence",
+		"page": "prevalence",
+		"group": "Epidemiology"
 	},
 	{
-		"name": "Disease Modelling",
-		"page": "diseasemodelling",
-		"icon": "faChartBar",
-		"description": "Reports of individual patients and cohorts that may provide insight into symptoms and clinical outcomes",
-		"extra_table_columns": []
+		"name": "Surveillance",
+		"page": "surveillance",
+		"group": "Epidemiology"
 	},
+	{
+		"name": "Diagnostics",
+		"page": "diagnostics",
+		"group": "Epidemiology"
+	},
+	{
+		"name": "Prevention",
+		"page": "prevention",
+		"group": "Epidemiology"
+	},
+	
+
+	{
+		"name": "Risk Factors",
+		"page": "riskfactors",
+		"icon": "faStethoscope",
+		"group": "Clinical"
+	},
+	{
+		"name": "Symptoms",
+		"page": "symptoms",
+		"group": "Clinical"
+	},
+	{
+		"name": "Case Reports",
+		"page": "casereports",
+		"group": "Clinical"
+	},
+	{
+		"name": "Recommendations",
+		"page": "recommendations",
+		"group": "Clinical"
+	},
+	{
+		"name": "Pediatrics",
+		"page": "pediatrics",
+		"group": "Clinical"
+	},
+	{
+		"name": "Medical Disciplines",
+		"page": "medicaldisciplines",
+		"group": "Clinical"
+	},
+	{
+		"name": "Healthcare Workers",
+		"page": "healthcareworkers",
+		"group": "Clinical"
+	},
+	
+	
+	
+	{
+		"name": "Molecular Biology",
+		"page": "molecularbiology",
+		"icon": "faDna",
+		"group": "Biology"
+	},
+	{
+		"name": "Model Systems",
+		"page": "modelsystems",
+		"group": "Biology"
+	},
+	{
+		"name": "Immunology",
+		"page": "immunology",
+		"group": "Biology"
+	},
+	{
+		"name": "Non-human",
+		"page": "nonhuman",
+		"group": "Biology"
+	},
+	
+	
+	
+	{
+		"name": "Drug Repurposing",
+		"page": "drugrepurposing",
+		"icon": "faPrescriptionBottleAlt",
+		"group": "Treatment"
+	},
+	{
+		"name": "Novel Therapeutics",
+		"page": "noveltherapeutics",
+		"group": "Treatment"
+	},
+	{
+		"name": "Vaccines",
+		"page": "vaccines",
+		"group": "Treatment"
+	},
+	{
+		"name": "Drug Targets",
+		"page": "drugtargets",
+		"group": "Treatment"
+	},
+	{
+		"name": "Clinical Trials",
+		"page": "clinicaltrials",
+		"group": "Treatment"
+	},
+	{
+		"name": "Non-therapeutics",
+		"page": "nontherapeutic_interventions",
+		"group": "Treatment"
+	},
+	
+	
+	{
+		"name": "Psychology",
+		"page": "psychology",
+		"icon": "faBrain",
+		"group": "Psychology"
+	},
+	
+	
 	{
 		"name": "Reviews",
 		"page": "reviews",
 		"icon": "faPenFancy",
-		"description": "Review articles that summarise existing research on a virus, or a specific subtopic of the virus",
-		"extra_table_columns": []
+		"group": "Reviews"
+	},
+	
+	
+	{
+		"name": "Comments & Editorials",
+		"page": "comments_editorials",
+		"icon": "faRandom",
+		"group": "Other"
+	},
+	{
+		"name": "Updates",
+		"page": "updates",
+		"group": "Other"
+	},
+	{
+		"name": "Non-medical",
+		"page": "nonmedical",
+		"group": "Other"
 	}
 ]
