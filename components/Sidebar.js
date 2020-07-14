@@ -56,6 +56,18 @@ export default class Sidebar extends Component {
 			collapseOpen: collapseOpen
 		}
 		
+		this.toggleGroup = this.toggleGroup.bind(this);
+	}
+	
+	toggleGroup(g) {
+		var collapseOpen = {}
+		this.groups.forEach(g => { collapseOpen[g] = false } )
+		
+		if (g != null)
+			collapseOpen[g] = !this.state.collapseOpen[g]
+		
+		this.setState({collapseOpen: collapseOpen})
+		//event.preventDefault()
 	}
 	
 	render() {
@@ -94,6 +106,7 @@ export default class Sidebar extends Component {
 			}
 		};
 		
+		
 		var links = [];
 		this.groups.forEach( (groupName,j) => {
 			const groupPages = pages.filter(p => p.group == groupName)
@@ -103,7 +116,7 @@ export default class Sidebar extends Component {
 				const tmpLink = <MyToolTip text={p.description} key={'link_'+j}>
 					<li className={p.page==this.props.page ? "nav-item active" : "nav-item"}>
 						<Link href="/[id]" as={`/${p.page}`}>
-							<a className="nav-link">
+							<a className="nav-link" onClick={event => this.toggleGroup(null)}>
 								<span className="icon" style={{marginRight: "0.25rem"}}>
 									<FontAwesomeIcon className="sideicon" icon={iconMapping[p.icon]} fixedWidth  />
 								</span>
@@ -119,19 +132,11 @@ export default class Sidebar extends Component {
 				const groupArrow = groupOpen ? faAngleDown : faAngleRight
 				const groupActive = groupPages.map(p => p.page).includes(this.props.page)
 				
-				const subLinks = groupPages.map( (p,i) => <Link href="/[id]" as={`/${p.page}`} key={"sublink_"+i}><MyToolTip text={p.description}><a className="collapse-item">{p.name}</a></MyToolTip></Link> )
+				const subLinks = groupPages.map( (p,i) => <Link href="/[id]" as={`/${p.page}`} key={"sublink_"+i}><a className={"collapse-item" + (p.page==this.props.page ? ' active' : '')}><MyToolTip text={p.description}><div>{p.name}</div></MyToolTip></a></Link> )
 				
-				const toggleFunc = (event,g) => {
-					var collapseOpen = {}
-					this.groups.forEach(g => { collapseOpen[g] = false } )
-					collapseOpen[g] = !this.state.collapseOpen[g]
-					
-					this.setState({collapseOpen: collapseOpen})
-					event.preventDefault()
-				}
 				
 				const tmpLink = <li className={groupActive ? "nav-item active" : "nav-item"} key={'link_'+j}>
-					<a className="nav-link" href="#" onClick={event => toggleFunc(event,groupName)} aria-controls="example-collapse-text"
+					<a className="nav-link" href="#" onClick={event => { this.toggleGroup(groupName); event.preventDefault() } } aria-controls="example-collapse-text"
         aria-expanded={false}>
 						<span className="icon" style={{marginRight: "0.25rem"}}>
 							<FontAwesomeIcon className="sideicon" icon={groupIcon} fixedWidth  />
