@@ -3,37 +3,44 @@
 		"name": "Forecasting & Modelling",
 		"page": "forecasting",
 		"icon": "faChartBar",
-		"group": "Epidemiology"
+		"group": "Epidemiology",
+		"description": "Research focussed on forecasting the spread or modelling the dynamics of the virus"
 	},
 	{
 		"name": "Disease Spread",
 		"page": "diseasespread",
-		"group": "Epidemiology"
+		"group": "Epidemiology",
+		"description": "Research examining examples of the spread of virus between communities or countries"
 	},
 	{
 		"name": "Transmission",
 		"page": "transmission",
-		"group": "Epidemiology"
+		"group": "Epidemiology",
+		"description": "Research studying the means of transmission of the virus"
 	},
 	{
 		"name": "Prevalence",
 		"page": "prevalence",
-		"group": "Epidemiology"
+		"group": "Epidemiology",
+		"description": "Research studying the level of infections in different communities"
 	},
 	{
 		"name": "Surveillance",
 		"page": "surveillance",
-		"group": "Epidemiology"
+		"group": "Epidemiology",
+		"description": "Research developing methods for surveillance of the disease spread"
 	},
 	{
 		"name": "Diagnostics",
 		"page": "diagnostics",
-		"group": "Epidemiology"
+		"group": "Epidemiology",
+		"description": "Research developing and testing methods to diagnose the virus"
 	},
 	{
 		"name": "Prevention",
 		"page": "prevention",
-		"group": "Epidemiology"
+		"group": "Epidemiology",
+		"description": "Research examining tools for slowing the spread of the virus (e.g. PPE)"
 	},
 	
 
@@ -41,37 +48,44 @@
 		"name": "Risk Factors",
 		"page": "riskfactors",
 		"icon": "faStethoscope",
-		"group": "Clinical"
+		"group": "Clinical",
+		"description": "Research examining risk factors for infection and severe symptoms"
 	},
 	{
 		"name": "Symptoms",
 		"page": "symptoms",
-		"group": "Clinical"
+		"group": "Clinical",
+		"description": "Research discussing the different symptoms of the virus"
 	},
 	{
 		"name": "Case Reports",
 		"page": "casereports",
-		"group": "Clinical"
+		"group": "Clinical",
+		"description": "Case reports of single or multiple patients discussing their clinical course"
 	},
 	{
 		"name": "Recommendations",
 		"page": "recommendations",
-		"group": "Clinical"
+		"group": "Clinical",
+		"description": "Recommendations for medical professionals"
 	},
 	{
 		"name": "Pediatrics",
 		"page": "pediatrics",
-		"group": "Clinical"
+		"group": "Clinical",
+		"description": "Research studying the effect of the virus on children"
 	},
 	{
 		"name": "Medical Disciplines",
 		"page": "medicaldisciplines",
-		"group": "Clinical"
+		"group": "Clinical",
+		"description": "Research focussing on the effect of the virus on a specific medical discipline"
 	},
 	{
 		"name": "Healthcare Workers",
 		"page": "healthcareworkers",
-		"group": "Clinical"
+		"group": "Clinical",
+		"description": "Research studying the effect of the virus on healthcare workers"
 	},
 	
 	
@@ -80,22 +94,26 @@
 		"name": "Molecular Biology",
 		"page": "molecularbiology",
 		"icon": "faDna",
-		"group": "Biology"
+		"group": "Biology",
+		"description": "Research studying the molecular biology of the virus or host"
 	},
 	{
 		"name": "Model Systems",
 		"page": "modelsystems",
-		"group": "Biology"
+		"group": "Biology",
+		"description": "Research proposing new model systems to study the virus"
 	},
 	{
 		"name": "Immunology",
 		"page": "immunology",
-		"group": "Biology"
+		"group": "Biology",
+		"description": "Research studying the interactions of the virus and the immune system"
 	},
 	{
 		"name": "Non-human",
 		"page": "nonhuman",
-		"group": "Biology"
+		"group": "Biology",
+		"description": "Research examining the effect of the virus in animals"
 	},
 	
 	
@@ -104,32 +122,38 @@
 		"name": "Drug Repurposing",
 		"page": "drugrepurposing",
 		"icon": "faPrescriptionBottleAlt",
-		"group": "Treatment"
+		"group": "Treatment",
+		"description": "Research studying the use of existing drugs for combating the virus"
 	},
 	{
 		"name": "Novel Therapeutics",
 		"page": "noveltherapeutics",
-		"group": "Treatment"
+		"group": "Treatment",
+		"description": "Research developing new drugs to treat the virus"
 	},
 	{
 		"name": "Vaccines",
 		"page": "vaccines",
-		"group": "Treatment"
+		"group": "Treatment",
+		"description": "Research examining the development of vaccines"
 	},
 	{
 		"name": "Drug Targets",
 		"page": "drugtargets",
-		"group": "Treatment"
+		"group": "Treatment",
+		"description": "TODO"
 	},
 	{
 		"name": "Clinical Trials",
 		"page": "clinicaltrials",
-		"group": "Treatment"
+		"group": "Treatment",
+		"description": "Registered clinical trials for treating the virus"
 	},
 	{
 		"name": "Non-therapeutics",
 		"page": "nontherapeutic_interventions",
-		"group": "Treatment"
+		"group": "Treatment",
+		"description": "Non-therapeutic interventions used to treat the virus"
 	},
 	
 	
@@ -137,7 +161,8 @@
 		"name": "Psychology",
 		"page": "psychology",
 		"icon": "faBrain",
-		"group": "Psychology"
+		"group": "Psychology",
+		"description": "Research studying the effect on patient and healthcare mental health and understanding of risk"
 	},
 	
 	
@@ -145,7 +170,8 @@
 		"name": "Reviews",
 		"page": "reviews",
 		"icon": "faPenFancy",
-		"group": "Reviews"
+		"group": "Reviews",
+		"description": "Review articles focussing on a variety of topics related to the virus"
 	},
 	
 	
@@ -153,16 +179,19 @@
 		"name": "Comments & Editorials",
 		"page": "comments_editorials",
 		"icon": "faRandom",
-		"group": "Other"
+		"group": "Other",
+		"description": "Commentary, editorials and other short articles that are not original research"
 	},
 	{
 		"name": "Updates",
 		"page": "updates",
-		"group": "Other"
+		"group": "Other",
+		"description": "Articles that provide an update on the current state of the pandemic in different countries"
 	},
 	{
 		"name": "Non-medical",
 		"page": "nonmedical",
-		"group": "Other"
+		"group": "Other",
+		"description": "Research examining the effect of the virus on other research areas (e.g. economics)"
 	}
 ]

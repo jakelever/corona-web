@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Collapse from 'react-bootstrap/Collapse';
+
+import MyToolTip from './MyToolTip'
+
 import Link from 'next/link'
 
 import pages from '../lib/pages.json'
@@ -97,16 +100,18 @@ export default class Sidebar extends Component {
 			
 			if (groupPages.length == 1) {
 				const p = groupPages[0]
-				const tmpLink = <li className={p.page==this.props.page ? "nav-item active" : "nav-item"} key={'link_'+j}>
-					<Link href="/[id]" as={`/${p.page}`}>
-						<a className="nav-link">
-							<span className="icon" style={{marginRight: "0.25rem"}}>
-								<FontAwesomeIcon className="sideicon" icon={iconMapping[p.icon]} fixedWidth  />
-							</span>
-							<span> {p.name}</span>
-						</a>
-					</Link>
-				</li>
+				const tmpLink = <MyToolTip text={p.description} key={'link_'+j}>
+					<li className={p.page==this.props.page ? "nav-item active" : "nav-item"}>
+						<Link href="/[id]" as={`/${p.page}`}>
+							<a className="nav-link">
+								<span className="icon" style={{marginRight: "0.25rem"}}>
+									<FontAwesomeIcon className="sideicon" icon={iconMapping[p.icon]} fixedWidth  />
+								</span>
+								<span> {p.name}</span>
+							</a>
+						</Link>
+					</li>
+				</MyToolTip>
 				links.push(tmpLink)
 			} else {
 				const groupIcon = iconMapping[groupPages[0].icon]
@@ -114,7 +119,7 @@ export default class Sidebar extends Component {
 				const groupArrow = groupOpen ? faAngleDown : faAngleRight
 				const groupActive = groupPages.map(p => p.page).includes(this.props.page)
 				
-				const subLinks = groupPages.map( (p,i) => <Link href="/[id]" as={`/${p.page}`} key={"sublink_"+i}><a className="collapse-item">{p.name}</a></Link> )
+				const subLinks = groupPages.map( (p,i) => <Link href="/[id]" as={`/${p.page}`} key={"sublink_"+i}><MyToolTip text={p.description}><a className="collapse-item">{p.name}</a></MyToolTip></Link> )
 				
 				const toggleFunc = (event,g) => {
 					var collapseOpen = {}
@@ -169,30 +174,34 @@ export default class Sidebar extends Component {
 		<hr className="sidebar-divider my-0" />
 
 		{/* Nav Item - Dashboard */}
-		<li className={this.props.page=='/' ? "nav-item active" : "nav-item"}>
-			<Link href="/index" as="/">
-				<a className="nav-link">
-					<span style={{marginRight: "0.25rem"}} >
-						<FontAwesomeIcon className="sideicon" icon={faTachometerAlt} fixedWidth />
-					</span>
-					<span> Dashboard</span>
-				</a>
-			</Link>
-		</li>
+		<MyToolTip text="Overview of the coronavirus literature">
+			<li className={this.props.page=='/' ? "nav-item active" : "nav-item"}>
+				<Link href="/index" as="/">
+					<a className="nav-link">
+						<span style={{marginRight: "0.25rem"}} >
+							<FontAwesomeIcon className="sideicon" icon={faTachometerAlt} fixedWidth />
+						</span>
+						<span> Dashboard</span>
+					</a>
+				</Link>
+			</li>
+		</MyToolTip>
 
 		{/* Divider */}
 		<hr className="sidebar-divider my-0" />
 		
-		<li className={this.props.page=='/trending' ? "nav-item active" : "nav-item"}>
-			<Link href="/trending" as="/trending">
-				<a className="nav-link">
-					<span style={{marginRight: "0.25rem"}}>
-						<FontAwesomeIcon className="sideicon" icon={faChartLine} fixedWidth  />
-					</span>
-					<span> Trending</span>
-				</a>
-			</Link>
-		</li>
+		<MyToolTip text="Recent articles that are receiving attention in the media and social media">
+			<li className={this.props.page=='/trending' ? "nav-item active" : "nav-item"}>
+				<Link href="/trending" as="/trending">
+					<a className="nav-link">
+						<span style={{marginRight: "0.25rem"}}>
+							<FontAwesomeIcon className="sideicon" icon={faChartLine} fixedWidth  />
+						</span>
+						<span> Trending</span>
+					</a>
+				</Link>
+			</li>
+		</MyToolTip>
 		
 		<hr className="sidebar-divider my-0" />
 		
@@ -201,28 +210,31 @@ export default class Sidebar extends Component {
 		{/* Divider */}
 		<hr className="sidebar-divider d-none d-md-block my-0" />
 		
+		<MyToolTip text="Frequently asked questions">
+			<li className={this.props.page=='/faqs' ? "nav-item active" : "nav-item"}>
+				<Link href="/faqs" as="/faqs">
+					<a className="nav-link">
+						<span style={{marginRight: "0.25rem"}}>
+							<FontAwesomeIcon className="sideicon" icon={faQuestionCircle} fixedWidth  />
+						</span>
+						<span> FAQs</span>
+					</a>
+				</Link>
+			</li>
+		</MyToolTip>
 		
-		<li className={this.props.page=='/faqs' ? "nav-item active" : "nav-item"}>
-			<Link href="/faqs" as="/faqs">
-				<a className="nav-link">
-					<span style={{marginRight: "0.25rem"}}>
-						<FontAwesomeIcon className="sideicon" icon={faQuestionCircle} fixedWidth  />
-					</span>
-					<span> FAQs</span>
-				</a>
-			</Link>
-		</li>
-		
-		<li className={this.props.page=='/about' ? "nav-item active" : "nav-item"}>
-			<Link href="/about" as="/about">
-				<a className="nav-link">
-					<span style={{marginRight: "0.25rem"}}>
-						<FontAwesomeIcon className="sideicon" icon={faAddressCard} fixedWidth  />
-					</span>
-					<span> About</span>
-				</a>
-			</Link>
-		</li>
+		<MyToolTip text="Background of this research project">
+			<li className={this.props.page=='/about' ? "nav-item active" : "nav-item"}>
+				<Link href="/about" as="/about">
+					<a className="nav-link">
+						<span style={{marginRight: "0.25rem"}}>
+							<FontAwesomeIcon className="sideicon" icon={faAddressCard} fixedWidth  />
+						</span>
+						<span> About</span>
+					</a>
+				</Link>
+			</li>
+		</MyToolTip>
 
 
 		{/* Sidebar Toggler (Sidebar) */}
