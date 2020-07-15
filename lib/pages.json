@@ -10,19 +10,44 @@
 		"name": "Disease Spread",
 		"page": "diseasespread",
 		"group": "Epidemiology",
-		"description": "Research examining examples of the spread of virus between communities or countries"
+		"description": "Research examining examples of the spread of virus between communities or countries",
+		"extra_table_columns": [
+			{
+				"header": "Location",
+				"selector": "entities:location"
+			}
+		],
+		"chart_entity": "location"
 	},
 	{
 		"name": "Transmission",
 		"page": "transmission",
 		"group": "Epidemiology",
-		"description": "Research studying the means of transmission of the virus"
+		"description": "Research studying the means of transmission of the virus",
+		"extra_table_columns": [
+			{
+				"header": "Type",
+				"selector": "entities:transmission_type"
+			}
+		],
+		"chart_entity": "transmission_type"
 	},
 	{
 		"name": "Prevalence",
 		"page": "prevalence",
 		"group": "Epidemiology",
-		"description": "Research studying the level of infections in different communities"
+		"description": "Research studying the level of infections in different communities",
+		"extra_table_columns": [
+			{
+				"header": "Location",
+				"selector": "entities:location"
+			},
+			{
+				"header": "Test Type",
+				"selector": "entities:test_type"
+			}
+		],
+		"chart_entity": "prevalence_test_type"
 	},
 	{
 		"name": "Surveillance",
@@ -34,13 +59,33 @@
 		"name": "Diagnostics",
 		"page": "diagnostics",
 		"group": "Epidemiology",
-		"description": "Research developing and testing methods to diagnose the virus"
+		"description": "Research developing and testing methods to diagnose the virus",
+		"extra_table_columns": [
+			{
+				"header": "Test Type",
+				"selector": "entities:test_type"
+			}
+		],
+		"chart_entity": "test_type"
 	},
 	{
 		"name": "Prevention",
 		"page": "prevention",
 		"group": "Epidemiology",
-		"description": "Research examining tools for slowing the spread of the virus (e.g. PPE)"
+		"description": "Research examining tools for slowing the spread of the virus (e.g. PPE)",
+		"extra_table_columns": [
+			{
+				"header": "Prevention Method",
+				"selector": "entities:prevention_method"
+			}
+		],
+		"chart_entity": "prevention_method"
+	},
+	{
+		"name": "Preparedness",
+		"page": "preparedness",
+		"group": "Epidemiology",
+		"description": "Research on strategies for a country, healthcare system or hospital to prepare for a pandemic"
 	},
 	
 
@@ -49,19 +94,40 @@
 		"page": "riskfactors",
 		"icon": "faStethoscope",
 		"group": "Clinical",
-		"description": "Research examining risk factors for infection and severe symptoms"
+		"description": "Research examining risk factors for infection and severe symptoms",
+		"extra_table_columns": [
+			{
+				"header": "Risk Factor",
+				"selector": "entities:risk_factor"
+			}
+		],
+		"chart_entity": "risk_factor"
 	},
 	{
 		"name": "Symptoms",
 		"page": "symptoms",
 		"group": "Clinical",
-		"description": "Research discussing the different symptoms of the virus"
+		"description": "Research discussing the different symptoms of the virus",
+		"extra_table_columns": [
+			{
+				"header": "Symptom",
+				"selector": "entities:symptom"
+			}
+		],
+		"chart_entity": "symptom"
 	},
 	{
 		"name": "Case Reports",
 		"page": "casereports",
 		"group": "Clinical",
-		"description": "Case reports of single or multiple patients discussing their clinical course"
+		"description": "Case reports of single or multiple patients discussing their clinical course",
+		"extra_table_columns": [
+			{
+				"header": "Location",
+				"selector": "entities:location"
+			}
+		],
+		"chart_entity": "location"
 	},
 	{
 		"name": "Recommendations",
@@ -79,7 +145,14 @@
 		"name": "Medical Disciplines",
 		"page": "medicaldisciplines",
 		"group": "Clinical",
-		"description": "Research focussing on the effect of the virus on a specific medical discipline"
+		"description": "Research focussing on the effect of the virus on a specific medical discipline",
+		"extra_table_columns": [
+			{
+				"header": "Medical Discipline",
+				"selector": "entities:medical_discipline"
+			}
+		],
+		"chart_entity": "medical_discipline"
 	},
 	{
 		"name": "Healthcare Workers",
@@ -95,13 +168,27 @@
 		"page": "molecularbiology",
 		"icon": "faDna",
 		"group": "Biology",
-		"description": "Research studying the molecular biology of the virus or host"
+		"description": "Research studying the molecular biology of the virus or host",
+		"extra_table_columns": [
+			{
+				"header": "Gene/Protein",
+				"selector": "entities:gene_protein"
+			}
+		],
+		"chart_entity": "gene_protein"
 	},
 	{
 		"name": "Model Systems",
 		"page": "modelsystems",
 		"group": "Biology",
-		"description": "Research proposing new model systems to study the virus"
+		"description": "Research proposing new model systems to study the virus",
+		"extra_table_columns": [
+			{
+				"header": "Model System",
+				"selector": "entities:model_system"
+			}
+		],
+		"chart_entity": "model_system"
 	},
 	{
 		"name": "Immunology",
@@ -113,7 +200,14 @@
 		"name": "Non-human",
 		"page": "nonhuman",
 		"group": "Biology",
-		"description": "Research examining the effect of the virus in animals"
+		"description": "Research examining the effect of the virus in animals",
+		"extra_table_columns": [
+			{
+				"header": "Species",
+				"selector": "entities:species"
+			}
+		],
+		"chart_entity": "species"
 	},
 	
 	
@@ -123,19 +217,40 @@
 		"page": "drugrepurposing",
 		"icon": "faPrescriptionBottleAlt",
 		"group": "Treatment",
-		"description": "Research studying the use of existing drugs for combating the virus"
+		"description": "Research studying the use of existing drugs for combating the virus",
+		"extra_table_columns": [
+			{
+				"header": "Drug",
+				"selector": "entities:drug"
+			}
+		],
+		"chart_entity": "Drug"
 	},
 	{
 		"name": "Novel Therapeutics",
 		"page": "noveltherapeutics",
 		"group": "Treatment",
-		"description": "Research developing new drugs to treat the virus"
+		"description": "Research developing new drugs to treat the virus",
+		"extra_table_columns": [
+			{
+				"header": "Chemical",
+				"selector": "entities:chemical"
+			}
+		],
+		"chart_entity": "Chemical"
 	},
 	{
 		"name": "Vaccines",
 		"page": "vaccines",
 		"group": "Treatment",
-		"description": "Research examining the development of vaccines"
+		"description": "Research examining the development of vaccines",
+		"extra_table_columns": [
+			{
+				"header": "Vaccine Type",
+				"selector": "entities:vaccine_type"
+			}
+		],
+		"chart_entity": "vaccine_type"
 	},
 	{
 		"name": "Drug Targets",
@@ -147,7 +262,14 @@
 		"name": "Clinical Trials",
 		"page": "clinicaltrials",
 		"group": "Treatment",
-		"description": "Registered clinical trials for treating the virus"
+		"description": "Registered clinical trials for treating the virus",
+		"extra_table_columns": [
+			{
+				"header": "Drug",
+				"selector": "entities:drug"
+			}
+		],
+		"chart_entity": "Drug"
 	},
 	{
 		"name": "Non-therapeutics",
