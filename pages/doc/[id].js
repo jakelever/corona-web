@@ -57,8 +57,6 @@ export default class DocPage extends Component {
 			entityGroups[entityType] = combined
 		} )
 		
-		console.log(this.props.doc)
-		
 		const showEntities = true
 		var titleText, abstractText
 		if (showEntities) {
