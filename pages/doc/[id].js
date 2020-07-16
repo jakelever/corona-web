@@ -57,11 +57,19 @@ export default class DocPage extends Component {
 			entityGroups[entityType] = combined
 		} )
 		
-		const titleText = <TextWithEntities text={this.props.doc.title} entities={this.props.doc.entities} isTitle={true} />
+		console.log(this.props.doc)
 		
-		const abstractText = this.props.doc.abstract ? <TextWithEntities text={this.props.doc.abstract} entities={this.props.doc.entities} isTitle={false} /> : <span style={{fontStyle: "italic"}}>No abstract associated with this document</span>
+		const showEntities = true
+		var titleText, abstractText
+		if (showEntities) {
+			titleText = <TextWithEntities text={this.props.doc.title} entities={this.props.doc.entities} isTitle={true} />
+			abstractText = this.props.doc.abstract ? <TextWithEntities text={this.props.doc.abstract} entities={this.props.doc.entities} isTitle={false} /> : <span style={{fontStyle: "italic"}}>No abstract associated with this document</span>
+		} else {
+			titleText = this.props.doc.title
+			abstractText = this.props.doc.abstract
+		}
 		
-		var altmetricBadge = {}
+		var altmetricBadge = <></>
 		if (this.props.doc.altmetric_id != -1) {
 			
 			const badgeURL = "https://badges.altmetric.com/?size=100&score=" + this.props.doc.altmetric_score + "&types=" + this.props.doc.altmetric_badgetype
