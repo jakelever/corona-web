@@ -216,6 +216,15 @@ export async function getStaticProps({ params }) {
 
 export default function Home(props) {
 	
+	const lineoptions = { 
+		maintainAspectRatio: false, 
+		scales: {		
+			yAxes: [{
+				//type: 'logarithmic'
+			}]
+		} 
+	}
+	
 	return (
 		<Layout title="Dashboard" page="/" showVirusSelector>
 
@@ -286,7 +295,7 @@ export default function Home(props) {
 										labels: props.virusByYearsPlotData.labels,
 										datasets: props.virusByYearsPlotData.datasets
 									}}
-									options={{ maintainAspectRatio: false }}
+									options={lineoptions}
 								/>
 							</div>
 						</div>
