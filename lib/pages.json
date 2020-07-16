@@ -14,10 +14,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Location",
-				"selector": "entities:location"
+				"selector": "entities:Location"
 			}
 		],
-		"chart_entity": "location"
+		"chart_entity": "Location"
 	},
 	{
 		"name": "Transmission",
@@ -27,10 +27,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Type",
-				"selector": "entities:transmission_type"
+				"selector": "entities:Transmission Type"
 			}
 		],
-		"chart_entity": "transmission_type"
+		"chart_entity": "Transmission Type"
 	},
 	{
 		"name": "Prevalence",
@@ -40,14 +40,14 @@
 		"extra_table_columns": [
 			{
 				"header": "Location",
-				"selector": "entities:location"
+				"selector": "entities:Location"
 			},
 			{
 				"header": "Test Type",
-				"selector": "entities:test_type"
+				"selector": "entities:Test Type"
 			}
 		],
-		"chart_entity": "location"
+		"chart_entity": "Location"
 	},
 	{
 		"name": "Surveillance",
@@ -63,10 +63,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Test Type",
-				"selector": "entities:test_type"
+				"selector": "entities:Test Type"
 			}
 		],
-		"chart_entity": "test_type"
+		"chart_entity": "Test Type"
 	},
 	{
 		"name": "Prevention",
@@ -76,10 +76,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Prevention Method",
-				"selector": "entities:prevention_method"
+				"selector": "entities:Prevention Method"
 			}
 		],
-		"chart_entity": "prevention_method"
+		"chart_entity": "Prevention Method"
 	},
 	{
 		"name": "Preparedness",
@@ -98,10 +98,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Risk Factor",
-				"selector": "entities:risk_factor"
+				"selector": "entities:Risk Factor"
 			}
 		],
-		"chart_entity": "risk_factor"
+		"chart_entity": "Risk Factor"
 	},
 	{
 		"name": "Symptoms",
@@ -111,10 +111,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Symptom",
-				"selector": "entities:symptom"
+				"selector": "entities:Symptom"
 			}
 		],
-		"chart_entity": "symptom"
+		"chart_entity": "Symptom"
 	},
 	{
 		"name": "Case Reports",
@@ -124,10 +124,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Location",
-				"selector": "entities:location"
+				"selector": "entities:Location"
 			}
 		],
-		"chart_entity": "location"
+		"chart_entity": "Location"
 	},
 	{
 		"name": "Recommendations",
@@ -149,10 +149,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Medical Discipline",
-				"selector": "entities:medical_discipline"
+				"selector": "entities:Medical Discipline"
 			}
 		],
-		"chart_entity": "medical_discipline"
+		"chart_entity": "Medical Discipline"
 	},
 	{
 		"name": "Healthcare Workers",
@@ -172,10 +172,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Gene/Protein",
-				"selector": "entities:gene_or_protein"
+				"selector": "entities:Gene or Protein"
 			}
 		],
-		"chart_entity": "gene_or_protein"
+		"chart_entity": "Gene or Protein"
 	},
 	{
 		"name": "Model Systems",
@@ -185,10 +185,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Model System",
-				"selector": "entities:model_system"
+				"selector": "entities:Model System"
 			}
 		],
-		"chart_entity": "model_system"
+		"chart_entity": "Model System"
 	},
 	{
 		"name": "Immunology",
@@ -204,10 +204,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Species",
-				"selector": "entities:species"
+				"selector": "entities:Species"
 			}
 		],
-		"chart_entity": "species"
+		"chart_entity": "Species"
 	},
 	
 	
@@ -221,7 +221,7 @@
 		"extra_table_columns": [
 			{
 				"header": "Drug",
-				"selector": "entities:drug"
+				"selector": "entities:Drug"
 			}
 		],
 		"chart_entity": "Drug"
@@ -234,7 +234,7 @@
 		"extra_table_columns": [
 			{
 				"header": "Chemical",
-				"selector": "entities:chemical"
+				"selector": "entities:Chemical"
 			}
 		],
 		"chart_entity": "Chemical"
@@ -247,10 +247,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Vaccine Type",
-				"selector": "entities:vaccine_type"
+				"selector": "entities:Vaccine Type"
 			}
 		],
-		"chart_entity": "vaccine_type"
+		"chart_entity": "Vaccine Type"
 	},
 	{
 		"name": "Drug Targets",
@@ -266,7 +266,7 @@
 		"extra_table_columns": [
 			{
 				"header": "Drug",
-				"selector": "entities:drug"
+				"selector": "entities:Drug"
 			}
 		],
 		"chart_entity": "Drug"
