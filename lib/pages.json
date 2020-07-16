@@ -47,7 +47,7 @@
 				"selector": "entities:test_type"
 			}
 		],
-		"chart_entity": "prevalence_test_type"
+		"chart_entity": "location"
 	},
 	{
 		"name": "Surveillance",
@@ -172,10 +172,10 @@
 		"extra_table_columns": [
 			{
 				"header": "Gene/Protein",
-				"selector": "entities:gene_protein"
+				"selector": "entities:gene_or_protein"
 			}
 		],
-		"chart_entity": "gene_protein"
+		"chart_entity": "gene_or_protein"
 	},
 	{
 		"name": "Model Systems",
