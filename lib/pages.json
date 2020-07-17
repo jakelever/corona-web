@@ -10,7 +10,7 @@
 		"name": "Disease Spread",
 		"page": "diseasespread",
 		"group": "Epidemiology",
-		"description": "Research examining examples of the spread of virus between communities or countries",
+		"description": "Research documenting cases of virus spread through and between communities or countries",
 		"extra_table_columns": [
 			{
 				"header": "Location",
@@ -160,6 +160,12 @@
 		"group": "Clinical",
 		"description": "Research studying the effect of the virus on healthcare workers"
 	},
+	{
+		"name": "Imaging",
+		"page": "imaging",
+		"group": "Clinical",
+		"description": "Research documenting CT and other scans of patients"
+	},
 	
 	
 	
@@ -178,10 +184,10 @@
 		"chart_entity": "Gene or Protein"
 	},
 	{
-		"name": "Model Systems",
+		"name": "Model Systems & Tools",
 		"page": "modelsystems",
 		"group": "Biology",
-		"description": "Research proposing new model systems to study the virus",
+		"description": "Research proposing new model systems, tools and assays to study the virus",
 		"extra_table_columns": [
 			{
 				"header": "Model System",
