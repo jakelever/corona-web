@@ -2,8 +2,8 @@ import Layout from '../components/Layout.js'
 
 import { Doughnut, Line } from 'react-chartjs-2';
 
-const db = require('../lib/db')
-const escape = require('sql-template-strings')
+//const db = require('../lib/db')
+//const escape = require('sql-template-strings')
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,7 +20,7 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-async function getSummaryStatistics() {
+/*async function getSummaryStatistics() {
 	var result = await db.query(escape`
 
 	SELECT COUNT(*) as count 
@@ -115,7 +115,7 @@ async function getVirusCounts() {
 	counts = counts.map(r => Object.assign({},r))
 	
 	return Object.values(counts)
-}
+}*/
 
 
 function chartifyEntityYearData(data) {
@@ -177,7 +177,7 @@ function reorderDatasets(data, reordering) {
 
 
 export async function getStaticProps({ params }) {
-	const virusCounts = await getVirusCounts()
+	/*const virusCounts = await getVirusCounts()
 	const virusByYears = await getVirusByYears()
 	const journalCounts = await getJournalCounts()
 	const summaryStatistics = await getSummaryStatistics()
@@ -201,14 +201,15 @@ export async function getStaticProps({ params }) {
 	var virusCountsPlotData = { 
 		labels: labels,
 		datasets: datasets
-	}
+	}*/
 	
+	const summaryStatistics = {allDocCount:15, lastWeekDocCount:10, topicCount:1}
 	
 	return {
 		props: {
-			virusCountsPlotData,
+			/*virusCountsPlotData,
 			virusByYearsPlotData,
-			journalCounts,
+			journalCounts,*/
 			summaryStatistics
 		}
 	}
@@ -220,7 +221,7 @@ export default function Home(props) {
 		maintainAspectRatio: false, 
 		scales: {		
 			yAxes: [{
-				//type: 'logarithmic'
+				type: 'logarithmic'
 			}]
 		} 
 	}
@@ -290,13 +291,13 @@ export default function Home(props) {
 									options={{ maintainAspectRatio: false, legend: false }}
 							/>*/}
 							
-								<Line
+							{/*<Line
 									data={{
 										labels: props.virusByYearsPlotData.labels,
 										datasets: props.virusByYearsPlotData.datasets
 									}}
 									options={lineoptions}
-								/>
+							/>*/}
 							</div>
 						</div>
 					</div>
@@ -415,13 +416,13 @@ export default function Home(props) {
 						<div className="card-body">
 							<div className="chart-pie pt-4 pb-2">
 								
-								<Doughnut
+								{/*<Doughnut
 									data={{
 										labels: props.virusCountsPlotData.labels,
 										datasets: props.virusCountsPlotData.datasets
 									}}
 									options={{ maintainAspectRatio: false, legend: false, cutoutPercentage: 70 }}
-								/>
+								/>*/}
 							</div>
 						</div>
 					</div>
