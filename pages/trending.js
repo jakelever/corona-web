@@ -45,7 +45,7 @@ export default class Page extends Component {
 		if (this.state.viruses.length == 0)
 			return true;
 		
-		var row_viruses = row['entities'].filter(e => e['type'] == 'virus').map(e => e['name']);
+		var row_viruses = row['entities'].filter(e => e['type'] == 'Virus').map(e => e['name']);
 		var overlap = this.state.viruses.filter(v => row_viruses.includes(v))
 		return overlap.length > 0
 	}
@@ -70,7 +70,7 @@ export default class Page extends Component {
 	render() {
 		
 		var columns = [
-				{ "header":"Virus", "selector":"entities:virus" },
+				{ "header":"Virus", "selector":"entities:Virus" },
 				{ "header":"Journal", "selector":"journal" },
 				{ "header":"Date", "selector":"publish_date", "width":"10%" },
 				{ "header":"Title", "selector":"title", linkInternal: true }
