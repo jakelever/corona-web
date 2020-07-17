@@ -16,8 +16,7 @@
 				"header": "Location",
 				"selector": "entities:Location"
 			}
-		],
-		"chart_entity": "Location"
+		]
 	},
 	{
 		"name": "Transmission",
@@ -29,8 +28,7 @@
 				"header": "Type",
 				"selector": "entities:Transmission Type"
 			}
-		],
-		"chart_entity": "Transmission Type"
+		]
 	},
 	{
 		"name": "Prevalence",
@@ -46,8 +44,7 @@
 				"header": "Test Type",
 				"selector": "entities:Test Type"
 			}
-		],
-		"chart_entity": "Location"
+		]
 	},
 	{
 		"name": "Surveillance",
@@ -65,8 +62,7 @@
 				"header": "Test Type",
 				"selector": "entities:Test Type"
 			}
-		],
-		"chart_entity": "Test Type"
+		]
 	},
 	{
 		"name": "Prevention",
@@ -78,15 +74,14 @@
 				"header": "Prevention Method",
 				"selector": "entities:Prevention Method"
 			}
-		],
-		"chart_entity": "Prevention Method"
+		]
 	},
 	{
 		"name": "Preparedness",
 		"page": "preparedness",
 		"group": "Epidemiology",
 		"description": "Research on strategies for a country, healthcare system or hospital to prepare for a pandemic"
-	},
+	}
 	
 	
 ]
