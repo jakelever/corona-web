@@ -1,2 +1,8 @@
 [
+	{
+		"name": "Clinical Trials",
+		"page": "clinicaltrials",
+		"icon": "faPrescriptionBottleAlt",
+		"description": "Registered clinical trials for treating the virus"
+	}
 ]
