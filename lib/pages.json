@@ -1,15 +1,92 @@
 [
 	{
-		"name": "Clinical Trials",
-		"page": "clinicaltrials",
-		"icon": "faPrescriptionBottleAlt",
-		"description": "Registered clinical trials for treating the virus"
+		"name": "Forecasting & Modelling",
+		"page": "forecasting",
+		"icon": "faChartBar",
+		"group": "Epidemiology",
+		"description": "Research focussed on forecasting the spread or modelling the dynamics of the virus"
 	},
 	{
-		"name": "Psychology",
-		"page": "psychology",
-		"icon": "faBrain",
-		"group": "Psychology",
-		"description": "Research studying the effect on patient and healthcare mental health and understanding of risk"
-	}
+		"name": "Disease Spread",
+		"page": "diseasespread",
+		"group": "Epidemiology",
+		"description": "Research documenting cases of virus spread through and between communities or countries",
+		"extra_table_columns": [
+			{
+				"header": "Location",
+				"selector": "entities:Location"
+			}
+		],
+		"chart_entity": "Location"
+	},
+	{
+		"name": "Transmission",
+		"page": "transmission",
+		"group": "Epidemiology",
+		"description": "Research studying the means of transmission of the virus",
+		"extra_table_columns": [
+			{
+				"header": "Type",
+				"selector": "entities:Transmission Type"
+			}
+		],
+		"chart_entity": "Transmission Type"
+	},
+	{
+		"name": "Prevalence",
+		"page": "prevalence",
+		"group": "Epidemiology",
+		"description": "Research studying the level of infections in different communities",
+		"extra_table_columns": [
+			{
+				"header": "Location",
+				"selector": "entities:Location"
+			},
+			{
+				"header": "Test Type",
+				"selector": "entities:Test Type"
+			}
+		],
+		"chart_entity": "Location"
+	},
+	{
+		"name": "Surveillance",
+		"page": "surveillance",
+		"group": "Epidemiology",
+		"description": "Research developing methods for surveillance of the disease spread"
+	},
+	{
+		"name": "Diagnostics",
+		"page": "diagnostics",
+		"group": "Epidemiology",
+		"description": "Research developing and testing methods to diagnose the virus",
+		"extra_table_columns": [
+			{
+				"header": "Test Type",
+				"selector": "entities:Test Type"
+			}
+		],
+		"chart_entity": "Test Type"
+	},
+	{
+		"name": "Prevention",
+		"page": "prevention",
+		"group": "Epidemiology",
+		"description": "Research examining tools for slowing the spread of the virus (e.g. PPE)",
+		"extra_table_columns": [
+			{
+				"header": "Prevention Method",
+				"selector": "entities:Prevention Method"
+			}
+		],
+		"chart_entity": "Prevention Method"
+	},
+	{
+		"name": "Preparedness",
+		"page": "preparedness",
+		"group": "Epidemiology",
+		"description": "Research on strategies for a country, healthcare system or hospital to prepare for a pandemic"
+	},
+	
+	
 ]
