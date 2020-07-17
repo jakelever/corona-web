@@ -4,7 +4,7 @@ import Layout from '../components/Layout.js'
 import dynamic from 'next/dynamic'
 
 const DynamicComponentWithNoSSR = dynamic(
-  () => import('../components/map'),
+  () => import('../components/Map'),
   { ssr: false }
 )
 
