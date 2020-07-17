@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import Router from 'next/router';
+
+import Spinner from 'react-bootstrap/Spinner'
+
 import Head from 'next/head'
 import Sidebar from '../components/Sidebar.js'
 import Topbar from '../components/Topbar.js'
@@ -6,6 +10,29 @@ import Topbar from '../components/Topbar.js'
 import { initGA, logPageView } from '../lib/analytics.js'
 
 export default class Layout extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			loading: false
+			}
+		
+		Router.onRouteChangeStart = (url) => {
+			// Some page has started loading
+			this.setState({loading: true}) // set state to pass to loader prop
+			//console.log('onRouteChangeStart')
+		};
+
+		Router.onRouteChangeComplete = (url) => {
+			// Some page has finished loading
+			this.setState({loading: false}) // set state to pass to loader prop
+			//console.log('onRouteChangeComplete')
+		};
+
+		Router.onRouteChangeError = (err, url) => {
+			// an error occurred.
+			// some error logic
+		}; 
+	}
 	
 	componentDidMount () {
 		if (!window.GA_INITIALIZED) {
@@ -25,6 +52,15 @@ export default class Layout extends Component {
 	
 	render() {
 		const projectName = "CoronaHub"
+		/*const loading = <Spinner animation="border" role="status">
+							  <span className="sr-only">Loading...</span>
+							</Spinner>*/
+						
+		const loading = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+					<Spinner animation="border" role="status" style={{width: "3rem", height: "3rem"}}>
+						<span className="sr-only">Loading...</span>
+					</Spinner>
+				</div>
 		
 		return (
 			<div id="wrapper">
@@ -46,7 +82,7 @@ export default class Layout extends Component {
 
 						{/* Begin Page Content */}
 						<div className="container-fluid">
-							{this.props.children}
+							{this.state.loading ? loading : this.props.children}
 						</div>
 						{/* /.container-fluid */}
 						
