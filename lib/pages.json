@@ -4,5 +4,12 @@
 		"page": "clinicaltrials",
 		"icon": "faPrescriptionBottleAlt",
 		"description": "Registered clinical trials for treating the virus"
+	},
+	{
+		"name": "Psychology",
+		"page": "psychology",
+		"icon": "faBrain",
+		"group": "Psychology",
+		"description": "Research studying the effect on patient and healthcare mental health and understanding of risk"
 	}
 ]
