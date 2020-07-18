@@ -58,7 +58,7 @@ export default class DocPage extends Component {
 			entityGroups[entityType] = combined
 		} )
 		
-		const showEntities = true
+		const showEntities = false
 		var titleText, abstractText
 		if (showEntities) {
 			titleText = <TextWithEntities text={this.props.doc.title} entities={this.props.doc.entities} isTitle={true} />
