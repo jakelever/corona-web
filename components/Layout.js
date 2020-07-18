@@ -7,30 +7,35 @@ import Head from 'next/head'
 import Sidebar from '../components/Sidebar.js'
 import Topbar from '../components/Topbar.js'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBomb } from '@fortawesome/free-solid-svg-icons'
+
 import { initGA, logPageView } from '../lib/analytics.js'
 
 export default class Layout extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			loading: false
+			loading: false,
+			error: false
 			}
 		
 		Router.onRouteChangeStart = (url) => {
 			// Some page has started loading
-			this.setState({loading: true}) // set state to pass to loader prop
+			this.setState({loading: true, error:false}) // set state to pass to loader prop
 			//console.log('onRouteChangeStart')
 		};
 
 		Router.onRouteChangeComplete = (url) => {
 			// Some page has finished loading
-			this.setState({loading: false}) // set state to pass to loader prop
+			this.setState({loading: false, error:false}) // set state to pass to loader prop
 			//console.log('onRouteChangeComplete')
 		};
 
 		Router.onRouteChangeError = (err, url) => {
 			// an error occurred.
 			// some error logic
+			this.setState({loading: false, error:true})
 		}; 
 	}
 	
@@ -55,12 +60,24 @@ export default class Layout extends Component {
 		/*const loading = <Spinner animation="border" role="status">
 							  <span className="sr-only">Loading...</span>
 							</Spinner>*/
-						
-		const loading = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+							
+		var content;
+		if (this.state.error) {
+			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+					<div style={{textAlign:"center"}}>
+					<p><FontAwesomeIcon icon={faBomb} style={{fontSize:"5em"}}/></p>
+					<p>An error has occurred!</p>
+					</div>
+				</div>
+		} else if (this.state.loading) {
+			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
 					<Spinner animation="border" role="status" style={{width: "3rem", height: "3rem"}}>
 						<span className="sr-only">Loading...</span>
 					</Spinner>
 				</div>
+		} else {
+			content = this.props.children
+		}
 		
 		return (
 			<div id="wrapper">
@@ -82,7 +99,7 @@ export default class Layout extends Component {
 
 						{/* Begin Page Content */}
 						<div className="container-fluid">
-							{this.state.loading ? loading : this.props.children}
+							{content}
 						</div>
 						{/* /.container-fluid */}
 						
