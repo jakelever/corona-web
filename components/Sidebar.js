@@ -228,18 +228,6 @@ export default class Sidebar extends Component {
 			</li>
 		</MyToolTip>
 		
-		<MyToolTip text="Background of this research project">
-			<li className={this.props.page=='/about' ? "nav-item active" : "nav-item"}>
-				<Link href="/about" as="/about">
-					<a className="nav-link">
-						<span style={{marginRight: "0.25rem"}}>
-							<FontAwesomeIcon className="sideicon" icon={faAddressCard} fixedWidth  />
-						</span>
-						<span> About</span>
-					</a>
-				</Link>
-			</li>
-		</MyToolTip>
 
 
 		{/* Sidebar Toggler (Sidebar) */}
