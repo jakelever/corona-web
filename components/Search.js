@@ -80,7 +80,7 @@ export default class Search extends Component {
 					onSearch={this.search}
 					onChange={this.onChange}
 					options={this.state.options}
-					placeholder="Search by a drug, gene, place or for a specific paper"
+					placeholder="Search for a drug, gene, location, etc"
 				  />
 				
 				<div className="input-group-append">
