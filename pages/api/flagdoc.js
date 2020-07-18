@@ -10,8 +10,8 @@ const emailPassword = emailSettings.split(':')[1]
 export default (req, res) => {
 	res.statusCode = 200
 	res.end(JSON.stringify(['Okay']))
-	console.log(req.method)
-	console.log(req.body)
+	//console.log(req.method)
+	//console.log(req.body)
 
 	var transporter = nodemailer.createTransport({
 	  service: 'gmail',
@@ -32,7 +32,7 @@ export default (req, res) => {
 		if (error) {
 			console.log(error);
 		} else {
-			console.log('Email sent: ' + info.response);
+			//console.log('Email sent: ' + info.response);
 		}
 	}); 
 }

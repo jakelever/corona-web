@@ -90,7 +90,7 @@ export default class FlagModal extends Component {
 					<div className="form-group row">
 						<label htmlFor="issue" className="col-sm-2 col-form-label">Issue</label>
 						<div className="col-sm-10">
-							<textarea className="form-control" id="issue" rows="3" required value={this.state.textvalue} onChange={this.handleChange} />
+							<textarea className="form-control" id="issue" rows="3" required value={this.state.textvalue} onChange={this.handleChange}  disabled={this.state.submit_state!=states.ACTIVE} />
 						</div>
 					</div>
 				
