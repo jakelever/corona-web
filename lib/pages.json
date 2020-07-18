@@ -81,6 +81,81 @@
 		"page": "preparedness",
 		"group": "Epidemiology",
 		"description": "Research on strategies for a country, healthcare system or hospital to prepare for a pandemic"
+	},
+	
+	
+	{
+		"name": "Risk Factors",
+		"page": "riskfactors",
+		"icon": "faStethoscope",
+		"group": "Clinical",
+		"description": "Research examining risk factors for infection and severe symptoms",
+		"extra_table_columns": [
+			{
+				"header": "Risk Factor",
+				"selector": "entities:Risk Factor"
+			}
+		]
+	},
+	{
+		"name": "Symptoms",
+		"page": "symptoms",
+		"group": "Clinical",
+		"description": "Research discussing the different symptoms of the virus",
+		"extra_table_columns": [
+			{
+				"header": "Symptom",
+				"selector": "entities:Symptom"
+			}
+		]
+	},
+	{
+		"name": "Case Reports",
+		"page": "casereports",
+		"group": "Clinical",
+		"description": "Case reports of single or multiple patients discussing their clinical course",
+		"extra_table_columns": [
+			{
+				"header": "Location",
+				"selector": "entities:Location"
+			}
+		]
+	},
+	{
+		"name": "Recommendations",
+		"page": "recommendations",
+		"group": "Clinical",
+		"description": "Recommendations for medical professionals"
+	},
+	{
+		"name": "Pediatrics",
+		"page": "pediatrics",
+		"group": "Clinical",
+		"description": "Research studying the effect of the virus on children"
+	},
+	{
+		"name": "Medical Disciplines",
+		"page": "medicaldisciplines",
+		"group": "Clinical",
+		"description": "Research focussing on the effect of the virus on a specific medical discipline",
+		"extra_table_columns": [
+			{
+				"header": "Medical Discipline",
+				"selector": "entities:Medical Discipline"
+			}
+		]
+	},
+	{
+		"name": "Healthcare Workers",
+		"page": "healthcareworkers",
+		"group": "Clinical",
+		"description": "Research studying the effect of the virus on healthcare workers"
+	},
+	{
+		"name": "Imaging",
+		"page": "imaging",
+		"group": "Clinical",
+		"description": "Research documenting CT and other scans of patients"
 	}
 	
 	
