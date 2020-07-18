@@ -9,15 +9,9 @@ export default async (req, res) => {
 		return
 	}
 	
-	//console.log(req.method)
-	//console.log(req.body)
-	//console.log(req.query)
-	
 	const entities = await searchEntities(req.query.q)
 	
 	const results = entities.map(e => { return {name:e.entity_name,type:e.entity_type} } )
-	
-	console.log(entities)
 	
 	res.statusCode = 200
 	res.end(JSON.stringify(results))
