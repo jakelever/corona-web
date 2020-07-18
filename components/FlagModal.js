@@ -28,7 +28,6 @@ export default class FlagModal extends Component {
 		const data = {
 			doi: this.props.doc.doi,
 			issue: this.state.textvalue,
-			moomoo: '123',
 			'cord_uid': this.props.doc.cord_uid,
 			'pubmed_id': this.props.doc.pubmed_id
 		}
