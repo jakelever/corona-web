@@ -31,6 +31,7 @@ import { faRandom } from '@fortawesome/free-solid-svg-icons'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
 
 
 /*function toggleSidebar(event) {
@@ -223,6 +224,19 @@ export default class Sidebar extends Component {
 							<FontAwesomeIcon className="sideicon" icon={faQuestionCircle} fixedWidth  />
 						</span>
 						<span> FAQs</span>
+					</a>
+				</Link>
+			</li>
+		</MyToolTip>
+		
+		<MyToolTip text="Frequently asked questions">
+			<li className={this.props.page=='/feedback' ? "nav-item active" : "nav-item"}>
+				<Link href="/feedback" as="/feedback">
+					<a className="nav-link">
+						<span style={{marginRight: "0.25rem"}}>
+							<FontAwesomeIcon className="sideicon" icon={faEnvelopeOpenText} fixedWidth  />
+						</span>
+						<span> Feedback</span>
 					</a>
 				</Link>
 			</li>
