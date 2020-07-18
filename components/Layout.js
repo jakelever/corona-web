@@ -40,19 +40,23 @@ export default class Layout extends Component {
 	}
 	
 	componentDidMount () {
-		if (!window.GA_INITIALIZED) {
-			initGA()
-			window.GA_INITIALIZED = true
+		if (this.props.title) {
+			if (!window.GA_INITIALIZED) {
+				initGA()
+				window.GA_INITIALIZED = true
+			}
+			logPageView(this.props.title)
 		}
-		logPageView(this.props.title)
 	}
 	
 	componentDidUpdate() {
-		if (!window.GA_INITIALIZED) {
-			initGA()
-			window.GA_INITIALIZED = true
+		if (this.props.title) {
+			if (!window.GA_INITIALIZED) {
+				initGA()
+				window.GA_INITIALIZED = true
+			}
+			logPageView(this.props.title)
 		}
-		logPageView(this.props.title)
 	}
 	
 	render() {
@@ -60,6 +64,8 @@ export default class Layout extends Component {
 		/*const loading = <Spinner animation="border" role="status">
 							  <span className="sr-only">Loading...</span>
 							</Spinner>*/
+							
+		const pageTitle = 'title' in this.props ? this.props.title + " | " + projectName : projectName
 							
 		var content;
 		if (this.state.error) {
@@ -69,7 +75,7 @@ export default class Layout extends Component {
 					<p>An error has occurred!</p>
 					</div>
 				</div>
-		} else if (this.state.loading) {
+		} else if (this.state.loading || ('loading' in this.props && this.props.loading == true)) {
 			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
 					<Spinner animation="border" role="status" style={{width: "3rem", height: "3rem"}}>
 						<span className="sr-only">Loading...</span>
@@ -83,7 +89,7 @@ export default class Layout extends Component {
 			<div id="wrapper">
 				{/* Page Wrapper */}
 				<Head>
-					<title>{this.props.title + " | " + projectName}</title>
+					<title>{pageTitle}</title>
 					<link rel="icon" href="/favicon.png" type="image/png" />
 				</Head>
 

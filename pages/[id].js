@@ -105,7 +105,7 @@ export default class Page extends Component {
 
 	render() {
 		if (!this.props.page_info)
-			return <div></div>
+			return <Layout loading={true}></Layout>
 		
 		const extra_columns = 'extra_table_columns' in this.props.page_info ? this.props.page_info.extra_table_columns : [];
 		

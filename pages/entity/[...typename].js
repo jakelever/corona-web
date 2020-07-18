@@ -51,7 +51,7 @@ export default class EntityPage extends Component {
 
 	render() {
 		if (!this.props.entity)
-			return <div></div>
+			return <Layout loading={true}></Layout>
 		
 		var columns = [
 				{ "header":"Virus", "selector":"entities:Virus" },

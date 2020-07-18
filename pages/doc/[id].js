@@ -43,7 +43,7 @@ export default class DocPage extends Component {
 	
 	render() {
 		if (!this.props.doc)
-			return <div></div>
+			return <Layout loading={true}></Layout>
 		
 		var entityGroups = {}
 		const entityTypes = [...new Set(this.props.doc.entities.map( e => e.type ))]
