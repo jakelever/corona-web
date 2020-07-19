@@ -3,6 +3,8 @@ import Link from 'next/link'
 
 import FlagModal from '../components/FlagModal.js'
 
+import pages from '../lib/pages.json'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
@@ -15,10 +17,17 @@ import DataTable from 'react-data-table-component';
 // https://www.npmjs.com/package/react-data-table-component
 // https://github.com/jbetancur/react-data-table-component
 
+const shortMonths = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
 function getColumnMetadata(column) {
 	var metadata
 	if (column.selector.startsWith('entities:')) {
 		var entity_type = column.selector.substr('entities:'.length)
+		
+		var pageMapping = {}
+		if (entity_type == 'topic') {
+			pages.forEach(p => {pageMapping[p.name] = p.page})
+		}
 		
 		metadata = {
 			id: entity_type,
@@ -30,8 +39,16 @@ function getColumnMetadata(column) {
 			  padding: '14px'
 			},
 			wrap: true,
-			cell: row => { 
-				var entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+e.type+"/"+e.name}><a key={'entity_'+i}>{e.name}</a></Link> )
+			cell: row => {
+				var entities; 
+				if (entity_type == 'topic') {
+					entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i}>{e.name}</a></Link> )
+				} if (entity_type == 'Virus') {
+					entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => e.name )
+				} else {
+					entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+e.type+"/"+e.name}><a key={'entity_'+i}>{e.name}</a></Link> )
+				}
+				
 				
 				var combined = entities.length > 0 ? entities.reduce((prev, curr) => [prev, ', ', curr]) : ''
 				
@@ -57,10 +74,20 @@ function getColumnMetadata(column) {
 				return parseInt(dateA) - parseInt(dateB)
 			},
 			cell: row => { 
-				if (row.publish_year && row.publish_month && row.publish_day) {
+				/*if (row.publish_year && row.publish_month && row.publish_day) {
 					return row.publish_year.toString() + "-" + row.publish_month.toString().padStart(2,'0') + "-" + row.publish_day.toString().padStart(2,'0')
 				} else if (row.publish_year && row.publish_month) {
 					return row.publish_year.toString() + "-" + row.publish_month.toString().padStart(2,'0')
+				} else if (row.publish_year) {
+					return row.publish_year.toString()
+				} else {
+					return ""
+				}*/
+				
+				if (row.publish_year && row.publish_month && row.publish_day) {
+					return row.publish_day.toString() + ' ' + shortMonths[row.publish_month] + ' ' + row.publish_year.toString()
+				} else if (row.publish_year && row.publish_month) {
+					return shortMonths[row.publish_month] + ' ' + row.publish_year.toString()
 				} else if (row.publish_year) {
 					return row.publish_year.toString()
 				} else {
