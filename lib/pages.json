@@ -142,17 +142,17 @@
 		"description": "Research studying the effect of the virus on children"
 	},
 	{
-		"name": "Medical Disciplines",
-		"page": "medicaldisciplines",
+		"name": "Medical Specialties",
+		"page": "medicalspecialties",
 		"group": "Clinical",
-		"description": "Research focussing on the effect of the virus on a specific medical discipline",
+		"description": "Research focussing on the effect of the virus on a specific medical specialty",
 		"extra_table_columns": [
 			{
-				"header": "Medical Discipline",
-				"selector": "entities:Medical Discipline"
+				"header": "Medical Specialty",
+				"selector": "entities:Medical Specialty"
 			}
 		],
-		"chart_entity": "Medical Discipline"
+		"chart_entity": "Medical Specialty"
 	},
 	{
 		"name": "Healthcare Workers",
@@ -219,11 +219,11 @@
 	
 	
 	{
-		"name": "Drug Repurposing",
-		"page": "drugrepurposing",
+		"name": "Therapeutics",
+		"page": "therapeutics",
 		"icon": "faPrescriptionBottleAlt",
 		"group": "Treatment",
-		"description": "Research studying the use of existing drugs for combating the virus",
+		"description": "Research studying the use of new and existing drugs for combating the virus",
 		"extra_table_columns": [
 			{
 				"header": "Drug",
@@ -231,19 +231,6 @@
 			}
 		],
 		"chart_entity": "Drug"
-	},
-	{
-		"name": "Novel Therapeutics",
-		"page": "noveltherapeutics",
-		"group": "Treatment",
-		"description": "Research developing new drugs to treat the virus",
-		"extra_table_columns": [
-			{
-				"header": "Chemical",
-				"selector": "entities:Chemical"
-			}
-		],
-		"chart_entity": "Chemical"
 	},
 	{
 		"name": "Vaccines",
@@ -257,13 +244,7 @@
 			}
 		],
 		"chart_entity": "Vaccine Type"
-	},
-	{
-		"name": "Drug Targets",
-		"page": "drugtargets",
-		"group": "Treatment",
-		"description": "TODO"
-	},
+	}
 	{
 		"name": "Clinical Trials",
 		"page": "clinicaltrials",
@@ -309,6 +290,12 @@
 		"icon": "faRandom",
 		"group": "Other",
 		"description": "Commentary, editorials and other short articles that are not original research"
+	},
+	{
+		"name": "Book Chapters",
+		"page": "bookchapters",
+		"group": "Other",
+		"description": "Book chapters that provide reviews or research on coronaviruses"
 	},
 	{
 		"name": "Updates",
