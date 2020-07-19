@@ -4,6 +4,8 @@ import Layout from '../../components/Layout.js'
 import TextWithEntities from '../../components/TextWithEntities.js'
 import Button from 'react-bootstrap/Button'
 
+import pages from '../../lib/pages.json'
+
 //import { getAllDocumentIDs } from '../../lib/db-doc.js'
 import { getDocument } from '../../lib/db-doc.js'
 
@@ -39,6 +41,9 @@ export async function getStaticProps({ params }) {
 export default class DocPage extends Component {
 	constructor(props) {
 		super(props)
+		
+		this.pageMapping = {}
+		pages.forEach(p => {this.pageMapping[p.name] = p.page})
 	}
 	
 	render() {
@@ -51,7 +56,14 @@ export default class DocPage extends Component {
 		entityTypes.forEach( entityType => {
 			const entities = this.props.doc.entities.filter( e => e.type==entityType )
 			
-			const elems = entities.map( (e,i) => <a key={'entity_'+entityType+'_'+i} href="" onClick={event => event.preventDefault()}>{e.name}</a> )
+			var elems;
+			if (entityType == 'Virus' || entityType == 'pubtype') {
+				elems = entities.map( (e,i) => e.name )
+			} else if (entityType == 'topic') {
+				elems = entities.map( (e,i) => <Link key={'entitylink_'+i} href="/[id]" as={`/${this.pageMapping[e.name]}`}><a>{e.name}</a></Link> )
+			} else {
+				elems = entities.map( (e,i) => <a key={'entity_'+entityType+'_'+i} href="" onClick={event => event.preventDefault()}>{e.name}</a> )
+			}
 			
 			const combined = elems.length > 0 ? elems.reduce((prev, curr) => [prev, ', ', curr]) : ''
 			
@@ -133,7 +145,7 @@ export default class DocPage extends Component {
 								<h6 className="m-0 font-weight-bold text-primary">ML/Curated Information</h6>
 							</div>
 							<div className="card-body">
-								{ 'virus' in entityGroups ? <h6>Viruses: {entityGroups['virus']}</h6> : "" }
+								{ 'Virus' in entityGroups ? <h6>Viruses: {entityGroups['Virus']}</h6> : "" }
 								{ 'topic' in entityGroups ? <h6>Topics: {entityGroups['topic']}</h6> : "" }
 								{ 'pubtype' in entityGroups ? <h6>Publication Type: {entityGroups['pubtype']}</h6> : "" }
 							</div>
