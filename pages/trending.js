@@ -25,21 +25,14 @@ export default class Page extends Component {
 			viruses: []
 			}
 		
-		this.updateVirus = this.updateVirus.bind(this);
+		this.updateViruses = this.updateViruses.bind(this);
 		this.filterForVirus = this.filterForVirus.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
 	}
 	
-	updateVirus(virus,state) {
-		var new_selected_viruses = this.state.viruses.filter(v => (v!=virus))
-		
-		if (state == true) {
-			new_selected_viruses.push(virus)
-		}
-		
-		this.setState({viruses: new_selected_viruses.sort()})
+	updateViruses(viruses) {
+		this.setState({viruses: viruses})
 	}
-	
 	
 	filterForVirus(row) {
 		if (this.state.viruses.length == 0)
@@ -90,7 +83,7 @@ export default class Page extends Component {
 		const table = <CustomTable columns={columns} data={filteredData} showAltmetric1Day sort="altmetric_score_1day" />
 
 		return (
-			<Layout title="Trending" page="/trending" updateVirus={this.updateVirus} showVirusSelector>
+			<Layout title="Trending" page="/trending" updateViruses={this.updateViruses}>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">

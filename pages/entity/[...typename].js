@@ -31,12 +31,12 @@ export async function getStaticProps({ params }) {
 	const [ entity_type, entity_name ] = params.typename
 	
 	const entity = await getEntity(entity_type, entity_name)
-	const tableData = await getPapersWithEntity(entity.entity_id)
+	const tabledata = await getPapersWithEntity(entity.entity_id)
 	
 	return {
 		props: {
 			entity,
-			tableData
+			tabledata
 		}
 	}
 }
@@ -47,6 +47,22 @@ export default class EntityPage extends Component {
 		this.state = {
 			viruses: []
 			}
+			
+		this.updateViruses = this.updateViruses.bind(this);
+		this.filterForVirus = this.filterForVirus.bind(this);
+	}
+	
+	updateViruses(viruses) {
+		this.setState({viruses: viruses})
+	}
+	
+	filterForVirus(row) {
+		if (this.state.viruses.length == 0)
+			return true;
+		
+		var row_viruses = row['entities'].filter(e => e['type'] == 'Virus').map(e => e['name']);
+		var overlap = this.state.viruses.filter(v => row_viruses.includes(v))
+		return overlap.length > 0
 	}
 
 	render() {
@@ -61,10 +77,12 @@ export default class EntityPage extends Component {
 				{ "header":"Title", "selector":"title", linkInternal: true }
 			]
 			
-		const table = <CustomTable columns={columns} data={this.props.tableData} />
+		const filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
+			
+		const table = <CustomTable columns={columns} data={filteredData}/>
 
 		return (
-			<Layout title={this.props.entity.entity_name} page={null}>
+			<Layout title={this.props.entity.entity_name} page={null} updateViruses={this.updateViruses} showVirusSelector>
 		
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">{this.props.entity.entity_name}</h1>

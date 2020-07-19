@@ -8,13 +8,30 @@ export default class Topbar extends Component {
 	constructor(props) {
 		super(props) //since we are extending className Table so we have to use super in order to override Component className constructor
 		this.state = { 
-			menuOpen: false
+			menuOpen: false,
+			viruses: []
 		}
 		
 		this.dropdownToggle = this.dropdownToggle.bind(this);
 		this.menuItemClickedThatShouldntCloseDropdown = this.menuItemClickedThatShouldntCloseDropdown.bind(this);
 		
-		this.updateVirus = this.updateVirus.bind(this);
+		this.toggleVirus = this.toggleVirus.bind(this);
+	}
+	
+	toggleVirus(virus,isSelected) {
+		var updated_viruses = this.state.viruses.filter(v => (v!=virus))
+		
+		if (isSelected == true) {
+			updated_viruses.push(virus)
+		}
+		
+		updated_viruses = updated_viruses.sort()
+		
+		this.setState({viruses: updated_viruses})
+		
+		if (this.props.updateViruses) {
+			this.props.updateViruses(updated_viruses)
+		}
 	}
 	
 	dropdownToggle(newValue){
@@ -30,27 +47,27 @@ export default class Topbar extends Component {
 		this._forceOpen = true;
 	}
 	
-	updateVirus(virus,isSelected) {
-		if (this.props.updateVirus) {
-			this.props.updateVirus(virus,isSelected)
-		}
-	}
-	
 	render() {
+		// 
+		var virusButtonText = 'Select virus of interest'
+		/*if (this.state.viruses.length == 0 || this.state.viruses == ['MERS-CoV','SARS-CoV','SARS-CoV-2']) {
+			virusButtonText = 'Showing SARS-CoV-2, MERS-CoV & SARS-CoV'
+		}*/
+		
 		const virusSelector = this.props.showVirusSelector ? <Dropdown show={this.state.menuOpen} onToggle={val => this.dropdownToggle(val)}>
 			<Dropdown.Toggle variant="secondary" id="dropdown-basic">
-				Select virus of interest
+				{virusButtonText}
 			</Dropdown.Toggle>
 
 			<Dropdown.Menu>
 				<Dropdown.Item href="#/" onClick={() => this.menuItemClickedThatShouldntCloseDropdown()}>
-					<Form.Check type="checkbox" id="default-checkbox1" label="SARS-CoV-2" onChange={event => this.updateVirus('SARS-CoV-2',event.target.checked)} />
+					<Form.Check type="checkbox" id="default-checkbox1" label="SARS-CoV-2" onChange={event => this.toggleVirus('SARS-CoV-2',event.target.checked)} />
 				</Dropdown.Item>
 				<Dropdown.Item href="#/" onClick={() => this.menuItemClickedThatShouldntCloseDropdown()}>
-					<Form.Check type="checkbox" id="default-checkbox2" label="MERS-CoV" onChange={event => this.updateVirus('MERS-CoV',event.target.checked)} />
+					<Form.Check type="checkbox" id="default-checkbox2" label="MERS-CoV" onChange={event => this.toggleVirus('MERS-CoV',event.target.checked)} />
 				</Dropdown.Item>
 				<Dropdown.Item href="#/" onClick={() => this.menuItemClickedThatShouldntCloseDropdown()}>
-					<Form.Check type="checkbox" id="default-checkbox3" label="SARS-CoV" onChange={event => this.updateVirus('SARS-CoV',event.target.checked)} />
+					<Form.Check type="checkbox" id="default-checkbox3" label="SARS-CoV" onChange={event => this.toggleVirus('SARS-CoV',event.target.checked)} />
 				</Dropdown.Item>
 			</Dropdown.Menu>
 		</Dropdown> : ''
