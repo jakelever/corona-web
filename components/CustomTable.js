@@ -184,6 +184,24 @@ export default class CustomTable extends Component {
 				}
 			}
 			
+		const renderExtraMetadata = row => {
+			
+			const openaccess = row.altmetric_openaccess ? <img width="16px" src="/openaccess.svg" /> : ""
+			
+			return <div><p>{openaccess}</p></div>
+		}
+		
+		const extraMetadataColumn = {
+				id: 'extrametadata',
+				cell: renderExtraMetadata,
+				ignoreRowClick: true,
+				allowOverflow: true,
+				button: true,
+				style: {
+				  padding: '14px'
+				}
+			}
+			
 			
 		const renderAltmetricScore1Day = row => {
 			if (row.altmetric_id == -1)
@@ -230,6 +248,9 @@ export default class CustomTable extends Component {
 			columnsWithFormating.push( altmetric1DayColumn )
 		columnsWithFormating.push( altmetricScoreColumn )
 		columnsWithFormating.push( flagButtonColumn )
+		//columnsWithFormating.unshift( extraMetadataColumn )
+		
+	
 		
 		const table = <DataTable
 					noHeader
