@@ -45,7 +45,7 @@ export default class EntityPage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: []
+			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2']
 			}
 			
 		this.updateViruses = this.updateViruses.bind(this);

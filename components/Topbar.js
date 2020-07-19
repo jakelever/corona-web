@@ -30,7 +30,11 @@ export default class Topbar extends Component {
 		this.setState({viruses: updated_viruses})
 		
 		if (this.props.updateViruses) {
-			this.props.updateViruses(updated_viruses)
+			if (updated_viruses.length == 0) {
+				this.props.updateViruses(['MERS-CoV','SARS-CoV','SARS-CoV-2'])
+			} else {
+				this.props.updateViruses(updated_viruses)
+			}
 		}
 	}
 	

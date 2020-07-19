@@ -29,16 +29,9 @@ export async function getStaticProps({ params }) {
 	
 	const tabledata = await getTableData(page_info.name)
 	
-	const chartdata = 'chart_entity' in page_info ? {
-		'': await getChartDataByVirus(page_info.name,page_info.chart_entity),
-		'MERS-CoV': await getChartDataByVirus(page_info.name,page_info.chart_entity,['MERS-CoV']),
-		'SARS-CoV': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV']),
-		'SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV-2']),
-		'MERS-CoV,SARS-CoV': await getChartDataByVirus(page_info.name,page_info.chart_entity,['MERS-CoV','SARS-CoV']),
-		'MERS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV-2','MERS-CoV']),
-		'SARS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity,['SARS-CoV-2','SARS-CoV']),
-		'MERS-CoV,SARS-CoV,SARS-CoV-2': await getChartDataByVirus(page_info.name,page_info.chart_entity)
-	} : null
+	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirus(page_info.name,page_info.chart_entity,30) : null
+	
+	//console.log(chartdata)
 	
 	return {
 		props: {
@@ -53,7 +46,7 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: []
+			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2']
 			}
 		
 		this.barClick = this.barClick.bind(this);
