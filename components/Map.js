@@ -13,20 +13,35 @@ export default function MyMap(props) {
       shadowUrl: "/leaflet/marker-shadow.png"
     });
 	
-	const markers = 'locations' in props ? props.locations.map( loc => 
-		<Marker position={[loc.latitude,loc.longitude]}>
-			<Popup>
-				<Link href={"/entity/[...typename]"} as={"/entity/Location/"+loc.name}>
-					<a>
-						{loc.name}
-					</a>
-				</Link>
-			</Popup>
-		</Marker>
-	) : []
+	const locations = 'locations' in props ? props.locations : []
 	
-	const position = [10, 0]
-	return <Map center={position} zoom={2} style={{height:"400px"}}>
+	var markers
+	if ('links' in props && props.links == true) {
+		markers = locations.map( loc => 
+			<Marker position={[loc.latitude,loc.longitude]}>
+				<Popup>
+					<Link href={"/entity/[...typename]"} as={"/entity/Location/"+loc.name}>
+						<a>
+							{loc.name}
+						</a>
+					</Link>
+				</Popup>
+			</Marker>
+		)
+	} else {
+		markers = locations.map( loc => 
+			<Marker position={[loc.latitude,loc.longitude]}>
+				<Popup>
+					{loc.name}
+				</Popup>
+			</Marker>
+		)
+	}
+	
+	const position = 'position' in props ? props.position : [10, 0]
+	const zoom = 'zoom' in props ? props.zoom : 2
+	const height = 'height' in props ? props.height : "400px"
+	return <Map center={position} zoom={zoom} style={{height:height}}>
 			<TileLayer
 			  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			  attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"

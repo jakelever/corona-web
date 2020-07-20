@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
 
+import Link from 'next/link'
 import { Doughnut, Line, Bar } from 'react-chartjs-2';
 import pages from '../lib/pages.json'
 
@@ -680,7 +681,7 @@ export default class Home extends Component {
 							<div className="card-body">
 									
 								<div style={{width:"100%",height:"400px",backgroundColor:"#DDFFDD"}}>
-									<DynamicMapComponent locations={this.props.popularLocations} />
+									<DynamicMapComponent links={true} locations={this.props.popularLocations} />
 								</div>
 									
 							</div>
@@ -754,7 +755,11 @@ export default class Home extends Component {
 					<div className="col-xl-6 col-lg-5">
 						<div className="card shadow mb-4">
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Therapeutics</h6>
+								<h6 className="m-0 font-weight-bold text-primary">
+									<Link href="/[id]" as="/therapeutics">
+										<a>Therapeutics</a>
+									</Link>
+								</h6>
 								
 							</div>
 							<div className="card-body">
@@ -768,7 +773,11 @@ export default class Home extends Component {
 					<div className="col-xl-6 col-lg-5">
 						<div className="card shadow mb-4">
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Vaccine Types</h6>
+								<h6 className="m-0 font-weight-bold text-primary">
+									<Link href="/[id]" as="/vaccines">
+										<a>Vaccine Types</a>
+									</Link>
+								</h6>
 								
 							</div>
 							<div className="card-body">
@@ -793,8 +802,9 @@ export default class Home extends Component {
 						<div className="card shadow mb-4">
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									
-									Risk Factors
+									<Link href="/[id]" as="/riskfactors">
+										<a>Risk Factors</a>
+									</Link>
 								</h6>
 								
 							</div>
@@ -809,7 +819,11 @@ export default class Home extends Component {
 					<div className="col-xl-6 col-lg-5">
 						<div className="card shadow mb-4">
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Symptoms</h6>
+								<h6 className="m-0 font-weight-bold text-primary">
+									<Link href="/[id]" as="/symptoms">
+										<a>Symptoms</a>
+									</Link>
+								</h6>
 								
 							</div>
 							<div className="card-body">
