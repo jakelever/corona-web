@@ -36,15 +36,17 @@ function numberWithCommas(x) {
 async function getPopularLocations(limit) {
 	var counts = await db.query(escape`
 
-	SELECT *
-	FROM (
-		SELECT e.name, c.longitude, c.latitude, COUNT(*) as count
-		FROM annotations a, entities e, coordinates c
-		WHERE a.entity_id = e.entity_id
-		AND e.entity_id = c.entity_id
-		GROUP BY e.name, c.longitude, c.latitude
-	) as tmp1
-	WHERE tmp1.count > 5
+	SELECT * FROM
+		(SELECT e_loc.entity_id as location_id, e_loc.name as name, e_virus.name as virus, c.longitude, c.latitude, COUNT(*) as count
+		FROM annotations anno_loc, entities e_loc, coordinates c, annotations anno_virus, entities e_virus, entitytypes et_virus
+		WHERE anno_loc.entity_id = e_loc.entity_id
+		AND e_loc.entity_id = c.entity_id
+		AND anno_loc.document_id = anno_virus.document_id
+		AND anno_virus.entity_id = e_virus.entity_id
+		AND e_virus.entitytype_id = et_virus.entitytype_id
+		AND et_virus.name = 'Virus'
+		GROUP BY name, virus, c.longitude, c.latitude) as tmp
+	WHERE tmp.count > 5
 
 	`)
 	counts = counts.map(r => Object.assign({},r))
@@ -560,6 +562,12 @@ export default class Home extends Component {
 		const symptomsChart = this.chartifyEntityData(this.props.symptomsData)
 		//console.log(journalChartData)
 		
+		var locationsToShowByID = {}
+		this.props.popularLocations.filter( loc => this.state.viruses.includes(loc.virus)).forEach( loc => {
+			locationsToShowByID[loc.location_id] = loc
+		})
+		const locationsToShow = Object.values(locationsToShowByID)
+		
 		return (
 			<Layout title="Dashboard" page="/" updateViruses={this.updateViruses} showVirusSelector>
 
@@ -580,7 +588,7 @@ export default class Home extends Component {
 						</div>
 						<div className="card-body">
 						  <p>
-							This resource surveys research papers for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> for subjects of interest above.
+							This resource surveys research papers for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> for subjects of interest above. You can narrow in on a specific virus using the selector in the top-right.
 						  </p>
 						  <p>
 							If you <b>spot a mistake</b>, please flag it using the flag icon beside each paper, or use the <Link href="/feedback" as="/feedback"><a>Feedback form</a></Link>.
@@ -684,7 +692,7 @@ export default class Home extends Component {
 							<div className="card-body">
 									
 								<div style={{width:"100%",height:"400px",backgroundColor:"#DDFFDD"}}>
-									<DynamicMapComponent links={true} locations={this.props.popularLocations} />
+									<DynamicMapComponent links={true} locations={locationsToShow} />
 								</div>
 									
 							</div>
