@@ -4,6 +4,8 @@ import Layout from '../../components/Layout.js'
 import TextWithEntities from '../../components/TextWithEntities.js'
 import Button from 'react-bootstrap/Button'
 
+import FlagModal from '../../components/FlagModal.js'
+
 import pages from '../../lib/pages.json'
 
 //import { getAllDocumentIDs } from '../../lib/db-doc.js'
@@ -11,6 +13,7 @@ import { getDocument } from '../../lib/db-doc.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 export async function getStaticPaths() {
 	// A workaround for NextJS error (below)
@@ -41,9 +44,24 @@ export async function getStaticProps({ params }) {
 export default class DocPage extends Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			showFlagModal: false,
+			modalKey: 0
+			}
 		
 		this.pageMapping = {}
 		pages.forEach(p => {this.pageMapping[p.name] = p.page})
+		
+		this.closeFlagModal = this.closeFlagModal.bind(this);
+		this.showFlagModal = this.showFlagModal.bind(this);
+	}
+	
+	closeFlagModal() {
+		this.setState({showFlagModal: false})
+	}
+	
+	showFlagModal() {
+		this.setState({showFlagModal: true, modalKey:this.state.modalKey+1 })
 	}
 	
 	render() {
@@ -88,6 +106,8 @@ export default class DocPage extends Component {
 			const img = <img src={badgeURL} />
 			altmetricBadge = <a href={detailsURL} target="_blank">{img}</a>
 		}
+		
+		const modal = <FlagModal key={'flagmodal_'+this.state.modalKey} doc={this.props.doc} show={this.state.showFlagModal} closeFunc={this.closeFlagModal} />
 		
 		return <Layout title={this.props.doc.title}>
 		
@@ -148,11 +168,18 @@ export default class DocPage extends Component {
 								{ 'Virus' in entityGroups ? <h6>Viruses: {entityGroups['Virus']}</h6> : "" }
 								{ 'topic' in entityGroups ? <h6>Topics: {entityGroups['topic']}</h6> : "" }
 								{ 'pubtype' in entityGroups ? <h6>Publication Type: {entityGroups['pubtype']}</h6> : "" }
+								
+								<div style={{}}>
+									<a href={this.props.doc.url} className="d-none d-sm-inline-block btn btn-sm btn-danger shadow" onClick={event => {this.showFlagModal(); event.preventDefault()}} href="#">
+										<span className="text-white-50"><FontAwesomeIcon icon={faExclamationTriangle} size="sm" /></span> Flag Mistake
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
+				{modal}
 
 			</Layout>
 	}
