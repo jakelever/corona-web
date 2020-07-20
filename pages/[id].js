@@ -25,7 +25,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-	const page_info = pages.filter(p => p.page == params.id)[0];
+	const matching_pages = pages.filter(p => p.page == params.id)
+	if (matching_pages.length != ''):
+		return { props: {} }
+	
+	const page_info = matching_pages[0];
 	
 	const tabledata = await getTableData(page_info.name)
 	
