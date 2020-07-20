@@ -19,9 +19,36 @@ import { faShieldVirus } from '@fortawesome/free-solid-svg-icons'
 
 import _ from 'lodash'
 
+import dynamic from 'next/dynamic'
+
+const DynamicMapComponent = dynamic(
+  () => import('../components/Map'),
+  { ssr: false }
+)
+
+
 // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+async function getPopularLocations(limit) {
+	var counts = await db.query(escape`
+
+	SELECT *
+	FROM (
+		SELECT e.name, c.longitude, c.latitude, COUNT(*) as count
+		FROM annotations a, entities e, coordinates c
+		WHERE a.entity_id = e.entity_id
+		AND e.entity_id = c.entity_id
+		GROUP BY e.name, c.longitude, c.latitude
+	) as tmp1
+	WHERE tmp1.count > 10
+
+	`)
+	counts = counts.map(r => Object.assign({},r))
+	
+	return Object.values(counts)
 }
 
 async function getJournalCounts(limit) {
@@ -39,7 +66,6 @@ async function getJournalCounts(limit) {
 	
 	return Object.values(counts)
 }
-
 
 async function getPreprintCounts() {
 	const researchID = await getEntityID('Research','pubtype')
@@ -354,9 +380,8 @@ export async function getStaticProps({ params }) {
 	
 	const journalCounts = await getJournalCounts(30)
 	const preprintCounts = await getPreprintCounts()
-	//console.log(journalCounts)
-	
 	const topicCounts = await getTopicCountsByVirus()
+	const popularLocations = await getPopularLocations()
 	
 	return {
 		props: {
@@ -369,7 +394,8 @@ export async function getStaticProps({ params }) {
 			riskfactorsData,
 			symptomsData,
 			preprintCounts,
-			topicCounts
+			topicCounts,
+			popularLocations
 		}
 	}
 }
@@ -612,11 +638,8 @@ export default class Home extends Component {
 					</div>
 				</div>
 
-				{/* Content Row */}
 
 				<div className="row">
-
-					
 
 					<div className="col-xl-12 col-lg-5">
 						<div className="card shadow mb-4">
@@ -645,7 +668,24 @@ export default class Home extends Component {
 						</div>
 					</div>
 					
-					
+				</div>
+				
+				<div className="row">
+
+					<div className="col-xl-12 col-lg-5">
+						<div className="card shadow mb-4">
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">Locations</h6>
+							</div>
+							<div className="card-body">
+									
+								<div style={{width:"100%",height:"400px",backgroundColor:"#DDFFDD"}}>
+									<DynamicMapComponent locations={this.props.popularLocations} />
+								</div>
+									
+							</div>
+						</div>
+					</div>
 					
 				</div>
 				
@@ -752,7 +792,10 @@ export default class Home extends Component {
 					<div className="col-xl-6 col-lg-5">
 						<div className="card shadow mb-4">
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Risk Factors</h6>
+								<h6 className="m-0 font-weight-bold text-primary">
+									
+									Risk Factors
+								</h6>
 								
 							</div>
 							<div className="card-body">
