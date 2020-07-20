@@ -44,7 +44,7 @@ async function getPopularLocations(limit) {
 		AND e.entity_id = c.entity_id
 		GROUP BY e.name, c.longitude, c.latitude
 	) as tmp1
-	WHERE tmp1.count > 10
+	WHERE tmp1.count > 5
 
 	`)
 	counts = counts.map(r => Object.assign({},r))
@@ -243,7 +243,7 @@ async function getSummaryStatistics() {
 }
 
 
-/*async function getVirusByYears() {
+async function getVirusByYears() {
 	var counts = await db.query(escape`
 
 	SELECT name as entity_name, publish_year, COUNT(*) as count FROM (
@@ -265,7 +265,7 @@ async function getSummaryStatistics() {
 	return Object.values(counts)
 }
 
-async function getVirusCounts() {
+/*async function getVirusCounts() {
 	var counts = await db.query(escape`
 
 	SELECT name as entity_name, COUNT(*) as count FROM (
@@ -317,7 +317,7 @@ function setAreaChartColors(data, label, rgb) {
 	var index = data.datasets.map(ds => ds.label).indexOf(label)
 	var dataset = data.datasets[index]
 	
-	dataset['backgroundColor'] = "rgba("+rgb+", 0.05)";
+	dataset['backgroundColor'] = "rgba("+rgb+", 1)";
 	dataset['borderColor'] = "rgba("+rgb+", 1)";
 	dataset['pointRadius'] = 3;
 	dataset['pointBackgroundColor'] = "rgba("+rgb+", 1)";
@@ -347,7 +347,6 @@ function reorderDatasets(data, reordering) {
 
 
 export async function getStaticProps({ params }) {
-	/*const virusCounts = await getVirusCounts()
 	const virusByYears = await getVirusByYears()
 	
 	
@@ -364,6 +363,7 @@ export async function getStaticProps({ params }) {
 	
 	reorderDatasets(virusByYearsPlotData, ['SARS-CoV','MERS-CoV','SARS-CoV-2'])
 	
+	/*const virusCounts = await getVirusCounts()
 	var labels = virusCounts.map(v => v.entity_name)
 	var datasets = [{data: virusCounts.map(v => v.count), backgroundColor: virusCounts.map(v => "rgba("+virusColors[v.entity_name]+", 1)") }]
 	
@@ -386,8 +386,8 @@ export async function getStaticProps({ params }) {
 	
 	return {
 		props: {
-			/*virusCountsPlotData,
-			virusByYearsPlotData,*/
+			/*virusCountsPlotData,*/
+			virusByYearsPlotData,
 			journalCounts,
 			summaryStatistics,
 			drugData,
@@ -429,6 +429,8 @@ export default class Home extends Component {
 		
 		bardata.datasets.forEach(dataset => {
 			var rgb = virusColors[dataset.label]
+			//dataset.backgroundColor = "rgba("+rgb+", 0.9)"
+			//dataset.borderColor = "rgba("+rgb+", 0.9)"
 			dataset.backgroundColor = "rgba("+rgb+", 0.9)"
 			dataset.borderColor = "rgba("+rgb+", 0.9)"
 		})
@@ -469,10 +471,26 @@ export default class Home extends Component {
 	render() {
 	
 		const lineoptions = { 
-			maintainAspectRatio: false, 
+			maintainAspectRatio: false,
+			legend: false,
 			scales: {		
 				yAxes: [{
-					type: 'logarithmic'
+					scaleLabel: { 
+						display: true, 
+						labelString: '# of papers' 
+					}
+					//type: 'logarithmic',
+					/*position: 'left',
+					gridLines: {display: true, borderDash:[100,1000,10000,100000]},
+					ticks: {
+						// Include a dollar sign in the ticks
+						stepSize: 1000,
+						min: 0,
+						max: 10000,
+						callback: function(value, index, values) {
+							return numberWithCommas(value);
+						}
+					}*/
 				}]
 			} 
 		}
@@ -501,7 +519,7 @@ export default class Home extends Component {
 				</div>
 				
 				<div className="row">
-					<div className="col-lg-4 mb-4">
+					<div className="col-lg-3 mb-4">
 
 					  <div className="card shadow mb-4 h-100">
 						<div className="card-header py-3">
@@ -509,64 +527,138 @@ export default class Home extends Component {
 						</div>
 						<div className="card-body">
 						  <p>
-							This resource surveys research papers for <a href="#">SARS-CoV-2</a>, <a href="#">MERS-CoV</a> and <a href="#">SARS-CoV</a>. Select a <a href="#">topic</a> from the left, or <a href="#">search</a> for subjects of interest above.
+							This resource surveys research papers for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> for subjects of interest above.
 						  </p>
 						  <p>
-							If you <a href="#">spot a mistake</a>, please flag it using the flag icon beside it.
+							If you <b>spot a mistake</b>, please flag it using the flag icon beside each paper, or use the <Link href="/feedback" as="/feedback"><a>Feedback form</a></Link>.
 						  </p>
 						  <p>
-							For more information, use the <a href="#">Help</a> option, the <a href="#">Frequently Asked Questions</a> or the <a href="#">About</a> page.
+							For more information, see the <Link href="/faqs" as="/faqs"><a>Frequently Asked Questions</a></Link> page.
 						  </p>
 						</div>
 					  </div>
 					</div>
 					
-					{/* Area Chart */}
-					<div className="col-lg-8 mb-4">
+					<div className="col-lg-3 mb-4">
 						<div className="card shadow mb-4  h-100">
 							{/* Card Header - Dropdown */}
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Coronavirus Research</h6>
-								<div className="dropdown no-arrow">
-									<a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<div className="dropdown-header">Dropdown Header:</div>
-										<a className="dropdown-item" href="#">Action</a>
-										<a className="dropdown-item" href="#">Another action</a>
-										<div className="dropdown-divider"></div>
-										<a className="dropdown-item" href="#">Something else here</a>
-									</div>
-								</div>
+								<h6 className="m-0 font-weight-bold text-primary">SARS-CoV</h6>
 							</div>
 							{/* Card Body */}
 							<div className="card-body">
 								<div className="chart-area">
-								{/*<Line
-										data={{
-											labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-											datasets: [{
-												label: '# of Votes',
-												data: [12, 19, 3, 5, 2, 3],
-											}]
-										}}
-										options={{ maintainAspectRatio: false, legend: false }}
-								/>*/}
-								
-								{/*<Line
+									<Bar
 										data={{
 											labels: this.props.virusByYearsPlotData.labels,
-											datasets: this.props.virusByYearsPlotData.datasets
+											datasets: this.props.virusByYearsPlotData.datasets.filter(ds => ds.label == 'SARS-CoV')
 										}}
 										options={lineoptions}
-								/>*/}
+									/>
 								</div>
 							</div>
 						</div>
 					</div>
+					
+					<div className="col-lg-3 mb-4">
+						<div className="card shadow mb-4  h-100">
+							{/* Card Header - Dropdown */}
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">MERS-CoV</h6>
+							</div>
+							{/* Card Body */}
+							<div className="card-body">
+								<div className="chart-area">
+									<Bar
+										data={{
+											labels: this.props.virusByYearsPlotData.labels,
+											datasets: this.props.virusByYearsPlotData.datasets.filter(ds => ds.label == 'MERS-CoV')
+										}}
+										options={lineoptions}
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div className="col-lg-3 mb-4">
+						<div className="card shadow mb-4  h-100">
+							{/* Card Header - Dropdown */}
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">SARS-CoV-2</h6>
+							</div>
+							{/* Card Body */}
+							<div className="card-body">
+								<div className="chart-area">
+									<Bar
+										data={{
+											labels: this.props.virusByYearsPlotData.labels,
+											datasets: this.props.virusByYearsPlotData.datasets.filter(ds => ds.label == 'SARS-CoV-2')
+										}}
+										options={lineoptions}
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
 				</div>
 
+
+				<div className="row">
+
+					<div className="col-xl-12 col-lg-5">
+						<div className="card shadow mb-4">
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">Topics</h6>
+							</div>
+							<div className="card-body">
+									
+								<Bar
+								  data={{
+									  labels:this.props.topicCounts.labels,
+									  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.includes(ds.label))
+								  }}
+								  width={100}
+								  height={30}
+								  options={{ 
+									legend: { display: true }, 
+									scales: { 
+										xAxes: [{ stacked:true, ticks: { autoSkip: false }}],
+										yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
+										} 
+									}}
+								/>
+									
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				
+				
+				<div className="row">
+
+					<div className="col-xl-12 col-lg-5">
+						<div className="card shadow mb-4">
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">Locations</h6>
+							</div>
+							<div className="card-body">
+									
+								<div style={{width:"100%",height:"400px",backgroundColor:"#DDFFDD"}}>
+									<DynamicMapComponent links={true} locations={this.props.popularLocations} />
+								</div>
+									
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				
 				{/* Content Row */}
 				<div className="row">
 
@@ -639,57 +731,6 @@ export default class Home extends Component {
 					</div>
 				</div>
 
-
-				<div className="row">
-
-					<div className="col-xl-12 col-lg-5">
-						<div className="card shadow mb-4">
-							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Topics</h6>
-							</div>
-							<div className="card-body">
-									
-								<Bar
-								  data={{
-									  labels:this.props.topicCounts.labels,
-									  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.includes(ds.label))
-								  }}
-								  width={100}
-								  height={30}
-								  options={{ 
-									legend: { display: true }, 
-									scales: { 
-										xAxes: [{ stacked:true, ticks: { autoSkip: false }}],
-										yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
-										} 
-									}}
-								/>
-									
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div className="row">
-
-					<div className="col-xl-12 col-lg-5">
-						<div className="card shadow mb-4">
-							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Locations</h6>
-							</div>
-							<div className="card-body">
-									
-								<div style={{width:"100%",height:"400px",backgroundColor:"#DDFFDD"}}>
-									<DynamicMapComponent links={true} locations={this.props.popularLocations} />
-								</div>
-									
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
 				
 				<div className="row">
 
