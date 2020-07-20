@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Layout from '../components/Layout.js'
 import CustomTable from '../components/CustomTable.js'
 import pages from '../lib/pages.json'
-import { getTableData, getChartDataByVirus } from '../lib/db-main.js'
+import { getTableData, getChartDataByVirusInTopic } from '../lib/db-main.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
@@ -29,7 +29,7 @@ export async function getStaticProps({ params }) {
 	
 	const tabledata = await getTableData(page_info.name)
 	
-	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirus(page_info.name,page_info.chart_entity,30) : null
+	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirusInTopic(page_info.name,page_info.chart_entity,30) : null
 	
 	//console.log(chartdata)
 	
