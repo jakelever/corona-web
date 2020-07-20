@@ -4,6 +4,8 @@ import { Badge } from 'react-bootstrap';
 //import { useRouter } from 'next/router'
 import Router from 'next/router'
 
+import pages from '../lib/pages.json'
+
 export default class Search extends Component {
 	constructor(props) {
 		super(props)
@@ -14,6 +16,9 @@ export default class Search extends Component {
 			
 		this.search = this.search.bind(this);
 		this.onChange = this.onChange.bind(this);
+		
+		this.pageMapping = {}
+		pages.forEach(p => {this.pageMapping[p.name] = p.page})
 	}
 	
 	search(query) {
@@ -33,8 +38,16 @@ export default class Search extends Component {
 			const entity_name = selected[0].name
 			const entity_type = selected[0].type
 			
-			const url = "/entity/" + entity_type + "/" + entity_name
-			Router.push("/entity/[...typename]",url)
+			if (entity_type == 'topic' && entity_name in this.pageMapping) {
+				const url = "/" + this.pageMapping[entity_name]
+				Router.push("/[id]",url)
+			} else if (entity_type == 'Paper') {
+				const url = "/doc/" + selected[0].document_id
+				Router.push("/doc/[id]",url)
+			} else {
+				const url = "/entity/" + entity_type + "/" + entity_name
+				Router.push("/entity/[...typename]",url)
+			}
 		}
 	}
 	
@@ -80,7 +93,7 @@ export default class Search extends Component {
 					onSearch={this.search}
 					onChange={this.onChange}
 					options={this.state.options}
-					placeholder="Search for a drug, gene, location, etc"
+					placeholder="Search for a drug, gene, location, paper, etc"
 				  />
 				
 				<div className="input-group-append">
