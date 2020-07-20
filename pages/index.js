@@ -243,10 +243,10 @@ async function getSummaryStatistics() {
 }
 
 
-async function getVirusByYears() {
+async function getVirusByDate() {
 	var counts = await db.query(escape`
 
-	SELECT name as entity_name, publish_year, COUNT(*) as count FROM (
+	SELECT name as entity_name, publish_year, publish_month, COUNT(*) as count FROM (
 	SELECT * FROM
 		(SELECT a.document_id as document_id1,e.name 
 		FROM annotations a, entities e, entitytypes et 
@@ -254,10 +254,10 @@ async function getVirusByYears() {
 			AND e.entitytype_id = et.entitytype_id 
 			AND et.name = 'virus') as tmp1 
 		JOIN 
-			(SELECT d.document_id as document_id2, d.publish_year 
+			(SELECT d.document_id as document_id2, d.publish_year, d.publish_month
 			FROM documents d) as tmp2 
 		ON tmp1.document_id1 = tmp2.document_id2) as tmp3 
-	GROUP BY entity_name,publish_year
+	GROUP BY entity_name,publish_year,publish_month
 
 	`)
 	counts = counts.map(r => Object.assign({},r))
@@ -288,27 +288,40 @@ async function getVirusByYears() {
 }*/
 
 
-function chartifyEntityYearData(data) {
+function chartifyEntityDateData(data) {
 	data = data.filter(d => d.publish_year && d.entity_name )
 	const entities = [...new Set(data.map(d => d.entity_name))]
 	
 	const minYear = Math.min(...data.map(d => d.publish_year))
 	const maxYear = Math.max(...data.map(d => d.publish_year))
 	
-	
-	var unrolled = {}
-	data.forEach(d => {
-		if (! (d.entity_name in unrolled))
-			unrolled[d.entity_name] = {}
-		unrolled[d.entity_name][d.publish_year] = d.count
+	var labels = []
+	_.range(minYear,maxYear+1).forEach(y => {
+		_.range(1,13).forEach(m => {
+			var label = y.toString() + '-' + m.toString().padStart(2,'0')
+			labels.push(label)
+		})
 	})
 	
-	const converted = entities.map(e => _.range(minYear,maxYear+1).map(y => (e in unrolled && y in unrolled[e]) ? unrolled[e][y] : 0))
+	var labelMapping = {}
+	labels.forEach( (l,i) => {labelMapping[l] = i} )
 	
-	var datasets = converted.map(function (d,i) { return {label:entities[i] ,data:d} })
 	
-	return { 
-		labels: _.range(minYear,maxYear+1), 
+	var datasets = {}
+	entities.forEach( e => {
+		datasets[e] = labels.map( l => 0 )
+	})
+	
+	
+	data.forEach(d => {
+		if (d.publish_year && d.publish_month) {
+			var label = d.publish_year.toString() + '-' + d.publish_month.toString().padStart(2,'0')
+			datasets[d.entity_name][labelMapping[label]] = d.count
+		}
+	})
+
+	return {
+		labels: labels, 
 		datasets: datasets
 		}
 }
@@ -347,7 +360,7 @@ function reorderDatasets(data, reordering) {
 
 
 export async function getStaticProps({ params }) {
-	const virusByYears = await getVirusByYears()
+	const virusByDate = await getVirusByDate()
 	
 	
 	var virusColors = {}
@@ -355,13 +368,13 @@ export async function getStaticProps({ params }) {
 	virusColors['SARS-CoV'] = '252,141,98'
 	virusColors['MERS-CoV'] = '141,160,203'
 	
-	var virusByYearsPlotData = chartifyEntityYearData(virusByYears)
+	var virusDatePlotData = chartifyEntityDateData(virusByDate)
 	
-	Object.keys(virusColors).forEach(virusName => {
-		setAreaChartColors(virusByYearsPlotData, virusName, virusColors[virusName])
+	/*Object.keys(virusColors).forEach(virusName => {
+		setAreaChartColors(virusDatePlotData, virusName, virusColors[virusName])
 	})
 	
-	reorderDatasets(virusByYearsPlotData, ['SARS-CoV','MERS-CoV','SARS-CoV-2'])
+	reorderDatasets(virusDatePlotData, ['SARS-CoV','MERS-CoV','SARS-CoV-2'])*/
 	
 	/*const virusCounts = await getVirusCounts()
 	var labels = virusCounts.map(v => v.entity_name)
@@ -386,8 +399,7 @@ export async function getStaticProps({ params }) {
 	
 	return {
 		props: {
-			/*virusCountsPlotData,*/
-			virusByYearsPlotData,
+			virusDatePlotData,
 			journalCounts,
 			summaryStatistics,
 			drugData,
@@ -469,31 +481,72 @@ export default class Home extends Component {
 	}
 	
 	render() {
-	
-		const lineoptions = { 
-			maintainAspectRatio: false,
-			legend: false,
-			scales: {		
-				yAxes: [{
-					scaleLabel: { 
-						display: true, 
-						labelString: '# of papers' 
-					}
-					//type: 'logarithmic',
-					/*position: 'left',
-					gridLines: {display: true, borderDash:[100,1000,10000,100000]},
-					ticks: {
-						// Include a dollar sign in the ticks
-						stepSize: 1000,
-						min: 0,
-						max: 10000,
-						callback: function(value, index, values) {
-							return numberWithCommas(value);
+		
+		var virusColors = {}
+		virusColors['SARS-CoV-2'] = '102,194,165'
+		virusColors['SARS-CoV'] = '252,141,98'
+		virusColors['MERS-CoV'] = '141,160,203'
+		
+		const viruses = ['SARS-CoV','MERS-CoV','SARS-CoV-2']
+		var virusDatePlots = {}
+		viruses.forEach( v => {
+			
+			var color = this.state.viruses.includes(v) ? "rgba("+virusColors[v]+",1)" : "#CCCCCC"
+			//var color = "black"
+			
+			const lineoptions = { 
+				maintainAspectRatio: false,
+				legend: false,
+				scales: {
+					xAxes: [{
+						gridLines: {
+							//zeroLineColor: color
 						}
-					}*/
-				}]
-			} 
-		}
+					}],
+					yAxes: [{
+						scaleLabel: { 
+							display: true, 
+							labelString: '# of papers per month',
+							//fontColor: color
+						},
+						ticks: {
+							//fontColor: color,
+							fontSize: 14
+						}
+						
+						//type: 'logarithmic',
+						/*position: 'left',
+						gridLines: {display: true, borderDash:[100,1000,10000,100000]},
+						ticks: {
+							// Include a dollar sign in the ticks
+							stepSize: 1000,
+							min: 0,
+							max: 10000,
+							callback: function(value, index, values) {
+								return numberWithCommas(value);
+							}
+						}*/
+					}]
+				} 
+			}
+			
+			
+			var labels = this.props.virusDatePlotData.labels
+			var data = this.props.virusDatePlotData.datasets[v]
+			
+			const dataStartIndex = data.findIndex(val => val > 0)
+			labels = labels.slice(dataStartIndex)
+			data = data.slice(dataStartIndex)
+			
+			
+			virusDatePlots[v] = <Bar
+					data={{
+						labels: labels,
+						datasets: [{data:data, backgroundColor:color}]
+					}}
+					options={lineoptions}
+			/>
+		})
 		
 		const journalChartData = {
 				labels:this.props.journalCounts.map(c => c.name).slice(),
@@ -548,13 +601,7 @@ export default class Home extends Component {
 							{/* Card Body */}
 							<div className="card-body">
 								<div className="chart-area">
-									<Bar
-										data={{
-											labels: this.props.virusByYearsPlotData.labels,
-											datasets: this.props.virusByYearsPlotData.datasets.filter(ds => ds.label == 'SARS-CoV')
-										}}
-										options={lineoptions}
-									/>
+									{virusDatePlots['SARS-CoV']}
 								</div>
 							</div>
 						</div>
@@ -569,13 +616,7 @@ export default class Home extends Component {
 							{/* Card Body */}
 							<div className="card-body">
 								<div className="chart-area">
-									<Bar
-										data={{
-											labels: this.props.virusByYearsPlotData.labels,
-											datasets: this.props.virusByYearsPlotData.datasets.filter(ds => ds.label == 'MERS-CoV')
-										}}
-										options={lineoptions}
-									/>
+									{virusDatePlots['MERS-CoV']}
 								</div>
 							</div>
 						</div>
@@ -590,13 +631,7 @@ export default class Home extends Component {
 							{/* Card Body */}
 							<div className="card-body">
 								<div className="chart-area">
-									<Bar
-										data={{
-											labels: this.props.virusByYearsPlotData.labels,
-											datasets: this.props.virusByYearsPlotData.datasets.filter(ds => ds.label == 'SARS-CoV-2')
-										}}
-										options={lineoptions}
-									/>
+									{virusDatePlots['SARS-CoV-2']}
 								</div>
 							</div>
 						</div>
