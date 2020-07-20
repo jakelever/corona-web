@@ -26,8 +26,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const matching_pages = pages.filter(p => p.page == params.id)
-	if (matching_pages.length != ''):
+	if (matching_pages.length != '') {
 		return { props: {} }
+	}
 	
 	const page_info = matching_pages[0];
 	
