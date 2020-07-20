@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
+const shortMonths = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
 export async function getStaticPaths() {
 	// A workaround for NextJS error (below)
 	// Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
@@ -109,6 +111,15 @@ export default class DocPage extends Component {
 		
 		const modal = <FlagModal key={'flagmodal_'+this.state.modalKey} doc={this.props.doc} show={this.state.showFlagModal} closeFunc={this.closeFlagModal} />
 		
+		var publish_date = ''
+		if (this.props.doc.publish_year && this.props.doc.publish_month && this.props.doc.publish_day) {
+			publish_date = this.props.doc.publish_day.toString() + ' ' + shortMonths[this.props.doc.publish_month] + ' ' + this.props.doc.publish_year.toString()
+		} else if (this.props.doc.publish_year && this.props.doc.publish_month) {
+			publish_date = shortMonths[this.props.doc.publish_month] + ' ' + this.props.doc.publish_year.toString()
+		} else if (this.props.doc.publish_year) {
+			publish_date = this.props.doc.publish_year.toString()
+		}
+		
 		return <Layout title={this.props.doc.title}>
 		
 				{/* Page Heading */}
@@ -144,6 +155,7 @@ export default class DocPage extends Component {
 								<div className="row">
 									<div className="col">
 									
+									{ publish_date ? <h6>Date: {publish_date}</h6> : "" }
 									{ this.props.doc.doi ? <h6>DOI: <a href={"https://doi.org/"+this.props.doc.doi} target="_blank">{this.props.doc.doi}</a></h6> : "" }
 									<h6>Journal: {this.props.doc.journal}</h6>
 									{ this.props.doc.pubmed_id ? <h6>Pubmed ID: <a href={"https://pubmed.ncbi.nlm.nih.gov/"+this.props.doc.pubmed_id} target="_blank">{this.props.doc.pubmed_id}</a></h6> : "" }
