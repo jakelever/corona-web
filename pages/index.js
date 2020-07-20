@@ -8,6 +8,8 @@ import pages from '../lib/pages.json'
 const db = require('../lib/db')
 const escape = require('sql-template-strings')
 
+import { getChartDataByVirusInTopic } from '../lib/db-main'
+
 import { getEntityID } from '../lib/db-main'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -91,7 +93,7 @@ async function getPreprintCounts() {
 	//return {'peer_reviewed': 1, 'preprint': 2}
 }
 
-async function getChartDataByVirusAllTopics(entitytype,topLimit) {
+/*async function getChartDataByVirusAllTopics(entitytype,topLimit) {
 	var dbResponse = await db.query(escape`
 
 	SELECT tmp1.name as entity_name,tmp2.name as virus_name,COUNT(*) as count 
@@ -146,7 +148,7 @@ async function getChartDataByVirusAllTopics(entitytype,topLimit) {
 	})
 	
 	return dataForAllCombos
-}
+}*/
 
 async function getTopicCountsByVirus() {
 	var counts = await db.query(escape`
@@ -387,10 +389,10 @@ export async function getStaticProps({ params }) {
 		datasets: datasets
 	}*/
 	
-	const drugData = await getChartDataByVirusAllTopics('Drug',20)
-	const vaccineData = await getChartDataByVirusAllTopics('Vaccine Type',20)
-	const riskfactorsData = await getChartDataByVirusAllTopics('Risk Factor',20)
-	const symptomsData = await getChartDataByVirusAllTopics('Symptom',20)
+	const drugData = await getChartDataByVirusInTopic('Therapeutics','Drug',20)
+	const vaccineData = await getChartDataByVirusInTopic('Vaccines','Vaccine Type',20)
+	const riskfactorsData = await getChartDataByVirusInTopic('Risk Factors','Risk Factor',20)
+	const symptomsData = await getChartDataByVirusInTopic('Symptoms', 'Symptom',20)
 	
 	const summaryStatistics = await getSummaryStatistics()
 	
