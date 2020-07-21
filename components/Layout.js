@@ -60,7 +60,7 @@ export default class Layout extends Component {
 	}
 	
 	render() {
-		const projectName = "CoronaHub"
+		const projectName = ""
 		/*const loading = <Spinner animation="border" role="status">
 							  <span className="sr-only">Loading...</span>
 							</Spinner>*/
