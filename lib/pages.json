@@ -190,11 +190,11 @@
 		"description": "Research proposing new model systems, tools and assays to study the virus",
 		"extra_table_columns": [
 			{
-				"header": "Model System",
-				"selector": "entities:Model System"
+				"header": "Species",
+				"selector": "entities:Species"
 			}
 		],
-		"chart_entity": "Model System"
+		"chart_entity": "Species"
 	},
 	{
 		"name": "Immunology",
