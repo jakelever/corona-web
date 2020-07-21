@@ -259,10 +259,10 @@
 		"chart_entity": "Drug"
 	},
 	{
-		"name": "Non-therapeutics",
-		"page": "nontherapeutic_interventions",
+		"name": "Medical Devices",
+		"page": "medicaldevices",
 		"group": "Treatment",
-		"description": "Non-therapeutic interventions used to treat the virus"
+		"description": "Medical devices used to treat the virus"
 	},
 	
 	
@@ -275,7 +275,7 @@
 	},
 	
 	
-	{
+	{	
 		"name": "Reviews",
 		"page": "reviews",
 		"icon": "faPenFancy",
