@@ -23,21 +23,21 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: What is the purpose of this resource?</b></p>
-								<p>A: </p>
+								<p>A: To provide a portal to the entire biomedical literature focussed on SARS-CoV-2, MERS-CoV and SARS-CoV.</p>
 							</div>
 							
 							<hr />
 							
 							<div>
 								<p><b>Q: How do I find papers that mention a specific therapeutic?</b></p>
-								<p>A: </p>
+								<p>A: We find drug names extracted from Wikidata in papers and use a set of synonyms to extract them.</p>
 							</div>
 							
 							<hr />
 							
 							<div>
-								<p><b>Q: What machine learning methods are used in this research?</b></p>
-								<p>A: </p>
+								<p><b>Q: What machine learning methods are used in this resource?</b></p>
+								<p>A: We use supervised machine learning to identify the topics of the papers. A set of papers has been annotated with relevant topics and fed into a traditional logistic regression based system that has been adjusted to make conservative decisions.</p>
 							</div>
 							
 							<hr />
@@ -51,7 +51,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: I've found a mistake with a paper. What should I do?</b></p>
-								<p>A: </p>
+								<p>A: Please flag the paper using the Flag Mistake button on the paper or use the <Link href="/feedback" as="/feedback"><a>Feedback page</a></Link>.</p>
 							</div>
 							
 							<hr />
