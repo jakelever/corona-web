@@ -94,7 +94,7 @@ export default class Page extends Component {
 				</div>
 				
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
-					<h6 className="h6 mb-0 text-gray-800">Recently published articles with high 1 Day Altmetric scores</h6>
+					<h6 className="h6 mb-0 text-gray-800">Articles that are receiving attention in the media and social media</h6>
 				</div>
 
 				<div className="card shadow mb-4">
