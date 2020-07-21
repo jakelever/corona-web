@@ -103,7 +103,7 @@ export default class Page extends Component {
 		var columns = [
 				{ "header":"Virus", "selector":"entities:Virus" },
 				...extra_columns,
-				{ "header":"Journal", "selector":"journal" },
+				{ "header":"Journal", "selector":"journal", "width":"20%" },
 				{ "header":"Date", "selector":"publish_date", "width":"13%" },
 				{ "header":"Title", "selector":"title", linkInternal: true }
 			]

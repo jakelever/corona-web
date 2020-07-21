@@ -78,7 +78,7 @@ export default class EntityPage extends Component {
 		var columns = [
 				{ "header":"Virus", "selector":"entities:Virus" },
 				{ "header":"Topics", "selector":"entities:topic" },
-				{ "header":"Journal", "selector":"journal" },
+				{ "header":"Journal", "selector":"journal", "width":"20%" },
 				{ "header":"Date", "selector":"publish_date", "width":"10%" },
 				{ "header":"Title", "selector":"title", linkInternal: true }
 			]
