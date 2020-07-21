@@ -289,7 +289,13 @@
 		"page": "comments_editorials",
 		"icon": "faRandom",
 		"group": "Other",
-		"description": "Commentary, editorials and other short articles that are not original research"
+		"description": "Commentary, editorials and other short articles that are not original research",
+		"extra_table_columns": [
+			{
+				"header": "Topics",
+				"selector": "entities:topic"
+			}
+		]
 	},
 	{
 		"name": "Book Chapters",
