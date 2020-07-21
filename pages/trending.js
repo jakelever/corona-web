@@ -88,9 +88,6 @@ export default class Page extends Component {
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">Trending</h1>
-					<a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
-					</a>
 				</div>
 				
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
