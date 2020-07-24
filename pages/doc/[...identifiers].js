@@ -35,7 +35,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-	const doc = await getDocument(params.id)
+	var identifiers
+	if (params.identifiers.length == 3 && params.identifiers[0] == 'doi') {
+		identifiers = { 'doi': params.identifiers[1] + '/' + params.identifiers[2] }
+	} else if (params.identifiers.length == 2 && params.identifiers[0] == 'pubmed_id') {
+		identifiers = { 'pubmed_id': params.identifiers[1] }
+	} else if (params.identifiers.length == 2 && params.identifiers[0] == 'cord_uid') {
+		identifiers = { 'cord_uid': params.identifiers[1] }
+	}else {
+		return { props: { fallback_complete: true } }
+	}
+	
+	const doc = await getDocument(identifiers)
 	return {
 		props: {
 			fallback_complete: true,

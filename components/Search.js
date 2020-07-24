@@ -31,10 +31,7 @@ export default class Search extends Component {
 	}
 	
 	onChange(selected) {
-		if (selected.length == 1) {
-			//const router = useRouter()
-			console.log(selected[0])
-			
+		if (selected.length == 1) {			
 			const entity_name = selected[0].name
 			const entity_type = selected[0].type
 			
@@ -42,8 +39,16 @@ export default class Search extends Component {
 				const url = "/" + this.pageMapping[entity_name]
 				Router.push("/[id]",url)
 			} else if (entity_type == 'Paper') {
-				const url = "/doc/" + selected[0].document_id
-				Router.push("/doc/[id]",url)
+				var url = null
+				if (selected[0].doi)
+					url = "/doc/doi/" + selected[0].doi
+				else if (selected[0].pubmed_id)
+					url = "/doc/pubmed_id/" + selected[0].pubmed_id
+				else if (selected[0].cord_uid)
+					url = "/doc/cord_uid/" + selected[0].cord_uid
+				
+				if (url)
+					Router.push("/doc/[...identifiers]",url)
 			} else {
 				const url = "/entity/" + entity_type + "/" + entity_name
 				Router.push("/entity/[...typename]",url)

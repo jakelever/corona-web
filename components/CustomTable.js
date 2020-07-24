@@ -118,7 +118,19 @@ function getColumnMetadata(column) {
 	}
 	
 	if (column.linkInternal) {
-		metadata.cell = row => <Link href={"/doc/[id]"} as={"/doc/"+row.document_id} prefetch={false}><a>{row[column.selector]}</a></Link>
+		const linkFunction = row => {
+			if (row.doi) {
+				return <Link href={"/doc/[...identifiers]"} as={"/doc/doi/"+row.doi} prefetch={false}><a>{row[column.selector]}</a></Link>
+			} else if (row.pubmed_id) {
+				return <Link href={"/doc/[...identifiers]"} as={"/doc/pubmed_id/"+row.pubmed_id} prefetch={false}><a>{row[column.selector]}</a></Link>
+			} else if (row.cord_uid) {
+				return <Link href={"/doc/[...identifiers]"} as={"/doc/cord_uid/"+row.cord_uid} prefetch={false}><a>{row[column.selector]}</a></Link>
+			} else {
+				return row[column.selector]
+			}
+		}
+		
+		metadata.cell = linkFunction
 	}
 	
 	return metadata
