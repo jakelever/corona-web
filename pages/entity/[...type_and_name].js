@@ -24,7 +24,7 @@ export async function getStaticPaths() {
 	const entities = isDevelopment ? await getAllEntities() : []
 	
 	const paths = entities.map( e => {
-		return {params: {typename: [e.entity_type,e.entity_name]}}
+		return {params: {type_and_name: [e.entity_type,e.entity_name]}}
 	} )
 	
 	return {
@@ -34,7 +34,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-	const [ entity_type, entity_name ] = params.typename
+	const [ entity_type, entity_name ] = params.type_and_name
 	
 	const entity = await getEntity(entity_type, entity_name)
 	const tabledata = entity ? await getPapersWithEntity(entity.entity_id) : null
