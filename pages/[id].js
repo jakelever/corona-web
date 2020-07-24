@@ -10,9 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { Bar } from 'react-chartjs-2';
 
-import Head from 'next/head'
-import DefaultErrorPage from 'next/error'
-
 export async function getStaticPaths() {
 	/*const paths = pages.map(function(p) {
 		return { params: {id: p.page} }
@@ -100,15 +97,8 @@ export default class Page extends Component {
 	render() {
 		if(!this.props.fallback_complete)
 			return <Layout loading={true}></Layout>
-		
-		if (!this.props.page_info) {
-			return <>
-				<Head>
-					<meta name="robots" content="noindex" />
-				</Head>
-				<DefaultErrorPage statusCode={404} />
-			</>
-		}
+		if (!this.props.page_info)
+			return <Layout error404={true}></Layout>
 		
 		const extra_columns = 'extra_table_columns' in this.props.page_info ? this.props.page_info.extra_table_columns : [];
 		

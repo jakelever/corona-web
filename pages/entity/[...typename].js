@@ -11,8 +11,6 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { Bar } from 'react-chartjs-2';
 
 import dynamic from 'next/dynamic'
-import Head from 'next/head'
-import DefaultErrorPage from 'next/error'
 
 const DynamicMapComponent = dynamic(
   () => import('../../components/Map'),
@@ -79,15 +77,8 @@ export default class EntityPage extends Component {
 	render() {
 		if(!this.props.fallback_complete)
 			return <Layout loading={true}></Layout>
-		
-		if (!this.props.entity) {
-			return <>
-				<Head>
-					<meta name="robots" content="noindex" />
-				</Head>
-				<DefaultErrorPage statusCode={404} />
-			</>
-		}
+		if (!this.props.entity)
+			return <Layout error404={true}></Layout>
 		
 		var columns = [
 				{ "header":"Virus", "selector":"entities:Virus" },

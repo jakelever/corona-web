@@ -64,34 +64,55 @@ export default class Layout extends Component {
 		/*const loading = <Spinner animation="border" role="status">
 							  <span className="sr-only">Loading...</span>
 							</Spinner>*/
-							
-		const pageTitle = 'title' in this.props ? this.props.title + " | " + projectName : projectName
-							
-		var content;
-		if (this.state.error) {
+
+									
+		var content = '', headBlock = '';
+		if (this.props.error404) {
+			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+					<div style={{textAlign:"center"}}>
+					<p><FontAwesomeIcon icon={faBomb} style={{fontSize:"5em"}}/></p>
+					<p>404: Page not found</p>
+					</div>
+				</div>
+			headBlock = <Head>
+							<title>Page not found | {projectName}</title>
+							<meta name="robots" content="noindex" />
+						</Head>
+		} else if (this.state.error) {
 			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
 					<div style={{textAlign:"center"}}>
 					<p><FontAwesomeIcon icon={faBomb} style={{fontSize:"5em"}}/></p>
 					<p>An error has occurred!</p>
 					</div>
 				</div>
+			headBlock = <Head>
+							<title>Error | {projectName}</title>
+							<meta name="robots" content="noindex" />
+						</Head>
 		} else if (this.state.loading || ('loading' in this.props && this.props.loading == true)) {
 			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
 					<Spinner animation="border" role="status" style={{width: "3rem", height: "3rem"}}>
 						<span className="sr-only">Loading...</span>
 					</Spinner>
 				</div>
+			headBlock = <Head>
+							<meta name="robots" content="noindex" />
+						</Head>
 		} else {
+										
+			const pageTitle = 'title' in this.props ? this.props.title + " | " + projectName : projectName
+							
 			content = this.props.children
+			headBlock = <Head>
+					<title>{pageTitle}</title>
+					<link rel="icon" href="/favicon.png" type="image/png" />
+				</Head>
 		}
 		
 		return (
 			<div id="wrapper">
 				{/* Page Wrapper */}
-				<Head>
-					<title>{pageTitle}</title>
-					<link rel="icon" href="/favicon.png" type="image/png" />
-				</Head>
+				
 
 				<Sidebar projectName={projectName} page={this.props.page} />
 
@@ -100,6 +121,8 @@ export default class Layout extends Component {
 
 					{/* Main Content */}
 					<div id="content">
+					
+						{headBlock}
 
 						<Topbar updateViruses={this.props.updateViruses} showVirusSelector={this.props.showVirusSelector} />
 
