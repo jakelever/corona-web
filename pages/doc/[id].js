@@ -15,6 +15,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
+import Head from 'next/head'
+import DefaultErrorPage from 'next/error'
+
 const shortMonths = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
 export async function getStaticPaths() {
@@ -38,6 +41,7 @@ export async function getStaticProps({ params }) {
 	const doc = await getDocument(params.id)
 	return {
 		props: {
+			fallback_complete: true,
 			doc
 		}
 	}
@@ -67,8 +71,17 @@ export default class DocPage extends Component {
 	}
 	
 	render() {
-		if (!this.props.doc)
+		if(!this.props.fallback_complete)
 			return <Layout loading={true}></Layout>
+		
+		if (!this.props.doc) {
+			return <>
+				<Head>
+					<meta name="robots" content="noindex" />
+				</Head>
+				<DefaultErrorPage statusCode={404} />
+			</>
+		}
 		
 		var entityGroups = {}
 		const entityTypes = [...new Set(this.props.doc.entities.map( e => e.type ))]

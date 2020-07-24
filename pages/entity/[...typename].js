@@ -11,6 +11,8 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { Bar } from 'react-chartjs-2';
 
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import DefaultErrorPage from 'next/error'
 
 const DynamicMapComponent = dynamic(
   () => import('../../components/Map'),
@@ -37,10 +39,11 @@ export async function getStaticProps({ params }) {
 	const [ entity_type, entity_name ] = params.typename
 	
 	const entity = await getEntity(entity_type, entity_name)
-	const tabledata = await getPapersWithEntity(entity.entity_id)
+	const tabledata = entity ? await getPapersWithEntity(entity.entity_id) : null
 	
 	return {
 		props: {
+			fallback_complete: true,
 			entity,
 			tabledata
 		}
@@ -56,6 +59,8 @@ export default class EntityPage extends Component {
 			
 		this.updateViruses = this.updateViruses.bind(this);
 		this.filterForVirus = this.filterForVirus.bind(this);
+		
+		//this.router = withRouter()
 	}
 	
 	updateViruses(viruses) {
@@ -72,8 +77,17 @@ export default class EntityPage extends Component {
 	}
 
 	render() {
-		if (!this.props.entity)
+		if(!this.props.fallback_complete)
 			return <Layout loading={true}></Layout>
+		
+		if (!this.props.entity) {
+			return <>
+				<Head>
+					<meta name="robots" content="noindex" />
+				</Head>
+				<DefaultErrorPage statusCode={404} />
+			</>
+		}
 		
 		var columns = [
 				{ "header":"Virus", "selector":"entities:Virus" },
