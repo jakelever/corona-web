@@ -4,3 +4,16 @@ import Layout from '../components/Layout.js'
 export default function ErrorPage(props) {
 	return <Layout error404={true} />
 }	
+
+function Error({ statusCode }) {
+	const errorMessage = statusCode ? `An error ${statusCode} occurred on server` : 'An error occurred on client'}
+	
+	return <Layout error={true} errorMessage={errorMessage} />
+}
+
+Error.getInitialProps = ({ res, err }) => {
+	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
+	return { statusCode }
+}
+
+export default Error

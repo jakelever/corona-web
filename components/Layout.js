@@ -78,11 +78,13 @@ export default class Layout extends Component {
 							<title>Page not found | {projectName}</title>
 							<meta name="robots" content="noindex" />
 						</Head>
-		} else if (this.state.error) {
+		} else if (this.state.error || this.props.error) {
+			const errorMessage = this.props.errorMessage ? this.props.errorMessage : "An error has occurred!"
+			
 			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
 					<div style={{textAlign:"center"}}>
 					<p><FontAwesomeIcon icon={faBomb} style={{fontSize:"5em"}}/></p>
-					<p>An error has occurred!</p>
+					<p>{errorMessage}</p>
 					</div>
 				</div>
 			headBlock = <Head>
