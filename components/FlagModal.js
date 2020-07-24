@@ -63,6 +63,17 @@ export default class FlagModal extends Component {
 			submitButton = <button type="submit" className="btn btn-primary">Submit</button>
 		}
 		
+		const hide = {display: 'none'}
+		const show = {}
+		
+		var whichIDToShow = null
+		if (this.props.doc.doi)
+			whichIDToShow = 'doi'
+		else if (this.props.doc.pubmed_id)
+			whichIDToShow = 'pubmed_id'
+		else if (this.props.doc.cord_uid)
+			whichIDToShow = 'cord_uid'
+		
 		return <Modal show={this.props.show} onHide={this.props.closeFunc}>
 				<form className="board-form" onSubmit={e => {
 						e.preventDefault()
@@ -75,10 +86,22 @@ export default class FlagModal extends Component {
 				<Modal.Body>
 					<p>Please use this form to notify mistakes with the topic of a paper, or extracted entities (e.g. drugs, locations, etc). Your response will be manually reviewed and help to improve this resource.</p>
 				
-					<div className="form-group row">
+					<div className="form-group row" style={whichIDToShow == 'doi' ? show : hide}>
 						<label htmlFor="doi" className="col-sm-2 col-form-label">DOI</label>
 						<div className="col-sm-10">
 							<input type="text" readOnly className="form-control-plaintext" id="doi" value={this.props.doc.doi} />
+						</div>
+					</div>
+					<div className="form-group row" style={whichIDToShow == 'pubmed_id' ? show : hide}>
+						<label htmlFor="pubmed_id" className="col-sm-2 col-form-label">Pubmed ID</label>
+						<div className="col-sm-10">
+							<input type="text" readOnly className="form-control-plaintext" id="pubmed_id" value={this.props.doc.pubmed_id} />
+						</div>
+					</div>
+					<div className="form-group row" style={whichIDToShow == 'cord_uid' ? show : hide}>
+						<label htmlFor="cord_uid" className="col-sm-2 col-form-label">CORD UID</label>
+						<div className="col-sm-10">
+							<input type="text" readOnly className="form-control-plaintext" id="cord_uid" value={this.props.doc.cord_uid} />
 						</div>
 					</div>
 					<div className="form-group row">
