@@ -53,6 +53,7 @@ export default class Layout extends Component {
 			logPageView(this.props.title)
 		}
 		
+		this.setState({windowSize: window.innerWidth})
 		window.addEventListener("resize", this.handleResize);
 	}
 	
