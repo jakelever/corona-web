@@ -18,7 +18,8 @@ export default class Layout extends Component {
 		this.state = {
 			loading: false,
 			error: false,
-			showSidebar: true
+			showSidebar: false,
+			windowSize : null
 			}
 		
 		Router.onRouteChangeStart = (url) => {
@@ -37,7 +38,10 @@ export default class Layout extends Component {
 			// an error occurred.
 			// some error logic
 			this.setState({loading: false, error:true})
-		}; 
+		};
+		
+		this.handleResize = this.handleResize.bind(this);
+		this.toggleSidebar = this.toggleSidebar.bind(this);
 	}
 	
 	componentDidMount () {
@@ -48,6 +52,8 @@ export default class Layout extends Component {
 			}
 			logPageView(this.props.title)
 		}
+		
+		window.addEventListener("resize", this.handleResize);
 	}
 	
 	componentDidUpdate() {
@@ -58,6 +64,18 @@ export default class Layout extends Component {
 			}
 			logPageView(this.props.title)
 		}
+	}
+	
+	componentWillUnmount() {
+		window.addEventListener("resize", null);
+    }
+	
+	handleResize(WindowSize, event) {
+		this.setState({windowSize: window.innerWidth})
+    }
+	
+	toggleSidebar() {
+		this.setState({showSidebar:!this.state.showSidebar})
 	}
 	
 	render() {
@@ -112,8 +130,8 @@ export default class Layout extends Component {
 				</Head>
 		}
 		
-		
-		const sidebar = this.state.showSidebar ? <Sidebar show={this.state.showSidebar} projectName={projectName} page={this.props.page} /> : <></>
+		const definitelyShowSidebar = (this.state.windowSize && this.state.windowSize > 768) || this.state.showSidebar
+		const sidebar = definitelyShowSidebar ? <Sidebar show={this.state.showSidebar} projectName={projectName} page={this.props.page} /> : <></>
 		
 		/*<div className="Xd-none Xd-sm-block Xd-md-none">
 							<a href="" onClick={event => {this.setState({showSidebar:!this.state.showSidebar}); event.preventDefault()}}>Hello</a>
@@ -134,7 +152,7 @@ export default class Layout extends Component {
 						{headBlock}
 						
 						
-						<Topbar updateViruses={this.props.updateViruses} showVirusSelector={this.props.showVirusSelector} />
+						<Topbar toggleSidebar={this.toggleSidebar} updateViruses={this.props.updateViruses} showVirusSelector={this.props.showVirusSelector} />
 
 						{/* Begin Page Content */}
 						<div className="container-fluid">

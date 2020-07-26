@@ -82,11 +82,9 @@ export default class Topbar extends Component {
 		return (
 	<nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 	
-		<a className="text-secondary d-none d-sm-block d-md-none" href="#"><FontAwesomeIcon icon={faBars} fixedWidth  /></a>
-
 		{/* Sidebar Toggle (Topbar) */}
-		<button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
-			<i className="fa fa-bars"></i>
+		<button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3 text-secondary" onClick={event => this.props.toggleSidebar()}>
+			<FontAwesomeIcon icon={faBars}  />
 		</button>
 
 		<Search />
