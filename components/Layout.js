@@ -130,7 +130,7 @@ export default class Layout extends Component {
 				</Head>
 		}
 		
-		const definitelyShowSidebar = (this.state.windowSize && this.state.windowSize > 768) || this.state.showSidebar
+		const definitelyShowSidebar = (this.state.windowSize && this.state.windowSize >= 768) || this.state.showSidebar
 		const sidebar = definitelyShowSidebar ? <Sidebar show={this.state.showSidebar} projectName={projectName} page={this.props.page} /> : <></>
 		
 		/*<div className="Xd-none Xd-sm-block Xd-md-none">
