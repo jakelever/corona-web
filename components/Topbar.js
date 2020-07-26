@@ -3,6 +3,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import Search from '../components/Search.js'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+
 /* Topbar */
 export default class Topbar extends Component {
 	constructor(props) {
@@ -78,6 +81,8 @@ export default class Topbar extends Component {
 		
 		return (
 	<nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+	
+		<a className="text-secondary d-none d-sm-block d-md-none" href="#"><FontAwesomeIcon icon={faBars} fixedWidth  /></a>
 
 		{/* Sidebar Toggle (Topbar) */}
 		<button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">

@@ -161,9 +161,9 @@ export default class Sidebar extends Component {
 		});
 
 		
+	// 	<Collapse in={this.props.show} dimension="width" className="" timeout={10000}><div style={{padding: 0, margin:0, backgroundColor:"#00FF00"}}>
 		
 		return (
-		
 	<ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 		{/* Sidebar - Brand */}
@@ -252,7 +252,6 @@ export default class Sidebar extends Component {
 
 		{/* End of Sidebar */}
 	</ul>
-
 		)
 	}
 }

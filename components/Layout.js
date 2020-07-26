@@ -17,7 +17,8 @@ export default class Layout extends Component {
 		super(props)
 		this.state = {
 			loading: false,
-			error: false
+			error: false,
+			showSidebar: true
 			}
 		
 		Router.onRouteChangeStart = (url) => {
@@ -111,12 +112,18 @@ export default class Layout extends Component {
 				</Head>
 		}
 		
+		
+		const sidebar = this.state.showSidebar ? <Sidebar show={this.state.showSidebar} projectName={projectName} page={this.props.page} /> : <></>
+		
+		/*<div className="Xd-none Xd-sm-block Xd-md-none">
+							<a href="" onClick={event => {this.setState({showSidebar:!this.state.showSidebar}); event.preventDefault()}}>Hello</a>
+						</div>*/
+		
 		return (
 			<div id="wrapper">
 				{/* Page Wrapper */}
 				
-
-				<Sidebar projectName={projectName} page={this.props.page} />
+				{sidebar}
 
 				{/* Content Wrapper */}
 				<div id="content-wrapper" className="d-flex flex-column">
@@ -125,7 +132,8 @@ export default class Layout extends Component {
 					<div id="content">
 					
 						{headBlock}
-
+						
+						
 						<Topbar updateViruses={this.props.updateViruses} showVirusSelector={this.props.showVirusSelector} />
 
 						{/* Begin Page Content */}
