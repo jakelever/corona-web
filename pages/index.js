@@ -861,7 +861,7 @@ export default class Home extends Component {
 					
 
 					<div className="col-xl-6 col-lg-5">
-						<div className="card shadow mb-4" style={{minHeight:"300px"}}>
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/therapeutics">
@@ -879,7 +879,7 @@ export default class Home extends Component {
 					</div>
 					
 					<div className="col-xl-6 col-lg-5">
-						<div className="card shadow mb-4" style={{minHeight:"300px"}}>
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/vaccines">
@@ -907,7 +907,7 @@ export default class Home extends Component {
 					
 
 					<div className="col-xl-6 col-lg-5">
-						<div className="card shadow mb-4" style={{minHeight:"300px"}}>
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/riskfactors">
@@ -925,7 +925,7 @@ export default class Home extends Component {
 					</div>
 					
 					<div className="col-xl-6 col-lg-5">
-						<div className="card shadow mb-4" style={{minHeight:"300px"}}>
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/symptoms">
