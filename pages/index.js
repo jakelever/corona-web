@@ -86,11 +86,8 @@ async function getPreprintCounts() {
 
 	`)
 	counts = counts.map(r => Object.assign({},r))
-	//console.log(researchID)
-	//console.log(counts)
 	
 	return {'peer_reviewed': counts[0].count, 'preprint': counts[1].count}
-	//return {'peer_reviewed': 1, 'preprint': 2}
 }
 
 /*async function getChartDataByVirusAllTopics(entitytype,topLimit) {
@@ -169,11 +166,9 @@ async function getTopicCountsByVirus() {
 	// anno_topic.document_id < 5000 (for testing purposes only)
 	
 	counts = counts.map(r => Object.assign({},r))
-	//console.log(counts)
 	
 	const topics = [...new Set(counts.map(c => c.topic))].sort();
 	const viruses = [...new Set(counts.map(c => c.virus))].sort();
-	//console.log(topics)
 	
 	var topicMap = {}
 	topics.forEach( (t,i) => {topicMap[t] = i} )
@@ -195,7 +190,6 @@ async function getTopicCountsByVirus() {
 	
 	
 	const barData = { 'labels':topics, 'datasets': viruses.map(v => { return { label:v, data:data[v] } } ) }
-	//console.log(finalData)
 	
 	barData.datasets.forEach(dataset => {
 		var rgb = virusColors[dataset.label]
@@ -475,13 +469,6 @@ export default class Home extends Component {
 			
 		}
 		
-		var height = 50
-		if (this.state.windowWidth && this.state.windowWidth > 992) {
-			height = 100
-		}
-		console.log(this.state.windowWidth)
-		console.log(height)
-		
 		var barChart = (
 					<Bar
 						data={bardata}
@@ -591,12 +578,10 @@ export default class Home extends Component {
 				datasets:[{data:this.props.journalCounts.map(c => c.count).slice(0,numberToShow),backgroundColor:'#fbb4ae'}]
 				}
 				
-		//const drugChart = ''
 		const drugChart = this.chartifyEntityData(this.props.drugData,numberToShow)
 		const vaccineChart = this.chartifyEntityData(this.props.vaccineData,numberToShow)
 		const riskfactorsChart = this.chartifyEntityData(this.props.riskfactorsData,numberToShow)
 		const symptomsChart = this.chartifyEntityData(this.props.symptomsData,numberToShow)
-		//console.log(journalChartData)
 		
 		var locationsToShowByID = {}
 		this.props.popularLocations.filter( loc => this.state.viruses.includes(loc.virus)).forEach( loc => {

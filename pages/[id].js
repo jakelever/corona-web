@@ -35,8 +35,6 @@ export async function getStaticProps({ params }) {
 	
 	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirusInTopic(page_info.name,page_info.chart_entity,30) : null
 	
-	//console.log(chartdata)
-	
 	return {
 		props: {
 			fallback_complete: true,
@@ -152,8 +150,6 @@ export default class Page extends Component {
 				const alpha = (this.state.windowWidth-lowerWidthCutoff) / (upperWidthCutoff-lowerWidthCutoff)
 				numberToShow = Math.round(minNumberToShow + alpha * (maxNumberToShow-minNumberToShow))
 			} 
-			
-			console.log(this.state.windowWidth)
 			
 			bardata.labels = bardata.labels.slice(0,numberToShow)
 			bardata.datasets.forEach(ds => { ds.data = ds.data.slice(0,numberToShow)} )
