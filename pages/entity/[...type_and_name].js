@@ -79,13 +79,13 @@ export default class EntityPage extends Component {
 			return <Layout loading={true}></Layout>
 		if (!this.props.entity)
 			return <Layout error404={true}></Layout>
-		
+					
 		var columns = [
-				{ "header":"Virus", "selector":"entities:Virus" },
-				{ "header":"Topics", "selector":"entities:topic" },
-				{ "header":"Journal", "selector":"journal", "width":"20%" },
-				{ "header":"Date", "selector":"publish_date", "width":"10%" },
-				{ "header":"Title", "selector":"title", linkInternal: true }
+				{ "header":"Virus", "selector":"entities:Virus", "hide":"md", grow:1 },
+				{ "header":"Topics", "selector":"entities:topic", grow:2 },
+				{ "header":"Journal", "selector":"journal", "hide":"md", grow:1 },
+				{ "header":"Date", "selector":"publish_date", "hide":"md", grow:1 },
+				{ "header":"Title", "selector":"title", linkInternal: true, grow:4 }
 			]
 			
 		const filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));

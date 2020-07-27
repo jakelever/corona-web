@@ -33,7 +33,7 @@ function getColumnMetadata(column) {
 			id: entity_type,
 			name: column.header,
 			sortable: false,
-			width: '10%',
+			//width: '10%',
 			style: {
 			  fontSize: '16px',
 			  padding: '14px'
@@ -109,8 +109,21 @@ function getColumnMetadata(column) {
 		}
 	}
 	
+	if (column.grow) {
+		metadata.grow = column.grow
+	}
+	if (column.minWidth) {
+		metadata.minWidth = column.minWidth
+	}
+	if (column.maxWidth) {
+		metadata.maxWidth = column.maxWidth
+	}
 	if (column.width) {
 		metadata.width = column.width
+	}
+	
+	if (column.hide) {
+		metadata.hide = column.hide
 	}
 	
 	if (column.linkExternal) {
@@ -191,9 +204,11 @@ export default class CustomTable extends Component {
 				ignoreRowClick: true,
 				allowOverflow: true,
 				button: true,
+				hide: "sm",
 				style: {
 				  padding: '14px'
-				}
+				},
+				grow: 1
 			}
 			
 		const renderExtraMetadata = row => {
@@ -233,6 +248,7 @@ export default class CustomTable extends Component {
 				sortable: true,
 				allowOverflow: true,
 				button: true,
+				grow: 1
 			}
 			
 		const renderAltmetricBadge = row => {
@@ -245,7 +261,7 @@ export default class CustomTable extends Component {
 			return <a href={detailsURL} target="_blank" alt={"Altmetric score of " + row.altmetric_score}>{img}</a>
 		}
 			
-		const altmetricScoreColumn = {
+		var altmetricScoreColumn = {
 				id: 'altmetric_score',
 				name: 'Altmetric',
 				selector: 'altmetric_score',
@@ -253,7 +269,12 @@ export default class CustomTable extends Component {
 				sortable: true,
 				allowOverflow: true,
 				button: true,
+				grow: 1
 			}
+			
+		if ('altmetricHide' in this.props) {
+			altmetricScoreColumn['hide'] = this.props.altmetricHide
+		}
 
 		var columnsWithFormating = this.props.columns.map( column => getColumnMetadata(column) )
 		if (this.props.showAltmetric1Day)
@@ -274,6 +295,7 @@ export default class CustomTable extends Component {
 					keyField="document_id"
 					pagination
 					highlightOnHover
+					responsive
 					sortIcon={<FontAwesomeIcon icon={faSortDown} />}
 				/>
 				

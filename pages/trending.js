@@ -61,13 +61,13 @@ export default class Page extends Component {
 	
 
 	render() {
-		
+					
 		var columns = [
-				{ "header":"Virus", "selector":"entities:Virus" },
-				{ "header":"Topics", "selector":"entities:topic", "width":"20%" },
-				{ "header":"Journal", "selector":"journal", "width":"20%" },
-				{ "header":"Date", "selector":"publish_date", "width":"10%" },
-				{ "header":"Title", "selector":"title", linkInternal: true }
+				{ "header":"Virus", "selector":"entities:Virus", "hide":"md", grow:1 },
+				{ "header":"Topics", "selector":"entities:topic", grow:2 },
+				{ "header":"Journal", "selector":"journal", "hide":"md", grow:1 },
+				{ "header":"Date", "selector":"publish_date", "hide":"md", grow:1 },
+				{ "header":"Title", "selector":"title", linkInternal: true, grow:4 }
 			]
 				
 		const filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
@@ -80,7 +80,7 @@ export default class Page extends Component {
 			return newRow
 		})
 		
-		const table = <CustomTable columns={columns} data={filteredData} showAltmetric1Day sort="altmetric_score_1day" />
+		const table = <CustomTable columns={columns} data={filteredData} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" />
 
 		return (
 			<Layout title="Trending" page="/trending" updateViruses={this.updateViruses}>

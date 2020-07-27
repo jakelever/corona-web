@@ -103,11 +103,11 @@ export default class Page extends Component {
 		const extra_columns = 'extra_table_columns' in this.props.page_info ? this.props.page_info.extra_table_columns : [];
 		
 		var columns = [
-				{ "header":"Virus", "selector":"entities:Virus" },
+				{ "header":"Virus", "selector":"entities:Virus", "hide":"md", grow:1 },
 				...extra_columns,
-				{ "header":"Journal", "selector":"journal", "width":"20%" },
-				{ "header":"Date", "selector":"publish_date", "width":"13%" },
-				{ "header":"Title", "selector":"title", linkInternal: true }
+				{ "header":"Journal", "selector":"journal", "hide":"md", grow:1 },
+				{ "header":"Date", "selector":"publish_date", "hide":"md", grow:1 },
+				{ "header":"Title", "selector":"title", linkInternal: true, grow: 4 }
 			]
 		
 		var barChart = <div></div>

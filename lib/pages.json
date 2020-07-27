@@ -14,7 +14,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Location",
-				"selector": "entities:Location"
+				"selector": "entities:Location",
+				"grow":2
 			}
 		],
 		"chart_entity": "Location"
@@ -27,7 +28,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Type",
-				"selector": "entities:Transmission Type"
+				"selector": "entities:Transmission Type",
+				"grow":2
 			}
 		],
 		"chart_entity": "Transmission Type"
@@ -40,11 +42,13 @@
 		"extra_table_columns": [
 			{
 				"header": "Location",
-				"selector": "entities:Location"
+				"selector": "entities:Location",
+				"grow":2
 			},
 			{
 				"header": "Test Type",
-				"selector": "entities:Test Type"
+				"selector": "entities:Test Type",
+				"grow":3
 			}
 		],
 		"chart_entity": "Location"
@@ -63,7 +67,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Test Type",
-				"selector": "entities:Test Type"
+				"selector": "entities:Test Type",
+				"grow":2
 			}
 		],
 		"chart_entity": "Test Type"
@@ -76,7 +81,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Prevention Method",
-				"selector": "entities:Prevention Method"
+				"selector": "entities:Prevention Method",
+				"grow":2
 			}
 		],
 		"chart_entity": "Prevention Method"
@@ -98,7 +104,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Risk Factor",
-				"selector": "entities:Risk Factor"
+				"selector": "entities:Risk Factor",
+				"grow":2
 			}
 		],
 		"chart_entity": "Risk Factor"
@@ -111,7 +118,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Symptom",
-				"selector": "entities:Symptom"
+				"selector": "entities:Symptom",
+				"grow":2
 			}
 		],
 		"chart_entity": "Symptom"
@@ -124,7 +132,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Location",
-				"selector": "entities:Location"
+				"selector": "entities:Location",
+				"grow":2
 			}
 		],
 		"chart_entity": "Location"
@@ -149,7 +158,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Medical Specialty",
-				"selector": "entities:Medical Specialty"
+				"selector": "entities:Medical Specialty",
+				"grow":2
 			}
 		],
 		"chart_entity": "Medical Specialty"
@@ -177,8 +187,9 @@
 		"description": "Research studying the molecular biology of the virus or host",
 		"extra_table_columns": [
 			{
-				"header": "Gene/Protein",
-				"selector": "entities:Gene or Protein"
+				"header": "Gene / Protein",
+				"selector": "entities:Gene or Protein",
+				"grow":2
 			}
 		],
 		"chart_entity": "Gene or Protein"
@@ -191,7 +202,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Species",
-				"selector": "entities:Species"
+				"selector": "entities:Species",
+				"grow":2
 			}
 		],
 		"chart_entity": "Species"
@@ -210,7 +222,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Species",
-				"selector": "entities:Species"
+				"selector": "entities:Species",
+				"grow":2
 			}
 		],
 		"chart_entity": "Species"
@@ -227,7 +240,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Drug",
-				"selector": "entities:Drug"
+				"selector": "entities:Drug",
+				"grow":2
 			}
 		],
 		"chart_entity": "Drug"
@@ -253,7 +267,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Drug",
-				"selector": "entities:Drug"
+				"selector": "entities:Drug",
+				"grow":2
 			}
 		],
 		"chart_entity": "Drug"
@@ -293,7 +308,8 @@
 		"extra_table_columns": [
 			{
 				"header": "Topics",
-				"selector": "entities:topic"
+				"selector": "entities:topic",
+				"grow":2
 			}
 		]
 	},
