@@ -77,7 +77,7 @@ async function getPreprintCounts() {
 	
 	var counts = await db.query(escape`
 
-	SELECT INSTR('rxiv',LOWER(d.journal)) as preprint, COUNT(*) as count
+	SELECT INSTR(LOWER(d.journal),'rxiv')>0 as preprint, COUNT(*) as count
 	FROM documents d, annotations a
 	WHERE d.document_id = a.document_id
 	AND a.entity_id = ${researchID}
