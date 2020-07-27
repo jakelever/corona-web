@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { AsyncTypeahead, Typeahead, Highlighter } from 'react-bootstrap-typeahead'
 import { Badge } from 'react-bootstrap';
-//import { useRouter } from 'next/router'
 import Router from 'next/router'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import pages from '../lib/pages.json'
 
@@ -87,7 +89,7 @@ export default class Search extends Component {
 					  */
 		
 		return (
-		<form className="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+		<div>
 			<div className="input-group">
 			
 				<AsyncTypeahead
@@ -103,11 +105,11 @@ export default class Search extends Component {
 				
 				<div className="input-group-append">
 					<button className="btn btn-primary" type="button">
-						<i className="fas fa-search fa-sm"></i>
+						<FontAwesomeIcon icon={faSearch} />
 					</button>
 				</div>
 			</div>
-		</form>
+		</div>
 		)
 	}
 }
