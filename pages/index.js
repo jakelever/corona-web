@@ -163,7 +163,7 @@ async function getTopicCountsByVirus() {
 	AND e_virus.entitytype_id = et_virus.entitytype_id
 	AND et_virus.name = 'Virus'
 	GROUP BY topic, virus
-
+	ORDER BY count
 	`)
 	
 	// anno_topic.document_id < 5000 (for testing purposes only)
@@ -421,21 +421,27 @@ export default class Home extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2']
+			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2'],
+			windowWidth: null
 			}
 			
 		this.chartifyEntityData = this.chartifyEntityData.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
+		this.handleResize = this.handleResize.bind(this);
 	}
 	
-	chartifyEntityData(chartdata) {
+	handleResize(windowWidth) {
+		this.setState({windowWidth:windowWidth})
+	}
+	
+	chartifyEntityData(chartdata,numberToShow) {
 		var virus_text = this.state.viruses.join(',')
 			
 		var chosenData = chartdata[virus_text]
 		
 		var bardata = {
-			labels: chosenData.labels.slice(),
-			datasets: chosenData.datasets.map( dataset => { return {label:dataset.label, data:dataset.data.slice()} } )
+			labels: chosenData.labels.slice(0,numberToShow),
+			datasets: chosenData.datasets.map( dataset => { return {label:dataset.label, data:dataset.data.slice(0,numberToShow)} } )
 		}
 		
 		var virusColors = {}
@@ -452,7 +458,7 @@ export default class Home extends Component {
 		})
 		
 		var baroptions = {
-			//maintainAspectRatio: false, 
+			maintainAspectRatio: false, 
 			
 			scales: {
 				xAxes: [{
@@ -469,12 +475,18 @@ export default class Home extends Component {
 			
 		}
 		
+		var height = 50
+		if (this.state.windowWidth && this.state.windowWidth > 992) {
+			height = 100
+		}
+		console.log(this.state.windowWidth)
+		console.log(height)
+		
 		var barChart = (
 					<Bar
-					  data={bardata}
-					  width={100}
-					  height={50}
-					  options={baroptions}
+						data={bardata}
+						options={baroptions}
+						responsive
 					/>)
 				
 		return barChart
@@ -485,6 +497,28 @@ export default class Home extends Component {
 	}
 	
 	render() {
+		
+		const minNumberToShow = 8, lowerWidthCutoff = 1200
+		const maxNumberToShow = 30, upperWidthCutoff = 1600
+		
+		var numberToShow = minNumberToShow
+		if (this.state.windowWidth == null) {
+			numberToShow = minNumberToShow
+		} else if (this.state.windowWidth < 600) {
+			numberToShow = 15
+		} else if (this.state.windowWidth < 768) {
+			numberToShow = 20
+		} else if (this.state.windowWidth < 992) {
+			numberToShow = 15
+		} else if (this.state.windowWidth < lowerWidthCutoff) {
+			numberToShow = 8
+		} else if (this.state.windowWidth > upperWidthCutoff) {
+			numberToShow = maxNumberToShow
+		} else {
+			const alpha = (this.state.windowWidth-lowerWidthCutoff) / (upperWidthCutoff-lowerWidthCutoff)
+			numberToShow = Math.round(minNumberToShow + alpha * (maxNumberToShow-minNumberToShow))
+		}
+		//numberToShow = 5
 		
 		var virusColors = {}
 		virusColors['SARS-CoV-2'] = '102,194,165'
@@ -553,15 +587,15 @@ export default class Home extends Component {
 		})
 		
 		const journalChartData = {
-				labels:this.props.journalCounts.map(c => c.name).slice(),
-				datasets:[{data:this.props.journalCounts.map(c => c.count).slice(),backgroundColor:'#fbb4ae'}]
+				labels:this.props.journalCounts.map(c => c.name).slice(0,numberToShow),
+				datasets:[{data:this.props.journalCounts.map(c => c.count).slice(0,numberToShow),backgroundColor:'#fbb4ae'}]
 				}
 				
 		//const drugChart = ''
-		const drugChart = this.chartifyEntityData(this.props.drugData)
-		const vaccineChart = this.chartifyEntityData(this.props.vaccineData)
-		const riskfactorsChart = this.chartifyEntityData(this.props.riskfactorsData)
-		const symptomsChart = this.chartifyEntityData(this.props.symptomsData)
+		const drugChart = this.chartifyEntityData(this.props.drugData,numberToShow)
+		const vaccineChart = this.chartifyEntityData(this.props.vaccineData,numberToShow)
+		const riskfactorsChart = this.chartifyEntityData(this.props.riskfactorsData,numberToShow)
+		const symptomsChart = this.chartifyEntityData(this.props.symptomsData,numberToShow)
 		//console.log(journalChartData)
 		
 		var locationsToShowByID = {}
@@ -571,7 +605,7 @@ export default class Home extends Component {
 		const locationsToShow = Object.values(locationsToShowByID)
 		
 		return (
-			<Layout title="Dashboard" page="/" updateViruses={this.updateViruses} showVirusSelector>
+			<Layout title="Dashboard" page="/" updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
 
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -651,56 +685,43 @@ export default class Home extends Component {
 				</div>
 
 
-				<div className="row">
-
-					<div className="col-xl-12 col-lg-5">
-						<div className="card shadow mb-4">
-							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Topics</h6>
-							</div>
-							<div className="card-body">
-									
-								<Bar
-								  data={{
-									  labels:this.props.topicCounts.labels,
-									  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.includes(ds.label))
-								  }}
-								  width={100}
-								  height={30}
-								  options={{ 
-									legend: { display: true }, 
-									scales: { 
-										xAxes: [{ stacked:true, ticks: { autoSkip: false }}],
-										yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
-										} 
-									}}
-								/>
-									
-							</div>
-						</div>
+				
+				
+				<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+					<div className="card-header py-3">
+						<h6 className="m-0 font-weight-bold text-primary">Topics</h6>
 					</div>
-					
+					<div className="card-body">
+						
+						<Bar
+						  data={{
+							  labels:this.props.topicCounts.labels,
+							  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.includes(ds.label))
+						  }}
+						  width={100}
+						  height={30}
+						  options={{ 
+						    maintainAspectRatio: false,
+							legend: { display: true }, 
+							scales: { 
+								xAxes: [{ stacked:true, ticks: { autoSkip: false }}],
+								yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
+								} 
+							}}
+						/>
+					</div>
 				</div>
 				
-				
-				
-				<div className="row">
-
-					<div className="col-xl-12 col-lg-5">
-						<div className="card shadow mb-4">
-							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Locations</h6>
-							</div>
-							<div className="card-body">
-									
-								<div style={{width:"100%",height:"400px",backgroundColor:"#DDFFDD"}}>
-									<DynamicMapComponent links={true} locations={locationsToShow} />
-								</div>
-									
-							</div>
+								
+				<div className="card shadow mb-4">
+					<div className="card-header py-3">
+						<h6 className="m-0 font-weight-bold text-primary">Locations</h6>
+					</div>
+					<div className="card-body">
+						<div style={{width:"100%",height:"400px",backgroundColor:"#DDFFDD"}}>
+							<DynamicMapComponent links={true} locations={locationsToShow} />
 						</div>
 					</div>
-					
 				</div>
 				
 				
@@ -790,16 +811,15 @@ export default class Home extends Component {
 							<div className="card-body">
 
 								<Bar
-								  data={journalChartData}
-								  width={100}
-								  height={50}
-								  options={{ 
-									legend: { display: false }, 
-									scales: { 
-										xAxes: [{ticks: { autoSkip: false }}],
-										yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
-										} 
-									}}
+									data={journalChartData}
+									options={{ 
+											maintainAspectRatio: false,
+											legend: { display: false }, 
+											scales: { 
+												xAxes: [{ticks: { autoSkip: false }}],
+												yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
+											} 
+										}}
 								/>
 							
 							</div>
@@ -807,15 +827,13 @@ export default class Home extends Component {
 					</div>
 					
 					<div className="col-xl-4 col-lg-5">
-						<div className="card shadow mb-4" style={{height:"95%"}}>
+						<div className="card shadow mb-4">
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">Peer-Reviewed Research</h6>
 								
 							</div>
 							<div className="card-body">
 								<Doughnut
-									width={100}
-									height={100}
 									data={{
 										labels: ["Peer Reviewed","Preprint"],
 										datasets: [{
@@ -824,7 +842,11 @@ export default class Home extends Component {
 											}]
 										
 									}}
-									options={{ legend: { fontSize: 10}, cutoutPercentage: 70,  }}
+									options={{ 
+										maintainAspectRatio: false,
+										legend: { fontSize: 10}, 
+										cutoutPercentage: 70,  
+										}}
 								/>
 							
 							</div>
@@ -839,7 +861,7 @@ export default class Home extends Component {
 					
 
 					<div className="col-xl-6 col-lg-5">
-						<div className="card shadow mb-4">
+						<div className="card shadow mb-4" style={{minHeight:"300px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/therapeutics">
@@ -857,7 +879,7 @@ export default class Home extends Component {
 					</div>
 					
 					<div className="col-xl-6 col-lg-5">
-						<div className="card shadow mb-4">
+						<div className="card shadow mb-4" style={{minHeight:"300px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/vaccines">
@@ -885,7 +907,7 @@ export default class Home extends Component {
 					
 
 					<div className="col-xl-6 col-lg-5">
-						<div className="card shadow mb-4">
+						<div className="card shadow mb-4" style={{minHeight:"300px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/riskfactors">
@@ -903,7 +925,7 @@ export default class Home extends Component {
 					</div>
 					
 					<div className="col-xl-6 col-lg-5">
-						<div className="card shadow mb-4">
+						<div className="card shadow mb-4" style={{minHeight:"300px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/symptoms">

@@ -55,6 +55,10 @@ export default class Layout extends Component {
 		
 		this.setState({windowSize: window.innerWidth})
 		window.addEventListener("resize", this.handleResize);
+		
+		if (this.props.handleResize) {
+			this.props.handleResize(window.innerWidth)
+		}
 	}
 	
 	componentDidUpdate() {
@@ -73,6 +77,10 @@ export default class Layout extends Component {
 	
 	handleResize(WindowSize, event) {
 		this.setState({windowSize: window.innerWidth})
+		
+		if (this.props.handleResize) {
+			this.props.handleResize(window.innerWidth)
+		}
     }
 	
 	toggleSidebar() {

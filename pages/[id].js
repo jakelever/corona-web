@@ -51,13 +51,19 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2']
+			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2'],
+			windowWidth: null
 			}
 		
 		this.barClick = this.barClick.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
 		this.filterForVirus = this.filterForVirus.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
+		this.handleResize = this.handleResize.bind(this);
+	}
+	
+	handleResize(windowWidth) {
+		this.setState({windowWidth:windowWidth})
 	}
 
 	barClick(elems) {
@@ -132,8 +138,29 @@ export default class Page extends Component {
 				dataset.borderColor = "rgba("+rgb+", 0.9)"
 			})
 			
+			const minNumberToShow = 10, lowerWidthCutoff = 500
+			const maxNumberToShow = 30, upperWidthCutoff = 1000
+			
+			var numberToShow = minNumberToShow
+			if (this.state.windowWidth == null) {
+				numberToShow = minNumberToShow
+			} else if (this.state.windowWidth < lowerWidthCutoff) {
+				numberToShow = minNumberToShow
+			} else if (this.state.windowWidth > upperWidthCutoff) {
+				numberToShow = maxNumberToShow
+			} else {
+				const alpha = (this.state.windowWidth-lowerWidthCutoff) / (upperWidthCutoff-lowerWidthCutoff)
+				numberToShow = Math.round(minNumberToShow + alpha * (maxNumberToShow-minNumberToShow))
+			} 
+			
+			console.log(this.state.windowWidth)
+			
+			bardata.labels = bardata.labels.slice(0,numberToShow)
+			bardata.datasets.forEach(ds => { ds.data = ds.data.slice(0,numberToShow)} )
+			
 			var baroptions = {
 				maintainAspectRatio: false, 
+				responsive: true,
 				
 				scales: {
 					xAxes: [{
@@ -173,7 +200,7 @@ export default class Page extends Component {
 		const table = <CustomTable columns={columns} data={filteredData} />
 
 		return (
-			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateViruses={this.updateViruses} showVirusSelector>
+			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
