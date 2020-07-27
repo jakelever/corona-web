@@ -17,8 +17,8 @@ export default function MyMap(props) {
 	
 	var markers
 	if ('links' in props && props.links == true) {
-		markers = locations.map( loc => 
-			<Marker position={[loc.latitude,loc.longitude]}>
+		markers = locations.map( (loc,i) => 
+			<Marker key={"marker_"+i} position={[loc.latitude,loc.longitude]}>
 				<Popup>
 					<Link href={"/entity/[...typename]"} as={"/entity/Location/"+loc.name}>
 						<a>
@@ -29,8 +29,8 @@ export default function MyMap(props) {
 			</Marker>
 		)
 	} else {
-		markers = locations.map( loc => 
-			<Marker position={[loc.latitude,loc.longitude]}>
+		markers = locations.map( (loc,i) => 
+			<Marker key={"marker_"+i} position={[loc.latitude,loc.longitude]}>
 				<Popup>
 					{loc.name}
 				</Popup>
