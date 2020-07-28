@@ -88,7 +88,7 @@ export default class Layout extends Component {
 	}
 	
 	render() {
-		const projectName = ""
+		const projectName = "CoronaCentral"
 		/*const loading = <Spinner animation="border" role="status">
 							  <span className="sr-only">Loading...</span>
 							</Spinner>*/

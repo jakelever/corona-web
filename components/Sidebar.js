@@ -172,7 +172,7 @@ export default class Sidebar extends Component {
 				<div>
 					<FontAwesomeIcon icon={faViruses} size="2x" />
 				</div>
-				<div className="sidebar-brand-text mx-3">{this.props.projectName}</div>
+				<div className="sidebar-brand-text mx-2">{this.props.projectName}</div>
 			</a>
 		</Link>
 
