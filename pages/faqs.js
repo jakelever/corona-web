@@ -68,6 +68,13 @@ export default class FAQs extends Component {
 								<p>A: There is currently a paper in preparation. Please cite that when it becomes available.</p>
 							</div>
 							
+							<hr />
+							
+							<div>
+								<p><b>Q: What other projects and resources does this website rely upon?</b></p>
+								<p>A: This website is built using <a href="https://nextjs.org/" target="_blank">NextJS</a> and uses the <a href="https://startbootstrap.com/themes/sb-admin-2/" target="_blank">SB Admin 2</a> MIT-licensed <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> template. This website makes use of FontAwesome assets under a <a href="https://fontawesome.com/license" target="_blank">Creative Commons Attribution 4.0 International license</a>. It uses <a href="https://www.chartjs.org/" target="_blank">ChartJS</a> with <a href="https://github.com/jerairrest/react-chartjs-2" target="_blank">react-chartjs-2</a> to render charts. It uses <a href="https://github.com/jbetancur/react-data-table-component" target="_blank">React Data Table</a> for interactive tables. It also uses <a href="https://leafletjs.com/" target="_blank">Leaflet</a> with <a href="https://react-leaflet.js.org/" target="_blank">React Leaflet</a> to render maps from <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>. </p>
+							</div>
+							
 						</div>
 					</div>
 				</div>

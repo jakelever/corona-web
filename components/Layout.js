@@ -176,7 +176,7 @@ export default class Layout extends Component {
 					<footer className="sticky-footer bg-white">
 						<div className="container my-auto">
 							<div className="copyright text-center my-auto">
-								<span>All data (where possible) are released under a Creative Commons Zero (CC0) licence.</span>
+								<span></span>
 							</div>
 						</div>
 					</footer>
