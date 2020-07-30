@@ -283,7 +283,13 @@ export default class CustomTable extends Component {
 		columnsWithFormating.push( flagButtonColumn )
 		//columnsWithFormating.unshift( extraMetadataColumn )
 		
-	
+		const optionalProps = ['paginationPerPage','paginationRowsPerPageOptions']
+		var extraProps = {}
+		
+		optionalProps.forEach( p => {
+			if (p in this.props)
+				extraProps[p] = this.props[p]
+		})
 		
 		const table = <DataTable
 					noHeader
@@ -297,6 +303,7 @@ export default class CustomTable extends Component {
 					highlightOnHover
 					responsive
 					sortIcon={<FontAwesomeIcon icon={faSortDown} />}
+					{...extraProps}
 				/>
 				
 		const modal = <FlagModal key={'flagmodal_'+this.state.modalKey} doc={this.state.flagModalDoc} show={this.state.showFlagModal} closeFunc={this.closeFlagModal} />
