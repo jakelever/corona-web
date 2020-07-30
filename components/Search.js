@@ -19,6 +19,8 @@ export default class Search extends Component {
 			options: []
 			}
 			
+		this.showGeneralSearch = true
+			
 		this.search = this.search.bind(this);
 		this.onChange = this.onChange.bind(this);
 		
@@ -110,12 +112,17 @@ export default class Search extends Component {
 		}*/
 		
 		const renderMenu = (results, menuProps, state) => {
+			const positionOffset = this.showGeneralSearch ? 1 : 0
+			
 			const generalSearchOption = {'name':state.text, 'type':'search'}
 			const generalSearch = <MenuItem option={generalSearchOption} position={0}>Search for papers containing {'"'+state.text+'"'}</MenuItem>
 			
-			const renderedResults = results.map( (option,i) => <MenuItem key={i} option={option} position={i+1}>{renderSearchRow(option,state,i)}</MenuItem> )
+			const renderedResults = results.map( (option,i) => <MenuItem key={i} option={option} position={i+positionOffset}>{renderSearchRow(option,state,i)}</MenuItem> )
 			
-			return <Menu {...menuProps}>{generalSearch}{renderedResults}</Menu>
+			if (this.showGeneralSearch)
+				return <Menu {...menuProps}>{generalSearch}{renderedResults}</Menu>
+			else
+				return <Menu {...menuProps}>{renderedResults}</Menu>
 		}
 		
 		// renderMenu={renderMenu}
@@ -123,7 +130,7 @@ export default class Search extends Component {
 		// onKeyDown={event => console.log(event.key)}
 		return (
 		<div>
-			<div className="input-group">
+			<div className="input-group" style={{zIndex: "2000 !important"}}>
 			
 				<AsyncTypeahead
 					isLoading={this.state.isLoading}
@@ -136,7 +143,7 @@ export default class Search extends Component {
 					options={this.state.options}
 					placeholder="Search for a drug, gene, location, paper, etc"
 					onKeyDown={event => {
-						if (event.key == 'Enter' && this.state.input) {
+						if (this.showGeneralSearch && event.key == 'Enter' && this.state.input) {
 							//console.log(this.state.input)
 							
 							const url = "/search?q=" + this.state.input
