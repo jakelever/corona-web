@@ -601,7 +601,7 @@ export default class Home extends Component {
 				</div>
 				
 				<div className="row">
-					<div className="col-lg-3 mb-4">
+					<div className="quarter_then_half_then_full_col mb-4">
 
 					  <div className="card shadow mb-4 h-100">
 						<div className="card-header py-3">
@@ -609,7 +609,7 @@ export default class Home extends Component {
 						</div>
 						<div className="card-body">
 						  <p>
-							This resource surveys research papers for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> for subjects of interest above. You can narrow in on a specific virus using the selector in the top-right.
+							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> for subjects of interest above. You can narrow in on a specific virus using the selector in the top-right.
 						  </p>
 						  <p>
 							If you <b>spot a mistake</b>, please flag it using the flag icon beside each paper, or use the <Link href="/feedback" as="/feedback"><a>Feedback form</a></Link>.
@@ -621,7 +621,7 @@ export default class Home extends Component {
 					  </div>
 					</div>
 					
-					<div className="col-lg-3 mb-4">
+					<div className="quarter_then_half_then_full_col mb-4">
 						<div className="card shadow mb-4  h-100">
 							{/* Card Header - Dropdown */}
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -636,7 +636,7 @@ export default class Home extends Component {
 						</div>
 					</div>
 					
-					<div className="col-lg-3 mb-4">
+					<div className="quarter_then_half_then_full_col mb-4">
 						<div className="card shadow mb-4  h-100">
 							{/* Card Header - Dropdown */}
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -651,7 +651,7 @@ export default class Home extends Component {
 						</div>
 					</div>
 					
-					<div className="col-lg-3 mb-4">
+					<div className="quarter_then_half_then_full_col mb-4">
 						<div className="card shadow mb-4  h-100">
 							{/* Card Header - Dropdown */}
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -787,7 +787,7 @@ export default class Home extends Component {
 
 					
 
-					<div className="col-xl-8 col-lg-5">
+					<div className="col-md-6">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">Journals / Preprint Servers</h6>
@@ -811,7 +811,7 @@ export default class Home extends Component {
 						</div>
 					</div>
 					
-					<div className="col-xl-4 col-lg-5">
+					<div className="col-md-6">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">Peer-Reviewed Research</h6>
@@ -845,7 +845,7 @@ export default class Home extends Component {
 
 					
 
-					<div className="col-xl-6 col-lg-5">
+					<div className="col-md-6">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
@@ -863,7 +863,7 @@ export default class Home extends Component {
 						</div>
 					</div>
 					
-					<div className="col-xl-6 col-lg-5">
+					<div className="col-md-6">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
@@ -891,7 +891,7 @@ export default class Home extends Component {
 
 					
 
-					<div className="col-xl-6 col-lg-5">
+					<div className="col-md-6">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
@@ -909,7 +909,7 @@ export default class Home extends Component {
 						</div>
 					</div>
 					
-					<div className="col-xl-6 col-lg-5">
+					<div className="col-md-6">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">

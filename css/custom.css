@@ -5,3 +5,24 @@
 .flagtime:hover {
 	color: #666666
 }
+
+.quarter_then_half_then_full_col {
+  position: relative;
+  width: 100%;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+
+@media (min-width: 900px) {
+  .quarter_then_half_then_full_col {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .quarter_then_half_then_full_col {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
