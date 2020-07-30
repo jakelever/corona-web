@@ -139,8 +139,8 @@ export default class Layout extends Component {
 				</Head>
 		}
 		
-		const definitelyShowSidebar = (this.state.windowSize && this.state.windowSize >= 768) || this.state.showSidebar
-		const sidebar = definitelyShowSidebar ? <Sidebar show={this.state.showSidebar} projectName={projectName} page={this.props.page} /> : <></>
+		/*const definitelyShowSidebar = (this.state.windowSize && this.state.windowSize >= 768) || this.state.showSidebar*/
+		const sidebar = <Sidebar responsiveShow={this.state.showSidebar} projectName={projectName} page={this.props.page} />
 		
 		/*<div className="Xd-none Xd-sm-block Xd-md-none">
 							<a href="" onClick={event => {this.setState({showSidebar:!this.state.showSidebar}); event.preventDefault()}}>Hello</a>

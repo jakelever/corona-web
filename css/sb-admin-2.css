@@ -10080,8 +10080,15 @@ a:focus {
 }
 
 .sidebar {
-  width: 6.5rem;
   min-height: 100vh;
+}
+
+.sidebar-responsive-show {
+  width: 6.5rem;
+}
+
+.sidebar-responsive-hide {
+  display: none;
 }
 
 .sidebar .nav-item {
@@ -10247,8 +10254,14 @@ a:focus {
 }
 
 @media (min-width: 768px) {
-  .sidebar {
+  
+  .sidebar-responsive-show {
     width: 14rem !important;
+  }
+
+  .sidebar-responsive-hide {
+    width: 14rem !important;
+	display: block;
   }
   
   .sidebar .sideicon {

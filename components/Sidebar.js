@@ -160,11 +160,11 @@ export default class Sidebar extends Component {
 		
 		});
 
-		
+		const showClass = this.props.responsiveShow ? "sidebar-responsive-show" : "sidebar-responsive-hide"
 	// 	<Collapse in={this.props.show} dimension="width" className="" timeout={10000}><div style={{padding: 0, margin:0, backgroundColor:"#00FF00"}}>
 		
 		return (
-	<ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+	<ul className={"navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " + showClass} id="accordionSidebar">
 
 		{/* Sidebar - Brand */}
 		<Link href="/index" as="/">
