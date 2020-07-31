@@ -84,7 +84,7 @@ async function getJournalCounts(limit) {
 }
 
 async function getPreprintCounts() {
-	const researchID = await getEntityID('Research','pubtype')
+	const researchID = await getEntityID('Research','articletype')
 	
 	var counts = await db.query(escape`
 

@@ -91,7 +91,7 @@ export default class DocPage extends Component {
 			const entities = this.props.doc.entities.filter( e => e.type==entityType )
 			
 			var elems;
-			if (entityType == 'Virus' || entityType == 'pubtype') {
+			if (entityType == 'Virus' || entityType == 'articletype') {
 				elems = entities.map( (e,i) => e.name )
 			} else if (entityType == 'topic') {
 				elems = entities.map( (e,i) => <Link key={'entitylink_'+i} href="/[id]" as={`/${this.pageMapping[e.name]}`}><a>{e.name}</a></Link> )
@@ -193,7 +193,7 @@ export default class DocPage extends Component {
 							<div className="card-body">
 								{ 'Virus' in entityGroups ? <h6>Viruses: {entityGroups['Virus']}</h6> : "" }
 								{ 'topic' in entityGroups ? <h6>Topics: {entityGroups['topic']}</h6> : "" }
-								{ 'pubtype' in entityGroups ? <h6>Publication Type: {entityGroups['pubtype']}</h6> : "" }
+								{ 'articletype' in entityGroups ? <h6>Article Type: {entityGroups['articletype']}</h6> : "" }
 								
 								<div style={{}}>
 									<a href={this.props.doc.url} className="d-none d-sm-inline-block btn btn-sm btn-danger shadow" onClick={event => {this.showFlagModal(); event.preventDefault()}} href="#">

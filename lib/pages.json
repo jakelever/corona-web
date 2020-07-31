@@ -326,6 +326,12 @@
 		"description": "Articles that provide an update on the current state of the pandemic in different countries"
 	},
 	{
+		"name": "News",
+		"page": "news",
+		"group": "Other",
+		"description": "News articles from academic journals and other sources indexed by PubMed or CORD-19"
+	},
+	{
 		"name": "Non-medical",
 		"page": "nonmedical",
 		"group": "Other",
