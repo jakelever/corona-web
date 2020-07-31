@@ -195,7 +195,7 @@ export default class CustomTable extends Component {
 			const flag = <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>
 			const linkDoc = <a className="flagtime" href={row.url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" /></a>
 			
-			return <div><p>{linkDoc}</p><p>{flag}</p></div>
+			return <div className="tour-tablebuttons"><p>{linkDoc}</p><p>{flag}</p></div>
 		}
 		
 		const flagButtonColumn = {
@@ -258,7 +258,7 @@ export default class CustomTable extends Component {
 			const badgeURL = "https://badges.altmetric.com/?size=80&score=" + row.altmetric_score + "&types=" + row.altmetric_badgetype
 			const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
 			const img = <img src={badgeURL} />
-			return <a href={detailsURL} target="_blank" alt={"Altmetric score of " + row.altmetric_score}>{img}</a>
+			return <a className="tour-altmetric" href={detailsURL} target="_blank" alt={"Altmetric score of " + row.altmetric_score}>{img}</a>
 		}
 			
 		var altmetricScoreColumn = {

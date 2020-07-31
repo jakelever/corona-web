@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Layout from '../components/Layout.js'
 import CustomTable from '../components/CustomTable.js'
 import pages from '../lib/pages.json'
+import viruscolors from '../lib/viruscolors.json'
 import { getTableData, getChartDataByVirusInTopic } from '../lib/db-main.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -125,13 +126,8 @@ export default class Page extends Component {
 				datasets: chosenData.datasets.map( dataset => { return {label:dataset.label, data:dataset.data.slice()} } )
 			}
 			
-			var virusColors = {}
-			virusColors['SARS-CoV-2'] = '102,194,165'
-			virusColors['SARS-CoV'] = '252,141,98'
-			virusColors['MERS-CoV'] = '141,160,203'
-			
 			bardata.datasets.forEach(dataset => {
-				var rgb = virusColors[dataset.label]
+				var rgb = viruscolors[dataset.label]
 				dataset.backgroundColor = "rgba("+rgb+", 0.9)"
 				dataset.borderColor = "rgba("+rgb+", 0.9)"
 			})

@@ -142,7 +142,7 @@ export default class Topbar extends Component {
 		// { this.props.showVirusSelector ? <div className="topbar-divider"></div> : <></> }
 		
 		return (
-	<nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+	<nav className="tour-search navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 	
 		{/* Sidebar Toggle (Topbar) */}
 		<button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3 text-secondary" onClick={event => this.props.toggleSidebar()}>
@@ -150,9 +150,10 @@ export default class Topbar extends Component {
 		</button>
 
 		
-		<form className="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <Search />
-        </form>
+		<div className="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<Search />
+		</div>
+		
 		
 		{/*<!-- Topbar Navbar -->*/}
 		<ul className="navbar-nav ml-auto">
@@ -177,10 +178,13 @@ export default class Topbar extends Component {
 			</li>
 			
             { this.props.showVirusSelector ? <li className="d-none d-sm-inline-block nav-item" style={{width:"1em"}}></li> : <></> }
+			
+			<div className="tour-virusselector">
 
 			{ this.props.showVirusSelector ? <li className="d-none d-sm-inline-block nav-item">{virusSelectorBig}</li> : <></> }
 			
 			{ this.props.showVirusSelector ? <li className="nav-item dropdown no-arrow d-sm-none">{virusSelectorSmall}</li> : <></> }
+			</div>
 			
 		</ul>
 

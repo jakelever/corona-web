@@ -139,24 +139,35 @@ export default class Layout extends Component {
 				</Head>
 		}
 		
+		const tourMode = ('tourMode' in this.props && this.props.tourMode == true)
+		
+		const responsiveShow = this.state.showSidebar || tourMode
+		
 		/*const definitelyShowSidebar = (this.state.windowSize && this.state.windowSize >= 768) || this.state.showSidebar*/
-		const sidebar = <Sidebar responsiveShow={this.state.showSidebar} projectName={projectName} page={this.props.page} />
+		const sidebar = <Sidebar responsiveShow={responsiveShow} projectName={projectName} page={this.props.page} />
 		
 		/*<div className="Xd-none Xd-sm-block Xd-md-none">
 							<a href="" onClick={event => {this.setState({showSidebar:!this.state.showSidebar}); event.preventDefault()}}>Hello</a>
 						</div>*/
+						
+		//const overflowHack = 'disableOverflowX' in this.props && this.props.disableOverflowX == true ? {} : {'overflow-x': 'hidden'}	
+		const overflowHack = tourMode ? {'overflow-y': 'hidden','overflow-x': 'hidden'} : {'overflow-x': 'hidden'}
+		
+		// , height:"100px", width:"100px", backgroundColor:"#00FFFF"
+		const toastInBottomRight = 'toastInBottomRight' in this.props ? <div style={{position:"fixed", right:"10px", bottom:"10px", zIndex: "2000 !important"}}>{this.props.toastInBottomRight}</div> : <></>
 		
 		return (
 			<div id="wrapper">
 				{/* Page Wrapper */}
 				
+				
 				{sidebar}
 
 				{/* Content Wrapper */}
-				<div id="content-wrapper" className="d-flex flex-column">
+				<div id="content-wrapper" className="d-flex flex-column" style={overflowHack}>
 
 					{/* Main Content */}
-					<div id="content">
+					<div id="content" style={overflowHack}>
 					
 						{headBlock}
 						
@@ -185,6 +196,7 @@ export default class Layout extends Component {
 				</div>
 				{/* End of Content Wrapper */}
 
+				{toastInBottomRight}
 			</div>
 		)
 	}

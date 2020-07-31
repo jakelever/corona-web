@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
 import CustomTable from '../components/CustomTable.js'
 
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+
+import Toast from 'react-bootstrap/Toast'
+
 import Link from 'next/link'
 import { Doughnut, Line, Bar } from 'react-chartjs-2';
 import pages from '../lib/pages.json'
+import toursteps from '../lib/toursteps.json'
+import viruscolors from '../lib/viruscolors.json'
 
 const db = require('../lib/db')
 const escape = require('sql-template-strings')
@@ -30,6 +36,10 @@ const DynamicMapComponent = dynamic(
   { ssr: false }
 )
 
+const DynamicTourComponent = dynamic(
+  () => import('../components/Tour'),
+  { ssr: false }
+)
 
 // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 function numberWithCommas(x) {
@@ -184,16 +194,12 @@ async function getTopicCountsByVirus() {
 	})
 	
 	
-	var virusColors = {}
-	virusColors['SARS-CoV-2'] = '102,194,165'
-	virusColors['SARS-CoV'] = '252,141,98'
-	virusColors['MERS-CoV'] = '141,160,203'
 	
 	
 	const barData = { 'labels':topics, 'datasets': viruses.map(v => { return { label:v, data:data[v] } } ) }
 	
 	barData.datasets.forEach(dataset => {
-		var rgb = virusColors[dataset.label]
+		var rgb = viruscolors[dataset.label]
 		dataset.backgroundColor = "rgba("+rgb+", 0.9)"
 		dataset.borderColor = "rgba("+rgb+", 0.9)"
 	})
@@ -402,11 +408,6 @@ export async function getStaticProps({ params }) {
 	const virusByDate = await getVirusByDate()
 	
 	
-	var virusColors = {}
-	virusColors['SARS-CoV-2'] = '102,194,165'
-	virusColors['SARS-CoV'] = '252,141,98'
-	virusColors['MERS-CoV'] = '141,160,203'
-	
 	var virusDatePlotData = chartifyEntityDateData(virusByDate)
 	
 	/*Object.keys(virusColors).forEach(virusName => {
@@ -460,12 +461,32 @@ export default class Home extends Component {
 		super(props)
 		this.state = {
 			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2'],
-			windowWidth: null
+			windowWidth: null,
+			showTour: false,
+			showTourToast: true
 			}
 			
 		this.chartifyEntityData = this.chartifyEntityData.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
 		this.handleResize = this.handleResize.bind(this);
+		this.startTour = this.startTour.bind(this);
+		this.closeTour = this.closeTour.bind(this);
+		this.closeTourToast = this.closeTourToast.bind(this);
+		
+		this.disableBody = target => disableBodyScroll(target)
+		this.enableBody = target => enableBodyScroll(target)
+	}
+	
+	startTour() {
+		this.setState({showTour:true})
+	}
+	
+	closeTourToast() {
+		this.setState({showTourToast:false})
+	}
+	
+	closeTour() {
+		this.setState({showTour:false})
 	}
 	
 	handleResize(windowWidth) {
@@ -482,13 +503,9 @@ export default class Home extends Component {
 			datasets: chosenData.datasets.map( dataset => { return {label:dataset.label, data:dataset.data.slice(0,numberToShow)} } )
 		}
 		
-		var virusColors = {}
-		virusColors['SARS-CoV-2'] = '102,194,165'
-		virusColors['SARS-CoV'] = '252,141,98'
-		virusColors['MERS-CoV'] = '141,160,203'
 		
 		bardata.datasets.forEach(dataset => {
-			var rgb = virusColors[dataset.label]
+			var rgb = viruscolors[dataset.label]
 			//dataset.backgroundColor = "rgba("+rgb+", 0.9)"
 			//dataset.borderColor = "rgba("+rgb+", 0.9)"
 			dataset.backgroundColor = "rgba("+rgb+", 0.9)"
@@ -561,16 +578,11 @@ export default class Home extends Component {
 		}
 		//numberToShow = 5
 		
-		var virusColors = {}
-		virusColors['SARS-CoV-2'] = '102,194,165'
-		virusColors['SARS-CoV'] = '252,141,98'
-		virusColors['MERS-CoV'] = '141,160,203'
-		
 		const viruses = ['SARS-CoV','MERS-CoV','SARS-CoV-2']
 		var virusDatePlots = {}
 		viruses.forEach( v => {
 			
-			var color = this.state.viruses.includes(v) ? "rgba("+virusColors[v]+",1)" : "#CCCCCC"
+			var color = this.state.viruses.includes(v) ? "rgba("+viruscolors[v]+",1)" : "#CCCCCC"
 			//var color = "black"
 			
 			const lineoptions = { 
@@ -642,9 +654,30 @@ export default class Home extends Component {
 			locationsToShowByID[loc.location_id] = loc
 		})
 		const locationsToShow = Object.values(locationsToShowByID)
+
+		
+		const tour = <DynamicTourComponent steps={toursteps} isOpen={this.state.showTour} onRequestClose={this.closeTour} onAfterOpen={this.disableBody} onBeforeClose={this.enableBody} scrollDuration={500} />
+		
+		const tourToast = <Toast show={this.state.showTourToast} onClose={this.closeTourToast}>
+							<Toast.Header>
+							  <strong className="mr-auto">Welcome</strong>
+							</Toast.Header>
+							<Toast.Body><a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>First time here? Click here for a tour</a></Toast.Body>
+						  </Toast>
+		
+		
+				/*<div style={{position: "relative"}} >
+					<div style={{position: "absolute", top: "100%", right: "0%", zIndex: 10}}>
+						{tourToast}
+					</div>
+				</div>*/
+			
 		
 		return (
-			<Layout title="Dashboard" page="/" updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
+			<Layout title="Dashboard" page="/" updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize} tourMode={this.state.showTour} toastInBottomRight={tourToast}>
+		
+				
+				{tour}
 
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -654,7 +687,8 @@ export default class Home extends Component {
 					<h3 className="h6 mb-0 text-gray-800"></h3>
 				</div>
 				
-				<div className="row">
+								
+				<div className="row tour-beginning">
 					<div className="quarter_then_half_then_full_col mb-4">
 
 					  <div className="card shadow mb-4 h-100">
@@ -663,10 +697,11 @@ export default class Home extends Component {
 						</div>
 						<div className="card-body">
 						  <p>
+						  
 							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> for subjects of interest above. You can narrow in on a specific virus using the selector in the top-right.
 						  </p>
 						  <p>
-							If you <b>spot a mistake</b>, please flag it using the flag icon beside each paper, or use the <Link href="/feedback" as="/feedback"><a>Feedback form</a></Link>.
+							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> If you <b>spot a mistake</b>, please flag it using the flag icon beside each paper, or use the <Link href="/feedback" as="/feedback"><a>Feedback form</a></Link>.
 						  </p>
 						  <p>
 							For more information, see the <Link href="/faqs" as="/faqs"><a>Frequently Asked Questions</a></Link> page.
@@ -725,7 +760,7 @@ export default class Home extends Component {
 
 
 					
-				<div className="card shadow mb-4">
+				<div className="tour-table card shadow mb-4">
 					<div className="card-header py-3">
 						<h6 className="m-0 font-weight-bold text-primary">Recent & Trending Papers</h6>
 					</div>
@@ -735,7 +770,7 @@ export default class Home extends Component {
 				</div>
 				
 				
-				<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+				<div className="tour-topics card shadow mb-4" style={{minHeight:"400px"}}>
 					<div className="card-header py-3">
 						<h6 className="m-0 font-weight-bold text-primary">Topics</h6>
 					</div>
@@ -746,8 +781,6 @@ export default class Home extends Component {
 							  labels:this.props.topicCounts.labels,
 							  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.includes(ds.label))
 						  }}
-						  width={100}
-						  height={30}
 						  options={{ 
 						    maintainAspectRatio: false,
 							legend: { display: true }, 
@@ -761,7 +794,7 @@ export default class Home extends Component {
 				</div>
 				
 								
-				<div className="card shadow mb-4">
+				<div className="tour-locations card shadow mb-4">
 					<div className="card-header py-3">
 						<h6 className="m-0 font-weight-bold text-primary">Locations</h6>
 					</div>
@@ -846,7 +879,7 @@ export default class Home extends Component {
 				</div>
 
 				
-				<div className="row">
+				<div className="row tour-sources">
 
 					
 
@@ -904,6 +937,7 @@ export default class Home extends Component {
 					
 				</div>
 				
+				<div className="tour-entities">
 				<div className="row">
 
 					
@@ -991,6 +1025,7 @@ export default class Home extends Component {
 					</div>
 					
 					
+				</div>
 				</div>
 
 			</Layout>

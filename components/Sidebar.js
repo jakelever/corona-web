@@ -160,7 +160,7 @@ export default class Sidebar extends Component {
 		
 		});
 
-		const showClass = this.props.responsiveShow ? "sidebar-responsive-show" : "sidebar-responsive-hide"
+		const showClass = this.props.responsiveShow || this.props.responsiveShow ? "sidebar-responsive-show" : "sidebar-responsive-hide"
 	// 	<Collapse in={this.props.show} dimension="width" className="" timeout={10000}><div style={{padding: 0, margin:0, backgroundColor:"#00FF00"}}>
 		
 		return (
@@ -196,8 +196,9 @@ export default class Sidebar extends Component {
 		{/* Divider */}
 		<hr className="sidebar-divider my-0" />
 		
+		<div className="tour-trending m-0 p-0">
 		<MyToolTip text="Articles that are receiving attention in the media and on social media">
-			<li className={this.props.page=='/trending' ? "nav-item active" : "nav-item"}>
+			<li className={this.props.page=='/trending' ? "nav-item active mb-0" : "nav-item mb-0"}>
 				<Link href="/trending" as="/trending">
 					<a className="nav-link">
 						<span style={{marginRight: "0.25rem"}}>
@@ -208,39 +209,42 @@ export default class Sidebar extends Component {
 				</Link>
 			</li>
 		</MyToolTip>
+		</div>
 		
 		<hr className="sidebar-divider my-0" />
 		
-		{links}
+		<div className="tour-topics my-0">
+			{links}
 
-		{/* Divider */}
-		<hr className="sidebar-divider d-none d-md-block my-0" />
-		
-		<MyToolTip text="Frequently asked questions">
-			<li className={this.props.page=='/faqs' ? "nav-item active" : "nav-item"}>
-				<Link href="/faqs" as="/faqs">
-					<a className="nav-link">
-						<span style={{marginRight: "0.25rem"}}>
-							<FontAwesomeIcon className="sideicon" icon={faQuestionCircle} fixedWidth  />
-						</span>
-						<span> FAQs</span>
-					</a>
-				</Link>
-			</li>
-		</MyToolTip>
-		
-		<MyToolTip text="Frequently asked questions">
-			<li className={this.props.page=='/feedback' ? "nav-item active" : "nav-item"}>
-				<Link href="/feedback" as="/feedback">
-					<a className="nav-link">
-						<span style={{marginRight: "0.25rem"}}>
-							<FontAwesomeIcon className="sideicon" icon={faEnvelopeOpenText} fixedWidth  />
-						</span>
-						<span> Feedback</span>
-					</a>
-				</Link>
-			</li>
-		</MyToolTip>
+			{/* Divider */}
+			<hr className="sidebar-divider my-0" />
+			
+			<MyToolTip text="Frequently asked questions">
+				<li className={this.props.page=='/faqs' ? "nav-item active" : "nav-item"}>
+					<Link href="/faqs" as="/faqs">
+						<a className="nav-link">
+							<span style={{marginRight: "0.25rem"}}>
+								<FontAwesomeIcon className="sideicon" icon={faQuestionCircle} fixedWidth  />
+							</span>
+							<span> FAQs</span>
+						</a>
+					</Link>
+				</li>
+			</MyToolTip>
+			
+			<MyToolTip text="Frequently asked questions">
+				<li className={this.props.page=='/feedback' ? "nav-item active" : "nav-item"}>
+					<Link href="/feedback" as="/feedback">
+						<a className="nav-link">
+							<span style={{marginRight: "0.25rem"}}>
+								<FontAwesomeIcon className="sideicon" icon={faEnvelopeOpenText} fixedWidth  />
+							</span>
+							<span> Feedback</span>
+						</a>
+					</Link>
+				</li>
+			</MyToolTip>
+		</div>
 		
 
 
