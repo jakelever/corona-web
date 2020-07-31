@@ -151,7 +151,7 @@ export default class Layout extends Component {
 						</div>*/
 						
 		//const overflowHack = 'disableOverflowX' in this.props && this.props.disableOverflowX == true ? {} : {'overflow-x': 'hidden'}	
-		const overflowHack = tourMode ? {'overflow-y': 'hidden','overflow-x': 'hidden'} : {'overflow-x': 'hidden'}
+		const overflowHack = tourMode ? {overflowY: 'hidden',overflowX: 'hidden'} : {overflowX: 'hidden'}
 		
 		// , height:"100px", width:"100px", backgroundColor:"#00FFFF"
 		const toastInBottomRight = 'toastInBottomRight' in this.props ? <div style={{position:"fixed", right:"10px", bottom:"10px", zIndex: "2000 !important"}}>{this.props.toastInBottomRight}</div> : <></>
