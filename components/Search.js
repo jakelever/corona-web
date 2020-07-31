@@ -115,9 +115,9 @@ export default class Search extends Component {
 			const positionOffset = this.showGeneralSearch ? 1 : 0
 			
 			const generalSearchOption = {'name':state.text, 'type':'search'}
-			const generalSearch = <MenuItem option={generalSearchOption} position={0}>Search for papers containing {'"'+state.text+'"'}</MenuItem>
+			const generalSearch = <MenuItem key={1} option={generalSearchOption} position={1}>Search for papers containing {'"'+state.text+'"'}</MenuItem>
 			
-			const renderedResults = results.map( (option,i) => <MenuItem key={i} option={option} position={i+positionOffset}>{renderSearchRow(option,state,i)}</MenuItem> )
+			const renderedResults = results.map( (option,i) => <MenuItem key={i+positionOffset} option={option} position={i+positionOffset}>{renderSearchRow(option,state,i)}</MenuItem> )
 			
 			if (this.showGeneralSearch)
 				return <Menu {...menuProps}>{generalSearch}{renderedResults}</Menu>
