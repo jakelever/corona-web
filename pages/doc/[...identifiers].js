@@ -165,9 +165,8 @@ export default class DocPage extends Component {
 						</div>
 						<div className="card-body">
 							
-							<div className="container">
 								<div className="row">
-									<div className="col">
+									<div className="col-sm-9">
 									
 									{ publish_date ? <h6>Date: {publish_date}</h6> : "" }
 									{ this.props.doc.doi ? <h6>DOI: <a href={"https://doi.org/"+this.props.doc.doi} target="_blank">{this.props.doc.doi}</a></h6> : "" }
@@ -176,11 +175,10 @@ export default class DocPage extends Component {
 									{ this.props.doc.cord_uid ? <h6><a href="https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge" target="_blank">CORD UID</a>: {this.props.doc.cord_uid}</h6> : "" }
 									
 									</div>
-									<div className="col-3">
-									{altmetricBadge}
+									<div className="col-sm-3">
+										{altmetricBadge}
 									</div>
 								</div>
-							</div>
 						</div>
 					  </div>
 					</div>
