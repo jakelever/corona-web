@@ -154,7 +154,12 @@ export default class Search extends Component {
 				  />
 				
 				<div className="input-group-append">
-					<button className="btn btn-primary" type="button">
+					<button className="btn btn-primary" type="button" onClick={ event => {
+						if (this.showGeneralSearch && this.state.input) {
+							const url = "/search?q=" + this.state.input
+							Router.push("/search",url)
+						}
+					}}>
 						<FontAwesomeIcon icon={faSearch} />
 					</button>
 				</div>
