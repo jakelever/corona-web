@@ -938,7 +938,7 @@ export default class Home extends Component {
 					<div className="col-md-3">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">Peer-Reviewed Research</h6>
+								<h6 className="m-0 font-weight-bold text-primary">Research Source</h6>
 								
 							</div>
 							<div className="card-body">

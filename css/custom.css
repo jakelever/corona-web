@@ -20,7 +20,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .quarter_then_half_then_full_col {
     flex: 0 0 25%;
     max-width: 25%;

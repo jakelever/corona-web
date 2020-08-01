@@ -10253,7 +10253,7 @@ a:focus {
   font-size: 1.5rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   
   .sidebar-responsive-show {
     width: 14rem !important;

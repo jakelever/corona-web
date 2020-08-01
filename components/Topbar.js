@@ -145,7 +145,7 @@ export default class Topbar extends Component {
 	<nav className="tour-search navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 	
 		{/* Sidebar Toggle (Topbar) */}
-		<button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3 text-secondary" onClick={event => this.props.toggleSidebar()}>
+		<button id="sidebarToggleTop" className="btn btn-link d-lg-none rounded-circle mr-3 text-secondary" onClick={event => this.props.toggleSidebar()}>
 			<FontAwesomeIcon icon={faBars}  />
 		</button>
 
