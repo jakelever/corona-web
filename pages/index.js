@@ -363,6 +363,30 @@ function reorderDatasets(data, reordering) {
 	data.datasets = new_datasets
 }
 
+function decideBarchartCountUsingWidth(width) {
+	const minNumberToShow = 8, lowerWidthCutoff = 200
+	const maxNumberToShow = 30, upperWidthCutoff = 1200
+	
+	var numberToShow = minNumberToShow
+	if (width == null) {
+		numberToShow = minNumberToShow
+	} /*else if (width < 600) {
+		numberToShow = 15
+	} else if (width < 768) {
+		numberToShow = 20
+	} else if (width < 992) {
+		numberToShow = 15
+	}*/ else if (width < lowerWidthCutoff) {
+		numberToShow = minNumberToShow
+	} else if (width > upperWidthCutoff) {
+		numberToShow = maxNumberToShow
+	} else {
+		const alpha = (width-lowerWidthCutoff) / (upperWidthCutoff-lowerWidthCutoff)
+		numberToShow = Math.round(minNumberToShow + alpha*alpha * (maxNumberToShow-minNumberToShow))
+	}
+	return numberToShow
+}
+
 async function getRecentTrendingDocuments() {
 	var documents = await db.query(escape`
 
@@ -461,7 +485,7 @@ export default class Home extends Component {
 		super(props)
 		this.state = {
 			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2'],
-			windowWidth: null,
+			windowWidth: null, col6Width: null, col9Width: null, col12Width: null,
 			showTour: false,
 			showTourToast: true
 			}
@@ -475,6 +499,10 @@ export default class Home extends Component {
 		
 		this.disableBody = target => disableBodyScroll(target)
 		this.enableBody = target => enableBodyScroll(target)
+		
+		this.panelCol6 = React.createRef();
+		this.panelCol9 = React.createRef();
+		this.panelCol12 = React.createRef();
 	}
 	
 	startTour() {
@@ -490,7 +518,20 @@ export default class Home extends Component {
 	}
 	
 	handleResize(windowWidth) {
-		this.setState({windowWidth:windowWidth})
+		var updatedWidths = {}
+		
+		if (windowWidth)
+			updatedWidths['windowWidth'] = windowWidth
+		if (this.panelCol6.current != null && !isNaN(this.panelCol6.current.offsetWidth))
+			updatedWidths['col6Width'] = this.panelCol6.current.offsetWidth
+		if (this.panelCol9.current != null && !isNaN(this.panelCol9.current.offsetWidth))
+			updatedWidths['col9Width'] = this.panelCol9.current.offsetWidth
+		if (this.panelCol12.current != null && !isNaN(this.panelCol12.current.offsetWidth))
+			updatedWidths['col12Width'] = this.panelCol12.current.offsetWidth
+		
+		console.log(updatedWidths)
+		
+		this.setState(updatedWidths)
 	}
 	
 	chartifyEntityData(chartdata,numberToShow) {
@@ -556,27 +597,7 @@ export default class Home extends Component {
 			
 		const trendingTable = <CustomTable columns={trendingTableColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} />
 		
-		const minNumberToShow = 8, lowerWidthCutoff = 1200
-		const maxNumberToShow = 30, upperWidthCutoff = 1600
 		
-		var numberToShow = minNumberToShow
-		if (this.state.windowWidth == null) {
-			numberToShow = minNumberToShow
-		} else if (this.state.windowWidth < 600) {
-			numberToShow = 15
-		} else if (this.state.windowWidth < 768) {
-			numberToShow = 20
-		} else if (this.state.windowWidth < 992) {
-			numberToShow = 15
-		} else if (this.state.windowWidth < lowerWidthCutoff) {
-			numberToShow = 8
-		} else if (this.state.windowWidth > upperWidthCutoff) {
-			numberToShow = maxNumberToShow
-		} else {
-			const alpha = (this.state.windowWidth-lowerWidthCutoff) / (upperWidthCutoff-lowerWidthCutoff)
-			numberToShow = Math.round(minNumberToShow + alpha * (maxNumberToShow-minNumberToShow))
-		}
-		//numberToShow = 5
 		
 		const viruses = ['SARS-CoV','MERS-CoV','SARS-CoV-2']
 		var virusDatePlots = {}
@@ -639,15 +660,19 @@ export default class Home extends Component {
 			/>
 		})
 		
+		const numberToShow_col6 = decideBarchartCountUsingWidth(this.state.col6Width)
+		const numberToShow_col9 = decideBarchartCountUsingWidth(this.state.col9Width)
+		//const numberToShow_col12 = decideBarchartCountUsingWidth(this.state.col12Width)
+		
 		const journalChartData = {
-				labels:this.props.journalCounts.map(c => c.name).slice(0,numberToShow),
-				datasets:[{data:this.props.journalCounts.map(c => c.count).slice(0,numberToShow),backgroundColor:'#fbb4ae'}]
+				labels:this.props.journalCounts.map(c => c.name).slice(0,numberToShow_col9),
+				datasets:[{data:this.props.journalCounts.map(c => c.count).slice(0,numberToShow_col9),backgroundColor:'#fbb4ae'}]
 				}
 				
-		const drugChart = this.chartifyEntityData(this.props.drugData,numberToShow)
-		const vaccineChart = this.chartifyEntityData(this.props.vaccineData,numberToShow)
-		const riskfactorsChart = this.chartifyEntityData(this.props.riskfactorsData,numberToShow)
-		const symptomsChart = this.chartifyEntityData(this.props.symptomsData,numberToShow)
+		const drugChart = this.chartifyEntityData(this.props.drugData,numberToShow_col6)
+		const vaccineChart = this.chartifyEntityData(this.props.vaccineData,numberToShow_col6)
+		const riskfactorsChart = this.chartifyEntityData(this.props.riskfactorsData,numberToShow_col6)
+		const symptomsChart = this.chartifyEntityData(this.props.symptomsData,numberToShow_col6)
 		
 		var locationsToShowByID = {}
 		this.props.popularLocations.filter( loc => this.state.viruses.includes(loc.virus)).forEach( loc => {
@@ -770,7 +795,7 @@ export default class Home extends Component {
 				</div>
 				
 				
-				<div className="tour-topics card shadow mb-4" style={{minHeight:"400px"}}>
+				<div className="tour-topics card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol12}>
 					<div className="card-header py-3">
 						<h6 className="m-0 font-weight-bold text-primary">Topics</h6>
 					</div>
@@ -883,15 +908,15 @@ export default class Home extends Component {
 
 					
 
-					<div className="col-md-6">
-						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+					<div className="col-md-9">
+						<div className="card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol9}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">Journals / Preprint Servers</h6>
 								
 							</div>
 							<div className="card-body">
 
-								<Bar
+									<Bar
 									data={journalChartData}
 									options={{ 
 											maintainAspectRatio: false,
@@ -901,20 +926,23 @@ export default class Home extends Component {
 												yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
 											} 
 										}}
-								/>
+										
+									responsive
+									/>
+								
 							
 							</div>
 						</div>
 					</div>
 					
-					<div className="col-md-6">
+					<div className="col-md-3">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">Peer-Reviewed Research</h6>
 								
 							</div>
 							<div className="card-body">
-								<Doughnut
+							<Doughnut
 									data={{
 										labels: ["Peer Reviewed","Preprint"],
 										datasets: [{
@@ -928,7 +956,7 @@ export default class Home extends Component {
 										legend: { fontSize: 10}, 
 										cutoutPercentage: 70,  
 										}}
-								/>
+							/>
 							
 							</div>
 						</div>
@@ -943,7 +971,7 @@ export default class Home extends Component {
 					
 
 					<div className="col-md-6">
-						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+						<div className="card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol6}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									<Link href="/[id]" as="/therapeutics">
