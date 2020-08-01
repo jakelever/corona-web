@@ -190,6 +190,10 @@ export default class Page extends Component {
 		})
 		
 		const table = <CustomTable columns={columns} data={filteredData} />
+		
+		const downloadButton = false ? <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
+					</a> : ''
 
 		return (
 			<Layout title={this.props.page_info.name} page={this.props.page_info.page} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
@@ -197,9 +201,7 @@ export default class Page extends Component {
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
-					<a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
-					</a>
+					{downloadButton}
 				</div>
 				
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
