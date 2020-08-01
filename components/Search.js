@@ -19,7 +19,7 @@ export default class Search extends Component {
 			options: []
 			}
 			
-		this.showGeneralSearch = true
+		this.showGeneralSearch = false
 			
 		this.search = this.search.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -43,7 +43,7 @@ export default class Search extends Component {
 			const entity_type = selected[0].type
 			
 			if (entity_type == 'search') {
-				url = "/search?q=" + entity_name
+				url = "/search?q=" + this.state.input
 				Router.push("/search",url)
 			} else if (entity_type == 'topic' && entity_name in this.pageMapping) {
 				const url = "/" + this.pageMapping[entity_name]
@@ -74,7 +74,7 @@ export default class Search extends Component {
 			<Highlighter key="name" search={props.text}>
 				{option.name}
 			</Highlighter>,
-			<div key="type" style={{float:"right"}}>
+			option.type == 'search' ? '' : <div key="type" style={{float:"right"}}>
 				<Badge variant="secondary">
 					{option.type}
 				</Badge>
@@ -111,13 +111,20 @@ export default class Search extends Component {
 			return <Menu {...menuProps}>{items}</Menu>
 		}*/
 		
+		const optionsWithGeneralSearch = [
+		{'name':'Search for papers containing "'+this.state.input+'"', 'type':'search'},
+		...this.state.options
+		]
+		
 		const renderMenu = (results, menuProps, state) => {
 			const positionOffset = this.showGeneralSearch ? 1 : 0
 			
 			const generalSearchOption = {'name':state.text, 'type':'search'}
-			const generalSearch = <MenuItem key={1} option={generalSearchOption} position={1}>Search for papers containing {'"'+state.text+'"'}</MenuItem>
+			const generalSearch = <MenuItem key={'menuitem_'+0} option={generalSearchOption} position={0}>Search for papers containing {'"'+state.text+'"'}</MenuItem>
 			
-			const renderedResults = results.map( (option,i) => <MenuItem key={i+positionOffset} option={option} position={i+positionOffset}>{renderSearchRow(option,state,i)}</MenuItem> )
+			console.log(results)
+			
+			const renderedResults = results.map( (option,i) => <MenuItem key={'menuitem_'+(i+positionOffset)} option={option} position={i+positionOffset}>{renderSearchRow(option,state,i)}</MenuItem> )
 			
 			if (this.showGeneralSearch)
 				return <Menu {...menuProps}>{generalSearch}{renderedResults}</Menu>
@@ -133,17 +140,21 @@ export default class Search extends Component {
 			<div className="input-group" style={{zIndex: "2000 !important"}}>
 			
 				<AsyncTypeahead
+					autoFocus
 					isLoading={this.state.isLoading}
 					id="typeahead"
-					labelKey="name"
+					labelKey={() =>
+						// Return the input text to suppress hinting and displaying the labelKey in the input.
+						this.state.input
+					  }
 					onSearch={this.search}
 					onChange={this.onChange}
 					renderMenu={renderMenu}
 					onInputChange={(txt,event) => this.setState({input:txt})}
-					options={this.state.options}
+					options={optionsWithGeneralSearch}
 					placeholder="Search for a drug, gene, location, paper, etc"
 					onKeyDown={event => {
-						if (this.showGeneralSearch && event.key == 'Enter' && this.state.input) {
+						if (event.key == 'Enter' && this.state.input) {
 							//console.log(this.state.input)
 							
 							const url = "/search?q=" + this.state.input
@@ -155,7 +166,7 @@ export default class Search extends Component {
 				
 				<div className="input-group-append">
 					<button className="btn btn-primary" type="button" onClick={ event => {
-						if (this.showGeneralSearch && this.state.input) {
+						if (this.state.input) {
 							const url = "/search?q=" + this.state.input
 							Router.push("/search",url)
 						}
