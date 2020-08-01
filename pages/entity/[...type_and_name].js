@@ -100,6 +100,12 @@ export default class EntityPage extends Component {
 								<DynamicMapComponent links={false} zoom={3} position={position} height="200px" locations={[{'name':this.props.entity.entity_name,'latitude':position[0],'longitude':position[1]}]} />
 							</div>
 		}
+		
+		const externalIDIsLikelyWikidata = this.props.entity.external_id.length >= 2 && this.props.entity.external_id.slice(0,1) == 'Q' && !isNaN(this.props.entity.external_id.slice(1,2))
+
+		const wikidataLink = externalIDIsLikelyWikidata ? <div className="d-sm-flex align-items-center justify-content-between mb-4">
+					<h6 className="h6 mb-0 text-gray-800">Wikidata: <a href={"https://www.wikidata.org/wiki/"+this.props.entity.external_id} target="_blank">{this.props.entity.external_id}</a></h6>
+				</div> : ''
 
 		return (
 			<Layout title={this.props.entity.entity_name} page={null} updateViruses={this.updateViruses} showVirusSelector>
@@ -111,9 +117,7 @@ export default class EntityPage extends Component {
 				</div>
 							
 				
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
-					<h6 className="h6 mb-0 text-gray-800">Wikidata: <a href={"https://www.wikidata.org/wiki/"+this.props.entity.external_id} target="_blank">{this.props.entity.external_id}</a></h6>
-				</div>
+				{wikidataLink}
 				
 
 				<div className="card shadow mb-4">
