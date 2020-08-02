@@ -87,12 +87,6 @@
 		],
 		"chart_entity": "Prevention Method"
 	},
-	{
-		"name": "Preparedness",
-		"page": "preparedness",
-		"group": "Epidemiology",
-		"description": "Research on strategies for a country, healthcare system or hospital to prepare for a pandemic"
-	},
 	
 
 	{
@@ -139,30 +133,10 @@
 		"chart_entity": "Location"
 	},
 	{
-		"name": "Recommendations",
-		"page": "recommendations",
-		"group": "Clinical",
-		"description": "Recommendations for medical professionals"
-	},
-	{
 		"name": "Pediatrics",
 		"page": "pediatrics",
 		"group": "Clinical",
 		"description": "Research studying the effect of the virus on children"
-	},
-	{
-		"name": "Medical Specialties",
-		"page": "medicalspecialties",
-		"group": "Clinical",
-		"description": "Research focussing on the effect of the virus on a specific medical specialty",
-		"extra_table_columns": [
-			{
-				"header": "Medical Specialty",
-				"selector": "entities:Medical Specialty",
-				"grow":2
-			}
-		],
-		"chart_entity": "Medical Specialty"
 	},
 	{
 		"name": "Healthcare Workers",
