@@ -23,7 +23,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: What is the purpose of this resource?</b></p>
-								<p>A: To provide a portal to the entire biomedical literature focussed on SARS-CoV-2, MERS-CoV and SARS-CoV.</p>
+								<p>A: To provide a portal to the entire biomedical literature focussed on SARS-CoV-2, MERS-CoV and SARS-CoV. It categorises papers into a set of topics to make it easier to find relevant research and indexes by important concepts (e.g. drugs, proteins, locations, etc).</p>
 							</div>
 							
 							<hr />
@@ -37,7 +37,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: What machine learning methods are used in this resource?</b></p>
-								<p>A: We use supervised machine learning to identify the topics of the papers. A set of papers has been annotated with relevant topics and fed into a traditional logistic regression based system that has been adjusted to make conservative decisions.</p>
+								<p>A: We use supervised machine learning to identify the topics of the papers. A set of papers has been annotated with relevant topics and used as training data for a system that uses the text of the title and abstract to make predictions. This is complemented with heuristics to identify specific topics, e.g. clinical trial registration numbers.</p>
 							</div>
 							
 							<hr />
@@ -45,6 +45,13 @@ export default class FAQs extends Component {
 							<div>
 								<p><b>Q: Are all the papers manually curated?</b></p>
 								<p>A: No. A small number have been manually curated and machine learning has been used to predict the topics for all other papers</p>
+							</div>
+							
+							<hr />
+							
+							<div>
+								<p><b>Q: Is this up-to-date?</b></p>
+								<p>A: Yes. The latest version of PubMed and the CORD-19 dataset are downloaded and processed every day.</p>
 							</div>
 							
 							<hr />
@@ -58,7 +65,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: Who created this resource?</b></p>
-								<p>A: This was created by Jake Lever, a postdoctoral researcher in the Helix Group at Stanford University.</p>
+								<p>A: This was created by <a href="https://twitter.com/jakelever0" target="_blank">Jake Lever</a>, a postdoctoral researcher, supervised by <a href="https://rbaltman.people.stanford.edu/" target="_blank">Russ Altman</a> in the <a href="http://helix.stanford.edu/" target="_blank">Helix Group</a> at Stanford University.</p>
 							</div>
 							
 							<hr />
@@ -66,6 +73,14 @@ export default class FAQs extends Component {
 							<div>
 								<p><b>Q: How do I cite this research?</b></p>
 								<p>A: There is currently a paper in preparation. Please cite that when it becomes available.</p>
+							</div>
+							
+							<hr />
+							
+							
+							<div>
+								<p><b>Q: Who should I contact to ask a question?</b></p>
+								<p>A: Please contact Jake Lever at <a href="mailto:jlever@stanford.edu">jlever@stanford.edu</a></p>
 							</div>
 							
 							<hr />

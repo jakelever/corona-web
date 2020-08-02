@@ -726,7 +726,7 @@ export default class Home extends Component {
 							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> for subjects of interest above. You can narrow in on a specific virus using the selector in the top-right.
 						  </p>
 						  <p>
-							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> If you <b>spot a mistake</b>, please flag it using the flag icon beside each paper, or use the <Link href="/feedback" as="/feedback"><a>Feedback form</a></Link>.
+							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly trying to make improvements and value any <Link href="/feedback" as="/feedback"><a>feedback</a></Link>. Plus if you <b>spot a mistake</b>, please flag it using the flag icon beside each paper.
 						  </p>
 						  <p>
 							For more information, see the <Link href="/faqs" as="/faqs"><a>Frequently Asked Questions</a></Link> page.
