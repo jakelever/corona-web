@@ -24,7 +24,8 @@ httpRedirectServer.on('listening', () => {
 // now start the https server with the nextjs app
 const httpsOptions = {
   key: fs.readFileSync('./certificates/coronacentral_ai.key'),
-  cert: fs.readFileSync('./certificates/coronacentral_ai.crt')
+  cert: fs.readFileSync('./certificates/coronacentral_ai.crt'),
+  ca: fs.readFileSync('./certificates/coronacentral_ai.ca-bundle')
 };
 
 app.prepare().then(() => {
