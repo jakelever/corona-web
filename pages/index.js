@@ -158,6 +158,30 @@ async function getPreprintCounts() {
 	return dataForAllCombos
 }*/
 
+async function getArticleTypes() {
+	var counts = await db.query(escape`
+
+	SELECT e_articletype.name as articletype, COUNT(*) as count
+	FROM annotations anno_articletype, entities e_articletype, entitytypes et_articletype
+	WHERE anno_articletype.entity_id = e_articletype.entity_id
+	AND e_articletype.entitytype_id = et_articletype.entitytype_id
+	AND et_articletype.name = 'articletype'
+	GROUP BY articletype
+	ORDER BY count DESC
+	
+	`)
+	
+	counts = counts.map(r => Object.assign({},r))
+	
+	const colors = ['#bebada','#8dd3c7','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f','#ffffb3']
+	
+	const chartData = { 'labels':counts.map(c => c.articletype), 'datasets': [{'data':counts.map(c => c.count),'backgroundColor':counts.map((c,i) => colors[i%colors.length]) }] }
+	
+	console.log(chartData)
+	
+	return chartData
+}
+
 async function getTopicCountsByVirus() {
 	var counts = await db.query(escape`
 
@@ -457,8 +481,10 @@ export async function getStaticProps({ params }) {
 	const summaryStatistics = await getSummaryStatistics()
 	
 	const journalCounts = await getJournalCounts(30)
+	
 	const preprintCounts = await getPreprintCounts()
 	const topicCounts = await getTopicCountsByVirus()
+	const articletypeCounts = await getArticleTypes()
 	const popularLocations = await getPopularLocations()
 	
 	const recentTrending = await getRecentTrendingDocuments()
@@ -474,6 +500,7 @@ export async function getStaticProps({ params }) {
 			symptomsData,
 			preprintCounts,
 			topicCounts,
+			articletypeCounts,
 			popularLocations,
 			recentTrending
 		}
@@ -795,13 +822,49 @@ export default class Home extends Component {
 				</div>
 				
 				
-				<div className="tour-topics card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol12}>
-					<div className="card-header py-3">
-						<h6 className="m-0 font-weight-bold text-primary">Topics</h6>
+				
+				<div className="row">
+
+					
+
+					<div className="col-md-3">
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">
+									<Link href="/[id]" as="/therapeutics">
+										<a>Article Types</a>
+									</Link>
+								</h6>
+								
+							</div>
+							<div className="card-body">
+
+								<Doughnut
+									data={this.props.articletypeCounts}
+									options={{ 
+										maintainAspectRatio: false,
+										legend: { fontSize: 10}, 
+										cutoutPercentage: 70,  
+										}}
+									/>
+							
+							</div>
+						</div>
 					</div>
-					<div className="card-body">
-						
-						<Bar
+					
+					<div className="tour-topics col-md-9">
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">
+									<Link href="/[id]" as="/vaccines">
+										<a>Topics</a>
+									</Link>
+								</h6>
+								
+							</div>
+							<div className="card-body">
+
+								<Bar
 						  data={{
 							  labels:this.props.topicCounts.labels,
 							  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.includes(ds.label))
@@ -815,7 +878,12 @@ export default class Home extends Component {
 								} 
 							}}
 						/>
+							
+							</div>
+						</div>
 					</div>
+					
+					
 				</div>
 				
 								
