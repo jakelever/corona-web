@@ -176,9 +176,7 @@ async function getArticleTypes() {
 	const colors = ['#bebada','#8dd3c7','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f','#ffffb3']
 	
 	const chartData = { 'labels':counts.map(c => c.articletype), 'datasets': [{'data':counts.map(c => c.count),'backgroundColor':counts.map((c,i) => colors[i%colors.length]) }] }
-	
-	console.log(chartData)
-	
+		
 	return chartData
 }
 
