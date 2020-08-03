@@ -419,7 +419,7 @@ async function getRecentTrendingDocuments() {
 		AND d.publish_year != ''
 		AND d.publish_month != ''
 		AND d.publish_day != ''
-		AND DATEDIFF(CURDATE(), CONCAT_WS("-",d.publish_year,d.publish_month,d.publish_day)) < 14
+		AND DATEDIFF(CURDATE(), CONCAT_WS("-",d.publish_year,d.publish_month,d.publish_day)) <= 14
 	`)
 	documents = documents.map(r => Object.assign({},r))
 	
@@ -814,7 +814,11 @@ export default class Home extends Component {
 					
 				<div className="tour-table card shadow mb-4">
 					<div className="card-header py-3">
-						<h6 className="m-0 font-weight-bold text-primary">Recent & Trending Papers</h6>
+						<h6 className="m-0 font-weight-bold text-primary">
+							<Link href="/trending" as="/trending">
+								<a>Recent & Trending Papers</a>
+							</Link>
+						</h6>
 					</div>
 					<div className="card-body">
 						{trendingTable}
