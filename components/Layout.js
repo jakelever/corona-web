@@ -93,7 +93,7 @@ export default class Layout extends Component {
 							  <span className="sr-only">Loading...</span>
 							</Spinner>*/
 
-		const metaTitle = 'title' in this.props ? this.props.title + " at " + projectName : projectName
+		const metaTitle = 'title' in this.props && this.props.page != '/' ? this.props.title + " at " + projectName : projectName
 		const metadata = <> 
 				<meta name="description" content="The entire coronavirus literature categorised and easily searchable by drug, protein, location and more" />
 
@@ -150,7 +150,7 @@ export default class Layout extends Component {
 						</Head>
 		} else {
 										
-			const pageTitle = 'title' in this.props && this.props.page != '/' ? this.props.title + " | " + projectName : projectName
+			const pageTitle = 'title' in this.props ? this.props.title + " | " + projectName : projectName
 							
 			content = this.props.children
 			headBlock = <Head>
