@@ -150,7 +150,7 @@ export default class Layout extends Component {
 						</Head>
 		} else {
 										
-			const pageTitle = 'title' in this.props ? this.props.title + " | " + projectName : projectName
+			const pageTitle = 'title' in this.props && this.props.page != '/' ? this.props.title + " | " + projectName : projectName
 							
 			content = this.props.children
 			headBlock = <Head>
