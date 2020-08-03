@@ -93,6 +93,23 @@ export default class Layout extends Component {
 							  <span className="sr-only">Loading...</span>
 							</Spinner>*/
 
+		const metaTitle = 'title' in this.props ? this.props.title + " at " + projectName : projectName
+		const metadata = <> 
+				<meta name="description" content="The entire coronavirus literature categorised and easily searchable by drug, protein, location and more" />
+
+				<meta name="twitter:card" content="summary" />
+				<meta name="twitter:site" content="@jakelever0" />
+				<meta name="twitter:title" content={metaTitle} />
+				<meta name="twitter:description" content="A portal to the entire coronavirus research literature" />
+				<meta name="twitter:creator" content="@jakelever0" />
+				<meta name="twitter:image" content="http://coronacentral.ai/logo.png" /> 
+
+				<meta property="og:url"                content="http://coronacentral.ai" />
+				<meta property="og:type"               content="website" />
+				<meta property="og:title"              content={metaTitle} />
+				<meta property="og:description"        content="A portal to the entire coronavirus research literature" />
+				<meta property="og:image"              content="http://coronacentral.ai/logo.png" />
+			</>
 									
 		var content = '', headBlock = '';
 		if (this.props.error404) {
@@ -105,6 +122,7 @@ export default class Layout extends Component {
 			headBlock = <Head>
 							<title>Page not found | {projectName}</title>
 							<meta name="robots" content="noindex" />
+							{metadata}
 						</Head>
 		} else if (this.state.error || this.props.error) {
 			const errorMessage = this.props.errorMessage ? this.props.errorMessage : "An error has occurred!"
@@ -118,6 +136,7 @@ export default class Layout extends Component {
 			headBlock = <Head>
 							<title>Error | {projectName}</title>
 							<meta name="robots" content="noindex" />
+							{metadata}
 						</Head>
 		} else if (this.state.loading || ('loading' in this.props && this.props.loading == true)) {
 			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
@@ -127,6 +146,7 @@ export default class Layout extends Component {
 				</div>
 			headBlock = <Head>
 							<meta name="robots" content="noindex" />
+							{metadata}
 						</Head>
 		} else {
 										
@@ -136,6 +156,7 @@ export default class Layout extends Component {
 			headBlock = <Head>
 					<title>{pageTitle}</title>
 					<link rel="icon" href="/favicon.png" type="image/png" />
+					{metadata}
 				</Head>
 		}
 		
