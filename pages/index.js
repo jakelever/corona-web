@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
 import CustomTable from '../components/CustomTable.js'
+import { logEvent } from '../lib/analytics.js'
 
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 
@@ -532,6 +533,7 @@ export default class Home extends Component {
 	
 	startTour() {
 		this.setState({showTour:true})
+		logEvent('tour','started')
 	}
 	
 	closeTourToast() {
