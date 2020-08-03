@@ -816,7 +816,7 @@ export default class Home extends Component {
 					<div className="card-header py-3">
 						<h6 className="m-0 font-weight-bold text-primary">
 							<Link href="/trending" as="/trending">
-								<a>Recent & Trending Papers</a>
+								<a>Recent & Trending Articles</a>
 							</Link>
 						</h6>
 					</div>

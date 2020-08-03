@@ -91,7 +91,7 @@ export default class Page extends Component {
 				</div>
 				
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
-					<h6 className="h6 mb-0 text-gray-800">Research articles from the last two weeks that are receiving attention in the media and on social media</h6>
+					<h6 className="h6 mb-0 text-gray-800">Articles from the last two weeks that are receiving attention in the media and on social media</h6>
 				</div>
 
 				<div className="card shadow mb-4">

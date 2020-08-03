@@ -197,7 +197,7 @@ export default class Sidebar extends Component {
 		<hr className="sidebar-divider my-0" />
 		
 		<div className="tour-trending m-0 p-0">
-		<MyToolTip text="Research articles from the last two weeks that are receiving attention in the media and on social media">
+		<MyToolTip text="Articles from the last two weeks that are receiving attention in the media and on social media">
 			<li className={this.props.page=='/trending' ? "nav-item active mb-0" : "nav-item mb-0"}>
 				<Link href="/trending" as="/trending">
 					<a className="nav-link">
