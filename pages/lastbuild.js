@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
 
 export async function getStaticProps({ params }) {
-	const dateTime = new Date().toLocaleString();
+	const buildDatetime = Date.now();
 	
 	return {
 		props: {
-			dateTime
+			buildDatetime
 		}
 	}
 }
 
 export default class Home extends Component {
 	render() {
+		var offset = new Date().getTimezoneOffset();
+		var localBuildDatetime = new Date(this.props.buildDatetime-offset)
+		console.log(localBuildDatetime)
 		
 		return (
 			<Layout title="Build Date" page="/builddate">
-				Last Build at {this.props.dateTime}
+				Last Build at {localBuildDatetime.toString()}
 			</Layout>
 		
 		)
