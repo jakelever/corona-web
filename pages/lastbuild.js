@@ -15,7 +15,6 @@ export default class Home extends Component {
 	render() {
 		var offset = new Date().getTimezoneOffset();
 		var localBuildDatetime = new Date(this.props.buildDatetime-offset)
-		console.log(localBuildDatetime)
 		
 		return (
 			<Layout title="Build Date" page="/builddate">
