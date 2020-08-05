@@ -556,8 +556,6 @@ export default class Home extends Component {
 		if (this.panelCol12.current != null && !isNaN(this.panelCol12.current.offsetWidth))
 			updatedWidths['col12Width'] = this.panelCol12.current.offsetWidth
 		
-		console.log(updatedWidths)
-		
 		this.setState(updatedWidths)
 	}
 	
