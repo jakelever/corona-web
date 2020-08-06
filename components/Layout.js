@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Router from 'next/router';
+import Router from 'next/router'
 
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -12,7 +12,10 @@ import { faBomb } from '@fortawesome/free-solid-svg-icons'
 
 import { initGA, logPageView } from '../lib/analytics.js'
 
-export default class Layout extends Component {
+import { withRouter } from 'next/router'
+
+
+class Layout extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -89,26 +92,29 @@ export default class Layout extends Component {
 	
 	render() {
 		const projectName = "CoronaCentral"
-		/*const loading = <Spinner animation="border" role="status">
-							  <span className="sr-only">Loading...</span>
-							</Spinner>*/
-
+		
 		const metaTitle = 'title' in this.props && this.props.page != '/' ? this.props.title + " at " + projectName : projectName
+		
+		const pageURL = "https://coronacentral.ai" + this.props.router.asPath
 		const metadata = <> 
 				<meta name="description" content="The entire coronavirus literature categorised and easily searchable by drug, protein, location and more" />
 
-				<meta name="twitter:card" content="summary" />
-				<meta name="twitter:site" content="@jakelever0" />
-				<meta name="twitter:title" content={metaTitle} />
+				<meta name="twitter:card"        content="summary" />
+				<meta name="twitter:site"        content="@jakelever0" />
+				<meta name="twitter:title"       content={metaTitle} />
 				<meta name="twitter:description" content="A portal to the entire coronavirus research literature" />
-				<meta name="twitter:creator" content="@jakelever0" />
-				<meta name="twitter:image" content="http://coronacentral.ai/logo.png" /> 
+				<meta name="twitter:creator"     content="@jakelever0" />
+				<meta name="twitter:image"       content="https://coronacentral.ai/logo.png" />
+				<meta name="twitter:image:alt"   content="Logo with two virus spores for Corona Central" />
 
-				<meta property="og:url"                content="http://coronacentral.ai" />
+				<meta property="og:url"                content={pageURL} />
 				<meta property="og:type"               content="website" />
 				<meta property="og:title"              content={metaTitle} />
 				<meta property="og:description"        content="A portal to the entire coronavirus research literature" />
-				<meta property="og:image"              content="http://coronacentral.ai/logo.png" />
+				<meta property="og:image"              content="https://coronacentral.ai/biglogo.png" />
+				<meta property="og:image:secure_url"   content="https://coronacentral.ai/biglogo.png" />
+				<meta property="og:image:alt"          content="A view of the main page of Corona Central" />
+
 			</>
 									
 		var content = '', headBlock = '';
@@ -222,3 +228,5 @@ export default class Layout extends Component {
 		)
 	}
 }
+
+export default withRouter(Layout)
