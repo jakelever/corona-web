@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout.js'
 
 export async function getStaticProps({ params }) {
-	const buildDatetime = Date.now();
+	const buildTimestamp = Date.now();
 	
 	return {
 		props: {
-			buildDatetime
+			buildTimestamp
 		}
 	}
 }
@@ -14,11 +14,11 @@ export async function getStaticProps({ params }) {
 export default class Home extends Component {
 	render() {
 		var offset = new Date().getTimezoneOffset();
-		var localBuildDatetime = new Date(this.props.buildDatetime-offset)
+		var localBuildDateTime = new Date(this.props.buildTimestamp-offset)
 		
 		return (
 			<Layout title="Build Date" page="/builddate">
-				Last Build at {localBuildDatetime.toString()}
+				Last Build at {localBuildDateTime.toString()}
 			</Layout>
 		
 		)
