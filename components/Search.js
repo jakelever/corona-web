@@ -122,8 +122,6 @@ export default class Search extends Component {
 			const generalSearchOption = {'name':state.text, 'type':'search'}
 			const generalSearch = <MenuItem key={'menuitem_'+0} option={generalSearchOption} position={0}>Search for papers containing {'"'+state.text+'"'}</MenuItem>
 			
-			console.log(results)
-			
 			const renderedResults = results.map( (option,i) => <MenuItem key={'menuitem_'+(i+positionOffset)} option={option} position={i+positionOffset}>{renderSearchRow(option,state,i)}</MenuItem> )
 			
 			if (this.showGeneralSearch)
@@ -137,7 +135,7 @@ export default class Search extends Component {
 		// onKeyDown={event => console.log(event.key)}
 		return (
 		<div>
-			<div className="input-group" style={{zIndex: "2000 !important"}}>
+			<div className="input-group" style={{zIndex: "1000 !important"}}>
 			
 				<AsyncTypeahead
 					autoFocus
