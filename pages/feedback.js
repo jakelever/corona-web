@@ -6,6 +6,8 @@ import { Col, Row, Form, Button } from "react-bootstrap";
 
 import Layout from '../components/Layout.js'
 
+import ReCAPTCHA from "react-google-recaptcha";
+
 const states = {
 	ERROR: 1,
 	ACTIVE: 2,
@@ -21,9 +23,12 @@ export default class FAQs extends Component {
 			selectvalue: 'Suggestion/Idea',
 			submit_state: states.ACTIVE
 		}
-		
+				
 		this.handleTextChange = this.handleTextChange.bind(this);
 		this.handleSelectChange = this.handleSelectChange.bind(this);
+		this.submitForm = this.submitForm.bind(this);
+		
+		this.recaptcha = React.createRef();
 	}
 	
 	handleSelectChange(event) {
@@ -34,27 +39,30 @@ export default class FAQs extends Component {
 		this.setState({textvalue: event.target.value});
 	}
 	
-	submitForm () {
-		const data = {
-			type: this.state.selectvalue,
-			description: this.state.textvalue
+	submitForm (recaptchaToken) {	
+		if (recaptchaToken) {	
+			const data = {
+				type: this.state.selectvalue,
+				description: this.state.textvalue,
+				recaptcha: recaptchaToken
+			}
+				
+			fetch('/api/feedback', {
+				method: 'post',
+				headers: {
+					'Accept': 'application/json, text/plain, */*',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			}).then((res) => {
+				res.status === 200 ? this.setState({ submit_state: states.SUBMITTED }) : this.setState({ submit_state: states.ERROR })
+			})
+		} else {
+			this.setState({ submit_state: states.ERROR })
 		}
-		
-		this.setState({ submit_state: states.SUBMITTING })
-		fetch('/api/feedback', {
-			method: 'post',
-			headers: {
-				'Accept': 'application/json, text/plain, */*',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		}).then((res) => {
-			res.status === 200 ? this.setState({ submit_state: states.SUBMITTED }) : ''
-		})
 	}
 	
 	render() {
-		
 		
 		var submitButton
 		if (this.state.submit_state == states.SUBMITTED) {
@@ -62,17 +70,25 @@ export default class FAQs extends Component {
 		} else if (this.state.submit_state == states.SUBMITTING) {
 			submitButton = <button className="btn btn-primary" type="submit" disabled>
 						  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-						  Submitting...
+						  &nbsp;&nbsp;Submitting...
 						</button>
 		} else if (this.state.submit_state == states.ERROR) {
-			submitButton = <button type="submit" className="btn btn-danger" disabled>ERROR</button>
+			submitButton = <button type="submit" className="btn btn-warning" disabled>Error: Unable to submit</button>
 		}else {
 			submitButton = <button type="submit" className="btn btn-primary">Submit</button>
 		}
+				  
+		const recaptcha = <ReCAPTCHA
+							ref={this.recaptcha}
+							size="invisible"
+							sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY}
+							onChange={ recaptchaToken => this.submitForm(recaptchaToken) }
+						  />
 		
 		return (
 			<Layout title="Feedback" page="/feedback" >
 		
+				
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">Feedback</h1>
@@ -83,11 +99,13 @@ export default class FAQs extends Component {
 					
 					<div className="card-body">
 						<p><b>This is an ongoing research project and we therefore welcome feedback as we strive to improve this resource.</b> If you have comments on the topics identified, or some we've missed please put them in below. We can't guarantee that we'll be able make all suggested changes but certainly want to hear about the strengths and weaknesses that users identify. </p>
-					
+											
 						<hr />
 							<Form className="board-form" onSubmit={e => {
 							e.preventDefault()
-							this.submitForm()
+							this.setState({ submit_state: states.SUBMITTING })
+							this.recaptcha.current.reset()
+							this.recaptcha.current.execute()
 						  }}>
 								<Form.Group as={Row} controlId="formFeedbackTypeSection">
 									<Form.Label column sm={2}>
@@ -116,6 +134,7 @@ export default class FAQs extends Component {
 									</Col>
 								</Form.Group>
 								
+								{recaptcha}
 
 								<Form.Group as={Row}>
 									<Col sm={{ span: 10, offset: 0 }}>

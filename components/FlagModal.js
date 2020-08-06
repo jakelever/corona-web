@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
+import ReCAPTCHA from "react-google-recaptcha";
+
 const states = {
 	ERROR: 1,
 	ACTIVE: 2,
@@ -18,31 +20,38 @@ export default class FlagModal extends Component {
 		}
 		
 		this.handleChange = this.handleChange.bind(this);
+		this.submitForm = this.submitForm.bind(this);
+		
+		this.recaptcha = React.createRef();
 	}
 	
 	handleChange(event) {
 		this.setState({textvalue: event.target.value});
 	}
 	
-	submitForm () {
-		const data = {
-			doi: this.props.doc.doi,
-			issue: this.state.textvalue,
-			'cord_uid': this.props.doc.cord_uid,
-			'pubmed_id': this.props.doc.pubmed_id
+	submitForm (recaptchaToken) {	
+		if (recaptchaToken) {	
+			const data = {
+				doi: this.props.doc.doi,
+				issue: this.state.textvalue,
+				'cord_uid': this.props.doc.cord_uid,
+				'pubmed_id': this.props.doc.pubmed_id,
+				recaptcha: recaptchaToken
+			}
+			
+			fetch('/api/flagdoc', {
+				method: 'post',
+				headers: {
+					'Accept': 'application/json, text/plain, */*',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			}).then((res) => {
+				res.status === 200 ? this.setState({ submit_state: states.SUBMITTED }) : this.setState({ submit_state: states.ERROR })
+			})
+		} else {
+			this.setState({ submit_state: states.ERROR })
 		}
-		
-		this.setState({ submit_state: states.SUBMITTING })
-		fetch('/api/flagdoc', {
-			method: 'post',
-			headers: {
-				'Accept': 'application/json, text/plain, */*',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		}).then((res) => {
-			res.status === 200 ? this.setState({ submit_state: states.SUBMITTED }) : ''
-		})
 	}
 
 	render() {
@@ -74,10 +83,19 @@ export default class FlagModal extends Component {
 		else if (this.props.doc.cord_uid)
 			whichIDToShow = 'cord_uid'
 		
+		const recaptcha = <ReCAPTCHA
+							ref={this.recaptcha}
+							size="invisible"
+							sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY}
+							onChange={ recaptchaToken => this.submitForm(recaptchaToken) }
+						  />
+		
 		return <Modal show={this.props.show} onHide={this.props.closeFunc}>
 				<form className="board-form" onSubmit={e => {
 						e.preventDefault()
-						this.submitForm()
+						this.setState({ submit_state: states.SUBMITTING })
+						this.recaptcha.current.reset()
+						this.recaptcha.current.execute()
 					  }}>
 		
 				<Modal.Header closeButton>
@@ -116,6 +134,8 @@ export default class FlagModal extends Component {
 							<textarea className="form-control" id="issue" rows="3" required value={this.state.textvalue} onChange={this.handleChange}  disabled={this.state.submit_state!=states.ACTIVE} />
 						</div>
 					</div>
+					
+					{recaptcha}
 				
 				</Modal.Body>
 				<Modal.Footer>

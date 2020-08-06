@@ -26,6 +26,7 @@
     "react-data-table-component": "^6.9.8",
     "react-dom": "16.13.1",
     "react-ga": "^2.7.0",
+    "react-google-recaptcha": "^2.1.0",
     "react-leaflet": "^2.7.0",
     "reactour": "^1.18.0",
     "serverless-mysql": "^1.5.4",
