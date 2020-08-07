@@ -4,7 +4,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
 import Tooltip from 'react-bootstrap/Tooltip'
 
-export default class CustomTable extends Component {
+export default class MyToolTip extends Component {
 	constructor(props) {
 		super(props)
 		

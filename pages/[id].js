@@ -208,21 +208,9 @@ export default class Page extends Component {
 					<h6 className="h6 mb-0 text-gray-800">{ this.props.page_info.description ? this.props.page_info.description : ""}</h6>
 				</div>
 				
-						{barChart}
+				{barChart}
 
-				<div className="card shadow mb-4">
-					<div className="card-header py-3">
-						<h6 className="m-0 font-weight-bold text-primary">Published and Preprint Papers</h6>
-					</div>
-					<div className="card-body">
-						<div className="table-responsive">
-								
-								{table}
-								
-						</div>
-					</div>
-				</div>
-				
+				{table}
 
 			</Layout>
 		)

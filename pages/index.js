@@ -620,7 +620,8 @@ export default class Home extends Component {
 				{ "header":"Title", "selector":"title", linkInternal: true, grow:4 }
 			]
 			
-		const trendingTable = <CustomTable columns={trendingTableColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} />
+		const trendingTableTitle = <Link href="/trending" as="/trending"><a>Recent & Trending Articles</a></Link>
+		const trendingTable = <CustomTable columns={trendingTableColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} title={trendingTableTitle} />
 		
 		
 		
@@ -808,22 +809,7 @@ export default class Home extends Component {
 					
 				</div>
 
-
-					
-				<div className="tour-table card shadow mb-4">
-					<div className="card-header py-3">
-						<h6 className="m-0 font-weight-bold text-primary">
-							<Link href="/trending" as="/trending">
-								<a>Recent & Trending Articles</a>
-							</Link>
-						</h6>
-					</div>
-					<div className="card-body">
-						{trendingTable}
-					</div>
-				</div>
-				
-				
+				{trendingTable}
 				
 				<div className="row">
 

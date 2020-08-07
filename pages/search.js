@@ -105,6 +105,11 @@ export default class Page extends Component {
 		})
 		
 		const table = <CustomTable columns={columns} data={filteredData} />
+		
+		/*const downloadButton = <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
+					</a>*/
+		const downloadButton = ""
 
 		return (
 			<Layout title="Search Results" page="/search" updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
@@ -112,25 +117,10 @@ export default class Page extends Component {
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 className="h3 mb-0 text-gray-800">Search Results for {'"'+this.props.query+'"'}</h1>
-					<a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
-					</a>
+					{downloadButton}
 				</div>
-				
-
-				<div className="card shadow mb-4">
-					<div className="card-header py-3">
-						<h6 className="m-0 font-weight-bold text-primary">Published and Preprint Papers</h6>
-					</div>
-					<div className="card-body">
-						<div className="table-responsive">
-								
-								{table}
-								
-						</div>
-					</div>
-				</div>
-				
+						
+				{table}
 
 			</Layout>
 		)

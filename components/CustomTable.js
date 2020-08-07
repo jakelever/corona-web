@@ -308,7 +308,18 @@ export default class CustomTable extends Component {
 				
 		const modal = <FlagModal key={'flagmodal_'+this.state.modalKey} doc={this.state.flagModalDoc} show={this.state.showFlagModal} closeFunc={this.closeFlagModal} />
 		
-		return <div>{table}{modal}</div>
+		const title = 'title' in this.props ? this.props.title : "Published and Preprint Papers"
+				
+		return <div className="card shadow mb-4">
+					<div className="card-header py-3 d-sm-flex align-items-center justify-content-between">
+						<h6 className="m-0 font-weight-bold text-primary">{title}</h6>
+						
+					</div>
+					<div className="card-body">
+						{table}
+						{modal}
+					</div>
+				</div>
 					
 	}
 }
