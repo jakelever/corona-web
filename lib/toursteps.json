@@ -21,7 +21,7 @@
 	},
 	{
 		"selector": ".tour-table",
-		"content": "Different topic pages and the trending pages show publications in tables that can be sorted by clicking on the column header. This table shows trending articles from the last 14 days. You can also delve into a paper by clicking on the title."
+		"content": "Different topic pages and the trending pages show publications in tables that can be sorted by clicking on the column header. This table shows trending articles from the last 14 days. You can also delve into a paper by clicking on the title or filter the columns with the button in the top-right."
 	},
 	{
 		"selector": ".tour-locations",

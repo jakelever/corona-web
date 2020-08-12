@@ -816,7 +816,9 @@ export default class Home extends Component {
 					
 				</div>
 
-				{trendingTable}
+				<div className="tour-table">
+					{trendingTable}
+				</div>
 				
 				<div className="row">
 
