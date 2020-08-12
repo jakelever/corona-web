@@ -194,7 +194,7 @@ export default class DocPage extends Component {
 								{ 'articletype' in entityGroups ? <h6>Article Type: {entityGroups['articletype']}</h6> : "" }
 								
 								<div style={{}}>
-									<a href={this.props.doc.url} className="d-none d-sm-inline-block btn btn-sm btn-danger shadow" onClick={event => {this.showFlagModal(); event.preventDefault()}} href="#">
+									<a href={this.props.doc.url} className="btn btn-sm btn-danger shadow" onClick={event => {this.showFlagModal(); event.preventDefault()}} href="#">
 										<span className="text-white-50"><FontAwesomeIcon icon={faExclamationTriangle} size="sm" /></span> Flag Mistake
 									</a>
 								</div>
