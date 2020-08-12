@@ -627,6 +627,9 @@ export default class Home extends Component {
 		
 		
 		const viruses = ['SARS-CoV','MERS-CoV','SARS-CoV-2']
+		const virusStartDates = { 'SARS-CoV-2': '2019-12', 'MERS-CoV': '2013-04', 'SARS-CoV': '2003-03' }
+		const now = new Date(Date.now())
+		const nowYearMonth = now.getFullYear().toString() + "-" + (now.getMonth()+1).toString().padStart(2,'0')
 		var virusDatePlots = {}
 		viruses.forEach( v => {
 			
@@ -673,9 +676,13 @@ export default class Home extends Component {
 			var labels = this.props.virusDatePlotData.labels
 			var data = this.props.virusDatePlotData.datasets[v]
 			
-			const dataStartIndex = data.findIndex(val => val > 0)
-			labels = labels.slice(dataStartIndex)
-			data = data.slice(dataStartIndex)
+			const virusStartDate = virusStartDates[v]
+			//const dataStartIndex = data.findIndex(val => val > 0)
+			const dataStartIndex = labels.findIndex(val => val==virusStartDate)
+			const dataEndIndex = labels.findIndex(val => val==nowYearMonth)
+			
+			labels = labels.slice(dataStartIndex,dataEndIndex+1)
+			data = data.slice(dataStartIndex,dataEndIndex+1)
 			
 			
 			virusDatePlots[v] = <Bar
@@ -766,12 +773,12 @@ export default class Home extends Component {
 						<div className="card shadow mb-4  h-100">
 							{/* Card Header - Dropdown */}
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">SARS-CoV</h6>
+								<h6 className="m-0 font-weight-bold text-primary">SARS-CoV-2</h6>
 							</div>
 							{/* Card Body */}
 							<div className="card-body">
 								<div className="chart-area">
-									{virusDatePlots['SARS-CoV']}
+									{virusDatePlots['SARS-CoV-2']}
 								</div>
 							</div>
 						</div>
@@ -796,17 +803,16 @@ export default class Home extends Component {
 						<div className="card shadow mb-4  h-100">
 							{/* Card Header - Dropdown */}
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">SARS-CoV-2</h6>
+								<h6 className="m-0 font-weight-bold text-primary">SARS-CoV</h6>
 							</div>
 							{/* Card Body */}
 							<div className="card-body">
 								<div className="chart-area">
-									{virusDatePlots['SARS-CoV-2']}
+									{virusDatePlots['SARS-CoV']}
 								</div>
 							</div>
 						</div>
 					</div>
-					
 					
 				</div>
 
