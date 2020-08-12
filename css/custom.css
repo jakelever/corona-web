@@ -63,6 +63,18 @@
 	}
 }
 
+.titlepadding {
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+}
+
+@media (min-width: 992px) {
+	.titlepadding {
+		padding-left: 0em;
+		padding-right: 0em;
+	}
+}
+
 .quarter_then_half_then_full_col {
   position: relative;
   width: 100%;
