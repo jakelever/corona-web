@@ -159,11 +159,9 @@ export default class Page extends Component {
 				
 			}
 			
-			barChart = (<div style={{position: 'relative', height:'40vh', width:'100%'}}>
+			barChart = (<div style={{position: 'relative', width:'100%', minHeight:'300px'}}>
 						<Bar
 						  data={bardata}
-						  width={100}
-						  height={50}
 						  options={baroptions}
 						  onElementsClick={elems => this.barClick(elems)}
 						/>
