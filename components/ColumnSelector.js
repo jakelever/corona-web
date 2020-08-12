@@ -143,7 +143,7 @@ export default class ColumnSelector extends Component {
 							id={"check_"+c}
 							label={name}
 							checked={isSelected}
-							onChange={ synth_event => this.toggleColumn(c,synth_event.target.checked) }
+							onChange={ synth_event => {this.toggleColumn(c,synth_event.target.checked);this.changeRightPanel(c)} }
 						/>
 					</div>
 					<div className={chevronClass} style={{flexGrow: 0, flexShrink:0, flexBasis:'10px'}}>
