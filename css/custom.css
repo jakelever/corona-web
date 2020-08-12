@@ -6,6 +6,51 @@
 	color: #666666
 }
 
+.columnchevron {
+	color: #DDDDDD
+}
+
+.hoverwhite:hover {
+	color: #FFFFFF
+}
+
+.columnchevron:hover {
+	color: #666666
+}
+
+.columnchevron-active {
+	color: #FFFFFF
+}
+
+.columnchevron-active:hover {
+	color: #CCCCCC
+}
+
+.columnchevron-selected {
+	color: #FFFFFF
+}
+
+.columnchevron-selected:hover {
+	color: #FFFFFF
+}
+
+.columnselector-selected {
+	color: #ffffff;
+	background-color: #6bd3e3;
+}
+
+.modal-90w {
+	width: 96%;
+	max-width: 2000px;
+}
+
+@media (min-width: 576px) {
+	.modal-90w {
+		width: 90%;
+		max-width: 2000px;
+	}
+}
+
 .quarter_then_half_then_full_col {
   position: relative;
   width: 100%;

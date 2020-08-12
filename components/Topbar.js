@@ -17,49 +17,40 @@ export default class Topbar extends Component {
 	constructor(props) {
 		super(props) //since we are extending className Table so we have to use super in order to override Component className constructor
 		this.state = { 
-			menuShow: false,
-			sarscovSelected: true,
-			merscovSelected: true,
-			sarscov2Selected: true
+			menuShow: false
 		}
 		
 		this.dropdownToggle = this.dropdownToggle.bind(this);
 		
-		this.propagateVirusChoice = this.propagateVirusChoice.bind(this);
+		this.toggleVirus = this.toggleVirus.bind(this);
 		this.toggleSARS = this.toggleSARS.bind(this);
 		this.toggleMERS = this.toggleMERS.bind(this);
 		this.toggleSARS2 = this.toggleSARS2.bind(this);
 	}
 	
-	propagateVirusChoice(newState) {
-		this.setState(newState)
+	toggleVirus(virus) {
 		if (this.props.updateViruses) {
-			var selected_viruses = []
-			if (newState.merscovSelected)
-				selected_viruses.push('MERS-CoV')
-			if (newState.sarscovSelected)
-				selected_viruses.push('SARS-CoV')
-			if (newState.sarscov2Selected)
-				selected_viruses.push('SARS-CoV-2')
-		
-			if (selected_viruses.length == 0) {
-				this.props.updateViruses(['MERS-CoV','SARS-CoV','SARS-CoV-2'])
+			var newViruses = this.props.viruses.slice()
+			if (this.props.viruses.includes(virus)) {
+				newViruses = newViruses.filter( v => v!=virus)
 			} else {
-				this.props.updateViruses(selected_viruses)
+				newViruses.push(virus)
+				newViruses = newViruses.sort()
 			}
+			this.props.updateViruses(newViruses)
 		}
 	}
 	
 	toggleSARS() {
-		this.propagateVirusChoice({sarscovSelected:!this.state.sarscovSelected,merscovSelected:this.state.merscovSelected,sarscov2Selected:this.state.sarscov2Selected})
+		this.toggleVirus('SARS-CoV')
 	}
 	
 	toggleMERS() {
-		this.propagateVirusChoice({sarscovSelected:this.state.sarscovSelected,merscovSelected:!this.state.merscovSelected,sarscov2Selected:this.state.sarscov2Selected})
+		this.toggleVirus('MERS-CoV')
 	}
 	
 	toggleSARS2() {
-		this.propagateVirusChoice({sarscovSelected:this.state.sarscovSelected,merscovSelected:this.state.merscovSelected,sarscov2Selected:!this.state.sarscov2Selected})
+		this.toggleVirus('SARS-CoV-2')
 	}
 	
 	dropdownToggle(isOpen,event,metadata){
@@ -97,6 +88,10 @@ export default class Topbar extends Component {
 		
 		//  onClick={event => {console.log(event.target)}}
 		
+		const sarscov2Selected = this.props.viruses ? this.props.viruses.includes('SARS-CoV-2') : false
+		const merscovSelected = this.props.viruses ? this.props.viruses.includes('MERS-CoV') : false
+		const sarscovSelected = this.props.viruses ? this.props.viruses.includes('SARS-CoV') : false
+		
 		const virusSelectorBig = <Dropdown show={this.state.menuShow} onToggle={(isOpen,event,metadata) => this.dropdownToggle(isOpen,event,metadata)}>
 			<Dropdown.Toggle variant="secondary" id="dropdown-basic" onClick={event => {this.setState({menuShow:!this.state.menuShow})}}>
 				{virusButtonText}
@@ -104,13 +99,13 @@ export default class Topbar extends Component {
 
 			<Dropdown.Menu>
 				<Dropdown.Item href="#/" onSelect={(eventKey,event) => { this._forceOpen = true; if (event.target.tagName != 'LABEL') { this.toggleSARS2(); } }}>
-					<Form.Check type="checkbox" id="dropdown-sars-cov-2" label="SARS-CoV-2" checked={this.state.sarscov2Selected} onChange={event => {}} />
+					<Form.Check type="checkbox" id="dropdown-sars-cov-2" label="SARS-CoV-2" checked={sarscov2Selected} onChange={event => {}} />
 				</Dropdown.Item>
 				<Dropdown.Item href="#/" onSelect={(eventKey,event) => { this._forceOpen = true; if (event.target.tagName != 'LABEL') { this.toggleMERS(); } }}>
-					<Form.Check type="checkbox" id="dropdown-mers-cov" label="MERS-CoV" checked={this.state.merscovSelected} onChange={event => {}} />
+					<Form.Check type="checkbox" id="dropdown-mers-cov" label="MERS-CoV" checked={merscovSelected} onChange={event => {}} />
 				</Dropdown.Item>
 				<Dropdown.Item href="#/" onSelect={(eventKey,event) => { this._forceOpen = true; if (event.target.tagName != 'LABEL') { this.toggleSARS(); } }}>
-					<Form.Check type="checkbox" id="dropdown-sars-cov" label="SARS-CoV" checked={this.state.sarscovSelected} onChange={event => {}} />
+					<Form.Check type="checkbox" id="dropdown-sars-cov" label="SARS-CoV" checked={sarscovSelected} onChange={event => {}} />
 				</Dropdown.Item>
 			</Dropdown.Menu>
 		</Dropdown>
@@ -126,13 +121,13 @@ export default class Topbar extends Component {
 						</Dropdown.Item>
 						<Dropdown.Divider />
 						<Dropdown.Item href="#/" onSelect={(eventKey,event) => { this._forceOpen = true; if (event.target.tagName != 'LABEL') {this.toggleSARS2()}}}>
-							<Form.Check type="checkbox" id="dropdown-sars-cov-2" label="SARS-CoV-2" checked={this.state.sarscov2Selected} onChange={event => {}} />
+							<Form.Check type="checkbox" id="dropdown-sars-cov-2" label="SARS-CoV-2" checked={sarscov2Selected} onChange={event => {}} />
 						</Dropdown.Item>
 						<Dropdown.Item href="#/" onSelect={(eventKey,event) => { this._forceOpen = true; if (event.target.tagName != 'LABEL') {this.toggleMERS()}}}>
-							<Form.Check type="checkbox" id="dropdown-mers-cov" label="MERS-CoV" checked={this.state.merscovSelected} onChange={event => {}} />
+							<Form.Check type="checkbox" id="dropdown-mers-cov" label="MERS-CoV" checked={merscovSelected} onChange={event => {}} />
 						</Dropdown.Item>
 						<Dropdown.Item href="#/" onSelect={(eventKey,event) => { this._forceOpen = true; if (event.target.tagName != 'LABEL') {this.toggleSARS()}}}>
-							<Form.Check type="checkbox" id="dropdown-sars-cov" label="SARS-CoV" checked={this.state.sarscovSelected} onChange={event => {}} />
+							<Form.Check type="checkbox" id="dropdown-sars-cov" label="SARS-CoV" checked={sarscovSelected} onChange={event => {}} />
 						</Dropdown.Item>
 					</Dropdown.Menu>
 				</Dropdown>

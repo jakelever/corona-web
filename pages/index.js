@@ -425,6 +425,14 @@ async function getRecentTrendingDocuments() {
 	
 	var documentsByID = db.rowsToObject(documents,'document_id')
 	
+	Object.keys(documentsByID).forEach( document_id => {
+		const doc = documentsByID[document_id]
+		const publish_year = doc.publish_year ? doc.publish_year : 2000
+		const publish_month = doc.publish_month ? doc.publish_month-1 : 0
+		const publish_day = doc.publish_day ? doc.publish_day : 1
+		doc['publish_timestamp'] = (new Date(publish_year, publish_month, publish_day)).valueOf()
+	})
+	
 	var annotations = await db.query(escape`
 	SELECT d.document_id, e.name as entity_name, et.name as entitytype_name
 	FROM documents d, annotations a, entities e, entitytypes et 
@@ -612,16 +620,9 @@ export default class Home extends Component {
 	
 	render() {
 		
-		const trendingTableColumns = [
-				{ "header":"Virus", "selector":"entities:Virus", "hide":"md", grow:1 },
-				//{ "header":"Topics", "selector":"entities:topic", grow:2 },
-				{ "header":"Journal", "selector":"journal", "hide":"md", grow:1 },
-				{ "header":"Date", "selector":"publish_date", "hide":"md", grow:1 },
-				{ "header":"Title", "selector":"title", linkInternal: true, grow:4 }
-			]
-			
+		const defaultColumns = ["topic","journal","publish_timestamp","title","altmetric_score_1day"]
 		const trendingTableTitle = <Link href="/trending" as="/trending"><a>Recent & Trending Articles</a></Link>
-		const trendingTable = <CustomTable columns={trendingTableColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} title={trendingTableTitle} />
+		const trendingTable = <CustomTable defaultColumns={defaultColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} title={trendingTableTitle} viruses={this.state.viruses} updateViruses={this.updateViruses} />
 		
 		
 		
@@ -629,7 +630,7 @@ export default class Home extends Component {
 		var virusDatePlots = {}
 		viruses.forEach( v => {
 			
-			var color = this.state.viruses.includes(v) ? "rgba("+viruscolors[v]+",1)" : "#CCCCCC"
+			var color = (this.state.viruses.length == 0 || this.state.viruses.includes(v)) ? "rgba("+viruscolors[v]+",1)" : "#CCCCCC"
 			//var color = "black"
 			
 			const lineoptions = { 
@@ -701,7 +702,7 @@ export default class Home extends Component {
 		const symptomsChart = this.chartifyEntityData(this.props.symptomsData,numberToShow_col6)
 		
 		var locationsToShowByID = {}
-		this.props.popularLocations.filter( loc => this.state.viruses.includes(loc.virus)).forEach( loc => {
+		this.props.popularLocations.filter( loc => this.state.viruses.length == 0 || this.state.viruses.includes(loc.virus)).forEach( loc => {
 			locationsToShowByID[loc.location_id] = loc
 		})
 		const locationsToShow = Object.values(locationsToShowByID)
@@ -725,7 +726,7 @@ export default class Home extends Component {
 			
 		
 		return (
-			<Layout title="Dashboard" page="/" updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize} tourMode={this.state.showTour} toastInBottomRight={tourToast}>
+			<Layout title="Dashboard" page="/" viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize} tourMode={this.state.showTour} toastInBottomRight={tourToast}>
 		
 				
 				{tour}
@@ -855,7 +856,7 @@ export default class Home extends Component {
 								<Bar
 						  data={{
 							  labels:this.props.topicCounts.labels,
-							  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.includes(ds.label))
+							  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.length == 0 || this.state.viruses.includes(ds.label))
 						  }}
 						  options={{ 
 						    maintainAspectRatio: false,

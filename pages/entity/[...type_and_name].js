@@ -56,22 +56,12 @@ export default class EntityPage extends Component {
 			}
 			
 		this.updateViruses = this.updateViruses.bind(this);
-		this.filterForVirus = this.filterForVirus.bind(this);
 		
 		//this.router = withRouter()
 	}
 	
 	updateViruses(viruses) {
 		this.setState({viruses: viruses})
-	}
-	
-	filterForVirus(row) {
-		if (this.state.viruses.length == 0)
-			return true;
-		
-		var row_viruses = row['entities'].filter(e => e['type'] == 'Virus').map(e => e['name']);
-		var overlap = this.state.viruses.filter(v => row_viruses.includes(v))
-		return overlap.length > 0
 	}
 
 	render() {
@@ -80,17 +70,9 @@ export default class EntityPage extends Component {
 		if (!this.props.entity)
 			return <Layout error404={true}></Layout>
 					
-		var columns = [
-				{ "header":"Virus", "selector":"entities:Virus", "hide":"md", grow:1 },
-				{ "header":"Topics", "selector":"entities:topic", grow:2 },
-				{ "header":"Journal", "selector":"journal", "hide":"md", grow:1 },
-				{ "header":"Date", "selector":"publish_date", "hide":"md", grow:1 },
-				{ "header":"Title", "selector":"title", linkInternal: true, grow:4 }
-			]
+		const defaultColumns = ["Virus","topic","journal","publish_timestamp","title","altmetric_score"]
 			
-		const filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
-			
-		const table = <CustomTable columns={columns} data={filteredData}/>
+		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses}/>
 		
 		var imgOrMap = ''
 		if (this.props.entity.entity_type == 'Location') {
@@ -108,7 +90,7 @@ export default class EntityPage extends Component {
 				</div> : ''
 
 		return (
-			<Layout title={this.props.entity.entity_name} page={null} updateViruses={this.updateViruses} showVirusSelector>
+			<Layout title={this.props.entity.entity_name} page={null} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector>
 		
 				{imgOrMap}
 		

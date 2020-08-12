@@ -22,25 +22,15 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: []
+			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2']
 			}
 		
 		this.updateViruses = this.updateViruses.bind(this);
-		this.filterForVirus = this.filterForVirus.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
 	}
 	
 	updateViruses(viruses) {
 		this.setState({viruses: viruses})
-	}
-	
-	filterForVirus(row) {
-		if (this.state.viruses.length == 0)
-			return true;
-		
-		var row_viruses = row['entities'].filter(e => e['type'] == 'Virus').map(e => e['name']);
-		var overlap = this.state.viruses.filter(v => row_viruses.includes(v))
-		return overlap.length > 0
 	}
 	
 	// https://codepen.io/Jacqueline34/pen/pyVoWr
@@ -62,28 +52,29 @@ export default class Page extends Component {
 
 	render() {
 					
-		var columns = [
+		/*var defaultColumns = [
 				{ "header":"Virus", "selector":"entities:Virus", "hide":"md", grow:1 },
 				{ "header":"Topics", "selector":"entities:topic", grow:2 },
 				{ "header":"Journal", "selector":"journal", "hide":"md", grow:1 },
 				{ "header":"Date", "selector":"publish_date", "hide":"md", grow:1 },
 				{ "header":"Title", "selector":"title", linkInternal: true, grow:4 }
-			]
+			]*/
+			
+		const defaultColumns = ["Virus","topic","journal","publish_timestamp","title","altmetric_score_1day"]
 				
-		const filteredData = this.props.tabledata.filter(row => this.filterForVirus(row));
-		const filteredDataNoAltmetric = filteredData.map( row => {
+		/*const filteredDataNoAltmetric = filteredData.map( row => {
 			var newRow = {}
 			Object.keys(row).forEach( k => {
 				if (!k.includes('altmetric'))
 					newRow[k] = row[k]
 			})
 			return newRow
-		})
+		})*/
 		
-		const table = <CustomTable columns={columns} data={filteredData} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" />
+		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" viruses={this.state.viruses} updateViruses={this.updateViruses} />
 
 		return (
-			<Layout title="Trending" page="/trending" updateViruses={this.updateViruses}>
+			<Layout title="Trending" page="/trending" viruses={this.state.viruses} updateViruses={this.updateViruses}>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">

@@ -1,0 +1,20 @@
+{
+	"publish_timestamp": "Date",
+	"journal": "Journal",
+	"altmetric_score_1day": "Altmetric 1 Day Score",
+	"altmetric_score": "Altmetric Score",
+	"Drug": "Drugs",
+	"Gene or Protein": "Genes / Proteins",
+	"Location": "Locations",
+	"Medical Specialty": "Medical Specialties",
+	"Prevention Method": "Prevention Methods",
+	"Risk Factor": "Risk Factors",
+	"Species": "Species",
+	"Test Type": "Test Types",
+	"Transmission Type": "Transmission Types",
+	"Vaccine Type": "Vaccine Types",
+	"Virus": "Virus",
+	"articletype": "Article Types",
+	"topic": "Topics",
+	"title": "Title"
+}

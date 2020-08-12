@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import Link from 'next/link'
 
 import FlagModal from '../components/FlagModal.js'
+import ColumnSelector from '../components/ColumnSelector.js'
+
+import { filterData } from '../lib/filterdata.js'
 
 import pages from '../lib/pages.json'
+import niceNames from '../lib/nicenames.json'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 import { faExclamationCircle, faExclamationTriangle, faExclamation } from '@fortawesome/free-solid-svg-icons'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
@@ -19,10 +24,79 @@ import DataTable from 'react-data-table-component';
 
 const shortMonths = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
+
+
 function getColumnMetadata(column) {
 	var metadata
-	if (column.selector.startsWith('entities:')) {
-		var entity_type = column.selector.substr('entities:'.length)
+	
+	const nonEntities = ['journal','title','publish_timestamp','flagandlink','altmetric_score_1day','altmetric_score']
+	
+	const isEntity = !nonEntities.includes(column)
+	
+	if (column == 'flagandlink') {
+		const renderButtonColumn = row => {
+			const flag = <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>
+			const linkDoc = <a className="flagtime" href={row.url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" /></a>
+			
+			return <div className="tour-tablebuttons"><p>{linkDoc}</p><p>{flag}</p></div>
+		}
+		
+		metadata = {
+				id: 'flagandlink',
+				cell: renderButtonColumn,
+				ignoreRowClick: true,
+				allowOverflow: true,
+				button: true,
+				hide: "sm",
+				style: {
+				  padding: '14px'
+				},
+				grow: 1
+		}
+	} else if (column == 'altmetric_score') {
+		const renderAltmetricBadge = row => {
+			if (row.altmetric_id == -1)
+				return ''
+			
+			const badgeURL = "https://badges.altmetric.com/?size=80&score=" + row.altmetric_score + "&types=" + row.altmetric_badgetype
+			const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
+			const img = <img src={badgeURL} />
+			return <a className="tour-altmetric" href={detailsURL} target="_blank" alt={"Altmetric score of " + row.altmetric_score}>{img}</a>
+		}
+			
+		metadata = {
+				id: 'altmetric',
+				name: 'Altmetric',
+				selector: 'altmetric_score',
+				cell: renderAltmetricBadge,
+				sortable: true,
+				allowOverflow: true,
+				button: true,
+				grow: 1
+			}
+	} else if (column == 'altmetric_score_1day') {
+		const renderAltmetricScore1Day = row => {
+			if (row.altmetric_id == -1)
+				return ''
+			
+			const badgeURL = "https://badges.altmetric.com/?size=64&score=" + row.altmetric_score_1day + "&types=" + row.altmetric_badgetype
+			const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
+			const img = <img src={badgeURL} />
+			return <a href={detailsURL} target="_blank" alt={"Altmetric 1 day score of " + row.altmetric_score_1day}>{img}</a>
+		}
+		
+		metadata = {
+				id: 'altmetric_1day',
+				name: 'Altmetric 1 Day',
+				selector: 'altmetric_score_1day',
+				cell: renderAltmetricScore1Day,
+				sortable: true,
+				allowOverflow: true,
+				button: true,
+				grow: 1
+			}
+	} else if (isEntity) {
+		var entity_type = column
 		
 		var pageMapping = {}
 		if (entity_type == 'topic') {
@@ -31,7 +105,7 @@ function getColumnMetadata(column) {
 		
 		metadata = {
 			id: entity_type,
-			name: column.header,
+			name: column in niceNames ? niceNames[column] : column,
 			sortable: false,
 			//width: '10%',
 			style: {
@@ -53,12 +127,13 @@ function getColumnMetadata(column) {
 				var combined = entities.length > 0 ? entities.reduce((prev, curr) => [prev, ', ', curr]) : ''
 				
 				return <div>{combined}</div>
-			}
+			},
+			grow: 2
 		}
-	} else if (column.selector == 'publish_date') {
+	} else if (column == 'publish_timestamp') {
 		metadata = {
-			id: column.selector,
-			name: column.header,
+			id: column,
+			name: 'Date',
 			selector: "publish_year",
 			sortable: true,
 			style: {
@@ -70,7 +145,6 @@ function getColumnMetadata(column) {
 				const dateA = (rowA.publish_year ? rowA.publish_year.toString().padStart(4,'0') : '0000') + (rowA.publish_month ? rowA.publish_month.toString().padStart(2,'0') : '00') + (rowA.publish_day ? rowA.publish_day.toString().padStart(2,'0') : '00')
 				const dateB = (rowB.publish_year ? rowB.publish_year.toString().padStart(4,'0') : '0000') + (rowB.publish_month ? rowB.publish_month.toString().padStart(2,'0') : '00') + (rowB.publish_day ? rowB.publish_day.toString().padStart(2,'0') : '00')
 				
-				//console.log(dateA + " " + dateB)
 				return parseInt(dateA) - parseInt(dateB)
 			},
 			cell: row => { 
@@ -97,19 +171,20 @@ function getColumnMetadata(column) {
 		}
 	} else {
 		metadata = {
-			id: column.selector,
-			name: column.header,
-			selector: column.selector,
+			id: column,
+			name: column in niceNames ? niceNames[column] : column,
+			selector: column,
 			sortable: true,
 			style: {
 			  fontSize: '16px',
 			  padding: '14px'
 			},
-			wrap: true
+			wrap: true,
+			grow: 1
 		}
 	}
 	
-	if (column.grow) {
+	/*if (column.grow) {
 		metadata.grow = column.grow
 	}
 	if (column.minWidth) {
@@ -128,51 +203,38 @@ function getColumnMetadata(column) {
 	
 	if (column.linkExternal) {
 		metadata.cell = row => <a href={row.url} target="_blank">{row[column.selector]}</a>
-	}
+	}*/
 	
-	if (column.linkInternal) {
+	if (column == 'title') {
 		const linkFunction = row => {
 			if (row.doi) {
-				return <Link href={"/doc/[...identifiers]"} as={"/doc/doi/"+row.doi} prefetch={false}><a>{row[column.selector]}</a></Link>
+				return <Link href={"/doc/[...identifiers]"} as={"/doc/doi/"+row.doi} prefetch={false}><a>{row[column]}</a></Link>
 			} else if (row.pubmed_id) {
-				return <Link href={"/doc/[...identifiers]"} as={"/doc/pubmed_id/"+row.pubmed_id} prefetch={false}><a>{row[column.selector]}</a></Link>
+				return <Link href={"/doc/[...identifiers]"} as={"/doc/pubmed_id/"+row.pubmed_id} prefetch={false}><a>{row[column]}</a></Link>
 			} else if (row.cord_uid) {
-				return <Link href={"/doc/[...identifiers]"} as={"/doc/cord_uid/"+row.cord_uid} prefetch={false}><a>{row[column.selector]}</a></Link>
+				return <Link href={"/doc/[...identifiers]"} as={"/doc/cord_uid/"+row.cord_uid} prefetch={false}><a>{row[column]}</a></Link>
 			} else {
-				return row[column.selector]
+				return row[column]
 			}
 		}
 		
 		metadata.cell = linkFunction
+		metadata.grow = 4
+	}
+	
+	if (column == 'Virus') {
+		metadata.grow = 1
+		metadata.hide = "md"
+	}
+	
+	if (column == 'journal' || column == 'publish_timestamp') {
+		metadata.hide = "md"
 	}
 	
 	return metadata
 }
 
-export default class CustomTable extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			showFlagModal: false,
-			modalKey: 0,
-			flagModalDoc: null
-			}
-		
-		this.closeFlagModal = this.closeFlagModal.bind(this);
-		this.showFlagModal = this.showFlagModal.bind(this);
-	}
-	
-	closeFlagModal() {
-		this.setState({showFlagModal: false})
-	}
-	
-	showFlagModal(doc) {
-		this.setState({showFlagModal: true, flagModalDoc:doc, modalKey:this.state.modalKey+1 })
-	}
-
-	render() {
-	
-		const customStyles = {
+const customStyles = {
 		  headRow: {
 			style: {
 			  border: 'none',
@@ -190,98 +252,107 @@ export default class CustomTable extends Component {
 			},
 		  },
 		}
-		
-		const renderButtonColumn = row => {
-			const flag = <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>
-			const linkDoc = <a className="flagtime" href={row.url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" /></a>
-			
-			return <div className="tour-tablebuttons"><p>{linkDoc}</p><p>{flag}</p></div>
-		}
-		
-		const flagButtonColumn = {
-				id: 'buttonthing',
-				cell: renderButtonColumn,
-				ignoreRowClick: true,
-				allowOverflow: true,
-				button: true,
-				hide: "sm",
-				style: {
-				  padding: '14px'
-				},
-				grow: 1
-			}
-			
-		const renderExtraMetadata = row => {
-			
-			const openaccess = row.altmetric_openaccess ? <img width="16px" src="/openaccess.svg" /> : ""
-			
-			return <div><p>{openaccess}</p></div>
-		}
-		
-		const extraMetadataColumn = {
-				id: 'extrametadata',
-				cell: renderExtraMetadata,
-				ignoreRowClick: true,
-				allowOverflow: true,
-				button: true,
-				style: {
-				  padding: '14px'
-				}
-			}
-			
-			
-		const renderAltmetricScore1Day = row => {
-			if (row.altmetric_id == -1)
-				return ''
-			
-			const badgeURL = "https://badges.altmetric.com/?size=64&score=" + row.altmetric_score_1day + "&types=" + row.altmetric_badgetype
-			const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
-			const img = <img src={badgeURL} />
-			return <a href={detailsURL} target="_blank" alt={"Altmetric 1 day score of " + row.altmetric_score_1day}>{img}</a>
-		}
-		
-		const altmetric1DayColumn = {
-				id: 'altmetric_1day',
-				name: 'Altmetric 1 Day',
-				selector: 'altmetric_score_1day',
-				cell: renderAltmetricScore1Day,
-				sortable: true,
-				allowOverflow: true,
-				button: true,
-				grow: 1
-			}
-			
-		const renderAltmetricBadge = row => {
-			if (row.altmetric_id == -1)
-				return ''
-			
-			const badgeURL = "https://badges.altmetric.com/?size=80&score=" + row.altmetric_score + "&types=" + row.altmetric_badgetype
-			const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
-			const img = <img src={badgeURL} />
-			return <a className="tour-altmetric" href={detailsURL} target="_blank" alt={"Altmetric score of " + row.altmetric_score}>{img}</a>
-		}
-			
-		var altmetricScoreColumn = {
-				id: 'altmetric_score',
-				name: 'Altmetric',
-				selector: 'altmetric_score',
-				cell: renderAltmetricBadge,
-				sortable: true,
-				allowOverflow: true,
-				button: true,
-				grow: 1
-			}
-			
-		if ('altmetricHide' in this.props) {
-			altmetricScoreColumn['hide'] = this.props.altmetricHide
-		}
 
-		var columnsWithFormating = this.props.columns.map( column => getColumnMetadata(column) )
-		if (this.props.showAltmetric1Day)
-			columnsWithFormating.push( altmetric1DayColumn )
-		columnsWithFormating.push( altmetricScoreColumn )
-		columnsWithFormating.push( flagButtonColumn )
-		//columnsWithFormating.unshift( extraMetadataColumn )
+export default class CustomTable extends Component {
+	constructor(props) {
+		super(props)
+		
+		const defaultColumns = 'defaultColumns' in this.props ? this.props.defaultColumns : ["Virus","journal","publish_timestamp","title","altmetric_score"]
+		
+		this.state = {
+			showFlagModal: false,
+			modalKey: 0,
+			flagModalDoc: null,
+			showColumnSelector: false,
+			selectedColumns: defaultColumns,
+			filters: {},
+			ranges: {}
+			}
+		
+		this.closeFlagModal = this.closeFlagModal.bind(this);
+		this.showFlagModal = this.showFlagModal.bind(this);
+		this.closeColumnSelector = this.closeColumnSelector.bind(this);
+		this.openColumnSelector = this.openColumnSelector.bind(this);
+		this.updateSelectedColumns = this.updateSelectedColumns.bind(this)
+		this.updateFilters = this.updateFilters.bind(this)
+		this.updateRanges = this.updateRanges.bind(this)
+	}
+	
+	closeFlagModal() {
+		this.setState({showFlagModal: false})
+	}
+	
+	showFlagModal(doc) {
+		this.setState({showFlagModal: true, flagModalDoc:doc, modalKey:this.state.modalKey+1 })
+	}
+	
+	closeColumnSelector() {
+		this.setState({showColumnSelector: false})
+	}
+	
+	openColumnSelector(doc) {
+		this.setState({showColumnSelector: true })
+	}
+	
+	updateSelectedColumns(columns) {
+		this.setState({selectedColumns:columns})
+	}
+	
+	updateFilters(filters) {
+		this.setState({filters:filters})
+		
+		if ('Virus' in filters)
+			this.props.updateViruses(filters.Virus)
+		else
+			this.props.updateViruses([])
+	}
+	
+	updateRanges(ranges) {
+		this.setState({ranges:ranges})
+	}
+	
+	/*componentDidUpdate(prevProps) {
+		var newFilters = {}
+		Object.keys(this.state.filters).forEach( k => {
+			newFilters[k] = this.state.filters[k].slice()
+		})
+		
+		newFilters['Virus'] = this.props.viruses
+		this.updateFilters(newFilters)
+	}*/
+
+	render() {
+				
+
+		var columnsToShow = this.state.selectedColumns.slice()
+		/*if (this.props.showAltmetric1Day)
+			columnsToShow.push("altmetric_score_1day")
+		if (!('altmetricHide' in this.props))
+			columnsToShow.push("altmetric_score")*/
+		columnsToShow.push("flagandlink")
+		
+		const orderRemapping = {
+			'Virus':'!start 1',
+			'date':'~end 1',
+			'journal':'~end 2',
+			'title':'~end 3',
+			'altmetric_score_1day':'~end 4',
+			'altmetric_score':'~end 5',
+			'flagandlink': '~end 6'
+		}
+		
+		columnsToShow = columnsToShow.sort( (a,b) => {
+			const remapA = a in orderRemapping ? orderRemapping[a] : a
+			const remapB = b in orderRemapping ? orderRemapping[b] : b
+			
+			if (remapA < remapB)
+				return -1
+			if (remapA > remapB)
+				return 1
+			return 0
+		})
+
+		var columnsWithFormating = columnsToShow.map( column => getColumnMetadata(column) )
 		
 		const optionalProps = ['paginationPerPage','paginationRowsPerPageOptions']
 		var extraProps = {}
@@ -291,10 +362,12 @@ export default class CustomTable extends Component {
 				extraProps[p] = this.props[p]
 		})
 		
+		const filteredData = filterData(this.props.data, this.state.filters, this.state.ranges, this.props.viruses)
+		
 		const table = <DataTable
 					noHeader
 					columns={columnsWithFormating}
-					data={this.props.data}
+					data={filteredData}
 					defaultSortField={this.props.sort ? this.props.sort : "altmetric_score"}
 					defaultSortAsc={false}
 					customStyles={customStyles}
@@ -309,15 +382,43 @@ export default class CustomTable extends Component {
 		const modal = <FlagModal key={'flagmodal_'+this.state.modalKey} doc={this.state.flagModalDoc} show={this.state.showFlagModal} closeFunc={this.closeFlagModal} />
 		
 		const title = 'title' in this.props ? this.props.title : "Published and Preprint Papers"
+		
+		const columnSelector = <ColumnSelector 
+									show={this.state.showColumnSelector} 
+									closeFunc={this.closeColumnSelector} 
+									data={this.props.data} 
+									selectedColumns={this.state.selectedColumns} 
+									updateSelectedColumns={this.updateSelectedColumns} 
+									filters={this.state.filters} 
+									updateFilters={this.updateFilters} 
+									ranges={this.state.ranges}
+									updateRanges={this.updateRanges}
+									viruses={this.props.viruses}
+									updateViruses={this.props.updateViruses}
+									/>
+									
+		const columnSelectorButton = <a href="#" onClick={event => {this.openColumnSelector(); event.preventDefault()}} className="btn btn-sm btn-oldprimary shadow-sm">
+							<span className="text-white-50"><FontAwesomeIcon icon={faFilter} size="sm" /></span> <span className="d-none d-sm-inline-block">Filter</span>
+						</a>
+						
+		// d-none d-lg-inline-block
+		// Select/Filter Columns
 				
 		return <div className="card shadow mb-4">
-					<div className="card-header py-3 d-sm-flex align-items-center justify-content-between">
-						<h6 className="m-0 font-weight-bold text-primary">{title}</h6>
-						
+					<div className="card-header py-3">
+						<div style={{display: "flex"}}>
+							<div style={{flexGrow: 8, paddingRight: "1em", paddingTop: "5px"}}>
+								<h6 className="m-0 font-weight-bold text-primary">{title}</h6>
+							</div>
+							<div style={{flexGrow: 0}}>
+								{columnSelectorButton}
+							</div>
+						</div>
 					</div>
 					<div className="card-body">
 						{table}
 						{modal}
+						{columnSelector}
 					</div>
 				</div>
 					

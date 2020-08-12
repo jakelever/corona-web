@@ -199,7 +199,7 @@ class Layout extends Component {
 						{headBlock}
 						
 						
-						<Topbar toggleSidebar={this.toggleSidebar} updateViruses={this.props.updateViruses} showVirusSelector={this.props.showVirusSelector} />
+						<Topbar toggleSidebar={this.toggleSidebar} viruses={this.props.viruses} updateViruses={this.props.updateViruses} showVirusSelector={this.props.showVirusSelector} />
 
 						{/* Begin Page Content */}
 						<div className="container-fluid">
