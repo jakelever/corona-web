@@ -22,11 +22,17 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2']
+			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2'],
+			windowWidth: null
 			}
 		
+		this.handleResize = this.handleResize.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
+	}
+	
+	handleResize(windowWidth) {
+		this.setState({windowWidth:windowWidth})
 	}
 	
 	updateViruses(viruses) {
@@ -71,10 +77,10 @@ export default class Page extends Component {
 			return newRow
 		})*/
 		
-		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" viruses={this.state.viruses} updateViruses={this.updateViruses} />
+		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 
 		return (
-			<Layout title="Trending" page="/trending" viruses={this.state.viruses} updateViruses={this.updateViruses}>
+			<Layout title="Trending" page="/trending" viruses={this.state.viruses} updateViruses={this.updateViruses} handleResize={this.handleResize}>
 		
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">

@@ -72,7 +72,7 @@ export default class ColumnSelector extends Component {
 		if (is_checked) {
 			newSelectedColumns.push(column)
 		}
-		this.props.updateSelectedColumns(newSelectedColumns)
+		this.props.updateSelectedColumns(column,newSelectedColumns)
 	}
 	
 	toggleFilter(column,value,is_checked) {

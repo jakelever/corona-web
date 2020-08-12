@@ -224,11 +224,11 @@ function getColumnMetadata(column) {
 	
 	if (column == 'Virus') {
 		metadata.grow = 1
-		metadata.hide = "md"
+		//metadata.hide = "md"
 	}
 	
 	if (column == 'journal' || column == 'publish_timestamp') {
-		metadata.hide = "md"
+		//metadata.hide = "md"
 	}
 	
 	return metadata
@@ -265,6 +265,7 @@ export default class CustomTable extends Component {
 			flagModalDoc: null,
 			showColumnSelector: false,
 			selectedColumns: defaultColumns,
+			columnsToHideWhenSmall: ['Virus','journal','publish_timestamp'],
 			filters: {},
 			ranges: {}
 			}
@@ -274,6 +275,7 @@ export default class CustomTable extends Component {
 		this.closeColumnSelector = this.closeColumnSelector.bind(this);
 		this.openColumnSelector = this.openColumnSelector.bind(this);
 		this.updateSelectedColumns = this.updateSelectedColumns.bind(this)
+		this.stopHidingColumn = this.stopHidingColumn.bind(this)
 		this.updateFilters = this.updateFilters.bind(this)
 		this.updateRanges = this.updateRanges.bind(this)
 	}
@@ -294,8 +296,16 @@ export default class CustomTable extends Component {
 		this.setState({showColumnSelector: true })
 	}
 	
-	updateSelectedColumns(columns) {
-		this.setState({selectedColumns:columns})
+	updateSelectedColumns(columnChanged, columns) {
+		var columnsToHideWhenSmall = this.state.columnsToHideWhenSmall.slice()
+		if (columnsToHideWhenSmall.includes(columnChanged))
+			columnsToHideWhenSmall = columnsToHideWhenSmall.filter( c => c!=columnChanged )
+		
+		this.setState({selectedColumns:columns, columnsToHideWhenSmall:columnsToHideWhenSmall})
+	}
+	
+	stopHidingColumn(columnToNotHide) {
+		
 	}
 	
 	updateFilters(filters) {
@@ -322,13 +332,20 @@ export default class CustomTable extends Component {
 	}*/
 
 	render() {
+		
+		if (!this.props.windowWidth)
+			return <></>
 				
-
-		var columnsToShow = this.state.selectedColumns.slice()
+		var selectedColumns = this.state.selectedColumns.slice()
+		if (this.props.windowWidth < 992)
+			selectedColumns = selectedColumns.filter( c => !this.state.columnsToHideWhenSmall.includes(c) )
+		
 		/*if (this.props.showAltmetric1Day)
 			columnsToShow.push("altmetric_score_1day")
 		if (!('altmetricHide' in this.props))
 			columnsToShow.push("altmetric_score")*/
+		
+		var columnsToShow = selectedColumns.slice()
 		columnsToShow.push("flagandlink")
 		
 		const orderRemapping = {
@@ -351,6 +368,8 @@ export default class CustomTable extends Component {
 				return 1
 			return 0
 		})
+		
+		
 
 		var columnsWithFormating = columnsToShow.map( column => getColumnMetadata(column) )
 		
@@ -387,7 +406,7 @@ export default class CustomTable extends Component {
 									show={this.state.showColumnSelector} 
 									closeFunc={this.closeColumnSelector} 
 									data={this.props.data} 
-									selectedColumns={this.state.selectedColumns} 
+									selectedColumns={selectedColumns}
 									updateSelectedColumns={this.updateSelectedColumns} 
 									filters={this.state.filters} 
 									updateFilters={this.updateFilters} 

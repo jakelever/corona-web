@@ -622,7 +622,7 @@ export default class Home extends Component {
 		
 		const defaultColumns = ["topic","journal","publish_timestamp","title","altmetric_score_1day"]
 		const trendingTableTitle = <Link href="/trending" as="/trending"><a>Recent & Trending Articles</a></Link>
-		const trendingTable = <CustomTable defaultColumns={defaultColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} title={trendingTableTitle} viruses={this.state.viruses} updateViruses={this.updateViruses} />
+		const trendingTable = <CustomTable defaultColumns={defaultColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} title={trendingTableTitle} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
 		
 		

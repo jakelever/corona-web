@@ -52,12 +52,16 @@ export default class EntityPage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2']
+			viruses: ['MERS-CoV','SARS-CoV','SARS-CoV-2'],
+			windowWidth: null
 			}
 			
+		this.handleResize = this.handleResize.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
-		
-		//this.router = withRouter()
+	}
+	
+	handleResize(windowWidth) {
+		this.setState({windowWidth:windowWidth})
 	}
 	
 	updateViruses(viruses) {
@@ -72,7 +76,7 @@ export default class EntityPage extends Component {
 					
 		const defaultColumns = ["Virus","topic","journal","publish_timestamp","title","altmetric_score"]
 			
-		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses}/>
+		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
 		var imgOrMap = ''
 		if (this.props.entity.entity_type == 'Location') {
@@ -90,7 +94,7 @@ export default class EntityPage extends Component {
 				</div> : ''
 
 		return (
-			<Layout title={this.props.entity.entity_name} page={null} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector>
+			<Layout title={this.props.entity.entity_name} page={null} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
 		
 				{imgOrMap}
 		

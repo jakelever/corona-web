@@ -179,7 +179,7 @@ export default class Page extends Component {
 			return newRow
 		})
 		
-		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} />
+		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
 		const downloadButton = false ? <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
