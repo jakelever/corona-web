@@ -98,12 +98,13 @@ export default class EntityPage extends Component {
 		
 				{imgOrMap}
 		
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h3 className="h3 mb-0 text-gray-800">{this.props.entity.entity_name} [{this.props.entity.entity_type}]</h3>
 				</div>
 							
-				
-				{wikidataLink}
+				<div className="titlepadding">
+					{wikidataLink}
+				</div>
 				
 				{table}
 				

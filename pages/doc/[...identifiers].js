@@ -137,7 +137,7 @@ export default class DocPage extends Component {
 		return <Layout title={this.props.doc.title}>
 		
 				{/* Page Heading */}
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h1 className="h3 mb-0 text-gray-800" style={{width:"80%"}}>
 						{titleText}
 					</h1>

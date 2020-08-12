@@ -83,11 +83,11 @@ export default class Page extends Component {
 			<Layout title="Trending" page="/trending" viruses={this.state.viruses} updateViruses={this.updateViruses} handleResize={this.handleResize}>
 		
 				{/* Page Heading */}
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h1 className="h3 mb-0 text-gray-800">Trending</h1>
 				</div>
 				
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h6 className="h6 mb-0 text-gray-800">Articles from the last two weeks that are receiving attention in the media and on social media</h6>
 				</div>
 

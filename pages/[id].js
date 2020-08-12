@@ -188,12 +188,12 @@ export default class Page extends Component {
 			<Layout title={this.props.page_info.name} page={this.props.page_info.page} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
 		
 				{/* Page Heading */}
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
 					{downloadButton}
 				</div>
 				
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h6 className="h6 mb-0 text-gray-800">{ this.props.page_info.description ? this.props.page_info.description : ""}</h6>
 				</div>
 				

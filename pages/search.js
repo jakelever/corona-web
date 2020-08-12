@@ -98,7 +98,7 @@ export default class Page extends Component {
 			<Layout title="Search Results" page="/search" viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
 		
 				{/* Page Heading */}
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h1 className="h3 mb-0 text-gray-800">Search Results for {'"'+this.props.query+'"'}</h1>
 					{downloadButton}
 				</div>

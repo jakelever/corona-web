@@ -739,7 +739,7 @@ export default class Home extends Component {
 				{tour}
 
 				{/* Page Heading */}
-				<div className="d-sm-flex align-items-center justify-content-between mb-4">
+				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h1 className="h3 mb-0 text-gray-800">CoronaCentral Dashboard</h1>
 				</div>
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -1002,7 +1002,7 @@ export default class Home extends Component {
 					
 					<div className="col-md-3">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
-							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between titlepadding">
 								<h6 className="m-0 font-weight-bold text-primary">Research Source</h6>
 								
 							</div>
