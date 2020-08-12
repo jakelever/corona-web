@@ -51,6 +51,18 @@
 	}
 }
 
+.card-body-table {
+	flex: 1 1 auto;
+	padding: 0.5rem;
+}
+
+@media (min-width: 992px) {
+	.card-body-table {
+		flex: 1 1 auto;
+		padding: 1.25rem;
+	}
+}
+
 .quarter_then_half_then_full_col {
   position: relative;
   width: 100%;

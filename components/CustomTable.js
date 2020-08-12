@@ -434,7 +434,7 @@ export default class CustomTable extends Component {
 							</div>
 						</div>
 					</div>
-					<div className="card-body">
+					<div className="card-body-table">
 						{table}
 						{modal}
 						{columnSelector}
