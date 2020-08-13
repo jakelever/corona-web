@@ -10140,9 +10140,9 @@ a:focus {
   position: relative;
 }
 
-.sidebar .nav-item:last-child {
+/*.sidebar .nav-item:last-child {
   margin-bottom: 1rem;
-}
+}*/
 
 .sidebar .nav-item .nav-link {
   text-align: center;

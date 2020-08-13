@@ -1,9 +1,11 @@
-
+import { useRef } from 'react';
 import Link from 'next/link'
 
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+/*import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
-import Tooltip from 'react-bootstrap/Tooltip'
+import Tooltip from 'react-bootstrap/Tooltip'*/
+
+import MyToolTip from '../components/MyToolTip.js'
 
 export default function TextWithEntities(props) {
 	const in_title = props.isTitle ? 1 : 0
@@ -50,11 +52,14 @@ export default function TextWithEntities(props) {
 		textSpans.push(endSpan)
 	}
 	
+	const container = useRef(null);
+	
 	const textObjects = textSpans.map( (ts,i) => {
 		if (ts.entity_name == null || ts.entity_type == null) {
 			return <span key={'textspan_'+i}>{text.substring(ts.start_pos,ts.end_pos)}</span>
 		} else {
-			return <OverlayTrigger
+			const tooltipText = ts.entity_name + " [" + ts.entity_type + "]"
+			/*return <OverlayTrigger
 						key={'overlaytrigger_'+i}
 						placement="right"
 						delay={{ show: 250, hide: 400 }}
@@ -69,11 +74,17 @@ export default function TextWithEntities(props) {
 						<span><Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+ts.entity_type+"/"+ts.entity_name}><a>
 							{text.substring(ts.start_pos,ts.end_pos)}
 						</a></Link></span>
-					</OverlayTrigger>
+					</OverlayTrigger>*/
+					
+			return <span key={'entitylink_'+i}><MyToolTip text={tooltipText} container={container} >
+				<span><Link href={"/entity/[...typename]"} as={"/entity/"+ts.entity_type+"/"+ts.entity_name}><a>
+							{text.substring(ts.start_pos,ts.end_pos)}
+						</a></Link></span>
+					</MyToolTip></span>
 		}
 	} )
 	
 	const combinedTextObject = textObjects.length > 0 ? textObjects.reduce((prev, curr) => [prev, '', curr]) : ''
 	
-	return combinedTextObject
+	return <div ref={container}>{textObjects}</div>
 }

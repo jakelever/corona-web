@@ -58,6 +58,8 @@ export default class Sidebar extends Component {
 		}
 		
 		this.toggleGroup = this.toggleGroup.bind(this);
+		
+		this.container = React.createRef()
 	}
 	
 	toggleGroup(g) {
@@ -114,7 +116,7 @@ export default class Sidebar extends Component {
 			
 			if (groupPages.length == 1) {
 				const p = groupPages[0]
-				const tmpLink = <MyToolTip text={p.description} key={'link_'+j}>
+				const tmpLink = <MyToolTip text={p.description} key={'link_'+j} container={this.container}>
 					<li className={p.page==this.props.page ? "nav-item active" : "nav-item"}>
 						<Link href="/[id]" as={`/${p.page}`}>
 							<a className="nav-link" onClick={event => this.toggleGroup(null)}>
@@ -133,7 +135,7 @@ export default class Sidebar extends Component {
 				const groupArrow = groupOpen ? faAngleDown : faAngleRight
 				const groupActive = groupPages.map(p => p.page).includes(this.props.page)
 				
-				const subLinks = groupPages.map( (p,i) => <Link href="/[id]" as={`/${p.page}`} key={"sublink_"+i}><a className={"collapse-item" + (p.page==this.props.page ? ' active' : '')}><MyToolTip text={p.description}><div>{p.name}</div></MyToolTip></a></Link> )
+				const subLinks = groupPages.map( (p,i) => <Link href="/[id]" as={`/${p.page}`} key={"sublink_"+i}><a className={"collapse-item" + (p.page==this.props.page ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
 				
 				
 				const tmpLink = <li className={groupActive ? "nav-item active" : "nav-item"} key={'link_'+j}>
@@ -163,8 +165,9 @@ export default class Sidebar extends Component {
 		const showClass = this.props.responsiveShow || this.props.responsiveShow ? "sidebar-responsive-show" : "sidebar-responsive-hide"
 	// 	<Collapse in={this.props.show} dimension="width" className="" timeout={10000}><div style={{padding: 0, margin:0, backgroundColor:"#00FF00"}}>
 		
+		
 		return (
-	<ul className={"navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " + showClass} id="accordionSidebar">
+	<ul className={"navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " + showClass} id="accordionSidebar" style={{position:"relative"}} ref={this.container}>
 
 		{/* Sidebar - Brand */}
 		<Link href="/index" as="/">
@@ -180,7 +183,7 @@ export default class Sidebar extends Component {
 		<hr className="sidebar-divider my-0" />
 
 		{/* Nav Item - Dashboard */}
-		<MyToolTip text="Overview of the coronavirus literature">
+		<MyToolTip text="Overview of the coronavirus literature" container={this.container}>
 			<li className={this.props.page=='/' ? "nav-item active" : "nav-item"}>
 				<Link href="/index" as="/">
 					<a className="nav-link">
@@ -197,7 +200,7 @@ export default class Sidebar extends Component {
 		<hr className="sidebar-divider my-0" />
 		
 		<div className="tour-trending m-0 p-0">
-		<MyToolTip text="Articles from the last two weeks that are receiving attention in the media and on social media">
+		<MyToolTip text="Articles from the last two weeks that are receiving attention in the media and on social media" container={this.container}>
 			<li className={this.props.page=='/trending' ? "nav-item active mb-0" : "nav-item mb-0"}>
 				<Link href="/trending" as="/trending">
 					<a className="nav-link">
@@ -219,7 +222,7 @@ export default class Sidebar extends Component {
 			{/* Divider */}
 			<hr className="sidebar-divider my-0" />
 			
-			<MyToolTip text="Frequently asked questions">
+			<MyToolTip text="A set of frequently asked questions to answer common inquiries about CoronaCentral and the methods used to build it." container={this.container}>
 				<li className={this.props.page=='/faqs' ? "nav-item active" : "nav-item"}>
 					<Link href="/faqs" as="/faqs">
 						<a className="nav-link">
@@ -232,7 +235,7 @@ export default class Sidebar extends Component {
 				</li>
 			</MyToolTip>
 			
-			<MyToolTip text="Frequently asked questions">
+			<MyToolTip text="Help us improve this resource by providing feedback or suggestions for the website or specific papers" container={this.container}>
 				<li className={this.props.page=='/feedback' ? "nav-item active" : "nav-item"}>
 					<Link href="/feedback" as="/feedback">
 						<a className="nav-link">
