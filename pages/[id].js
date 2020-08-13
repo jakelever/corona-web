@@ -91,9 +91,9 @@ export default class Page extends Component {
 
 	render() {
 		if(!this.props.fallback_complete)
-			return <Layout loading={true}></Layout>
+			return <Layout loading={true} handleResize={this.handleResize}></Layout>
 		if (!this.props.page_info)
-			return <Layout error404={true}></Layout>
+			return <Layout error404={true} handleResize={this.handleResize}></Layout>
 		
 		const extraColumns = 'extra_table_columns' in this.props.page_info ? this.props.page_info.extra_table_columns : [];
 		

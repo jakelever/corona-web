@@ -80,9 +80,9 @@ export default class DocPage extends Component {
 	
 	render() {
 		if(!this.props.fallback_complete)
-			return <Layout loading={true}></Layout>
+			return <Layout loading={true} handleResize={this.handleResize}></Layout>
 		if (!this.props.doc)
-			return <Layout error404={true}></Layout>
+			return <Layout error404={true} handleResize={this.handleResize}></Layout>
 		
 		var entityGroups = {}
 		const entityTypes = [...new Set(this.props.doc.entities.map( e => e.type ))]

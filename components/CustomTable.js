@@ -331,13 +331,9 @@ export default class CustomTable extends Component {
 		this.updateFilters(newFilters)
 	}*/
 
-	render() {
-		
-		if (!this.props.windowWidth)
-			return <></>
-				
+	render() {				
 		var selectedColumns = this.state.selectedColumns.slice()
-		if (this.props.windowWidth < 992)
+		if (!this.props.windowWidth || this.props.windowWidth < 992)
 			selectedColumns = selectedColumns.filter( c => !this.state.columnsToHideWhenSmall.includes(c) )
 		
 		/*if (this.props.showAltmetric1Day)

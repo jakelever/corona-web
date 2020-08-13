@@ -72,9 +72,9 @@ export default class Page extends Component {
 
 	render() {
 		if(!this.props.fallback_complete)
-			return <Layout loading={true}></Layout>
+			return <Layout loading={true} handleResize={this.handleResize}></Layout>
 		if (!this.props.tabledata)
-			return <Layout error404={true}></Layout>
+			return <Layout error404={true} handleResize={this.handleResize}></Layout>
 		
 		const defaultColumns = ["Virus","topic","journal","publish_timestamp","title","altmetric_score"]
 				
