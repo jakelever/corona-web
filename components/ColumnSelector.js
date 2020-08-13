@@ -135,7 +135,7 @@ export default class ColumnSelector extends Component {
 				chevronClass = "columnchevron-selected"
 			else if (isActive)
 				chevronClass = "columnchevron-active"
-			return <ListGroup.Item key={"leftpanel_"+c} style={styling} active={isActive}>
+			return <ListGroup.Item key={"leftpanel_"+c} style={styling} active={isActive} onClick={event => this.changeRightPanel(c)}>
 				<div style={{display:"flex"}}>
 					<div style={{flexGrow: 1, flexShrink:1}}>
 						<Form.Check 
