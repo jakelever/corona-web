@@ -412,11 +412,11 @@ export default class CustomTable extends Component {
 									updateViruses={this.props.updateViruses}
 									/>
 									
-		/*const columnSelectorButton = <a href="#" onClick={event => {this.openColumnSelector(); event.preventDefault()}} className="btn btn-sm btn-oldprimary shadow-sm">
+		const columnSelectorButton = <a href="#" onClick={event => {this.openColumnSelector(); event.preventDefault()}} className="btn btn-sm btn-oldprimary shadow-sm">
 							<span className="text-white-50"><FontAwesomeIcon icon={faFilter} size="sm" /></span> <span className="d-none d-sm-inline-block">Filter</span>
-						</a>*/
+						</a>
 						
-		const columnSelectorButton = ""
+		//const columnSelectorButton = ""
 						
 		// d-none d-lg-inline-block
 		// Select/Filter Columns

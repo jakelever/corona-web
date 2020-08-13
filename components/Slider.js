@@ -7,6 +7,7 @@ const MAX = 100;
 
 class LabeledTwoThumbs extends React.Component {
 	
+	// colors: ['#ccc', '#548BF4', '#ccc'],
 	// values => this.setState({ values })
 	render() {
 		return (
@@ -20,12 +21,13 @@ class LabeledTwoThumbs extends React.Component {
 				}}
 			>
 				<Range
+					disabled={this.props.disabled}
 					values={this.props.values}
 					step={Math.round((this.props.max-this.props.min)/100)}
 					min={this.props.min}
 					max={this.props.max}
 					onChange={this.props.onChange}
-					renderTrack={({ props, children }) => (
+					renderTrack={({ props, children, disabled }) => (
 						<div
 							onMouseDown={props.onMouseDown}
 							onTouchStart={props.onTouchStart}
@@ -44,7 +46,7 @@ class LabeledTwoThumbs extends React.Component {
 									borderRadius: '4px',
 									background: getTrackBackground({
 										values: this.props.values,
-										colors: ['#ccc', '#548BF4', '#ccc'],
+										colors: disabled ? ['#ccc', '#ccc'] : ['#ccc', '#548BF4', '#ccc'],
 										min: this.props.min,
 										max: this.props.max
 									}),
@@ -80,7 +82,7 @@ class LabeledTwoThumbs extends React.Component {
 									fontFamily: 'Arial,Helvetica Neue,Helvetica,sans-serif',
 									padding: '4px',
 									borderRadius: '4px',
-									backgroundColor: '#548BF4',
+									backgroundColor: this.props.disabled ? '#999' : '#548BF4',
 									textAlign: "center"
 								}}
 							>

@@ -179,23 +179,36 @@ export default class ColumnSelector extends Component {
 			const rightNow = new Date(Date.now())
 			const startOfDay = (new Date(rightNow.getFullYear(), rightNow.getMonth(), rightNow.getDate())).valueOf()
 			const maxVal = isPublishTimestamp ? startOfDay : Math.max(... filteredData.map( doc => doc[fieldName] ) )
-			//const maxDate = Math.max(... filteredData.map( doc => doc.publish_timestamp ) )
-			const renderDate = (timestamp => {
-										var a = new Date(timestamp);
-										var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-										var year = a.getFullYear();
-										var month = months[a.getMonth()];
-										var day = a.getDate()
-										return day + " " + month + " " + year
-									})
 			
-			rightPanelChoices = <Slider 
-									min={minVal}
-									max={maxVal}
-									values={ fieldName in this.props.ranges ? this.props.ranges[fieldName] : [ minVal, maxVal ] }
-									onChange={values => this.updateRange(fieldName,values)}
-									renderLabel={isPublishTimestamp ? renderDate : ( label => label )}
-									/>
+			if (filteredData.length == 0 || minVal == maxVal) {
+				rightPanelChoices = <Slider 
+										disabled={true}
+										min={1}
+										max={9}
+										values={[5]}
+										onChange={values => this.updateRange(fieldName,values)}
+										renderLabel={label => "Nothing to filter"}
+										/>
+			} else {
+				//const maxDate = Math.max(... filteredData.map( doc => doc.publish_timestamp ) )
+				const renderDate = (timestamp => {
+											var a = new Date(timestamp);
+											var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+											var year = a.getFullYear();
+											var month = months[a.getMonth()];
+											var day = a.getDate()
+											return day + " " + month + " " + year
+										})
+				
+				rightPanelChoices = <Slider 
+										disabled={false}
+										min={minVal}
+										max={maxVal}
+										values={ fieldName in this.props.ranges ? this.props.ranges[fieldName] : [ minVal, maxVal ] }
+										onChange={values => this.updateRange(fieldName,values)}
+										renderLabel={isPublishTimestamp ? renderDate : ( label => label )}
+										/>
+			}
 		} else if (this.entityTypes.includes(this.state.rightPanel)) {
 			const filter = this.state.rightPanel
 			const filteredEntities = filteredData.map( doc => doc.entities.filter( e => e.type==filter && e.name ).map(e => e.name ) ).flat()
@@ -232,17 +245,21 @@ export default class ColumnSelector extends Component {
 			else if (this.state.rightPanel in this.props.filters)
 				selected_vals = this.props.filters[this.state.rightPanel]
 			
-			rightPanelChoices = sortedEntityCounts.map( (ec,i) => {
-				const label = ec.name + " (" + ec.count + ")"
-				return <Form.Check 
-					type="checkbox"
-					key={"entity_"+i}
-					id={"entity_"+i}
-					label={label}
-					checked={selected_vals.includes(ec.name)}
-					onChange={ synth_event => this.toggleFilter(this.state.rightPanel,ec.name,synth_event.target.checked) }
-				/>
-			})
+			if (sortedEntityCounts.length == 0) {
+				rightPanelChoices = "Nothing to filter. Try clearing the filters (below) to see more articles."
+			} else {
+				rightPanelChoices = sortedEntityCounts.map( (ec,i) => {
+					const label = ec.name + " (" + ec.count + ")"
+					return <Form.Check 
+						type="checkbox"
+						key={"entity_"+i}
+						id={"entity_"+i}
+						label={label}
+						checked={selected_vals.includes(ec.name)}
+						onChange={ synth_event => this.toggleFilter(this.state.rightPanel,ec.name,synth_event.target.checked) }
+					/>
+				})
+			}
 		} else {
 			const filter = this.state.rightPanel
 			const attributes = filteredData.map( doc => doc[filter] ).filter( f => f )
@@ -266,17 +283,21 @@ export default class ColumnSelector extends Component {
 			
 			const selected_vals = this.state.rightPanel in this.props.filters ? this.props.filters[this.state.rightPanel] : []
 			
-			rightPanelChoices = sortedAttributeCounts.map( (ec,i) => {
-				const label = ec.name + " (" + ec.count + ")"
-				return <Form.Check 
-					type="checkbox"
-					key={"entity_"+i}
-					id={"entity_"+i}
-					label={label}
-					checked={selected_vals.includes(ec.name)}
-					onChange={ synth_event => this.toggleFilter(this.state.rightPanel,ec.name,synth_event.target.checked) }
-				/>
-			})
+			if (sortedAttributeCounts.length == 0) {
+				rightPanelChoices = "Nothing to filter. Try clearing the filters (below) to see more articles."
+			} else {
+				rightPanelChoices = sortedAttributeCounts.map( (ec,i) => {
+					const label = ec.name + " (" + ec.count + ")"
+					return <Form.Check 
+						type="checkbox"
+						key={"entity_"+i}
+						id={"entity_"+i}
+						label={label}
+						checked={selected_vals.includes(ec.name)}
+						onChange={ synth_event => this.toggleFilter(this.state.rightPanel,ec.name,synth_event.target.checked) }
+					/>
+				})
+			}
 		}
 		
 		const rightPanelName = this.state.rightPanel in niceNames ? niceNames[this.state.rightPanel] : this.state.rightPanel
