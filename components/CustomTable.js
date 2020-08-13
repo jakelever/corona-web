@@ -117,7 +117,7 @@ function getColumnMetadata(column) {
 				var entities; 
 				if (entity_type == 'topic') {
 					entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i}>{e.name}</a></Link> )
-				} if (entity_type == 'Virus' || entity_type == 'articletype') {
+				} else if (entity_type == 'Virus' || entity_type == 'articletype') {
 					entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => e.name )
 				} else {
 					entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+e.type+"/"+e.name}><a key={'entity_'+i}>{e.name}</a></Link> )
