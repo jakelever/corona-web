@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
 
+python updateSitemap.js
+
 rm -fr build_to_delete tmp_build
 
 echo "module.exports = { distDir: 'tmp_build' }" > next.config.js
