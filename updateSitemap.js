@@ -24,7 +24,7 @@ if __name__ == '__main__':
 		f.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
 		for p in pages:
 			f.write('  <url>\n')
-			f.write('    <loc>http://www.coronacentral.ai%s</loc>\n' % p)
+			f.write('    <loc>http://coronacentral.ai%s</loc>\n' % p)
 			f.write('    <lastmod>%s</lastmod>\n' % now)
 			f.write('    <changefreq>daily</changefreq>\n')
 			f.write('  </url>\n')
