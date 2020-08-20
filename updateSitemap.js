@@ -15,7 +15,7 @@ if __name__ == '__main__':
 			pages.append( '/' + p['page'] )
 	pages = sorted(pages)
 			
-	now = datetime.now().isoformat()
+	now = datetime.now().strftime("%Y-%m-%d")
 			
 	output_file = 'public/sitemap.xml'
 	print("Saving sitemap to %s" % output_file)
