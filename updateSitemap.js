@@ -25,7 +25,7 @@ if __name__ == '__main__':
 		for p in pages:
 			f.write('  <url>\n')
 			f.write('    <loc>http://www.coronacentral.ai%s</loc>\n' % p)
-			f.write('    <lastmod>%s/lastmod>\n' % now)
+			f.write('    <lastmod>%s</lastmod>\n' % now)
 			f.write('    <changefreq>daily</changefreq>\n')
 			f.write('  </url>\n')
 		f.write('</urlset>\n')
