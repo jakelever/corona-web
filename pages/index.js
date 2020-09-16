@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+
 import Layout from '../components/Layout.js'
 import CustomTable from '../components/CustomTable.js'
+import SharePopover from '../components/SharePopover.js'
+
 import { logEvent } from '../lib/analytics.js'
 
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
@@ -27,6 +30,7 @@ import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
 import { faBrain } from '@fortawesome/free-solid-svg-icons'
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { faShieldVirus } from '@fortawesome/free-solid-svg-icons'
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 
 import _ from 'lodash'
 
@@ -739,8 +743,13 @@ export default class Home extends Component {
 				{tour}
 
 				{/* Page Heading */}
-				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
+				<div className="flex align-items-center justify-content-between mb-4 titlepadding">
 					<h1 className="h3 mb-0 text-gray-800">CoronaCentral Dashboard</h1>
+					<SharePopover title="Check out the portal to the entire coronavirus research literature!" url="https://coronacentral.ai">
+						<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
+							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
+						</a>
+					</SharePopover>
 				</div>
 				<div className="d-sm-flex align-items-center justify-content-between mb-4">
 					<h3 className="h6 mb-0 text-gray-800"></h3>

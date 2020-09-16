@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import FlagModal from '../components/FlagModal.js'
 import ColumnSelector from '../components/ColumnSelector.js'
+import SharePopover from '../components/SharePopover.js'
 
 import { filterData } from '../lib/filterdata.js'
 
@@ -15,8 +16,10 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 import { faExclamationCircle, faExclamationTriangle, faExclamation } from '@fortawesome/free-solid-svg-icons'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 
 import DataTable from 'react-data-table-component';
+
 
 // Links to the DataTable component for ease
 // https://www.npmjs.com/package/react-data-table-component
@@ -127,8 +130,20 @@ export default class CustomTable extends Component {
 			const renderButtonColumn = row => {
 				const flag = <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>
 				const linkDoc = <a className="flagtime" href={row.url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" /></a>
+								
+				var urlToPage = 'https://coronacentral.ai'
+				if (row.doi) {
+					urlToPage += "/doc/doi/"+row.doi
+				} else if (row.pubmed_id) {
+					urlToPage += "/doc/pubmed_id/"+row.pubmed_id
+				} else if (row.cord_uid) {
+					urlToPage += "/doc/cord_uid/"+row.cord_uid
+				}
+								
 				
-				return <div className="tour-tablebuttons"><p>{linkDoc}</p><p>{flag}</p></div>
+				const share = <SharePopover title={row.title} url={urlToPage}><a className="flagtime" href="#" onClick={event => event.preventDefault()}><FontAwesomeIcon icon={faShareAlt} size="lg" /></a></SharePopover>
+				
+				return <div className="tour-tablebuttons"><p>{linkDoc}</p><p>{flag}</p><p>{share}</p></div>
 			}
 			
 			metadata = {

@@ -5,6 +5,7 @@ import TextWithEntities from '../../components/TextWithEntities.js'
 import Button from 'react-bootstrap/Button'
 
 import FlagModal from '../../components/FlagModal.js'
+import SharePopover from '../../components/SharePopover.js'
 
 import pages from '../../lib/pages.json'
 
@@ -14,6 +15,7 @@ import { getDocument } from '../../lib/db-doc.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 
 const shortMonths = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
@@ -46,11 +48,14 @@ export async function getStaticProps({ params }) {
 		return { props: { fallback_complete: true } }
 	}
 	
+	const thisUrl = "https://coronacentral.ai/doc/" + params.identifiers.join('/')
+	
 	const doc = await getDocument(identifiers)
 	return {
 		props: {
 			fallback_complete: true,
-			doc
+			doc,
+			thisUrl
 		}
 	}
 }
@@ -137,13 +142,24 @@ export default class DocPage extends Component {
 		return <Layout title={this.props.doc.title}>
 		
 				{/* Page Heading */}
-				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
-					<h1 className="h3 mb-0 text-gray-800" style={{width:"80%"}}>
+				<div className="flex align-items-center justify-content-between mb-4 titlepadding">
+					<h1 className="h3 mb-0 text-gray-800">
 						{titleText}
 					</h1>
-					<a href={this.props.doc.url} className="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" target="_blank">
-						<span className="text-white-50"><FontAwesomeIcon icon={faExternalLinkAlt} size="sm" /></span> Link
-					</a>
+					<div style={{display:"flex", flexDirection: "column", justifyContent: "flex-end"}}>
+						<div style={{padding: "5px", width:"100%"}}>
+							<SharePopover title={this.props.doc.title} url={this.props.thisUrl}>
+								<a href="#" onClick={event => event.preventDefault()} className="btn btn-sm btn-info shadow-sm" target="_blank">
+									<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
+								</a>
+							</SharePopover>
+						</div>
+						<div style={{padding: "5px", width:"100%"}}>
+							<a href={this.props.doc.url} className="btn btn-sm btn-success shadow-sm" target="_blank">
+								<span className="text-white-50"><FontAwesomeIcon icon={faExternalLinkAlt} size="sm" /></span> Link
+							</a>
+						</div>
+					</div>
 				</div>
 							
 

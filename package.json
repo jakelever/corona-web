@@ -29,6 +29,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-leaflet": "^2.7.0",
     "react-range": "^1.6.7",
+    "react-share": "^4.2.1",
     "reactour": "^1.18.0",
     "serverless-mysql": "^1.5.4",
     "sql-template-strings": "^2.2.2",
