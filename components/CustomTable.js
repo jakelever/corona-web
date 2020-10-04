@@ -129,7 +129,11 @@ export default class CustomTable extends Component {
 		if (column == 'flagandlink') {
 			const renderButtonColumn = row => {
 				const flag = <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>
-				const linkDoc = <a className="flagtime" href={row.url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" /></a>
+				
+				// Preferentially use the DOI for the link
+				const url = row.doi ? ('https://doi.org/' + row.doi) : row.url
+				
+				const linkDoc = <a className="flagtime" href={url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" /></a>
 								
 				var urlToPage = 'https://coronacentral.ai'
 				if (row.doi) {

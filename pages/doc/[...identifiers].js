@@ -139,6 +139,9 @@ export default class DocPage extends Component {
 			publish_date = this.props.doc.publish_year.toString()
 		}
 		
+		// Preferentially use the DOI for the link
+		const url = this.props.doc.doi ? ('https://doi.org/' + this.props.doc.doi) : this.props.doc.url
+		
 		return <Layout title={this.props.doc.title}>
 		
 				{/* Page Heading */}
@@ -155,7 +158,7 @@ export default class DocPage extends Component {
 							</SharePopover>
 						</div>
 						<div style={{padding: "5px", width:"100%"}}>
-							<a href={this.props.doc.url} className="btn btn-sm btn-success shadow-sm" target="_blank">
+							<a href={url} className="btn btn-sm btn-success shadow-sm" target="_blank">
 								<span className="text-white-50"><FontAwesomeIcon icon={faExternalLinkAlt} size="sm" /></span> Link
 							</a>
 						</div>
