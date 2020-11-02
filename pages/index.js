@@ -772,7 +772,7 @@ export default class Home extends Component {
 							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly trying to make improvements and value any <Link href="/feedback" as="/feedback"><a>feedback</a></Link>. Plus if you <b>spot a mistake</b>, please flag it using the flag icon beside each paper.
 						  </p>
 						  <p>
-							For more information, see the <Link href="/faqs" as="/faqs"><a>Frequently Asked Questions</a></Link> page.
+							To get a daily update on the coronavirus literature, <a href="https://twitter.com/coronacentralai" target="_blank">follow us on Twitter!</a> For more information, see the <Link href="/faqs" as="/faqs"><a>Frequently Asked Questions</a></Link> page.
 						  </p>
 						</div>
 					  </div>

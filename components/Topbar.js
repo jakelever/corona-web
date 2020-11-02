@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faVirus } from '@fortawesome/free-solid-svg-icons'
+import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 
 /* Topbar */
 export default class Topbar extends Component {
@@ -138,7 +140,7 @@ export default class Topbar extends Component {
 		
 		return (
 	<nav className="tour-search navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-	
+		
 		{/* Sidebar Toggle (Topbar) */}
 		<button id="sidebarToggleTop" className="btn btn-link d-lg-none rounded-circle mr-3 text-secondary" onClick={event => this.props.toggleSidebar()}>
 			<FontAwesomeIcon icon={faBars}  />
@@ -155,6 +157,8 @@ export default class Topbar extends Component {
 
 			{/*<!-- Nav Item - Search Dropdown (Visible Only XS) -->*/}
 			<li className="nav-item dropdown no-arrow d-sm-none">
+			
+				
 				
 				{/*<!-- Dropdown - Messages -->*/}
 				<Dropdown as={Navbar}>
@@ -174,12 +178,34 @@ export default class Topbar extends Component {
 			
             { this.props.showVirusSelector ? <li className="d-none d-sm-inline-block nav-item" style={{width:"1em"}}></li> : <></> }
 			
+			
 			<div className="tour-virusselector">
 
 			{ this.props.showVirusSelector ? <li className="d-none d-sm-inline-block nav-item">{virusSelectorBig}</li> : <></> }
 			
 			{ this.props.showVirusSelector ? <li className="nav-item dropdown no-arrow d-sm-none">{virusSelectorSmall}</li> : <></> }
+			
 			</div>
+			
+			
+            { this.props.showVirusSelector ? <li className="d-none d-sm-inline-block nav-item" style={{width:"1em"}}></li> : <></> }
+			
+			<NavLink className="d-none d-sm-inline-block" href="https://twitter.com/coronacentralai" target="_blank">
+				<FontAwesomeIcon icon={faTwitter} size="lg" />
+			</NavLink>
+			
+			<li className="nav-item dropdown no-arrow d-sm-none">
+			
+				
+				
+				{/*<!-- Dropdown - Messages -->*/}
+				<Navbar>
+					<NavLink href="https://twitter.com/coronacentralai" target="_blank">
+						<FontAwesomeIcon icon={faTwitter} />
+					</NavLink>
+				</Navbar>
+			</li>
+			
 			
 		</ul>
 
