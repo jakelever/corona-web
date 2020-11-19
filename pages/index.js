@@ -766,14 +766,15 @@ export default class Home extends Component {
 						<div className="card-body">
 						  <p>
 						  
-							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> for subjects of interest above. You can narrow in on a specific virus using the selector in the top-right.
+							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> above.
 						  </p>
 						  <p>
-							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly trying to make improvements and value any <Link href="/feedback" as="/feedback"><a>feedback</a></Link>. Plus if you <b>spot a mistake</b>, please flag it using the flag icon beside each paper.
+							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly making improvements and value <Link href="/feedback" as="/feedback"><a>feedback</a></Link>. To get a daily update on the coronavirus literature, <a href="https://twitter.com/coronacentralai" target="_blank">follow us on Twitter!</a>
 						  </p>
 						  <p>
-							To get a daily update on the coronavirus literature, <a href="https://twitter.com/coronacentralai" target="_blank">follow us on Twitter!</a> For more information, see the <Link href="/faqs" as="/faqs"><a>Frequently Asked Questions</a></Link> page.
+							Supported by:
 						  </p>
+						  <img width="100%" src="/CZBiohub.jpg" />
 						</div>
 					  </div>
 					</div>

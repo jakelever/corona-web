@@ -214,7 +214,7 @@ class Layout extends Component {
 					<footer className="sticky-footer bg-white">
 						<div className="container my-auto">
 							<div className="copyright text-center my-auto">
-								<span></span>
+								<span>Project funded by the Chan Zuckerberg Biohub and NLM grant LM05652</span>
 							</div>
 						</div>
 					</footer>
