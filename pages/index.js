@@ -775,7 +775,7 @@ export default class Home extends Component {
 							Supported by:
 						  </p>
 						  <div style={{maxWidth:"250px"}}>
-							<a href="https://www.czbiohub.org/" target="_blank"><img width="100%" src="/CZBiohub.jpg" /></a>
+							<a href="https://www.czbiohub.org/" target="_blank"><img width="100%" src="/CZBiohub.jpg" alt="Chan Zuckerberg Biohub" /></a>
 						  </div>
 						</div>
 					  </div>
