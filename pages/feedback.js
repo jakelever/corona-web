@@ -98,7 +98,7 @@ export default class FAQs extends Component {
 				<div className="card shadow mb-4">
 					
 					<div className="card-body">
-						<p><b>This is an ongoing research project and we therefore welcome feedback as we strive to improve this resource.</b> If you have comments on the topics identified, or some we've missed please put them in below. We can't guarantee that we'll be able make all suggested changes but certainly want to hear about the strengths and weaknesses that users identify. </p>
+						<p><b>This is an ongoing research project and we therefore welcome feedback as we strive to improve this resource.</b> If you have comments on the categories identified, or some we've missed please put them in below. We can't guarantee that we'll be able make all suggested changes but certainly want to hear about the strengths and weaknesses that users identify. </p>
 											
 						<hr />
 							<Form className="board-form" onSubmit={e => {
@@ -115,7 +115,7 @@ export default class FAQs extends Component {
 										<Form.Control as="select" size="md" onChange={this.handleSelectChange} disabled={this.state.submit_state!=states.ACTIVE}>
 											<option>Suggestion/Idea</option>
 											<option>Bug with the website</option>
-											<option>Mistake with the topics of the papers</option>
+											<option>Mistake with the categories of the papers</option>
 											<option>Missing concept (e.g. drug, vaccine type, etc)</option>
 											<option>Missing paper</option>
 											<option>Other</option>

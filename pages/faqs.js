@@ -23,7 +23,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: What is the purpose of this resource?</b></p>
-								<p>A: To provide a portal to the entire biomedical literature focussed on SARS-CoV-2, MERS-CoV and SARS-CoV. It categorises papers into a set of topics to make it easier to find relevant research and indexes by important concepts (e.g. drugs, proteins, locations, etc).</p>
+								<p>A: To provide a portal to the entire biomedical literature focussed on SARS-CoV-2, MERS-CoV and SARS-CoV. It categorises papers into a set of categories to make it easier to find relevant research and indexes by important concepts (e.g. drugs, proteins, locations, etc).</p>
 							</div>
 							
 							<hr />
@@ -37,14 +37,14 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: What machine learning methods are used in this resource?</b></p>
-								<p>A: We use supervised machine learning to identify the topics of the papers. A set of papers has been annotated with relevant topics and used as training data for a system that uses the text of the title and abstract to make predictions. This is complemented with heuristics to identify specific topics, e.g. clinical trial registration numbers.</p>
+								<p>A: We use supervised machine learning to identify the categories of the papers. A set of papers has been annotated with relevant categories and used as training data for a system that uses the text of the title and abstract to make predictions. This is complemented with heuristics to identify specific categories, e.g. clinical trial registration numbers.</p>
 							</div>
 							
 							<hr />
 							
 							<div>
 								<p><b>Q: Are all the papers manually curated?</b></p>
-								<p>A: No. A small number have been manually curated and machine learning has been used to predict the topics for all other papers</p>
+								<p>A: No. A small number have been manually curated and machine learning has been used to predict the categories for all other papers</p>
 							</div>
 							
 							<hr />

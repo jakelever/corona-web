@@ -8,7 +8,7 @@
 		"content": "The sidebar provides links to see a slice of the coronavirus literature. This link shows currently trending publications."
 	},
 	{
-		"selector": ".tour-topics",
+		"selector": ".tour-categories",
 		"content": "We use a mix of machine learning and manual curation to categorize papers into a large number of narrow categories, enabling easier identification of relevant work. You can find answers to commonly asked questions and post feedback about CoronaCentral using the links in the bottom left."
 	},
 	{
@@ -21,7 +21,7 @@
 	},
 	{
 		"selector": ".tour-table",
-		"content": "Different topic pages and the trending pages show publications in tables that can be sorted by clicking on the column header. This table shows trending articles from the last 14 days. You can also delve into a paper by clicking on the title or filter the columns with the button in the top-right."
+		"content": "Different category pages and the trending pages show publications in tables that can be sorted by clicking on the column header. This table shows trending articles from the last 14 days. You can also delve into a paper by clicking on the title or filter the columns with the button in the top-right."
 	},
 	{
 		"selector": ".tour-locations",
@@ -33,6 +33,6 @@
 	},
 	{
 		"selector": ".tour-entities",
-		"content": "CoronaCentral also indexes papers by mentions of different concepts relevant to the different topics, like drugs, geographic locations and more. You can search for specific ones in the search bar, and relevant ones are shown for each topic page."
+		"content": "CoronaCentral also indexes papers by mentions of different concepts relevant to the different categories, like drugs, geographic locations and more. You can search for specific ones in the search bar, and relevant ones are shown for each category page."
 	}
 ]

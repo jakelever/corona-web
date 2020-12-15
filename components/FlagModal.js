@@ -102,7 +102,7 @@ export default class FlagModal extends Component {
 					<Modal.Title>Flag Error with Paper</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<p>Please use this form to notify mistakes with the topic of a paper, or extracted entities (e.g. drugs, locations, etc). Your response will be manually reviewed and help to improve this resource.</p>
+					<p>Please use this form to notify mistakes with the category of a paper, or extracted entities (e.g. drugs, locations, etc). Your response will be manually reviewed and help to improve this resource.</p>
 				
 					<div className="form-group row" style={whichIDToShow == 'doi' ? show : hide}>
 						<label htmlFor="doi" className="col-sm-2 col-form-label">DOI</label>

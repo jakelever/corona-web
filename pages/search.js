@@ -76,7 +76,7 @@ export default class Page extends Component {
 		if (!this.props.tabledata)
 			return <Layout error404={true} handleResize={this.handleResize}></Layout>
 		
-		const defaultColumns = ["Virus","topic","journal","publish_timestamp","title","altmetric_score"]
+		const defaultColumns = ["Virus","category","journal","publish_timestamp","title","altmetric_score"]
 				
 		const filteredDataNoAltmetric = this.props.tabledata.map( row => {
 			var newRow = {}

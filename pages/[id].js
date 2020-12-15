@@ -7,7 +7,7 @@ import SharePopover from '../components/SharePopover.js'
 
 import pages from '../lib/pages.json'
 import viruscolors from '../lib/viruscolors.json'
-import { getTableData, getChartDataByVirusInTopic } from '../lib/db-main.js'
+import { getTableData, getChartDataByVirusInCategory } from '../lib/db-main.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
@@ -37,7 +37,7 @@ export async function getStaticProps({ params }) {
 	
 	const tabledata = await getTableData(page_info.name)
 	
-	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirusInTopic(page_info.name,page_info.chart_entity,30) : null
+	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirusInCategory(page_info.name,page_info.chart_entity,30) : null
 	
 	return {
 		props: {

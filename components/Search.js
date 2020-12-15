@@ -45,7 +45,7 @@ export default class Search extends Component {
 			if (entity_type == 'search') {
 				url = "/search?q=" + this.state.input
 				Router.push("/search",url)
-			} else if (entity_type == 'topic' && entity_name in this.pageMapping) {
+			} else if (entity_type == 'category' && entity_name in this.pageMapping) {
 				const url = "/" + this.pageMapping[entity_name]
 				Router.push("/[id]",url)
 			} else if (entity_type == 'Paper') {

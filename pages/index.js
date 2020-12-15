@@ -19,7 +19,7 @@ import viruscolors from '../lib/viruscolors.json'
 const db = require('../lib/db')
 const escape = require('sql-template-strings')
 
-import { getChartDataByVirusInTopic } from '../lib/db-main'
+import { getChartDataByVirusInCategory } from '../lib/db-main'
 
 import { getEntityID } from '../lib/db-main'
 
@@ -89,7 +89,7 @@ async function getJournalCounts(limit) {
 }
 
 async function getPreprintCounts() {
-	const researchID = await getEntityID('Research','articletype')
+	const researchID = await getEntityID('Research','category')
 	
 	var counts = await db.query(escape`
 
@@ -106,7 +106,7 @@ async function getPreprintCounts() {
 	return {'peer_reviewed': counts[0].count, 'preprint': counts[1].count}
 }
 
-/*async function getChartDataByVirusAllTopics(entitytype,topLimit) {
+/*async function getChartDataByVirusAllCategories(entitytype,topLimit) {
 	var dbResponse = await db.query(escape`
 
 	SELECT tmp1.name as entity_name,tmp2.name as virus_name,COUNT(*) as count 
@@ -163,67 +163,62 @@ async function getPreprintCounts() {
 	return dataForAllCombos
 }*/
 
-async function getArticleTypes() {
+async function getCategoryCountsByVirus() {
 	var counts = await db.query(escape`
 
-	SELECT e_articletype.name as articletype, COUNT(*) as count
-	FROM annotations anno_articletype, entities e_articletype, entitytypes et_articletype
-	WHERE anno_articletype.entity_id = e_articletype.entity_id
-	AND e_articletype.entitytype_id = et_articletype.entitytype_id
-	AND et_articletype.name = 'articletype'
-	GROUP BY articletype
-	ORDER BY count DESC
-	
-	`)
-	
-	counts = counts.map(r => Object.assign({},r))
-	
-	const colors = ['#bebada','#8dd3c7','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f','#ffffb3']
-	
-	const chartData = { 'labels':counts.map(c => c.articletype), 'datasets': [{'data':counts.map(c => c.count),'backgroundColor':counts.map((c,i) => colors[i%colors.length]) }] }
-		
-	return chartData
-}
-
-async function getTopicCountsByVirus() {
-	var counts = await db.query(escape`
-
-	SELECT e_topic.name as topic, e_virus.name as virus, COUNT(*) as count
-	FROM annotations anno_topic, entities e_topic, entitytypes et_topic, annotations anno_virus, entities e_virus, entitytypes et_virus
-	WHERE anno_topic.document_id = anno_virus.document_id
-	AND anno_topic.entity_id = e_topic.entity_id
-	AND e_topic.entitytype_id = et_topic.entitytype_id
-	AND et_topic.name = 'topic'
+	SELECT e_category.name as category, e_virus.name as virus, COUNT(*) as count
+	FROM annotations anno_category, entities e_category, entitytypes et_category, annotations anno_virus, entities e_virus, entitytypes et_virus
+	WHERE anno_category.document_id = anno_virus.document_id
+	AND anno_category.entity_id = e_category.entity_id
+	AND e_category.entitytype_id = et_category.entitytype_id
+	AND et_category.name = 'category'
 	AND anno_virus.entity_id = e_virus.entity_id
 	AND e_virus.entitytype_id = et_virus.entitytype_id
 	AND et_virus.name = 'Virus'
-	GROUP BY topic, virus
+	GROUP BY category, virus
 	ORDER BY count
 	`)
 	
-	// anno_topic.document_id < 5000 (for testing purposes only)
+	// anno_category.document_id < 5000 (for testing purposes only)
 	
 	counts = counts.map(r => Object.assign({},r))
 	
-	const topics = [...new Set(counts.map(c => c.topic))].sort();
+	const categories = [...new Set(counts.map(c => c.category))].sort();
 	const viruses = [...new Set(counts.map(c => c.virus))].sort();
 	
-	var topicMap = {}
-	topics.forEach( (t,i) => {topicMap[t] = i} )
+	var categoryCounts = {}
+	categories.forEach( (t,i) => {categoryCounts[t] = 0} )
+	counts.forEach( count => {
+		categoryCounts[count.category] += count.count
+	})
+	
+	var sortable = [];
+	for (var category in categoryCounts) {
+		sortable.push([category, categoryCounts[category]]);
+	}
+	
+	sortable.sort(function(a, b) {
+		return b[1] - a[1];
+	});
+	
+	const sortedCategories = sortable.map( s => s[0] ).filter( t => t!='Research' )
+	
+	var categoryMap = {}
+	sortedCategories.forEach( (t,i) => {categoryMap[t] = i} )
 	
 	var data = {}
 	viruses.forEach(v => {
-		data[v] = topics.map(t => 0)
+		data[v] = categories.map(t => 0)
 	})
 	
 	counts.forEach( count => {
-		data[count.virus][topicMap[count.topic]] = count.count
+		data[count.virus][categoryMap[count.category]] = count.count
 	})
 	
 	
 	
 	
-	const barData = { 'labels':topics, 'datasets': viruses.map(v => { return { label:v, data:data[v] } } ) }
+	const barData = { 'labels':sortedCategories, 'datasets': viruses.map(v => { return { label:v, data:data[v] } } ) }
 	
 	barData.datasets.forEach(dataset => {
 		var rgb = viruscolors[dataset.label]
@@ -260,17 +255,17 @@ async function getSummaryStatistics() {
 	SELECT COUNT(*) as count
 	FROM entities e, entitytypes et
 	WHERE e.entitytype_id = et.entitytype_id
-	AND et.name = 'topic'
+	AND et.name = 'category'
 
 	`)
-	const topicCount = result[0].count*/
+	const categoryCount = result[0].count*/
 	
-	const topicCount = pages.length - 4 // Reviews, Comments & Editorials, Book Chapters & Updates
+	const categoryCount = pages.length - 4 // Reviews, Comments & Editorials, Book Chapters & Updates
 	
 	return {
 		allDocCount,
 		lastWeekDocCount,
-		topicCount
+		categoryCount
 	}
 }
 
@@ -455,6 +450,9 @@ async function getRecentTrendingDocuments() {
 		const entity_name = anno.entity_name
 		const entity_type = anno.entitytype_name
 		
+		if (entity_name == 'Research' && entity_type == 'category')
+			return
+			
 		const entity = {name: entity_name, type: entity_type}
 		doc.entities.push(entity)
 	})
@@ -484,18 +482,17 @@ export async function getStaticProps({ params }) {
 		datasets: datasets
 	}*/
 	
-	const drugData = await getChartDataByVirusInTopic('Therapeutics','Drug',20)
-	const vaccineData = await getChartDataByVirusInTopic('Vaccines','Vaccine Type',20)
-	const riskfactorsData = await getChartDataByVirusInTopic('Risk Factors','Risk Factor',20)
-	const symptomsData = await getChartDataByVirusInTopic('Symptoms', 'Symptom',20)
+	const drugData = await getChartDataByVirusInCategory('Therapeutics','Drug',20)
+	const vaccineData = await getChartDataByVirusInCategory('Vaccines','Vaccine Type',20)
+	const riskfactorsData = await getChartDataByVirusInCategory('Risk Factors','Risk Factor',20)
+	const symptomsData = await getChartDataByVirusInCategory('Clinical Reports', 'Symptom',20)
 	
 	const summaryStatistics = await getSummaryStatistics()
 	
 	const journalCounts = await getJournalCounts(30)
 	
 	const preprintCounts = await getPreprintCounts()
-	const topicCounts = await getTopicCountsByVirus()
-	const articletypeCounts = await getArticleTypes()
+	const categoryCounts = await getCategoryCountsByVirus()
 	const popularLocations = await getPopularLocations()
 	
 	const recentTrending = await getRecentTrendingDocuments()
@@ -510,8 +507,7 @@ export async function getStaticProps({ params }) {
 			riskfactorsData,
 			symptomsData,
 			preprintCounts,
-			topicCounts,
-			articletypeCounts,
+			categoryCounts,
 			popularLocations,
 			recentTrending
 		}
@@ -624,7 +620,7 @@ export default class Home extends Component {
 	
 	render() {
 		
-		const defaultColumns = ["topic","journal","publish_timestamp","title","altmetric_score_1day"]
+		const defaultColumns = ["category","journal","publish_timestamp","title","altmetric_score_1day"]
 		const trendingTableTitle = <Link href="/trending" as="/trending"><a>Recent & Trending Articles</a></Link>
 		const trendingTable = <CustomTable defaultColumns={defaultColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} title={trendingTableTitle} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
@@ -766,7 +762,7 @@ export default class Home extends Component {
 						<div className="card-body">
 						  <p>
 						  
-							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic</b> from the left, or <b>search</b> above.
+							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>category</b> from the left, or <b>search</b> above.
 						  </p>
 						  <p>
 							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly making improvements and value <Link href="/feedback" as="/feedback"><a>feedback</a></Link>. To get a daily update on the coronavirus literature, <a href="https://twitter.com/coronacentralai" target="_blank">follow us on Twitter!</a>
@@ -835,39 +831,11 @@ export default class Home extends Component {
 				<div className="row">
 
 					
-
-					<div className="col-md-3">
+					<div className="tour-categories col-md-12">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/[id]" as="/therapeutics">
-										<a>Article Types</a>
-									</Link>
-								</h6>
-								
-							</div>
-							<div className="card-body">
-
-								<Doughnut
-									data={this.props.articletypeCounts}
-									options={{ 
-										maintainAspectRatio: false,
-										legend: { fontSize: 10}, 
-										cutoutPercentage: 70,  
-										}}
-									/>
-							
-							</div>
-						</div>
-					</div>
-					
-					<div className="tour-topics col-md-9">
-						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
-							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/[id]" as="/vaccines">
-										<a>Topics</a>
-									</Link>
+									Categories
 								</h6>
 								
 							</div>
@@ -875,8 +843,8 @@ export default class Home extends Component {
 
 								<Bar
 						  data={{
-							  labels:this.props.topicCounts.labels,
-							  datasets:this.props.topicCounts.datasets.filter(ds => this.state.viruses.length == 0 || this.state.viruses.includes(ds.label))
+							  labels:this.props.categoryCounts.labels,
+							  datasets:this.props.categoryCounts.datasets.filter(ds => this.state.viruses.length == 0 || this.state.viruses.includes(ds.label))
 						  }}
 						  options={{ 
 						    maintainAspectRatio: false,
@@ -951,8 +919,8 @@ export default class Home extends Component {
 							<div className="card-body">
 								<div className="row no-gutters align-items-center">
 									<div className="col mr-2">
-										<div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Topics Curated</div>
-										<div className="h5 mb-0 font-weight-bold text-gray-800">{this.props.summaryStatistics.topicCount}</div>
+										<div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Categories Curated</div>
+										<div className="h5 mb-0 font-weight-bold text-gray-800">{this.props.summaryStatistics.categoryCount}</div>
 									</div>
 									<div className="col-auto text-gray-300">
 										<FontAwesomeIcon icon={faLightbulb} size="2x"  />
@@ -1115,7 +1083,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/[id]" as="/symptoms">
+									<Link href="/[id]" as="/clinicalreports">
 										<a>Symptoms</a>
 									</Link>
 								</h6>

@@ -32,6 +32,7 @@ import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
+import { faLandmark } from '@fortawesome/free-solid-svg-icons'
 
 
 /*function toggleSidebar(event) {
@@ -91,7 +92,8 @@ export default class Sidebar extends Component {
 			faPenFancy:faPenFancy,
 			faHeadSideVirus:faHeadSideVirus,
 			faBrain:faBrain,
-			faRandom:faRandom
+			faRandom:faRandom,
+			faLandmark:faLandmark
 		}
 		
 		//<i className="fas fa-fw fa-chart-area"></i>
@@ -216,7 +218,7 @@ export default class Sidebar extends Component {
 		
 		<hr className="sidebar-divider my-0" />
 		
-		<div className="tour-topics my-0">
+		<div className="tour-categories my-0">
 			{links}
 
 			{/* Divider */}

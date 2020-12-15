@@ -209,7 +209,7 @@ export default class CustomTable extends Component {
 			var entity_type = column
 			
 			var pageMapping = {}
-			if (entity_type == 'topic') {
+			if (entity_type == 'category') {
 				pages.forEach(p => {pageMapping[p.name] = p.page})
 			}
 			
@@ -228,9 +228,9 @@ export default class CustomTable extends Component {
 				wrap: true,
 				cell: row => {
 					var entities; 
-					if (entity_type == 'topic') {
+					if (entity_type == 'category') {
 						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i}>{e.name}</a></Link> )
-					} else if (entity_type == 'Virus' || entity_type == 'articletype') {
+					} else if (entity_type == 'Virus') {
 						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => e.name )
 					} else {
 						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+e.type+"/"+e.name}><a key={'entity_'+i}>{e.name}</a></Link> )

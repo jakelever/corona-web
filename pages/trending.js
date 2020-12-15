@@ -62,13 +62,13 @@ export default class Page extends Component {
 					
 		/*var defaultColumns = [
 				{ "header":"Virus", "selector":"entities:Virus", "hide":"md", grow:1 },
-				{ "header":"Topics", "selector":"entities:topic", grow:2 },
+				{ "header":"Categories", "selector":"entities:category", grow:2 },
 				{ "header":"Journal", "selector":"journal", "hide":"md", grow:1 },
 				{ "header":"Date", "selector":"publish_date", "hide":"md", grow:1 },
 				{ "header":"Title", "selector":"title", linkInternal: true, grow:4 }
 			]*/
 			
-		const defaultColumns = ["Virus","topic","journal","publish_timestamp","title","altmetric_score_1day"]
+		const defaultColumns = ["Virus","category","journal","publish_timestamp","title","altmetric_score_1day"]
 				
 		/*const filteredDataNoAltmetric = filteredData.map( row => {
 			var newRow = {}
