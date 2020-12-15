@@ -7,8 +7,8 @@
 		"description": "Research focussed on forecasting the spread or modelling the dynamics of the virus"
 	},
 	{
-		"name": "Disease Spread",
-		"page": "diseasespread",
+		"name": "Infection Reports",
+		"page": "infectionreports",
 		"group": "Epidemiology",
 		"description": "Research documenting cases of virus spread through and between communities or countries",
 		"extra_table_columns": [
@@ -27,6 +27,13 @@
 		"chart_entity": "Transmission Type"
 	},
 	{
+		"name": "Contact Tracing",
+		"page": "contacttracing",
+		"icon": "faRandom",
+		"group": "Epidemiology",
+		"description": "Research studying the implementation and effect of contact tracing"
+	},
+	{
 		"name": "Prevalence",
 		"page": "prevalence",
 		"group": "Epidemiology",
@@ -36,22 +43,6 @@
 			"Test Type"
 		],
 		"chart_entity": "Location"
-	},
-	{
-		"name": "Surveillance",
-		"page": "surveillance",
-		"group": "Epidemiology",
-		"description": "Research developing methods for surveillance of the disease spread"
-	},
-	{
-		"name": "Diagnostics",
-		"page": "diagnostics",
-		"group": "Epidemiology",
-		"description": "Research developing and testing methods to diagnose the virus",
-		"extra_table_columns": [
-			"Test Type"
-		],
-		"chart_entity": "Test Type"
 	},
 	{
 		"name": "Prevention",
@@ -64,9 +55,30 @@
 		"chart_entity": "Prevention Method"
 	},
 	{
+		"name": "Surveillance",
+		"page": "surveillance",
+		"group": "Epidemiology",
+		"description": "Research developing methods for surveillance of the disease spread"
+	},
+	
+	
+	
+	
+	{
+		"name": "Clinical Reports",
+		"page": "clinicalreports",
+		"icon": "faStethoscope",
+		"group": "Clinical",
+		"description": "Clinical reports of patients discussing their symptoms or clinical course",
+		"extra_table_columns": [
+			"Symptom",
+			"Location"
+		],
+		"chart_entity": "Symptom"
+	},
+	{
 		"name": "Risk Factors",
 		"page": "riskfactors",
-		"icon": "faStethoscope",
 		"group": "Clinical",
 		"description": "Research examining risk factors for infection and severe symptoms",
 		"extra_table_columns": [
@@ -75,24 +87,10 @@
 		"chart_entity": "Risk Factor"
 	},
 	{
-		"name": "Symptoms",
-		"page": "symptoms",
+		"name": "Long Haul",
+		"page": "longhaul",
 		"group": "Clinical",
-		"description": "Research discussing the different symptoms of the virus",
-		"extra_table_columns": [
-			"Symptom"
-		],
-		"chart_entity": "Symptom"
-	},
-	{
-		"name": "Case Reports",
-		"page": "casereports",
-		"group": "Clinical",
-		"description": "Case reports of single or multiple patients discussing their clinical course",
-		"extra_table_columns": [
-			"Location"
-		],
-		"chart_entity": "Location"
+		"description": "Research examining the long-term effects on coronavirus patients"
 	},
 	{
 		"name": "Pediatrics",
@@ -101,10 +99,20 @@
 		"description": "Research studying the effect of the virus on children"
 	},
 	{
-		"name": "Healthcare Workers",
-		"page": "healthcareworkers",
+		"name": "Medical Specialties",
+		"page": "medicalspecialties",
 		"group": "Clinical",
-		"description": "Research studying the effect of the virus on healthcare workers"
+		"description": "Research examining the effect on and mitigations required by different medicial specialties",
+		"extra_table_columns": [
+			"Medical Specialty"
+		],
+		"chart_entity": "Medical Specialty"
+	},
+	{
+		"name": "Recommendations",
+		"page": "recommendations",
+		"group": "Clinical",
+		"description": "Research providing recommendations to medical professionals and others related to coronavirus"
 	},
 	{
 		"name": "Imaging",
@@ -112,6 +120,26 @@
 		"group": "Clinical",
 		"description": "Research documenting CT and other scans of patients"
 	},
+	{
+		"name": "Diagnostics",
+		"page": "diagnostics",
+		"group": "Clinical",
+		"description": "Research developing and testing methods to diagnose the virus",
+		"extra_table_columns": [
+			"Test Type"
+		],
+		"chart_entity": "Test Type"
+	},
+	{
+		"name": "Healthcare Workers",
+		"page": "healthcareworkers",
+		"group": "Clinical",
+		"description": "Research studying the effect of the virus on healthcare workers"
+	},
+	
+	
+	
+	
 	{
 		"name": "Molecular Biology",
 		"page": "molecularbiology",
@@ -124,6 +152,12 @@
 		"chart_entity": "Gene or Protein"
 	},
 	{
+		"name": "Immunology",
+		"page": "immunology",
+		"group": "Biology",
+		"description": "Research studying the interactions of the virus and the immune system"
+	},
+	{
 		"name": "Model Systems & Tools",
 		"page": "modelsystems",
 		"group": "Biology",
@@ -132,12 +166,6 @@
 			"Species"
 		],
 		"chart_entity": "Species"
-	},
-	{
-		"name": "Immunology",
-		"page": "immunology",
-		"group": "Biology",
-		"description": "Research studying the interactions of the virus and the immune system"
 	},
 	{
 		"name": "Non-human",
@@ -149,6 +177,10 @@
 		],
 		"chart_entity": "Species"
 	},
+	
+	
+	
+	
 	{
 		"name": "Therapeutics",
 		"page": "therapeutics",
@@ -159,6 +191,12 @@
 			"Drug"
 		],
 		"chart_entity": "Drug"
+	},
+	{
+		"name": "Drug Targets",
+		"page": "drugtargets",
+		"group": "Treatment",
+		"description": "Research discussing potential therapeutic coronavirus targets"
 	},
 	{
 		"name": "Vaccines",
@@ -186,6 +224,9 @@
 		"group": "Treatment",
 		"description": "Medical devices used to treat the virus"
 	},
+	
+	
+	
 	{
 		"name": "Psychology",
 		"page": "psychology",
@@ -193,45 +234,107 @@
 		"group": "Psychology",
 		"description": "Research studying the effect on patients' and healthcare workers' mental health and understanding of risk"
 	},
+	
+	
+	
+	
+	
+	
+	
+	{
+		"name": "Health Policy",
+		"page": "healthpolicy",
+		"icon": "faLandmark",
+		"group": "Policy",
+		"description": "Research discussing proposed and implemented health policy and its effect on the virus and society"
+	},
+	
+	{
+		"name": "Communication",
+		"page": "communication",
+		"group": "Policy",
+		"description": "Research examining health messaging and communication with the general public and health professionals"
+	},
+	
+	{
+		"name": "Inequality",
+		"page": "inequality",
+		"group": "Policy",
+		"description": "Research studying the disproportionately worse health and economic outcomes for minorities"
+	},
+	
+	
+	{
+		"name": "Education",
+		"page": "education",
+		"group": "Policy",
+		"description": "Research examining the effect of the coronavirus on the education system and how it has changed"
+	},
+	
+	
+	
+	
 	{
 		"name": "Reviews",
 		"page": "reviews",
 		"icon": "faPenFancy",
-		"group": "Reviews",
+		"group": "Other Articles",
 		"description": "Review articles focussing on a variety of topics related to the virus"
 	},
 	{
 		"name": "Comments & Editorials",
 		"page": "comments_editorials",
-		"icon": "faRandom",
-		"group": "Other",
+		"group": "Other Articles",
 		"description": "Commentary, editorials and other short articles that are not original research",
 		"extra_table_columns": [
-			"topic"
+			"category"
 		]
+	},
+	
+	{
+		"name": "CDC Weekly Reports",
+		"page": "cdcweeklyreports",
+		"group": "Other Articles",
+		"description": "CDC Weekly Reports that provide a summary of latest information about the pandemic"
 	},
 	{
 		"name": "Book Chapters",
 		"page": "bookchapters",
-		"group": "Other",
+		"group": "Other Articles",
 		"description": "Book chapters that provide reviews or research on coronaviruses"
 	},
-	{
-		"name": "Updates",
-		"page": "updates",
-		"group": "Other",
-		"description": "Articles that provide an update on the current state of the pandemic in different countries"
-	},
+	
 	{
 		"name": "News",
 		"page": "news",
-		"group": "Other",
+		"group": "Other Articles",
 		"description": "News articles from academic journals and other sources indexed by PubMed or CORD-19"
 	},
 	{
 		"name": "Non-medical",
 		"page": "nonmedical",
-		"group": "Other",
+		"group": "Other Articles",
 		"description": "Research examining the effect of the virus on other research areas (e.g. economics)"
+	},
+	
+	
+	{
+		"name": "Retractions",
+		"page": "retractions",
+		"group": "Other Articles",
+		"description": "Articles that have been withdrawn by the authors or the journal"
+	},
+	
+	{
+		"name": "Misinformation",
+		"page": "misinformation",
+		"icon": "faRandom",
+		"group": "Other Articles",
+		"description": "Research studying the challenges of misinformation and deceptive communications involving the pandemic"
 	}
+	
+	
+	
+	
+	
 ]
