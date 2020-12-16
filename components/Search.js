@@ -57,7 +57,7 @@ export default class Search extends Component {
 				else if (selected[0].cord_uid)
 					url = "/doc/cord_uid/" + selected[0].cord_uid
 				else if (selected[0].url)
-					url = "/doc/url/" + encodeURIComponent(selected[0].url)
+					url = "/doc/url/" + encodeURIComponent(selected[0].url.replace(/\/\//g,'/').replace(/\/$/g,''))
 				
 				if (url)
 					Router.push("/doc/[...identifiers]",url)

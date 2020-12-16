@@ -38,6 +38,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {	
 	var identifiers
+	
+	var thisUrl = 'https://coronacentral.ai/doc/'
 	if (params.identifiers.length >= 3 && params.identifiers[0] == 'doi') {
 		identifiers = { 'doi': params.identifiers.slice(1).join('/') }
 	} else if (params.identifiers.length == 2 && params.identifiers[0] == 'pubmed_id') {
@@ -51,9 +53,16 @@ export async function getStaticProps({ params }) {
 		return { props: { fallback_complete: true } }
 	}
 	
-	const thisUrl = "https://coronacentral.ai/doc/" + params.identifiers.join('/')
-	
 	const doc = await getDocument(identifiers)
+	
+	var thisUrl = "https://coronacentral.ai/doc/"
+	
+	if ('url' in identifiers) {
+		thisUrl += 'url/' + encodeURIComponent(doc.url.replace(/\/\//g,'/').replace(/\/$/g,''))
+	} else {
+		thisUrl += params.identifiers.join('/')
+	}
+	
 	return {
 		props: {
 			fallback_complete: true,
