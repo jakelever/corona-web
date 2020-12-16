@@ -540,6 +540,8 @@ export default class Home extends Component {
 		
 		this.panelCol6 = React.createRef();
 		this.panelCol9 = React.createRef();
+		
+		this.shareDiv = React.createRef();
 	}
 	
 	startTour() {
@@ -740,9 +742,9 @@ export default class Home extends Component {
 				{tour}
 
 				{/* Page Heading */}
-				<div className="flex align-items-center justify-content-between mb-4 titlepadding">
+				<div className="flex align-items-center justify-content-between mb-4 titlepadding" ref={this.shareDiv} style={{position:"relative"}}>
 					<h1 className="h3 mb-0 text-gray-800">CoronaCentral Dashboard</h1>
-					<SharePopover title="Check out the portal to the entire coronavirus research literature!" url="https://coronacentral.ai">
+					<SharePopover title="Check out the portal to the entire coronavirus research literature!" url="https://coronacentral.ai" container={this.shareDiv}>
 						<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
 							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
 						</a>

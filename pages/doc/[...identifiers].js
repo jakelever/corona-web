@@ -73,6 +73,8 @@ export default class DocPage extends Component {
 		
 		this.closeFlagModal = this.closeFlagModal.bind(this);
 		this.showFlagModal = this.showFlagModal.bind(this);
+		
+		this.shareDiv = React.createRef();
 	}
 	
 	closeFlagModal() {
@@ -145,13 +147,13 @@ export default class DocPage extends Component {
 		return <Layout title={this.props.doc.title}>
 		
 				{/* Page Heading */}
-				<div className="flex align-items-center justify-content-between mb-4 titlepadding">
+				<div className="flex align-items-center justify-content-between mb-4 titlepadding" ref={this.shareDiv} style={{position:"relative"}}>
 					<h1 className="h3 mb-0 text-gray-800">
 						{titleText}
 					</h1>
 					<div style={{display:"flex", flexDirection: "column", justifyContent: "flex-end"}}>
 						<div style={{padding: "5px", width:"100%"}}>
-							<SharePopover title={this.props.doc.title} url={this.props.thisUrl}>
+							<SharePopover title={this.props.doc.title} url={this.props.thisUrl} container={this.shareDiv}>
 								<a href="#" onClick={event => event.preventDefault()} className="btn btn-sm btn-info shadow-sm" target="_blank">
 									<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
 								</a>

@@ -1,4 +1,6 @@
 
+import React, { Component, useState, useRef } from 'react';
+
 import { logEvent } from '../lib/analytics.js'
 
 import Popover from 'react-bootstrap/Popover'
@@ -24,8 +26,7 @@ import {
 
 
 export default function SharePopover(props) {
-	
-	
+		
 	const popover = (
 	  <Popover id="popover-share">
 		<Popover.Title as="h3">Share Options</Popover.Title>
@@ -52,5 +53,6 @@ export default function SharePopover(props) {
 	  </Popover>
 	);
 	
-	return <OverlayTrigger trigger="click" placement="left" overlay={popover}>{props.children}</OverlayTrigger>
+	return <OverlayTrigger trigger="click" placement="left" overlay={popover} container={props.container}>{props.children}</OverlayTrigger>
+
 }

@@ -31,6 +31,8 @@ export default class Page extends Component {
 		this.handleResize = this.handleResize.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
+		
+		this.shareDiv = React.createRef();
 	}
 	
 	handleResize(windowWidth) {
@@ -85,9 +87,9 @@ export default class Page extends Component {
 			<Layout title="Trending" page="/trending" viruses={this.state.viruses} updateViruses={this.updateViruses} handleResize={this.handleResize}>
 		
 				{/* Page Heading */}
-				<div className="flex align-items-center justify-content-between mb-4 titlepadding">
+				<div className="flex align-items-center justify-content-between mb-4 titlepadding" ref={this.shareDiv} style={{position:"relative"}}>
 					<h1 className="h3 mb-0 text-gray-800">Trending</h1>
-					<SharePopover title="Check out the latest trending coronavirus research articles at CoronaCentral!" url="https://coronacentral.ai/trending">
+					<SharePopover title="Check out the latest trending coronavirus research articles at CoronaCentral!" url="https://coronacentral.ai/trending" container={this.shareDiv}>
 						<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
 							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
 						</a>

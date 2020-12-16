@@ -61,6 +61,8 @@ export default class Page extends Component {
 		this.updateViruses = this.updateViruses.bind(this);
 		this.downloadJSON = this.downloadJSON.bind(this);
 		this.handleResize = this.handleResize.bind(this);
+		
+		this.shareDiv = React.createRef();
 	}
 	
 	handleResize(windowWidth) {
@@ -191,14 +193,16 @@ export default class Page extends Component {
 			<Layout title={this.props.page_info.name} page={this.props.page_info.page} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
 		
 				{/* Page Heading */}
-				<div className="flex align-items-center justify-content-between mb-4 titlepadding">
+				<div className="flex align-items-center justify-content-between mb-4 titlepadding" ref={this.shareDiv} style={{position:"relative"}}>
 					<h1 className="h3 mb-0 text-gray-800">{this.props.page_info.name}</h1>
 					
-					<SharePopover title={"Check out " + this.props.page_info.name + " research articles at CoronaCentral!"}  url={"https://coronacentral.ai/" + this.props.page_info.page}>
-						<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
-							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
-						</a>
-					</SharePopover>
+					<div>
+						<SharePopover title={"Check out " + this.props.page_info.name + " research articles at CoronaCentral!"}  url={"https://coronacentral.ai/" + this.props.page_info.page} container={this.shareDiv}>
+							<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
+								<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
+							</a>
+						</SharePopover>
+					</div>
 				</div>
 				
 				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">

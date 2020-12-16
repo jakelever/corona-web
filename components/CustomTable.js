@@ -67,6 +67,8 @@ export default class CustomTable extends Component {
 			ranges: {}
 			}
 		
+		this.anchorDiv = React.createRef();
+		
 		this.closeFlagModal = this.closeFlagModal.bind(this);
 		this.showFlagModal = this.showFlagModal.bind(this);
 		this.closeColumnSelector = this.closeColumnSelector.bind(this);
@@ -145,7 +147,7 @@ export default class CustomTable extends Component {
 				}
 								
 				
-				const share = <SharePopover title={row.title} url={urlToPage}><a className="flagtime" href="#" onClick={event => event.preventDefault()}><FontAwesomeIcon icon={faShareAlt} size="lg" /></a></SharePopover>
+				const share = <SharePopover title={row.title} url={urlToPage} container={this.anchorDiv}><a className="flagtime" href="#" onClick={event => event.preventDefault()}><FontAwesomeIcon icon={faShareAlt} size="lg" /></a></SharePopover>
 				
 				return <div className="tour-tablebuttons"><p>{linkDoc}</p><p>{flag}</p><p>{share}</p></div>
 			}
@@ -464,7 +466,7 @@ export default class CustomTable extends Component {
 							</div>
 						</div>
 					</div>
-					<div className="card-body-table">
+					<div className="card-body-table" ref={this.anchorDiv} style={{position:"relative"}}>
 						{table}
 						{modal}
 						{columnSelector}
