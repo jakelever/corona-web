@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 	}
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }) {	
 	var identifiers
 	if (params.identifiers.length >= 3 && params.identifiers[0] == 'doi') {
 		identifiers = { 'doi': params.identifiers.slice(1).join('/') }
@@ -44,7 +44,10 @@ export async function getStaticProps({ params }) {
 		identifiers = { 'pubmed_id': params.identifiers[1] }
 	} else if (params.identifiers.length == 2 && params.identifiers[0] == 'cord_uid') {
 		identifiers = { 'cord_uid': params.identifiers[1] }
-	}else {
+	} else if (params.identifiers.length >= 2 && params.identifiers[0] == 'url') {
+		//identifiers = { 'url': params.identifiers[1] }
+		identifiers = { 'url': params.identifiers.slice(1).join('/') }
+	} else {
 		return { props: { fallback_complete: true } }
 	}
 	
