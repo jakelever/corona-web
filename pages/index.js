@@ -514,6 +514,10 @@ export async function getStaticProps({ params }) {
 	}
 }
 
+function trimStringToLength(s, max_length) {
+	return s.length > max_length ? s.substring(0, max_length - 3) + "..." : s
+}
+
 export default class Home extends Component {
 	constructor(props) {
 		super(props)
@@ -697,6 +701,7 @@ export default class Home extends Component {
 		const numberToShow_col6 = decideBarchartCountUsingWidth(this.state.col6Width)
 		const numberToShow_col9 = decideBarchartCountUsingWidth(this.state.col9Width)
 		//const numberToShow_col12 = decideBarchartCountUsingWidth(this.state.col12Width)
+		
 		
 		const journalChartData = {
 				labels:this.props.journalCounts.map(c => c.name).slice(0,numberToShow_col9),
@@ -947,8 +952,8 @@ export default class Home extends Component {
 						</div>
 					</div>
 				</div>
-
 				
+								
 				<div className="row tour-sources">
 
 					
@@ -967,12 +972,17 @@ export default class Home extends Component {
 											maintainAspectRatio: false,
 											legend: { display: false }, 
 											scales: { 
-												xAxes: [{ticks: { autoSkip: false }}],
+												xAxes: [
+													{ ticks: { 
+														autoSkip: false ,
+														callback: function(value) {
+															return trimStringToLength(value,40)
+														}
+													}}],
 												yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
 											} 
 										}}
 										
-									responsive
 									/>
 								
 							
@@ -982,7 +992,7 @@ export default class Home extends Component {
 					
 					<div className="col-md-3">
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
-							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between titlepadding">
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">Research Source</h6>
 								
 							</div>
