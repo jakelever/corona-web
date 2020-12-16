@@ -540,7 +540,6 @@ export default class Home extends Component {
 		
 		this.panelCol6 = React.createRef();
 		this.panelCol9 = React.createRef();
-		this.panelCol12 = React.createRef();
 	}
 	
 	startTour() {
@@ -565,8 +564,6 @@ export default class Home extends Component {
 			updatedWidths['col6Width'] = this.panelCol6.current.offsetWidth
 		if (this.panelCol9.current != null && !isNaN(this.panelCol9.current.offsetWidth))
 			updatedWidths['col9Width'] = this.panelCol9.current.offsetWidth
-		if (this.panelCol12.current != null && !isNaN(this.panelCol12.current.offsetWidth))
-			updatedWidths['col12Width'] = this.panelCol12.current.offsetWidth
 		
 		this.setState(updatedWidths)
 	}
@@ -700,7 +697,6 @@ export default class Home extends Component {
 		
 		const numberToShow_col6 = decideBarchartCountUsingWidth(this.state.col6Width)
 		const numberToShow_col9 = decideBarchartCountUsingWidth(this.state.col9Width)
-		//const numberToShow_col12 = decideBarchartCountUsingWidth(this.state.col12Width)
 		
 		
 		const journalChartData = {
