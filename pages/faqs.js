@@ -37,7 +37,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: What machine learning methods are used in this resource?</b></p>
-								<p>A: We use supervised machine learning to identify the categories of the papers. A set of papers has been annotated with relevant categories and used as training data for a system that uses the text of the title and abstract to make predictions. This is complemented with heuristics to identify specific categories, e.g. clinical trial registration numbers.</p>
+								<p>A: We use a deep learning (BERT-based) supervised machine learning to identify the categories of the papers. A set of papers has been annotated with relevant categories and used as training data for a system that uses the text of the title and abstract to make predictions. This is complemented with heuristics to identify specific categories, e.g. clinical trial registration numbers.</p>
 							</div>
 							
 							<hr />
