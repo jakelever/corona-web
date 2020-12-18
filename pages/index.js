@@ -93,12 +93,12 @@ async function getPreprintCounts() {
 	
 	var counts = await db.query(escape`
 
-	SELECT INSTR(LOWER(d.journal),'rxiv')>0 as preprint, COUNT(*) as count
+	SELECT d.is_preprint, COUNT(*) as count
 	FROM documents d, annotations a
 	WHERE d.document_id = a.document_id
 	AND a.entity_id = ${researchID}
-	GROUP BY preprint
-    ORDER BY preprint
+	GROUP BY d.is_preprint
+    ORDER BY d.is_preprint
 
 	`)
 	counts = counts.map(r => Object.assign({},r))

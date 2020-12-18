@@ -5152,8 +5152,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color: #cccccc;
+  border-color: #cccccc;
 }
 
 .list-group-horizontal {

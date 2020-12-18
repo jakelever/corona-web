@@ -27,7 +27,7 @@ export default class ColumnSelector extends Component {
 		
 		this.entityTypes = [...new Set(this.props.data.map( doc => doc.entities.map( e => e.type) ).flat())].sort()
 		
-		this.topChoices = ['Virus','category','journal','publish_timestamp','altmetric_score_1day','altmetric_score']
+		this.topChoices = ['Virus','category','journal','is_preprint','publish_timestamp','altmetric_score_1day','altmetric_score']
 		this.otherChoices = this.entityTypes.filter(et => !this.topChoices.includes(et))
 		
 		this.state = {
@@ -125,8 +125,8 @@ export default class ColumnSelector extends Component {
 			var styling = {padding:"0.3em"}
 			if (isRightPanel) {
 				styling['color'] = "#FFFFFF"
-				styling['backgroundColor'] = "#aaaaaa"
-				styling['borderColor'] = "#aaaaaa"
+				styling['backgroundColor'] = "#888888"
+				styling['borderColor'] = "#888888"
 			}
 			// b01515
 			// (isRightPanel || isActive) ? "columnchevron-selected" : "columnchevron"
