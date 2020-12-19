@@ -179,11 +179,10 @@ export default class ColumnSelector extends Component {
 			const renderDate = (timestamp => {
 											var a = new Date(timestamp);
 											var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-											var year = a.getFullYear();
-											var month = months[a.getMonth()];
-											var day = a.getDate()
-											//return day + " " + month + " " + year
-											return a.toISOString().slice(0,10)
+											var year = a.getUTCFullYear();
+											var month = months[a.getUTCMonth()];
+											var day = a.getUTCDate()
+											return day + " " + month + " " + year
 										})
 			
 			if (fieldValues.length <= 1) {
