@@ -124,7 +124,7 @@ export default class CustomTable extends Component {
 	getColumnMetadata(column) {
 		var metadata
 		
-		const nonEntities = ['journal','title','publish_timestamp','flagandlink','altmetric_score_1day','altmetric_score']
+		const nonEntities = ['journal','title','publish_timestamp','flagandlink','altmetric_score_1day','altmetric_score','is_preprint']
 		
 		const isEntity = !nonEntities.includes(column)
 		
