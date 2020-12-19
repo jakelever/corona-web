@@ -173,25 +173,10 @@ export default class ColumnSelector extends Component {
 		if (sliderFields.includes(this.state.rightPanel)) {
 			const fieldName = this.state.rightPanel
 			const isPublishTimestamp = (fieldName == 'publish_timestamp')
-			//const minDate = + new Date(2010,10,1)
-			const minVal = Math.min(... filteredData.map( doc => doc[fieldName] ) )
 			
-			const rightNow = new Date(Date.now())
-			const startOfDay = (new Date(rightNow.getFullYear(), rightNow.getMonth(), rightNow.getDate())).valueOf()
-			const maxVal = isPublishTimestamp ? startOfDay : Math.max(... filteredData.map( doc => doc[fieldName] ) )
+			const fieldValues = [... new Set(filteredData.map(doc => doc[fieldName]))].sort((a,b) => a - b)
 			
-			if (filteredData.length == 0 || minVal == maxVal) {
-				rightPanelChoices = <Slider 
-										disabled={true}
-										min={1}
-										max={9}
-										values={[5]}
-										onChange={values => this.updateRange(fieldName,values)}
-										renderLabel={label => "Nothing to filter"}
-										/>
-			} else {
-				//const maxDate = Math.max(... filteredData.map( doc => doc.publish_timestamp ) )
-				const renderDate = (timestamp => {
+			const renderDate = (timestamp => {
 											var a = new Date(timestamp);
 											var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 											var year = a.getFullYear();
@@ -199,16 +184,30 @@ export default class ColumnSelector extends Component {
 											var day = a.getDate()
 											return day + " " + month + " " + year
 										})
+			
+			if (fieldValues.length <= 1) {
+				rightPanelChoices = <Slider 
+										disabled={true}
+										data={[3,5,7]}
+										values={[5]}
+										onChange={values => this.updateRange(fieldName,values)}
+										renderLabel={label => "Nothing to filter"}
+										/>
+			} else {
+				
+				const minVal = Math.min(... fieldValues)
+				const maxVal = Math.max(... fieldValues)
 				
 				rightPanelChoices = <Slider 
 										disabled={false}
-										min={minVal}
-										max={maxVal}
+										data={fieldValues}
 										values={ fieldName in this.props.ranges ? this.props.ranges[fieldName] : [ minVal, maxVal ] }
-										onChange={values => this.updateRange(fieldName,values)}
+										onChange={([minVal,maxVal]) => this.updateRange(fieldName,[minVal,maxVal])}
 										renderLabel={isPublishTimestamp ? renderDate : ( label => label )}
 										/>
+										
 			}
+			
 		} else if (this.entityTypes.includes(this.state.rightPanel)) {
 			const filter = this.state.rightPanel
 			const filteredEntities = filteredData.map( doc => doc.entities.filter( e => e.type==filter && e.name ).map(e => e.name ) ).flat()

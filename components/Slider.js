@@ -10,6 +10,37 @@ class LabeledTwoThumbs extends React.Component {
 	// colors: ['#ccc', '#548BF4', '#ccc'],
 	// values => this.setState({ values })
 	render() {
+		const dataMin = Math.min(... this.props.data)
+		const dataMax = Math.max(... this.props.data)
+			
+		const splitCount = Math.min(50, this.props.data.length)
+		
+		var sampledData
+		if (splitCount == this.props.data.length)
+			sampledData = this.props.data
+		else
+			sampledData = [...Array(splitCount).keys()].map( i => this.props.data[Math.round((this.props.data.length-1)*i/(splitCount-1))])
+			
+		const valToSplit = val => {
+			return val > dataMax ? sampledData.length-1 : sampledData.findIndex(e => e >= val)
+		}
+		
+		const valuesAsSplits = this.props.values.map( v => valToSplit(v) )
+		
+		/*console.log('------------------------------')
+		console.log('dataMin:',dataMin)
+		console.log('dataMax:',dataMax)
+		console.log('splitCount:',splitCount)
+		console.log('sampledData:',sampledData)
+		console.log('this.props.values:',this.props.values)
+		console.log('valuesAsSplits:',valuesAsSplits)*/
+		
+		const onChange = ([min,max]) => {
+			if (this.props.onChange)
+				this.props.onChange([sampledData[min],sampledData[max]])
+		}
+	
+		
 		return (
 			<div
 				style={{
@@ -22,11 +53,11 @@ class LabeledTwoThumbs extends React.Component {
 			>
 				<Range
 					disabled={this.props.disabled}
-					values={this.props.values}
-					step={Math.round((this.props.max-this.props.min)/100)}
-					min={this.props.min}
-					max={this.props.max}
-					onChange={this.props.onChange}
+					values={valuesAsSplits}
+					step={1}
+					min={0}
+					max={splitCount-1}
+					onChange={onChange}
 					renderTrack={({ props, children, disabled }) => (
 						<div
 							onMouseDown={props.onMouseDown}
@@ -45,10 +76,10 @@ class LabeledTwoThumbs extends React.Component {
 									width: '100%',
 									borderRadius: '4px',
 									background: getTrackBackground({
-										values: this.props.values,
+										values: valuesAsSplits,
 										colors: disabled ? ['#ccc', '#ccc'] : ['#ccc', '#548BF4', '#ccc'],
-										min: this.props.min,
-										max: this.props.max
+										min: 0,
+										max: splitCount-1
 									}),
 									alignSelf: 'center'
 								}}
@@ -86,7 +117,7 @@ class LabeledTwoThumbs extends React.Component {
 									textAlign: "center"
 								}}
 							>
-							{'renderLabel' in this.props ? this.props.renderLabel(this.props.values[index]) : this.props.values[index].toFixed(1)}
+							{'renderLabel' in this.props ? this.props.renderLabel(this.props.values[index]) : this.props.values[index].toFixed(0)}
 							</div>
 							<div
 								style={{
