@@ -1,32 +1,31 @@
-# Corona Web Viewer
+# CoronaCentral Web Viewer
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) website for CoronaCentral. The text mining and machine learning pipeline is kept in a [separate Github repo](https://github.com/jakelever/corona-ml).
 
-## Getting Started
+## Setup
 
-First, run the development server:
+To run this project, you'll need to set up a local MariaDB database with CoronaCentral documents. The scripts to do this are in the ML repo [database/](https://github.com/jakelever/corona-ml/tree/master/database) directory. You will then need to set the environmental variable JAWSDB_URL as below and replace username, password, hostname and database name accordingly. You can store this in a `.env.local` file.
+
+```bash
+JAWSDB_URL=mysql://username:password@hostname/databasename
+```
+
+## Running It
+
+To run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+To build and run the production server:
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+The [pokeWebsite.py](https://github.com/jakelever/corona-ml/blob/master/pokeWebsite.py) script in the ML repo can be used to get the website to build the important category pages.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
