@@ -182,7 +182,8 @@ export default class ColumnSelector extends Component {
 											var year = a.getFullYear();
 											var month = months[a.getMonth()];
 											var day = a.getDate()
-											return day + " " + month + " " + year
+											//return day + " " + month + " " + year
+											return a.toISOString().slice(0,10)
 										})
 			
 			if (fieldValues.length <= 1) {
