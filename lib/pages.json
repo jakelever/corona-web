@@ -222,7 +222,7 @@
 		"name": "Medical Devices",
 		"page": "medicaldevices",
 		"group": "Treatment",
-		"description": "Medical devices used to treat the virus"
+		"description": "Research investigating medical devices used to treat the virus"
 	},
 	
 	
@@ -295,7 +295,7 @@
 		"name": "CDC Weekly Reports",
 		"page": "cdcweeklyreports",
 		"group": "Other Articles",
-		"description": "CDC Weekly Reports that provide a summary of latest information about the pandemic"
+		"description": "CDC Weekly Reports that provide a summary of the latest information about the pandemic"
 	},
 	{
 		"name": "Book Chapters",
