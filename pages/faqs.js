@@ -78,8 +78,28 @@ export default class FAQs extends Component {
 							<hr />
 							
 							<div>
+								<p><b>Q: Where can I get more details?</b></p>
+								<p>A: There is now a preprint available at <a href="https://doi.org/10.1101/2020.12.21.423860">bioRxiv</a>. The code for the analysis also available at <a href="https://github.com/jakelever/corona-ml">https://github.com/jakelever/corona-ml</a>.</p>
+							</div>
+							
+							<hr />
+							
+							<div>
 								<p><b>Q: How do I cite this research?</b></p>
-								<p>A: There is currently a paper in preparation. Please cite that when it becomes available.</p>
+								<p>A: Please cite the preprint at <a href="https://doi.org/10.1101/2020.12.21.423860">bioRxiv</a>. Below is some Bibtex if that's helpful.
+								</p>
+								<div style={{backgroundColor:"#eeeeee"}}>
+									<pre>
+@article {'{'}coronacentral,{'\n'}
+{'   '}author = {'{'}Lever, Jake and Altman, Russ B{'}'},{'\n'}
+{'   '}title = {'{'}Analyzing the vast coronavirus literature with {'{'}C{'}'}orona{'{'}C{'}'}entral{'}'},{'\n'}
+{'   '}year = {'{'}2020{'}'},{'\n'}
+{'   '}doi = {'{'}10.1101/2020.12.21.423860{'}'},{'\n'}
+{'   '}publisher = {'{'}Cold Spring Harbor Laboratory{'}'},{'\n'}
+{'   '}journal = {'{'}bioRxiv{'}'}{'\n'}
+{'}'}{'\n'}
+									</pre>
+								</div>
 							</div>
 							
 							<hr />
@@ -94,7 +114,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: What other projects and resources does this website rely upon?</b></p>
-								<p>A: This website is built using <a href="https://nextjs.org/" target="_blank">NextJS</a> and uses the <a href="https://startbootstrap.com/themes/sb-admin-2/" target="_blank">SB Admin 2</a> MIT-licensed <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> template. This website makes use of FontAwesome assets under a <a href="https://fontawesome.com/license" target="_blank">Creative Commons Attribution 4.0 International license</a>. It uses <a href="https://www.chartjs.org/" target="_blank">ChartJS</a> with <a href="https://github.com/jerairrest/react-chartjs-2" target="_blank">react-chartjs-2</a> to render charts. It uses <a href="https://github.com/jbetancur/react-data-table-component" target="_blank">React Data Table</a> for interactive tables. It also uses <a href="https://leafletjs.com/" target="_blank">Leaflet</a> with <a href="https://react-leaflet.js.org/" target="_blank">React Leaflet</a> to render maps from <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>. </p>
+								<p>A: This website is built using <a href="https://nextjs.org/" target="_blank">NextJS</a> and uses the <a href="https://startbootstrap.com/themes/sb-admin-2/" target="_blank">SB Admin 2</a> MIT-licensed <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> template. This website makes use of FontAwesome assets under a <a href="https://fontawesome.com/license" target="_blank">Creative Commons Attribution 4.0 International license</a>. It uses <a href="https://www.chartjs.org/" target="_blank">ChartJS</a> with <a href="https://github.com/jerairrest/react-chartjs-2" target="_blank">react-chartjs-2</a> to render charts. It uses <a href="https://github.com/jbetancur/react-data-table-component" target="_blank">React Data Table</a> for interactive tables. It also uses <a href="https://leafletjs.com/" target="_blank">Leaflet</a> with <a href="https://react-leaflet.js.org/" target="_blank">React Leaflet</a> to render maps from <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>. The code for the website also available at <a href="https://github.com/jakelever/corona-web">https://github.com/jakelever/corona-web</a>.</p>
 							</div>
 							
 							
