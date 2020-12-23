@@ -183,50 +183,29 @@ async function getCategoryCountsByVirus() {
 	
 	counts = counts.map(r => Object.assign({},r))
 	
-	const categories = [...new Set(counts.map(c => c.category))].sort();
-	const viruses = [...new Set(counts.map(c => c.virus))].sort();
+	const viruses = ['MERS-CoV','SARS-CoV','SARS-CoV-2']
 	
-	var categoryCounts = {}
-	categories.forEach( (t,i) => {categoryCounts[t] = 0} )
-	counts.forEach( count => {
-		categoryCounts[count.category] += count.count
+	var wide_data = {}
+	
+	counts.forEach( row => {
+		const v = row['virus']
+		const category = row['category']
+		const count = row['count']
+		
+		if (category == 'Research')
+			return
+		
+		if (! (category in wide_data)) {
+			wide_data[category] = {'category':category,'MERS-CoV':0,'SARS-CoV':0,'SARS-CoV-2':0}
+		}
+		
+		wide_data[category][v] = count
 	})
 	
-	var sortable = [];
-	for (var category in categoryCounts) {
-		sortable.push([category, categoryCounts[category]]);
-	}
+	const result = Object.values(wide_data)
 	
-	sortable.sort(function(a, b) {
-		return b[1] - a[1];
-	});
+	return result
 	
-	const sortedCategories = sortable.map( s => s[0] ).filter( t => t!='Research' )
-	
-	var categoryMap = {}
-	sortedCategories.forEach( (t,i) => {categoryMap[t] = i} )
-	
-	var data = {}
-	viruses.forEach(v => {
-		data[v] = categories.map(t => 0)
-	})
-	
-	counts.forEach( count => {
-		data[count.virus][categoryMap[count.category]] = count.count
-	})
-	
-	
-	
-	
-	const barData = { 'labels':sortedCategories, 'datasets': viruses.map(v => { return { label:v, data:data[v] } } ) }
-	
-	barData.datasets.forEach(dataset => {
-		var rgb = viruscolors[dataset.label]
-		dataset.backgroundColor = "rgba("+rgb+", 0.9)"
-		dataset.borderColor = "rgba("+rgb+", 0.9)"
-	})
-	
-	return barData
 }
 
 async function getSummaryStatistics() {
@@ -700,6 +679,28 @@ export default class Home extends Component {
 		const numberToShow_col6 = decideBarchartCountUsingWidth(this.state.col6Width)
 		const numberToShow_col9 = decideBarchartCountUsingWidth(this.state.col9Width)
 		
+		const selected_viruses = this.state.viruses.length == 0 ? ['SARS-CoV-2','MERS-CoV','SARS-CoV'] : this.state.viruses
+		this.props.categoryCounts.forEach( row => {			
+			row['total'] = ( selected_viruses.includes('SARS-CoV-2') ? row['SARS-CoV-2'] : 0 ) +
+				( selected_viruses.includes('MERS-CoV') ? row['MERS-CoV'] : 0 ) +
+				( selected_viruses.includes('SARS-CoV') ? row['SARS-CoV'] : 0 )
+				
+		})
+		
+		const sortedCategoryCounts = this.props.categoryCounts.sort( (a,b) => b['total']-a['total'] )
+		
+		const categoryPlotDatasets = selected_viruses.map( v => {
+			var dataset = {'label':v, 'data':sortedCategoryCounts.map( c => c[v] )}
+			var rgb = viruscolors[v]
+			dataset.backgroundColor = "rgba("+rgb+", 0.9)"
+			dataset.borderColor = "rgba("+rgb+", 0.9)"
+			return dataset
+		} )
+		
+		const categoryPlotData = {
+							  labels:sortedCategoryCounts.map( c => c['category'] ),
+							  datasets:categoryPlotDatasets
+						  }
 		
 		const journalChartData = {
 				labels:this.props.journalCounts.map(c => c.name).slice(0,numberToShow_col9),
@@ -845,16 +846,13 @@ export default class Home extends Component {
 							<div className="card-body">
 
 								<Bar
-						  data={{
-							  labels:this.props.categoryCounts.labels,
-							  datasets:this.props.categoryCounts.datasets.filter(ds => this.state.viruses.length == 0 || this.state.viruses.includes(ds.label))
-						  }}
+						  data={categoryPlotData}
 						  options={{ 
-						    maintainAspectRatio: false,
+						    maintainAspectRatio: true,
 							legend: { display: true }, 
 							scales: { 
 								xAxes: [{ stacked:true, ticks: { autoSkip: false }}],
-								yAxes: [{ scaleLabel: { display: true, labelString: '# of papers' } }] 
+								yAxes: [{ stacked:true, scaleLabel: { display: true, labelString: '# of papers' } }] 
 								} 
 							}}
 						/>
