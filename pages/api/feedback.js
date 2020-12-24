@@ -37,14 +37,17 @@ export default async function handler(req, res) {
 		res.end('recaptcha failed')
 		return
 	}
-
+	
 	var transporter = nodemailer.createTransport({
-	  service: 'gmail',
+	  host: "smtp-relay.sendinblue.com",
+	  port: 587,
+	  secure: false,
 	  auth: {
 		user: emailAddress,
 		pass: emailPassword
 	  }
-	})
+	});
+
 	
 	delete req.body.recaptcha
 
