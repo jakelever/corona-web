@@ -1,6 +1,3 @@
-import queryString from 'query-string'
-import url from 'url'
-
 import nodemailer from 'nodemailer'
 
 const emailSettings = process.env.EMAIL
