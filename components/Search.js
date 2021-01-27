@@ -43,8 +43,8 @@ export default class Search extends Component {
 			const entity_type = selected[0].type
 			
 			if (entity_type == 'search') {
-				url = "/search?q=" + this.state.input
-				Router.push("/search",url)
+				url = "/search/" + this.state.input
+				Router.push("/search/[...query]",url)
 			} else if (entity_type == 'category' && entity_name in this.pageMapping) {
 				const url = "/" + this.pageMapping[entity_name]
 				Router.push("/[id]",url)
@@ -157,8 +157,8 @@ export default class Search extends Component {
 						if (event.key == 'Enter' && this.state.input) {
 							//console.log(this.state.input)
 							
-							const url = "/search?q=" + this.state.input
-							Router.push("/search",url)
+							const url = "/search/" + this.state.input
+							Router.push("/search/[...query]",url)
 						}
 					}}
 					
@@ -167,8 +167,8 @@ export default class Search extends Component {
 				<div className="input-group-append">
 					<button className="btn btn-primary" type="button" onClick={ event => {
 						if (this.state.input) {
-							const url = "/search?q=" + this.state.input
-							Router.push("/search",url)
+							const url = "/search/" + this.state.input
+							Router.push("/search/[...query]",url)
 						}
 					}}>
 						<FontAwesomeIcon icon={faSearch} />
