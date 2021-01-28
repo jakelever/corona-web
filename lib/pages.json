@@ -101,6 +101,7 @@
 	{
 		"name": "Medical Specialties",
 		"page": "medicalspecialties",
+		"altname": "Effect on Medical Specialties",
 		"group": "Clinical",
 		"description": "Research examining the effect on and mitigations required by different medicial specialties",
 		"extra_table_columns": [
@@ -277,6 +278,8 @@
 	{
 		"name": "Reviews",
 		"page": "reviews",
+		"altname": "Review",
+		"show_nonresearch": true,
 		"icon": "faPenFancy",
 		"group": "Other Articles",
 		"description": "Review articles focussing on a variety of topics related to the virus"
@@ -284,6 +287,8 @@
 	{
 		"name": "Comments & Editorials",
 		"page": "comments_editorials",
+		"altname": "Comment/Editorial",
+		"show_nonresearch": true,
 		"group": "Other Articles",
 		"description": "Commentary, editorials and other short articles that are not original research",
 		"extra_table_columns": [
@@ -294,12 +299,16 @@
 	{
 		"name": "CDC Weekly Reports",
 		"page": "cdcweeklyreports",
+		"altname": "CDC Weekly Report",
+		"show_nonresearch": true,
 		"group": "Other Articles",
 		"description": "CDC Weekly Reports that provide a summary of the latest information about the pandemic"
 	},
 	{
 		"name": "Book Chapters",
 		"page": "bookchapters",
+		"altname": "Book Chapter",
+		"show_nonresearch": true,
 		"group": "Other Articles",
 		"description": "Book chapters that provide reviews or research on coronaviruses"
 	},
@@ -307,6 +316,7 @@
 	{
 		"name": "News",
 		"page": "news",
+		"show_nonresearch": true,
 		"group": "Other Articles",
 		"description": "News articles from academic journals and other sources indexed by PubMed or CORD-19"
 	},
@@ -321,6 +331,8 @@
 	{
 		"name": "Retractions",
 		"page": "retractions",
+		"altname": "Retracted",
+		"show_nonresearch": true,
 		"group": "Other Articles",
 		"description": "Articles that have been withdrawn by the authors or the journal"
 	},

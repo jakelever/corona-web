@@ -213,6 +213,7 @@ export default class CustomTable extends Component {
 			var pageMapping = {}
 			if (entity_type == 'category') {
 				pages.forEach(p => {pageMapping[p.name] = p.page})
+				pages.filter(p => 'altname' in p).forEach(p => {pageMapping[p.altname] = p.page})
 			}
 			
 			metadata = {

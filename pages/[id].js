@@ -35,7 +35,7 @@ export async function getStaticProps({ params }) {
 	
 	const page_info = matching_pages[0];
 	
-	const tabledata = await getTableData(page_info.name)
+	const tabledata = await getTableData(page_info)
 	
 	const chartdata = 'chart_entity' in page_info ? await getChartDataByVirusInCategory(page_info.name,page_info.chart_entity,30) : null
 	
