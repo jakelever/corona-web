@@ -40,7 +40,7 @@ class Layout extends Component {
 		Router.onRouteChangeError = (err, url) => {
 			// an error occurred.
 			// some error logic
-			this.setState({loading: false, error:true})
+			//this.setState({loading: false, error:true})
 		};
 		
 		this.handleResize = this.handleResize.bind(this);
