@@ -6,6 +6,7 @@ import MyToolTip from './MyToolTip'
 import Link from 'next/link'
 
 import pages from '../lib/pages.json'
+import entitypages from '../lib/entitypages.json'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faViruses } from '@fortawesome/free-solid-svg-icons'
@@ -33,6 +34,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
 import { faLandmark } from '@fortawesome/free-solid-svg-icons'
+import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 /*function toggleSidebar(event) {
@@ -51,7 +53,8 @@ export default class Sidebar extends Component {
 		super(props) //since we are extending className Table so we have to use super in order to override Component className constructor
 		
 		this.groups = Array.from(new Set(pages.map(p => p.group)))
-		var collapseOpen = {}
+		
+		var collapseOpen = {'entities':false}
 		this.groups.forEach(g => { collapseOpen[g] = false } )
 		
 		this.state = { 
@@ -64,7 +67,7 @@ export default class Sidebar extends Component {
 	}
 	
 	toggleGroup(g) {
-		var collapseOpen = {}
+		var collapseOpen = {'entities':false}
 		this.groups.forEach(g => { collapseOpen[g] = false } )
 		
 		if (g != null)
@@ -167,6 +170,34 @@ export default class Sidebar extends Component {
 		const showClass = this.props.responsiveShow || this.props.responsiveShow ? "sidebar-responsive-show" : "sidebar-responsive-hide"
 	// 	<Collapse in={this.props.show} dimension="width" className="" timeout={10000}><div style={{padding: 0, margin:0, backgroundColor:"#00FF00"}}>
 		
+		const groupIcon = faCommentAlt
+		const groupOpen = this.state.collapseOpen['entities']
+		const groupArrow = groupOpen ? faAngleDown : faAngleRight
+		const groupActive = false //groupPages.map(p => p.page).includes(this.props.page)
+		const subLinks = entitypages.map( (p,i) => <Link href="/entity/[...type_and_name]" as={`/entity/${p.entity_type}/all`} key={"subentitylink_"+i}><a className={"collapse-item" + (false ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
+		
+		const entitylinks = 
+			<MyToolTip text="Lists of different biomedical entities (e.g. Drugs) mentioned in published articles" container={this.container}>
+			<li className={groupActive ? "nav-item active" : "nav-item"}>
+				<a className="nav-link" href="#" onClick={event => { this.toggleGroup('entities'); event.preventDefault() } } aria-controls="example-collapse-text"
+	aria-expanded={false}>
+					<span className="icon" style={{marginRight: "0.25rem"}}>
+						<FontAwesomeIcon className="sideicon" icon={groupIcon} fixedWidth  />
+					</span>
+					<span> Mentions</span>
+					<div className="arrow" style={{"float":"right"}}>
+						<FontAwesomeIcon icon={groupArrow} fixedWidth  />
+					</div>
+				</a>
+				<Collapse in={groupOpen}>
+					<div className="collapsebox">
+						<div className="bg-white py-2 collapse-inner rounded" style={{backgroundColor:"#FF00FF",wordWrap:"break-word"}} >
+							{subLinks}
+						</div>
+					</div>
+				</Collapse>
+			  </li>
+			  </MyToolTip>
 		
 		return (
 	<ul className={"navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " + showClass} id="accordionSidebar" style={{position:"relative"}} ref={this.container}>
@@ -222,6 +253,10 @@ export default class Sidebar extends Component {
 			{links}
 
 			{/* Divider */}
+			<hr className="sidebar-divider my-0" />
+			
+			{entitylinks}
+			
 			<hr className="sidebar-divider my-0" />
 			
 			<MyToolTip text="A set of frequently asked questions to answer common inquiries about CoronaCentral and the methods used to build it." container={this.container}>

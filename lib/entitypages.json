@@ -1,0 +1,67 @@
+[
+	{
+		"name": "Drugs",
+		"entity_type": "Drug",
+		"description": "List of drugs mentioned in coronavirus articles"
+	},
+	{
+		"name": "Genes or Proteins",
+		"entity_type": "Gene or Protein",
+		"description": "List of genes or proteins mentioned in coronavirus articles"
+	},
+	{
+		"name": "Genetic Variation",
+		"entity_type": "Genetic Variation",
+		"description": "List of virus strains and mutations mentioned in coronavirus articles"
+	},
+	{
+		"name": "Locations",
+		"entity_type": "Location",
+		"description": "List of locations mentioned in coronavirus articles"
+	},
+	{
+		"name": "Medical Specialties",
+		"entity_type": "Medical Specialty",
+		"description": "List of medical specialties mentioned in coronavirus articles"
+	},
+	{
+		"name": "Prevention Methods",
+		"entity_type": "Prevention Method",
+		"description": "List of prevention methods mentioned in coronavirus articles"
+	},
+	{
+		"name": "Risk Factors",
+		"entity_type": "Risk Factor",
+		"description": "List of risk factors mentioned in coronavirus articles"
+	},
+	{
+		"name": "Species",
+		"entity_type": "Species",
+		"description": "List of species mentioned in coronavirus articles"
+	},
+	{
+		"name": "Symptoms",
+		"entity_type": "Symptom",
+		"description": "List of symptoms mentioned in coronavirus articles"
+	},
+	{
+		"name": "Test Types",
+		"entity_type": "Test Type",
+		"description": "List of test types mentioned in coronavirus articles"
+	},
+	{
+		"name": "Transmission Types",
+		"entity_type": "Transmission Type",
+		"description": "List of transmission types mentioned in coronavirus articles"
+	},
+	{
+		"name": "Vaccine Types",
+		"entity_type": "Vaccine Type",
+		"description": "List of vaccine types mentioned in coronavirus articles"
+	},
+	{
+		"name": "Viral Strains",
+		"entity_type": "Viral Strain",
+		"description": "List of viral strains mentioned in coronavirus articles"
+	}
+]
