@@ -56,11 +56,14 @@ export async function getStaticProps({ params }) {
 		tabledata = entity ? await getPapersWithEntity(entity.entity_id) : null
 	}
 	
+	const page_name = "/entity/" + entity_type + "/" + entity_name
+	
 	return {
 		props: {
 			fallback_complete: true,
 			entity_type,
 			entity_name,
+			page_name,
 			page_info,
 			entity,
 			tabledata
@@ -209,7 +212,7 @@ export default class EntityPage extends Component {
 				/>
 		
 		return (
-			<Layout title={this.props.entity_type} page={null} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
+			<Layout title={this.props.entity_type} page={this.props.page_name} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
 			
 		
 				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">

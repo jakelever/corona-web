@@ -170,11 +170,13 @@ export default class Sidebar extends Component {
 		const showClass = this.props.responsiveShow || this.props.responsiveShow ? "sidebar-responsive-show" : "sidebar-responsive-hide"
 	// 	<Collapse in={this.props.show} dimension="width" className="" timeout={10000}><div style={{padding: 0, margin:0, backgroundColor:"#00FF00"}}>
 		
+		const allEntityPages = entitypages.map( (p,i) => `/entity/${p.entity_type}/all` )
 		const groupIcon = faCommentAlt
 		const groupOpen = this.state.collapseOpen['entities']
 		const groupArrow = groupOpen ? faAngleDown : faAngleRight
-		const groupActive = false //groupPages.map(p => p.page).includes(this.props.page)
-		const subLinks = entitypages.map( (p,i) => <Link href="/entity/[...type_and_name]" as={`/entity/${p.entity_type}/all`} key={"subentitylink_"+i}><a className={"collapse-item" + (false ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
+		console.log(this.props.page)
+		const groupActive = allEntityPages.includes(this.props.page)
+		const subLinks = entitypages.map( (p,i) => <Link href="/entity/[...type_and_name]" as={`/entity/${p.entity_type}/all`} key={"subentitylink_"+i}><a className={"collapse-item" + (this.props.page == `/entity/${p.entity_type}/all` ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
 		
 		const entitylinks = 
 			<MyToolTip text="Lists of different biomedical entities (e.g. Drugs) mentioned in published articles" container={this.container}>
