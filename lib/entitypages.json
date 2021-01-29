@@ -60,8 +60,8 @@
 		"description": "List of vaccine types mentioned in coronavirus articles"
 	},
 	{
-		"name": "Viral Strains",
-		"entity_type": "Viral Strain",
-		"description": "List of viral strains mentioned in coronavirus articles"
+		"name": "Viral Lineages",
+		"entity_type": "Viral Lineage",
+		"description": "List of viral lineages mentioned in coronavirus articles"
 	}
 ]

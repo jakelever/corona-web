@@ -19,7 +19,7 @@ import viruscolors from '../lib/viruscolors.json'
 import { getPopularLocations, getJournalCounts, getPreprintCounts } from '../lib/db-index'
 import { getCategoryCountsByVirus, getSummaryStatistics, getVirusByDate } from '../lib/db-index'
 import { getRecentTrendingDocuments } from '../lib/db-index'
-import { getChartDataByVirusInCategory } from '../lib/db-main'
+import { getEntityChartData } from '../lib/db-index'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChessKnight } from '@fortawesome/free-solid-svg-icons'
@@ -149,10 +149,12 @@ export async function getStaticProps({ params }) {
 	
 	var virusDatePlotData = chartifyEntityDateData(virusByDate)
 	
-	const drugData = await getChartDataByVirusInCategory('Therapeutics','Drug',20)
-	const vaccineData = await getChartDataByVirusInCategory('Vaccines','Vaccine Type',20)
-	const riskfactorsData = await getChartDataByVirusInCategory('Risk Factors','Risk Factor',20)
-	const symptomsData = await getChartDataByVirusInCategory('Clinical Reports', 'Symptom',20)
+	const drugData = await getEntityChartData('Drug',20)
+	const vaccineData = await getEntityChartData('Vaccine Type',20)
+	const riskfactorsData = await getEntityChartData('Risk Factor',20)
+	const symptomsData = await getEntityChartData('Symptom',20)
+	const geneticvariationData = await getEntityChartData('Genetic Variation',20)
+	const virallineagesData = await getEntityChartData('Viral Lineage',20)
 	
 	const summaryStatistics = await getSummaryStatistics()
 	
@@ -173,6 +175,8 @@ export async function getStaticProps({ params }) {
 			vaccineData,
 			riskfactorsData,
 			symptomsData,
+			geneticvariationData,
+			virallineagesData,
 			preprintCounts,
 			categoryCounts,
 			popularLocations,
@@ -376,6 +380,8 @@ export default class Home extends Component {
 		const vaccineChart = this.chartifyEntityData(this.props.vaccineData,numberToShow_col6)
 		const riskfactorsChart = this.chartifyEntityData(this.props.riskfactorsData,numberToShow_col6)
 		const symptomsChart = this.chartifyEntityData(this.props.symptomsData,numberToShow_col6)
+		const geneticvariationChart = this.chartifyEntityData(this.props.geneticvariationData,numberToShow_col6)
+		const virallineagesChart = this.chartifyEntityData(this.props.virallineagesData,numberToShow_col6)
 		
 		var locationsToShowByID = {}
 		this.props.popularLocations.filter( loc => this.state.viruses.length == 0 || this.state.viruses.includes(loc.virus)).forEach( loc => {
@@ -684,8 +690,8 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol6}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/[id]" as="/therapeutics">
-										<a>Therapeutics</a>
+									<Link href="/entity/[...type_and_name]" as="/entity/Drug/all">
+										<a>Drugs</a>
 									</Link>
 								</h6>
 								
@@ -702,7 +708,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/[id]" as="/vaccines">
+									<Link href="/entity/[...type_and_name]" as="/entity/Vaccine Type/all">
 										<a>Vaccine Types</a>
 									</Link>
 								</h6>
@@ -730,7 +736,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/[id]" as="/riskfactors">
+									<Link href="/entity/[...type_and_name]" as="/entity/Risk Factor/all">
 										<a>Risk Factors</a>
 									</Link>
 								</h6>
@@ -748,7 +754,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/[id]" as="/clinicalreports">
+									<Link href="/entity/[...type_and_name]" as="/entity/Symptom/all">
 										<a>Symptoms</a>
 									</Link>
 								</h6>
@@ -764,6 +770,53 @@ export default class Home extends Component {
 					
 					
 				</div>
+				
+				
+				
+				<div className="row">
+
+					
+
+					<div className="col-md-6">
+						<div className="card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol6}>
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">
+									<Link href="/entity/[...type_and_name]" as="/entity/Genetic Variation/all">
+										<a>Genetic Variation</a>
+									</Link>
+								</h6>
+								
+							</div>
+							<div className="card-body">
+
+								{geneticvariationChart}
+							
+							</div>
+						</div>
+					</div>
+					
+					<div className="col-md-6">
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">
+									<Link href="/entity/[...type_and_name]" as="/entity/Viral Lineage/all">
+										<a>Viral Lineages</a>
+									</Link>
+								</h6>
+								
+							</div>
+							<div className="card-body">
+
+								{virallineagesChart}
+							
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+				
+				
 				</div>
 
 			</Layout>
