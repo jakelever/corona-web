@@ -149,21 +149,6 @@ export async function getStaticProps({ params }) {
 	
 	var virusDatePlotData = chartifyEntityDateData(virusByDate)
 	
-	/*Object.keys(virusColors).forEach(virusName => {
-		setAreaChartColors(virusDatePlotData, virusName, virusColors[virusName])
-	})
-	
-	reorderDatasets(virusDatePlotData, ['SARS-CoV','MERS-CoV','SARS-CoV-2'])*/
-	
-	/*const virusCounts = await getVirusCounts()
-	var labels = virusCounts.map(v => v.entity_name)
-	var datasets = [{data: virusCounts.map(v => v.count), backgroundColor: virusCounts.map(v => "rgba("+virusColors[v.entity_name]+", 1)") }]
-	
-	var virusCountsPlotData = { 
-		labels: labels,
-		datasets: datasets
-	}*/
-	
 	const drugData = await getChartDataByVirusInCategory('Therapeutics','Drug',20)
 	const vaccineData = await getChartDataByVirusInCategory('Vaccines','Vaccine Type',20)
 	const riskfactorsData = await getChartDataByVirusInCategory('Risk Factors','Risk Factor',20)
@@ -265,8 +250,6 @@ export default class Home extends Component {
 		
 		bardata.datasets.forEach(dataset => {
 			var rgb = viruscolors[dataset.label]
-			//dataset.backgroundColor = "rgba("+rgb+", 0.9)"
-			//dataset.borderColor = "rgba("+rgb+", 0.9)"
 			dataset.backgroundColor = "rgba("+rgb+", 0.9)"
 			dataset.borderColor = "rgba("+rgb+", 0.9)"
 		})
@@ -319,40 +302,19 @@ export default class Home extends Component {
 		viruses.forEach( v => {
 			
 			var color = (this.state.viruses.length == 0 || this.state.viruses.includes(v)) ? "rgba("+viruscolors[v]+",1)" : "#CCCCCC"
-			//var color = "black"
 			
 			const lineoptions = { 
 				maintainAspectRatio: false,
 				legend: false,
 				scales: {
-					xAxes: [{
-						gridLines: {
-							//zeroLineColor: color
-						}
-					}],
 					yAxes: [{
 						scaleLabel: { 
 							display: true, 
 							labelString: '# of papers per month',
-							//fontColor: color
 						},
 						ticks: {
-							//fontColor: color,
 							fontSize: 14
 						}
-						
-						//type: 'logarithmic',
-						/*position: 'left',
-						gridLines: {display: true, borderDash:[100,1000,10000,100000]},
-						ticks: {
-							// Include a dollar sign in the ticks
-							stepSize: 1000,
-							min: 0,
-							max: 10000,
-							callback: function(value, index, values) {
-								return numberWithCommas(value);
-							}
-						}*/
 					}]
 				} 
 			}
@@ -431,12 +393,6 @@ export default class Home extends Component {
 							<Toast.Body><a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>First time here? Click here for a tour</a></Toast.Body>
 						  </Toast>
 		
-		
-				/*<div style={{position: "relative"}} >
-					<div style={{position: "absolute", top: "100%", right: "0%", zIndex: 10}}>
-						{tourToast}
-					</div>
-				</div>*/
 			
 		
 		return (
