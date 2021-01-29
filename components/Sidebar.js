@@ -174,7 +174,6 @@ export default class Sidebar extends Component {
 		const groupIcon = faCommentAlt
 		const groupOpen = this.state.collapseOpen['entities']
 		const groupArrow = groupOpen ? faAngleDown : faAngleRight
-		console.log(this.props.page)
 		const groupActive = allEntityPages.includes(this.props.page)
 		const subLinks = entitypages.map( (p,i) => <Link href="/entity/[...type_and_name]" as={`/entity/${p.entity_type}/all`} key={"subentitylink_"+i}><a className={"collapse-item" + (this.props.page == `/entity/${p.entity_type}/all` ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
 		
