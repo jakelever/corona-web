@@ -8,7 +8,7 @@ import Sidebar from '../components/Sidebar.js'
 import Topbar from '../components/Topbar.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBomb } from '@fortawesome/free-solid-svg-icons'
+import { faBomb, faFrown } from '@fortawesome/free-solid-svg-icons'
 
 import { initGA, logPageView } from '../lib/analytics.js'
 
@@ -121,7 +121,7 @@ class Layout extends Component {
 		if (this.props.error404) {
 			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
 					<div style={{textAlign:"center"}}>
-					<p><FontAwesomeIcon icon={faBomb} style={{fontSize:"5em"}}/></p>
+					<p><FontAwesomeIcon icon={faFrown} style={{fontSize:"5em"}}/></p>
 					<p>404: Page not found</p>
 					</div>
 				</div>
