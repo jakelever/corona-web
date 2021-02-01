@@ -41,8 +41,9 @@ export async function getStaticPaths() {
 	}
 }
 
-export async function getStaticProps({ params }) {
-	const [ entity_type, entity_name ] = params.type_and_name
+export async function getStaticProps({ params }) {	
+	const entity_type = params.type_and_name[0]
+	const entity_name = params.type_and_name.length > 1 ? params.type_and_name.slice(1).join('/') : 'all'
 	
 	var page_info = null
 	var entity = null
