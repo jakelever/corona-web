@@ -40,7 +40,7 @@ const customStyles = {
 		  headCells: {
 			style: {
 			  color: '#202124',
-			  fontSize: '18px',
+			  fontSize: '16px',
 			},
 		  },
 		  pagination: {
@@ -162,17 +162,16 @@ export default class CustomTable extends Component {
 					style: {
 					  paddingTop: '14px',
 					  paddingBottom: '14px'
-					},
-					grow: 1
+					}
 			}
 		} else if (column == 'altmetric_score') {
 			const renderAltmetricBadge = row => {
 				if (row.altmetric_id == -1)
 					return ''
 				
-				const badgeURL = "https://badges.altmetric.com/?size=80&score=" + row.altmetric_score + "&types=" + row.altmetric_badgetype
+				const badgeURL = "https://badges.altmetric.com/?size=64&score=" + row.altmetric_score + "&types=" + row.altmetric_badgetype
 				const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
-				const img = <img src={badgeURL} />
+				const img = <img src={badgeURL} style={{width: "100%"}}/>
 				return <a className="tour-altmetric" href={detailsURL} target="_blank" alt={"Altmetric score of " + row.altmetric_score}>{img}</a>
 			}
 				
@@ -184,7 +183,7 @@ export default class CustomTable extends Component {
 					sortable: true,
 					allowOverflow: true,
 					button: true,
-					grow: 1
+					width: "80px"
 				}
 		} else if (column == 'altmetric_score_1day') {
 			const renderAltmetricScore1Day = row => {
@@ -193,7 +192,7 @@ export default class CustomTable extends Component {
 				
 				const badgeURL = "https://badges.altmetric.com/?size=64&score=" + row.altmetric_score_1day + "&types=" + row.altmetric_badgetype
 				const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
-				const img = <img src={badgeURL} />
+				const img = <img src={badgeURL} style={{width: "100%"}} />
 				return <a href={detailsURL} target="_blank" alt={"Altmetric 1 day score of " + row.altmetric_score_1day}>{img}</a>
 			}
 			
@@ -205,7 +204,7 @@ export default class CustomTable extends Component {
 					sortable: true,
 					allowOverflow: true,
 					button: true,
-					grow: 1
+					width: "80px"
 				}
 		} else if (isEntity) {
 			var entity_type = column
