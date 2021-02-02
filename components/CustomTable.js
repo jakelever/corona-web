@@ -172,7 +172,7 @@ export default class CustomTable extends Component {
 				
 				const badgeURL = "https://badges.altmetric.com/?size=64&score=" + row.altmetric_score + "&types=" + row.altmetric_badgetype
 				const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
-				const img = <img src={badgeURL} style={{width: "100%"}}/>
+				const img = <img src={badgeURL} />
 				return <a className="tour-altmetric" href={detailsURL} target="_blank" alt={"Altmetric score of " + row.altmetric_score}>{img}</a>
 			}
 				
@@ -193,7 +193,7 @@ export default class CustomTable extends Component {
 				
 				const badgeURL = "https://badges.altmetric.com/?size=64&score=" + row.altmetric_score_1day + "&types=" + row.altmetric_badgetype
 				const detailsURL = "http://www.altmetric.com/details.php?citation_id=" + row.altmetric_id
-				const img = <img src={badgeURL} style={{width: "100%"}} />
+				const img = <img src={badgeURL} />
 				return <a href={detailsURL} target="_blank" alt={"Altmetric 1 day score of " + row.altmetric_score_1day}>{img}</a>
 			}
 			
