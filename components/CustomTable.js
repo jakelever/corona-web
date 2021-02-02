@@ -47,7 +47,7 @@ const customStyles = {
 			style: {
 			  border: 'none',
 			},
-		  },
+		  }
 		}
 
 export default class CustomTable extends Component {
@@ -221,9 +221,9 @@ export default class CustomTable extends Component {
 				sortable: false,
 				//width: '10%',
 				style: {
-				  fontSize: '16px',
-				  paddingLeft: '8px',
-				  paddingRight: '8px',
+				  fontSize: '15px',
+				  paddingLeft: '4px',
+				  paddingRight: '4px',
 				  paddingTop: '16px',
 				  paddingBottom: '16px'
 				},
@@ -252,9 +252,9 @@ export default class CustomTable extends Component {
 				selector: "publish_year",
 				sortable: true,
 				style: {
-				  fontSize: '16px',
-				  paddingLeft: '8px',
-				  paddingRight: '8px',
+				  fontSize: '15px',
+				  paddingLeft: '4px',
+				  paddingRight: '4px',
 				  paddingTop: '16px',
 				  paddingBottom: '16px'
 				},
@@ -294,9 +294,9 @@ export default class CustomTable extends Component {
 				selector: column,
 				sortable: true,
 				style: {
-				  fontSize: '16px',
-				  paddingLeft: '8px',
-				  paddingRight: '8px',
+				  fontSize: '15px',
+				  paddingLeft: '4px',
+				  paddingRight: '4px',
 				  paddingTop: '16px',
 				  paddingBottom: '16px'
 				},
