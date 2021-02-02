@@ -159,6 +159,7 @@ export default class CustomTable extends Component {
 					allowOverflow: true,
 					button: true,
 					hide: "sm",
+					width: "50px",
 					style: {
 					  paddingTop: '14px',
 					  paddingBottom: '14px'
@@ -231,7 +232,7 @@ export default class CustomTable extends Component {
 				cell: row => {
 					var entities; 
 					if (entity_type == 'category') {
-						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i}>{e.name}</a></Link> )
+						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i}>{e.name.replace('/',' / ')}</a></Link> )
 					} else if (entity_type == 'Virus') {
 						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => e.name )
 					} else {
