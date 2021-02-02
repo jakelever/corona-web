@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Router from 'next/router'
 
 import Layout from '../components/Layout.js'
 import CustomTable from '../components/CustomTable.js'
@@ -241,7 +242,7 @@ export default class Home extends Component {
 		this.setState(updatedWidths)
 	}
 	
-	chartifyEntityData(chartdata,numberToShow) {
+	chartifyEntityData(entitytype,chartdata,numberToShow) {
 		var virus_text = this.state.viruses.join(',')
 			
 		var chosenData = chartdata[virus_text]
@@ -281,6 +282,13 @@ export default class Home extends Component {
 						data={bardata}
 						options={baroptions}
 						responsive
+						onElementsClick={elems => {
+								if (elems.length > 0) {
+									const index = elems[0]._index
+									const label = bardata.labels[index]
+									Router.push("/entity/[...type_and_name]",'/entity/' + entitytype +  '/' + label)
+								}
+							}}
 					/>)
 				
 		return barChart
@@ -376,12 +384,12 @@ export default class Home extends Component {
 				datasets:[{data:this.props.journalCounts.map(c => c.count).slice(0,numberToShow_col9),backgroundColor:'#fbb4ae'}]
 				}
 				
-		const drugChart = this.chartifyEntityData(this.props.drugData,numberToShow_col6)
-		const vaccineChart = this.chartifyEntityData(this.props.vaccineData,numberToShow_col6)
-		const riskfactorsChart = this.chartifyEntityData(this.props.riskfactorsData,numberToShow_col6)
-		const symptomsChart = this.chartifyEntityData(this.props.symptomsData,numberToShow_col6)
-		const geneticvariationChart = this.chartifyEntityData(this.props.geneticvariationData,numberToShow_col6)
-		const virallineagesChart = this.chartifyEntityData(this.props.virallineagesData,numberToShow_col6)
+		const drugChart = this.chartifyEntityData('Drug',this.props.drugData,numberToShow_col6)
+		const vaccineChart = this.chartifyEntityData('Vaccine Type',this.props.vaccineData,numberToShow_col6)
+		const riskfactorsChart = this.chartifyEntityData('Risk Factor',this.props.riskfactorsData,numberToShow_col6)
+		const symptomsChart = this.chartifyEntityData('Symptom', this.props.symptomsData,numberToShow_col6)
+		const geneticvariationChart = this.chartifyEntityData('Genetic Variation', this.props.geneticvariationData,numberToShow_col6)
+		const virallineagesChart = this.chartifyEntityData('Viral Lineage', this.props.virallineagesData,numberToShow_col6)
 		
 		var locationsToShowByID = {}
 		this.props.popularLocations.filter( loc => this.state.viruses.length == 0 || this.state.viruses.includes(loc.virus)).forEach( loc => {
@@ -519,6 +527,17 @@ export default class Home extends Component {
 								yAxes: [{ stacked:true, ticks: { autoSkip: false }}],
 								xAxes: [{ stacked:true, scaleLabel: { display: true, labelString: '# of papers' } }] 
 								} 
+							}}
+							onElementsClick={elems => {
+								if (elems.length > 0) {
+									//const page_info = pages
+									const index = elems[0]._index
+									const label = categoryPlotData.labels[index]
+									const page_infos = pages.filter(p => (p.name == label || ('altname' in p && p.altname == label)))
+									if (page_infos.length == 1) {
+										Router.push("/[id]",'/' + page_infos[0].page)
+									}
+								}
 							}}
 						/>
 							
