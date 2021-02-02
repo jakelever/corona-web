@@ -412,7 +412,7 @@ export default class Home extends Component {
 					<h1 className="h3 mb-0 text-gray-800">CoronaCentral Dashboard</h1>
 					<SharePopover title="Check out the portal to the entire coronavirus research literature!" url="https://coronacentral.ai" container={this.shareDiv}>
 						<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
-							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
+							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" width="0" /></span> Share
 						</a>
 					</SharePopover>
 				</div>
@@ -555,7 +555,7 @@ export default class Home extends Component {
 										<div className="h5 mb-0 font-weight-bold text-gray-800">{numberWithCommas(this.props.summaryStatistics.allDocCount)}</div>
 									</div>
 									<div className="col-auto text-gray-300">
-										<FontAwesomeIcon icon={faBookOpen} size="2x"  />
+										<FontAwesomeIcon icon={faBookOpen} size="2x" width="0" />
 									</div>
 								</div>
 							</div>
@@ -572,7 +572,7 @@ export default class Home extends Component {
 										<div className="h5 mb-0 font-weight-bold text-gray-800">{numberWithCommas(this.props.summaryStatistics.lastWeekDocCount)}</div>
 									</div>
 									<div className="col-auto text-gray-300">
-										<FontAwesomeIcon icon={faCalendarAlt} size="2x"  />
+										<FontAwesomeIcon icon={faCalendarAlt} size="2x" width="0" />
 									</div>
 								</div>
 							</div>
@@ -589,7 +589,7 @@ export default class Home extends Component {
 										<div className="h5 mb-0 font-weight-bold text-gray-800">{this.props.summaryStatistics.categoryCount}</div>
 									</div>
 									<div className="col-auto text-gray-300">
-										<FontAwesomeIcon icon={faLightbulb} size="2x"  />
+										<FontAwesomeIcon icon={faLightbulb} size="2x" width="0" />
 									</div>
 								</div>
 							</div>
@@ -606,7 +606,7 @@ export default class Home extends Component {
 										<div className="h5 mb-0 font-weight-bold text-gray-800">3</div>
 									</div>
 									<div className="col-auto text-gray-300">
-										<FontAwesomeIcon icon={faShieldVirus} size="2x"  />
+										<FontAwesomeIcon icon={faShieldVirus} size="2x" width="0" />
 									</div>
 								</div>
 							</div>

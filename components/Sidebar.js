@@ -126,7 +126,7 @@ export default class Sidebar extends Component {
 						<Link href="/[id]" as={`/${p.page}`}>
 							<a className="nav-link" onClick={event => this.toggleGroup(null)}>
 								<span className="icon" style={{marginRight: "0.25rem"}}>
-									<FontAwesomeIcon className="sideicon" icon={iconMapping[p.icon]} fixedWidth  />
+									<FontAwesomeIcon className="sideicon" icon={iconMapping[p.icon]} fixedWidth width="0" />
 								</span>
 								<span> {p.name}</span>
 							</a>
@@ -147,16 +147,16 @@ export default class Sidebar extends Component {
 					<a className="nav-link" href="#" onClick={event => { this.toggleGroup(groupName); event.preventDefault() } } aria-controls="example-collapse-text"
         aria-expanded={false}>
 						<span className="icon" style={{marginRight: "0.25rem"}}>
-							<FontAwesomeIcon className="sideicon" icon={groupIcon} fixedWidth  />
+							<FontAwesomeIcon className="sideicon" icon={groupIcon} fixedWidth width="0" />
 						</span>
 						<span> {groupName}</span>
 						<div className="arrow" style={{"float":"right"}}>
-							<FontAwesomeIcon icon={groupArrow} fixedWidth  />
+							<FontAwesomeIcon icon={groupArrow} fixedWidth width="0" />
 						</div>
 					</a>
 					<Collapse in={groupOpen}>
 						<div className="collapsebox">
-							<div className="bg-white py-2 collapse-inner rounded" style={{backgroundColor:"#FF00FF",wordWrap:"break-word"}} >
+							<div className="bg-white py-2 collapse-inner rounded" style={{wordWrap:"break-word"}} >
 								{subLinks}
 							</div>
 						</div>
@@ -183,16 +183,16 @@ export default class Sidebar extends Component {
 				<a className="nav-link" href="#" onClick={event => { this.toggleGroup('entities'); event.preventDefault() } } aria-controls="example-collapse-text"
 	aria-expanded={false}>
 					<span className="icon" style={{marginRight: "0.25rem"}}>
-						<FontAwesomeIcon className="sideicon" icon={groupIcon} fixedWidth  />
+						<FontAwesomeIcon className="sideicon" icon={groupIcon} fixedWidth width="0" />
 					</span>
 					<span> Mentions</span>
 					<div className="arrow" style={{"float":"right"}}>
-						<FontAwesomeIcon icon={groupArrow} fixedWidth  />
+						<FontAwesomeIcon icon={groupArrow} fixedWidth width="0" />
 					</div>
 				</a>
 				<Collapse in={groupOpen}>
 					<div className="collapsebox">
-						<div className="bg-white py-2 collapse-inner rounded" style={{backgroundColor:"#FF00FF",wordWrap:"break-word"}} >
+						<div className="bg-white py-2 collapse-inner rounded" style={{wordWrap:"break-word"}} >
 							{subLinks}
 						</div>
 					</div>
@@ -207,7 +207,7 @@ export default class Sidebar extends Component {
 		<Link href="/index" as="/">
 			<a className="sidebar-brand d-flex align-items-center justify-content-center">
 				<div>
-					<FontAwesomeIcon icon={faViruses} size="2x" />
+					<FontAwesomeIcon icon={faViruses} size="2x" width="0" />
 				</div>
 				<div className="sidebar-brand-text mx-2">{this.props.projectName}</div>
 			</a>
@@ -222,7 +222,7 @@ export default class Sidebar extends Component {
 				<Link href="/index" as="/">
 					<a className="nav-link">
 						<span style={{marginRight: "0.25rem"}} >
-							<FontAwesomeIcon className="sideicon" icon={faTachometerAlt} fixedWidth />
+							<FontAwesomeIcon className="sideicon" icon={faTachometerAlt} fixedWidth width="0" />
 						</span>
 						<span> Dashboard</span>
 					</a>
@@ -239,7 +239,7 @@ export default class Sidebar extends Component {
 				<Link href="/trending" as="/trending">
 					<a className="nav-link">
 						<span style={{marginRight: "0.25rem"}}>
-							<FontAwesomeIcon className="sideicon" icon={faChartLine} fixedWidth  />
+							<FontAwesomeIcon className="sideicon" icon={faChartLine} fixedWidth width="0" />
 						</span>
 						<span> Trending</span>
 					</a>
@@ -265,7 +265,7 @@ export default class Sidebar extends Component {
 					<Link href="/faqs" as="/faqs">
 						<a className="nav-link">
 							<span style={{marginRight: "0.25rem"}}>
-								<FontAwesomeIcon className="sideicon" icon={faQuestionCircle} fixedWidth  />
+								<FontAwesomeIcon className="sideicon" icon={faQuestionCircle} fixedWidth width="0" />
 							</span>
 							<span> FAQs</span>
 						</a>
@@ -278,7 +278,7 @@ export default class Sidebar extends Component {
 					<Link href="/feedback" as="/feedback">
 						<a className="nav-link">
 							<span style={{marginRight: "0.25rem"}}>
-								<FontAwesomeIcon className="sideicon" icon={faEnvelopeOpenText} fixedWidth  />
+								<FontAwesomeIcon className="sideicon" icon={faEnvelopeOpenText} fixedWidth width="0" />
 							</span>
 							<span> Feedback</span>
 						</a>

@@ -114,7 +114,7 @@ export default class Topbar extends Component {
 		
 		const virusSelectorSmall = <Dropdown as={Navbar} show={this.state.menuShow} onToggle={(isOpen,event,metadata) => this.dropdownToggle(isOpen,event,metadata)}>
 					<Dropdown.Toggle as={NavLink} variant="secondary" id="dropdown-basic" onClick={event => {this.setState({menuShow:!this.state.menuShow})}}>
-						<FontAwesomeIcon icon={faVirus} />
+						<FontAwesomeIcon icon={faVirus} width="0" />
 					</Dropdown.Toggle>
 
 					<Dropdown.Menu>
@@ -143,7 +143,7 @@ export default class Topbar extends Component {
 		
 		{/* Sidebar Toggle (Topbar) */}
 		<button id="sidebarToggleTop" className="btn btn-link d-lg-none rounded-circle mr-3 text-secondary" onClick={event => this.props.toggleSidebar()}>
-			<FontAwesomeIcon icon={faBars}  />
+			<FontAwesomeIcon icon={faBars} width="0" />
 		</button>
 
 		
@@ -163,7 +163,7 @@ export default class Topbar extends Component {
 				{/*<!-- Dropdown - Messages -->*/}
 				<Dropdown as={Navbar}>
 					<Dropdown.Toggle as={NavLink} variant="secondary" id="dropdown-basic">
-						<FontAwesomeIcon icon={faSearch} />
+						<FontAwesomeIcon icon={faSearch} width="0" />
 					</Dropdown.Toggle>
 
 					<Dropdown.Menu>
@@ -191,7 +191,7 @@ export default class Topbar extends Component {
             { this.props.showVirusSelector ? <li className="d-none d-sm-inline-block nav-item" style={{width:"1em"}}></li> : <></> }
 			
 			<NavLink className="d-none d-sm-inline-block" href="https://twitter.com/coronacentralai" target="_blank">
-				<FontAwesomeIcon icon={faTwitter} size="lg" />
+				<FontAwesomeIcon icon={faTwitter} size="lg" width="0" />
 			</NavLink>
 			
 			<li className="nav-item dropdown no-arrow d-sm-none">
@@ -201,7 +201,7 @@ export default class Topbar extends Component {
 				{/*<!-- Dropdown - Messages -->*/}
 				<Navbar>
 					<NavLink href="https://twitter.com/coronacentralai" target="_blank">
-						<FontAwesomeIcon icon={faTwitter} />
+						<FontAwesomeIcon icon={faTwitter} width="0" />
 					</NavLink>
 				</Navbar>
 			</li>

@@ -147,7 +147,7 @@ export default class ColumnSelector extends Component {
 						/>
 					</div>
 					<div className={chevronClass} style={{flexGrow: 0, flexShrink:0, flexBasis:'10px'}}>
-						<FontAwesomeIcon icon={faChevronRight} size="lg" 
+						<FontAwesomeIcon icon={faChevronRight} size="lg" width="0"
 							onClick={event => this.changeRightPanel(c)}
 						/>
 					</div>

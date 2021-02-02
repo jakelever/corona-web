@@ -187,7 +187,7 @@ export default class Page extends Component {
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
 		const downloadButton = false ? <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
+						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Download Data
 					</a> : ''
 
 
@@ -201,7 +201,7 @@ export default class Page extends Component {
 					<div>
 						<SharePopover title={"Check out " + this.props.page_info.name + " research articles at CoronaCentral!"}  url={"https://coronacentral.ai/" + this.props.page_info.page} container={this.shareDiv}>
 							<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
-								<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
+								<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" width="0" /></span> Share
 							</a>
 						</SharePopover>
 					</div>

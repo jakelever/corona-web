@@ -91,7 +91,7 @@ export default class Page extends Component {
 					<h1 className="h3 mb-0 text-gray-800">Trending</h1>
 					<SharePopover title="Check out the latest trending coronavirus research articles at CoronaCentral!" url="https://coronacentral.ai/trending" container={this.shareDiv}>
 						<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
-							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
+							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" width="0" /></span> Share
 						</a>
 					</SharePopover>
 				</div>

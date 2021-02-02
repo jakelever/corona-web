@@ -121,7 +121,7 @@ class Layout extends Component {
 		if (this.props.error404) {
 			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
 					<div style={{textAlign:"center"}}>
-					<p><FontAwesomeIcon icon={faFrown} style={{fontSize:"5em"}}/></p>
+					<p><FontAwesomeIcon icon={faFrown} width="0" style={{fontSize:"5em"}}/></p>
 					<p>404: Page not found</p>
 					</div>
 				</div>
@@ -135,7 +135,7 @@ class Layout extends Component {
 			
 			content = <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
 					<div style={{textAlign:"center"}}>
-					<p><FontAwesomeIcon icon={faBomb} style={{fontSize:"5em"}}/></p>
+					<p><FontAwesomeIcon icon={faBomb} width="0" style={{fontSize:"5em"}}/></p>
 					<p>{errorMessage}</p>
 					</div>
 				</div>

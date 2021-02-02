@@ -167,13 +167,13 @@ export default class DocPage extends Component {
 						<div style={{padding: "5px", width:"100%"}}>
 							<SharePopover title={this.props.doc.title} url={this.props.thisUrl} container={this.shareDiv}>
 								<a href="#" onClick={event => event.preventDefault()} className="btn btn-sm btn-info shadow-sm" target="_blank">
-									<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" /></span> Share
+									<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" width="0" /></span> Share
 								</a>
 							</SharePopover>
 						</div>
 						<div style={{padding: "5px", width:"100%"}}>
 							<a href={url} className="btn btn-sm btn-success shadow-sm" target="_blank">
-								<span className="text-white-50"><FontAwesomeIcon icon={faExternalLinkAlt} size="sm" /></span> Link
+								<span className="text-white-50"><FontAwesomeIcon icon={faExternalLinkAlt} size="sm" width="0" /></span> Link
 							</a>
 						</div>
 					</div>
@@ -227,7 +227,7 @@ export default class DocPage extends Component {
 								
 								<div style={{}}>
 									<a href={this.props.doc.url} className="btn btn-sm btn-danger shadow" onClick={event => {this.showFlagModal(); event.preventDefault()}} href="#">
-										<span className="text-white-50"><FontAwesomeIcon icon={faExclamationTriangle} size="sm" /></span> Flag Mistake
+										<span className="text-white-50"><FontAwesomeIcon icon={faExclamationTriangle} size="sm" width="0" /></span> Flag Mistake
 									</a>
 								</div>
 							</div>

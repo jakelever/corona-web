@@ -130,12 +130,12 @@ export default class CustomTable extends Component {
 		
 		if (column == 'flagandlink') {
 			const renderButtonColumn = row => {
-				const flag = <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" /></a>
+				const flag = <a className="flagtime" href="#" onClick={event => {this.showFlagModal(row); event.preventDefault()}}><FontAwesomeIcon icon={faExclamationTriangle} size="lg" width="0" /></a>
 				
 				// Preferentially use the DOI for the link
 				const url = row.doi ? ('https://doi.org/' + row.doi) : row.url
 				
-				const linkDoc = <a className="flagtime" href={url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" /></a>
+				const linkDoc = <a className="flagtime" href={url} target="_blank"><FontAwesomeIcon icon={faExternalLinkAlt} size="lg" width="0" /></a>
 								
 				var urlToPage = 'https://coronacentral.ai'
 				if (row.doi) {
@@ -147,7 +147,7 @@ export default class CustomTable extends Component {
 				}
 								
 				
-				const share = <SharePopover title={row.title} url={urlToPage} container={this.anchorDiv}><a className="flagtime" href="#" onClick={event => event.preventDefault()}><FontAwesomeIcon icon={faShareAlt} size="lg" /></a></SharePopover>
+				const share = <SharePopover title={row.title} url={urlToPage} container={this.anchorDiv}><a className="flagtime" href="#" onClick={event => event.preventDefault()}><FontAwesomeIcon icon={faShareAlt} size="lg" width="0" /></a></SharePopover>
 				
 				return <div className="tour-tablebuttons"><p>{linkDoc}</p><p>{flag}</p><p>{share}</p></div>
 			}
@@ -425,7 +425,7 @@ export default class CustomTable extends Component {
 					pagination
 					highlightOnHover
 					responsive
-					sortIcon={<FontAwesomeIcon icon={faSortDown} />}
+					sortIcon={<FontAwesomeIcon icon={faSortDown} width="0" />}
 					{...extraProps}
 				/>
 				

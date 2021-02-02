@@ -171,7 +171,7 @@ export default class Search extends Component {
 							Router.push("/search/[...query]",url)
 						}
 					}}>
-						<FontAwesomeIcon icon={faSearch} />
+						<FontAwesomeIcon icon={faSearch} width="0" />
 					</button>
 				</div>
 			</div>

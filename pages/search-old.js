@@ -90,7 +90,7 @@ export default class Page extends Component {
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
 		/*const downloadButton = <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" /></span> Download Data
+						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Download Data
 					</a>*/
 		const downloadButton = ""
 

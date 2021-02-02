@@ -209,7 +209,7 @@ export default class EntityPage extends Component {
 					pagination
 					highlightOnHover
 					responsive
-					sortIcon={<FontAwesomeIcon icon={faSortDown} />}
+					sortIcon={<FontAwesomeIcon icon={faSortDown} width="0" />}
 				/>
 		
 		return (
