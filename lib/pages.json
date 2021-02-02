@@ -285,6 +285,16 @@
 		"description": "Review articles focussing on a variety of topics related to the virus"
 	},
 	{
+		"name": "Meta-analysis",
+		"page": "metaanalysis",
+		"show_nonresearch": true,
+		"group": "Other Articles",
+		"description": "Research that is a meta-analysis examining and combining results of other research studies",
+		"extra_table_columns": [
+			"category"
+		]
+	},
+	{
 		"name": "Comments & Editorials",
 		"page": "comments_editorials",
 		"altname": "Comment/Editorial",
