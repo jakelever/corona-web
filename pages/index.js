@@ -11,7 +11,7 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import Toast from 'react-bootstrap/Toast'
 
 import Link from 'next/link'
-import { Doughnut, Line, Bar } from 'react-chartjs-2'
+import { Doughnut, Line, Bar, HorizontalBar } from 'react-chartjs-2'
 import pages from '../lib/pages.json'
 import toursteps from '../lib/toursteps.json'
 import viruscolors from '../lib/viruscolors.json'
@@ -501,7 +501,7 @@ export default class Home extends Component {
 
 					
 					<div className="tour-categories col-md-12">
-						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+						<div className="card shadow mb-4" style={{minHeight:"700px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
 									Categories
@@ -510,14 +510,14 @@ export default class Home extends Component {
 							</div>
 							<div className="card-body">
 
-								<Bar
+								<HorizontalBar 
 						  data={categoryPlotData}
 						  options={{ 
-						    maintainAspectRatio: true,
+						    maintainAspectRatio: false,
 							legend: { display: true }, 
 							scales: { 
-								xAxes: [{ stacked:true, ticks: { autoSkip: false }}],
-								yAxes: [{ stacked:true, scaleLabel: { display: true, labelString: '# of papers' } }] 
+								yAxes: [{ stacked:true, ticks: { autoSkip: false }}],
+								xAxes: [{ stacked:true, scaleLabel: { display: true, labelString: '# of papers' } }] 
 								} 
 							}}
 						/>
