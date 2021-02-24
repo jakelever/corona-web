@@ -5,6 +5,9 @@ import Layout from '../../components/Layout.js'
 import CustomTable from '../../components/CustomTable.js'
 import DataTable from 'react-data-table-component';
 
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
+
 import entitypages from '../../lib/entitypages.json'
 
 //import { getAllEntities } from '../../lib/db-entity.js'
@@ -89,6 +92,8 @@ export default class EntityPage extends Component {
 		
 		this.renderAllPage = this.renderAllPage.bind(this);
 		this.renderSinglePage = this.renderSinglePage.bind(this);
+		
+		this.exportData = this.exportData.bind(this);
 	}
 	
 	handleResize(windowWidth) {
@@ -97,6 +102,48 @@ export default class EntityPage extends Component {
 	
 	updateViruses(viruses) {
 		this.setState({viruses: viruses})
+	}
+	
+	
+	// https://codepen.io/Jacqueline34/pen/pyVoWr
+	exportData(event, data, format) {
+		
+		const allowedCols = ['doi','pubmed_id','cord_uid','title','journal','is_preprint','publish_year','publish_month','publish_day','url','entities']
+		
+		var filename, dataDump
+		if (format == 'csv') {
+			var headers = [ "name" ,"SARS-CoV-2","MERS-CoV","SARS-CoV","total" ]
+			
+			const csvified = data.map( row => {
+				const rowData = headers.map( e => row[e] )
+				
+				const asCSV = rowData.map(f => (typeof f == 'string' ? '"'+f.replaceAll('"','""')+'"' : f)).join(',')
+				
+				return asCSV
+			})
+			
+			headers[0] = this.props.entity_type
+			
+			const headersAsCSV = headers.map( h => '"'+h+'"' ).join(',')
+			
+			const dataWithHeaders = [headersAsCSV].concat(csvified)
+			
+			filename = 'coronacentral_data.csv'
+			dataDump = dataWithHeaders.join('\n')
+			dataDump = `data:text/csv;charset=utf-8,${dataDump}`
+			
+		} else {
+			filename = 'coronacentral_data.json'
+			dataDump = JSON.stringify(data)
+			dataDump = `data:text/json;charset=utf-8,${dataDump}`
+		}
+
+		const link = document.createElement('a')
+		link.setAttribute('href', encodeURI(dataDump))
+		link.setAttribute('download', filename)
+		link.click()
+		
+		event.preventDefault()
 	}
 	
 	renderAllPage() {
@@ -198,6 +245,18 @@ export default class EntityPage extends Component {
 				
 		const chartData = { 'labels': chartLabels, 'datasets':chartDatasets }
 		
+		const disableDownload = (filteredData.length == 0)
+		
+		const downloadButton = <Dropdown>
+			<Dropdown.Toggle variant="oldprimary" id="dropdown-basic" size="sm" disabled={disableDownload}>
+				<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Export
+			</Dropdown.Toggle>
+
+			<Dropdown.Menu>
+				<Dropdown.Item href="#" onClick={e => this.exportData(e,filteredData,'csv')}>as CSV</Dropdown.Item>
+				<Dropdown.Item href="#" onClick={e => this.exportData(e,filteredData,'json')}>as JSON</Dropdown.Item>
+			</Dropdown.Menu>
+		</Dropdown>
 		
 		const table = <DataTable
 					noHeader
@@ -243,6 +302,13 @@ export default class EntityPage extends Component {
 				</div>
 				
 				<div className="card shadow mb-4">
+					<div className="card-header py-3">
+						<div style={{display: "flex", justifyContent: "flex-end"}}>
+						<div style={{flexGrow: 0}}>
+							{downloadButton}
+						</div>
+						</div>
+					</div>
 					<div className="card-body-table" ref={this.anchorDiv} style={{position:"relative"}}>
 						{table}
 					</div>
