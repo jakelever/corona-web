@@ -61,7 +61,6 @@ export default class Page extends Component {
 		
 		this.barClick = this.barClick.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
-		this.downloadJSON = this.downloadJSON.bind(this);
 		this.handleResize = this.handleResize.bind(this);
 		
 		this.shareDiv = React.createRef();
@@ -78,23 +77,6 @@ export default class Page extends Component {
 	updateViruses(viruses) {
 		this.setState({viruses: viruses})
 	}
-	
-	// https://codepen.io/Jacqueline34/pen/pyVoWr
-	downloadJSON(event, data) {
-		const link = document.createElement('a')
-
-		var json = JSON.stringify(data)
-		const filename = this.props.page_info.page + '.json'
-		
-		json = `data:text/json;charset=utf-8,${json}`
-
-		link.setAttribute('href', encodeURI(json))
-		link.setAttribute('download', filename)
-		link.click()
-		
-		event.preventDefault()
-	}
-	
 
 	render() {
 		if(!this.props.fallback_complete)
@@ -175,21 +157,7 @@ export default class Page extends Component {
 					</div>)
 		}
 				
-		const filteredDataNoAltmetric = this.props.tabledata.map( row => {
-			var newRow = {}
-			Object.keys(row).forEach( k => {
-				if (!k.includes('altmetric'))
-					newRow[k] = row[k]
-			})
-			return newRow
-		})
-		
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
-		
-		const downloadButton = false ? <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Download Data
-					</a> : ''
-
 
 		return (
 			<Layout title={this.props.page_info.name} page={this.props.page_info.page} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>

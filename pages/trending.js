@@ -30,7 +30,6 @@ export default class Page extends Component {
 		
 		this.handleResize = this.handleResize.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
-		this.downloadJSON = this.downloadJSON.bind(this);
 		
 		this.shareDiv = React.createRef();
 	}
@@ -42,44 +41,10 @@ export default class Page extends Component {
 	updateViruses(viruses) {
 		this.setState({viruses: viruses})
 	}
-	
-	// https://codepen.io/Jacqueline34/pen/pyVoWr
-	downloadJSON(event, data) {
-		const link = document.createElement('a')
-
-		var json = JSON.stringify(data)
-		const filename = this.props.page_info.page + '.json'
-		
-		json = `data:text/json;charset=utf-8,${json}`
-
-		link.setAttribute('href', encodeURI(json))
-		link.setAttribute('download', filename)
-		link.click()
-		
-		event.preventDefault()
-	}
-	
 
 	render() {
 					
-		/*var defaultColumns = [
-				{ "header":"Virus", "selector":"entities:Virus", "hide":"md", grow:1 },
-				{ "header":"Categories", "selector":"entities:category", grow:2 },
-				{ "header":"Journal", "selector":"journal", "hide":"md", grow:1 },
-				{ "header":"Date", "selector":"publish_date", "hide":"md", grow:1 },
-				{ "header":"Title", "selector":"title", linkInternal: true, grow:4 }
-			]*/
-			
 		const defaultColumns = ["Virus","category","journal","publish_timestamp","title","altmetric_score_1day"]
-				
-		/*const filteredDataNoAltmetric = filteredData.map( row => {
-			var newRow = {}
-			Object.keys(row).forEach( k => {
-				if (!k.includes('altmetric'))
-					newRow[k] = row[k]
-			})
-			return newRow
-		})*/
 		
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 

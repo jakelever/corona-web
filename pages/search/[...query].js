@@ -48,7 +48,6 @@ export default class Page extends Component {
 		
 		this.barClick = this.barClick.bind(this);
 		this.updateViruses = this.updateViruses.bind(this);
-		this.downloadJSON = this.downloadJSON.bind(this);
 		this.handleResize = this.handleResize.bind(this);
 	}
 	
@@ -62,24 +61,7 @@ export default class Page extends Component {
 	
 	updateViruses(viruses) {
 		this.setState({viruses: viruses})
-	}
-	
-	// https://codepen.io/Jacqueline34/pen/pyVoWr
-	downloadJSON(event, data) {
-		const link = document.createElement('a')
-
-		var json = JSON.stringify(data)
-		const filename = 'search_results.json'
-		
-		json = `data:text/json;charset=utf-8,${json}`
-
-		link.setAttribute('href', encodeURI(json))
-		link.setAttribute('download', filename)
-		link.click()
-		
-		event.preventDefault()
-	}
-	
+	}	
 
 	render() {
 		if(!this.props.fallback_complete)
@@ -89,21 +71,7 @@ export default class Page extends Component {
 		
 		const defaultColumns = ["Virus","category","journal","publish_timestamp","title","altmetric_score"]
 				
-		const filteredDataNoAltmetric = this.props.tabledata.map( row => {
-			var newRow = {}
-			Object.keys(row).forEach( k => {
-				if (!k.includes('altmetric'))
-					newRow[k] = row[k]
-			})
-			return newRow
-		})
-		
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
-		
-		/*const downloadButton = <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Download Data
-					</a>*/
-		const downloadButton = ""
 
 		return (
 			<Layout title="Search Results" page="/search" viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>
@@ -111,7 +79,6 @@ export default class Page extends Component {
 				{/* Page Heading */}
 				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
 					<h1 className="h3 mb-0 text-gray-800">Search Results for {'"'+this.props.query+'"'}</h1>
-					{downloadButton}
 				</div>
 						
 				{table}
