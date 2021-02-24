@@ -511,15 +511,11 @@ export default class CustomTable extends Component {
 									updateViruses={this.props.updateViruses}
 									/>
 									
-		const downloadButton2 = <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Download
-					</a>
-					
 		const disableDownload = (filteredData.length == 0)
 					
 		const downloadButton = <Dropdown>
 			<Dropdown.Toggle variant="oldprimary" id="dropdown-basic" size="sm" disabled={disableDownload}>
-				<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Export
+				<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> <span className="d-none d-sm-inline-block">Export</span>
 			</Dropdown.Toggle>
 
 			<Dropdown.Menu>

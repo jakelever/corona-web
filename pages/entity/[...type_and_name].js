@@ -249,7 +249,7 @@ export default class EntityPage extends Component {
 		
 		const downloadButton = <Dropdown>
 			<Dropdown.Toggle variant="oldprimary" id="dropdown-basic" size="sm" disabled={disableDownload}>
-				<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Export
+				<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> <span className="d-none d-sm-inline-block">Export</span>
 			</Dropdown.Toggle>
 
 			<Dropdown.Menu>
