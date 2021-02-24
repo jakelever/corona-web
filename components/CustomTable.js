@@ -523,8 +523,8 @@ export default class CustomTable extends Component {
 			</Dropdown.Toggle>
 
 			<Dropdown.Menu>
-				<Dropdown.Item href="#" onClick={e => this.exportData(e,filteredData,'csv')}>As CSV</Dropdown.Item>
-				<Dropdown.Item href="#" onClick={e => this.exportData(e,filteredData,'json')}>As JSON</Dropdown.Item>
+				<Dropdown.Item href="#" onClick={e => this.exportData(e,filteredData,'csv')}>as CSV</Dropdown.Item>
+				<Dropdown.Item href="#" onClick={e => this.exportData(e,filteredData,'json')}>as JSON</Dropdown.Item>
 			</Dropdown.Menu>
 		</Dropdown>
 									
