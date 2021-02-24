@@ -31,7 +31,7 @@ export default function SharePopover(props) {
 	  <Popover id="popover-share">
 		<Popover.Title as="h3">Share Options</Popover.Title>
 		<Popover.Content>
-		  <EmailShareButton subject={props.title} body="The link for CoronaCentral is: " url={props.url} className="sharetime" onClick={event => logEvent('share','email')}>
+		  <EmailShareButton subject={props.title} body="The link for CoronaCentral is: " url={props.url} className="sharetime" onClick={event => {logEvent('share','email'); event.preventDefault()}} openShareDialogOnClick={true}>
 			<EmailIcon size="2.5rem" />
 		  </EmailShareButton>	
 		  <FacebookShareButton quote={props.title} url={props.url} className="sharetime" onClick={event => logEvent('share','facebook')}>
