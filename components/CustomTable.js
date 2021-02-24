@@ -5,6 +5,9 @@ import FlagModal from '../components/FlagModal.js'
 import ColumnSelector from '../components/ColumnSelector.js'
 import SharePopover from '../components/SharePopover.js'
 
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
+
 import { filterData } from '../lib/filterdata.js'
 
 import pages from '../lib/pages.json'
@@ -12,6 +15,7 @@ import niceNames from '../lib/nicenames.json'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 import { faExclamationCircle, faExclamationTriangle, faExclamation } from '@fortawesome/free-solid-svg-icons'
@@ -78,6 +82,7 @@ export default class CustomTable extends Component {
 		this.updateFilters = this.updateFilters.bind(this)
 		this.updateRanges = this.updateRanges.bind(this)
 		this.getColumnMetadata = this.getColumnMetadata.bind(this)
+		this.exportData = this.exportData.bind(this)
 	}
 	
 	closeFlagModal() {
@@ -356,6 +361,65 @@ export default class CustomTable extends Component {
 		return metadata
 	}
 	
+	// https://codepen.io/Jacqueline34/pen/pyVoWr
+	exportData(event, data, format) {
+		
+		const allowedCols = ['doi','pubmed_id','cord_uid','title','journal','is_preprint','publish_year','publish_month','publish_day','url','entities']
+		
+		var filename, dataDump
+		if (format == 'csv') {
+			const noEntityCols = allowedCols.filter( k => k!='entities' )
+			
+			const entityTypes = [...new Set(data.map( doc => doc.entities.map( e => e.type) ).flat())].sort()
+			
+			const csvified = data.map( row => {
+				const nonEntityData = noEntityCols.map( e => row[e] )
+				
+				const entityData = entityTypes.map ( entityType => {
+					const entitiesOfThisType = [...new Set(row.entities.filter( e => e.type==entityType).map( e => e.name ))].sort()
+					
+					const asCSV = entitiesOfThisType.join('|')
+					return asCSV
+				})
+				
+				const combined = nonEntityData.concat(entityData)
+				const asCSV = combined.map(f => (typeof f == 'string' ? '"'+f.replaceAll('"','""')+'"' : f)).join(',')
+				
+				return asCSV
+			})
+			
+			const headers = noEntityCols.concat(entityTypes)
+			const headersAsCSV = headers.map( h=> (h in niceNames ? niceNames[h] : h) ).map( h => '"'+h+'"' ).join(',')
+			
+			const dataWithHeaders = [headersAsCSV].concat(csvified)
+			
+			filename = 'coronacentral_data.csv'
+			dataDump = dataWithHeaders.join('\n')
+			dataDump = `data:text/csv;charset=utf-8,${dataDump}`
+			
+		} else {
+			const filteredForCols = data.map( row => {
+				var newRow = {}
+				Object.keys(row).forEach( k => {
+					if (allowedCols.includes(k))
+						newRow[k] = row[k]
+				})
+				return newRow
+			})
+			
+			filename = 'coronacentral_data.json'
+			dataDump = JSON.stringify(filteredForCols)
+			dataDump = `data:text/json;charset=utf-8,${dataDump}`
+		}
+
+		const link = document.createElement('a')
+		link.setAttribute('href', encodeURI(dataDump))
+		link.setAttribute('download', filename)
+		link.click()
+		
+		event.preventDefault()
+	}
+	
 	/*componentDidUpdate(prevProps) {
 		var newFilters = {}
 		Object.keys(this.state.filters).forEach( k => {
@@ -447,6 +511,23 @@ export default class CustomTable extends Component {
 									updateViruses={this.props.updateViruses}
 									/>
 									
+		const downloadButton2 = <a href="#" onClick={event => this.downloadJSON(event,filteredDataNoAltmetric)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+						<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Download
+					</a>
+					
+		const disableDownload = (filteredData.length == 0)
+					
+		const downloadButton = <Dropdown>
+			<Dropdown.Toggle variant="oldprimary" id="dropdown-basic" size="sm" disabled={disableDownload}>
+				<span className="text-white-50"><FontAwesomeIcon icon={faDownload} size="sm" width="0" /></span> Export
+			</Dropdown.Toggle>
+
+			<Dropdown.Menu>
+				<Dropdown.Item href="#" onClick={e => this.exportData(e,filteredData,'csv')}>As CSV</Dropdown.Item>
+				<Dropdown.Item href="#" onClick={e => this.exportData(e,filteredData,'json')}>As JSON</Dropdown.Item>
+			</Dropdown.Menu>
+		</Dropdown>
+									
 		const columnSelectorButton = <a href="#" onClick={event => {this.openColumnSelector(); event.preventDefault()}} className="btn btn-sm btn-oldprimary shadow-sm">
 							<span className="text-white-50"><FontAwesomeIcon icon={faFilter} size="sm" /></span> <span className="d-none d-sm-inline-block">Filter</span>
 						</a>
@@ -462,8 +543,11 @@ export default class CustomTable extends Component {
 							<div style={{flexGrow: 8, paddingRight: "1em", paddingTop: "5px"}}>
 								<h6 className="m-0 font-weight-bold text-primary">{title}</h6>
 							</div>
-							<div style={{flexGrow: 0}}>
+							<div style={{flexGrow: 0, paddingRight: "5px"}}>
 								{columnSelectorButton}
+							</div>
+							<div style={{flexGrow: 0}}>
+								{downloadButton}
 							</div>
 						</div>
 					</div>

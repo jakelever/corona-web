@@ -16,5 +16,8 @@
 	"Virus": "Virus",
 	"category": "Categories",
 	"title": "Title",
-	"is_preprint": "Is Preprint"
+	"is_preprint": "Is Preprint",
+	"publish_year": "Publish Year",
+	"publish_month": "Publish Month",
+	"publish_day": "Publish Day"
 }

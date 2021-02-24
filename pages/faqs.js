@@ -57,6 +57,13 @@ export default class FAQs extends Component {
 							<hr />
 							
 							<div>
+								<p><b>Q: Can I download or export the data?</b></p>
+								<p>A: Yes. Each page with a table has an export button in the top right which allows you to download the table data as a CSV or JSON file. Alternatively, you can download the entire CoronaCentral dataset from <a href="https://doi.org/10.5281/zenodo.4383289" target="_blank">Zenodo</a>. This is regularly updated.</p>
+							</div>
+							
+							<hr />
+							
+							<div>
 								<p><b>Q: I've found a mistake with a paper. What should I do?</b></p>
 								<p>A: Please flag the paper using the Flag Mistake button on the paper or use the <Link href="/feedback" as="/feedback"><a>Feedback page</a></Link>.</p>
 							</div>
