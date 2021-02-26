@@ -240,14 +240,14 @@ export default class CustomTable extends Component {
 						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => {
 							const cleanerName = e.name.replace('/',' / ')
 							if (e.name in pageMapping)
-								return <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i}>{cleanerName}</a></Link>
+								return <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i} prefetch={false}>{cleanerName}</a></Link>
 							else
 								return <span key={'entitylink_'+i}>{cleanerName}</span>
 						})
 					} else if (entity_type == 'Virus') {
 						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => e.name )
 					} else {
-						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+e.type+"/"+e.name}><a key={'entity_'+i}>{e.name}</a></Link> )
+						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+e.type+"/"+e.name} prefetch={false}><a key={'entity_'+i}>{e.name}</a></Link> )
 					}
 					
 					
