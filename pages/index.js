@@ -303,7 +303,7 @@ export default class Home extends Component {
 	render() {
 		
 		const defaultColumns = ["category","journal","publish_timestamp","title","altmetric_score_1day"]
-		const trendingTableTitle = <Link href="/trending" as="/trending"><a>Recent & Trending Articles</a></Link>
+		const trendingTableTitle = <Link href="/trending" as="/trending" prefetch={false}><a>Recent & Trending Articles</a></Link>
 		const trendingTable = <CustomTable defaultColumns={defaultColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} title={trendingTableTitle} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
 		
@@ -460,7 +460,7 @@ export default class Home extends Component {
 							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>category</b> from the left, or <b>search</b> above.
 						  </p>
 						  <p>
-							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly making improvements and value <Link href="/feedback" as="/feedback"><a>feedback</a></Link>. To get a daily update on the coronavirus literature, <a href="https://twitter.com/coronacentralai" target="_blank">follow us on Twitter!</a>
+							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly making improvements and value <Link href="/feedback" as="/feedback" prefetch={false}><a>feedback</a></Link>. To get a daily update on the coronavirus literature, <a href="https://twitter.com/coronacentralai" target="_blank">follow us on Twitter!</a>
 						  </p>
 						  <p>
 							Read the <a href="https://doi.org/10.1101/2020.12.21.423860" target="_blank">Preprint!</a> Supported by:
@@ -569,7 +569,11 @@ export default class Home extends Component {
 								
 				<div className="tour-locations card shadow mb-4">
 					<div className="card-header py-3">
-						<h6 className="m-0 font-weight-bold text-primary">Locations</h6>
+						<h6 className="m-0 font-weight-bold text-primary">
+							<Link href="/entity/[...type_and_name]" as="/entity/Location/all" prefetch={false}>
+								<a>Locations</a>
+							</Link>
+						</h6>
 					</div>
 					<div className="card-body">
 						<div style={{width:"100%",height:"400px",backgroundColor:"#DDFFDD"}}>
@@ -746,7 +750,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol6}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/entity/[...type_and_name]" as="/entity/Drug/all">
+									<Link href="/entity/[...type_and_name]" as="/entity/Drug/all" prefetch={false}>
 										<a>Drugs</a>
 									</Link>
 								</h6>
@@ -764,7 +768,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/entity/[...type_and_name]" as="/entity/Vaccine Type/all">
+									<Link href="/entity/[...type_and_name]" as="/entity/Vaccine Type/all" prefetch={false}>
 										<a>Vaccine Types</a>
 									</Link>
 								</h6>
@@ -792,7 +796,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/entity/[...type_and_name]" as="/entity/Risk Factor/all">
+									<Link href="/entity/[...type_and_name]" as="/entity/Risk Factor/all" prefetch={false}>
 										<a>Risk Factors</a>
 									</Link>
 								</h6>
@@ -810,7 +814,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/entity/[...type_and_name]" as="/entity/Symptom/all">
+									<Link href="/entity/[...type_and_name]" as="/entity/Symptom/all" prefetch={false}>
 										<a>Symptoms</a>
 									</Link>
 								</h6>
@@ -837,7 +841,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol6}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/entity/[...type_and_name]" as="/entity/Genetic Variation/all">
+									<Link href="/entity/[...type_and_name]" as="/entity/Genetic Variation/all" prefetch={false}>
 										<a>Genetic Variation</a>
 									</Link>
 								</h6>
@@ -855,7 +859,7 @@ export default class Home extends Component {
 						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									<Link href="/entity/[...type_and_name]" as="/entity/Viral Lineage/all">
+									<Link href="/entity/[...type_and_name]" as="/entity/Viral Lineage/all" prefetch={false}>
 										<a>Viral Lineages</a>
 									</Link>
 								</h6>

@@ -9,7 +9,7 @@
 	},
 	{
 		"selector": ".tour-categories",
-		"content": "We use a mix of machine learning and manual curation to categorize papers into a large number of narrow categories, enabling easier identification of relevant work. You can find answers to commonly asked questions and post feedback about CoronaCentral using the links in the bottom left."
+		"content": "We use a mix of machine learning and manual curation to categorize papers into a large number of narrow topics and article types, enabling easier identification of relevant work. You can find answers to commonly asked questions and post feedback about CoronaCentral using the links in the bottom left."
 	},
 	{
 		"selector": ".tour-search",
@@ -29,7 +29,7 @@
 	},
 	{
 		"selector": ".tour-sources",
-		"content": "Papers are collated from preprints and published work by curating the latest publications from PubMed and from the CORD-19 dataset of COVID-19 publications."
+		"content": "Papers, from peer-reviewed and preprint sources, are split into different article types using machine learning. The latest research is retrieved daily from PubMed and the CORD-19 dataset."
 	},
 	{
 		"selector": ".tour-entities",
