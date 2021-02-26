@@ -115,7 +115,7 @@ export default class DocPage extends Component {
 			} else if (entityType == 'topic' || entityType == 'articletype') {
 				elems = entities.map( (e,i) => {
 					if (e.name in this.pageMapping)
-						return <Link key={'entitylink_'+i} href="/[id]" as={`/${this.pageMapping[e.name]}`}><a>{e.name}</a></Link>
+						return <Link key={'entitylink_'+i} href="/[id]" as={`/${this.pageMapping[e.name]}`} prefetch={false}><a>{e.name}</a></Link>
 					else
 						return <span key={'entitylink_'+i}>{e.name}</span>
 				} )

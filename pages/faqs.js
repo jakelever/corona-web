@@ -65,7 +65,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: I've found a mistake with a paper. What should I do?</b></p>
-								<p>A: Please flag the paper using the Flag Mistake button on the paper or use the <Link href="/feedback" as="/feedback"><a>Feedback page</a></Link>.</p>
+								<p>A: Please flag the paper using the Flag Mistake button on the paper or use the <Link href="/feedback" as="/feedback" prefetch={false}><a>Feedback page</a></Link>.</p>
 							</div>
 							
 							<hr />

@@ -59,25 +59,9 @@ export default function TextWithEntities(props) {
 			return <span key={'textspan_'+i}>{text.substring(ts.start_pos,ts.end_pos)}</span>
 		} else {
 			const tooltipText = ts.entity_name + " [" + ts.entity_type + "]"
-			/*return <OverlayTrigger
-						key={'overlaytrigger_'+i}
-						placement="right"
-						delay={{ show: 250, hide: 400 }}
-						overlay={props => {
-							return (
-								<Tooltip id="button-tooltip" {...props}>
-									{ts.entity_name} [{ts.entity_type}]
-								</Tooltip>
-							);
-						}}
-					  >
-						<span><Link key={'entitylink_'+i} href={"/entity/[...typename]"} as={"/entity/"+ts.entity_type+"/"+ts.entity_name}><a>
-							{text.substring(ts.start_pos,ts.end_pos)}
-						</a></Link></span>
-					</OverlayTrigger>*/
 					
 			return <span key={'entitylink_'+i}><MyToolTip text={tooltipText} container={container} >
-				<span><Link href={"/entity/[...typename]"} as={"/entity/"+ts.entity_type+"/"+ts.entity_name}><a>
+				<span><Link href={"/entity/[...typename]"} as={"/entity/"+ts.entity_type+"/"+ts.entity_name} prefetch={false}><a>
 							{text.substring(ts.start_pos,ts.end_pos)}
 						</a></Link></span>
 					</MyToolTip></span>

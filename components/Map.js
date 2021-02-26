@@ -20,7 +20,7 @@ export default function MyMap(props) {
 		markers = locations.map( (loc,i) => 
 			<Marker key={"marker_"+i} position={[loc.latitude,loc.longitude]}>
 				<Popup>
-					<Link href={"/entity/[...typename]"} as={"/entity/Location/"+loc.name}>
+					<Link href={"/entity/[...typename]"} as={"/entity/Location/"+loc.name} prefetch={false}>
 						<a>
 							{loc.name}
 						</a>
