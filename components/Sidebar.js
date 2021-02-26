@@ -123,7 +123,7 @@ export default class Sidebar extends Component {
 				const p = groupPages[0]
 				const tmpLink = <MyToolTip text={p.description} key={'link_'+j} container={this.container}>
 					<li className={p.page==this.props.page ? "nav-item active" : "nav-item"}>
-						<Link href="/[id]" as={`/${p.page}`}>
+						<Link href="/[id]" as={`/${p.page}`} prefetch={false}>
 							<a className="nav-link" onClick={event => this.toggleGroup(null)}>
 								<span className="icon" style={{marginRight: "0.25rem"}}>
 									<FontAwesomeIcon className="sideicon" icon={iconMapping[p.icon]} fixedWidth width="0" />
@@ -140,7 +140,7 @@ export default class Sidebar extends Component {
 				const groupArrow = groupOpen ? faAngleDown : faAngleRight
 				const groupActive = groupPages.map(p => p.page).includes(this.props.page)
 				
-				const subLinks = groupPages.map( (p,i) => <Link href="/[id]" as={`/${p.page}`} key={"sublink_"+i}><a className={"collapse-item" + (p.page==this.props.page ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
+				const subLinks = groupPages.map( (p,i) => <Link href="/[id]" as={`/${p.page}`} key={"sublink_"+i} prefetch={false}><a className={"collapse-item" + (p.page==this.props.page ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
 				
 				
 				const tmpLink = <li className={groupActive ? "nav-item active" : "nav-item"} key={'link_'+j}>
@@ -175,7 +175,7 @@ export default class Sidebar extends Component {
 		const groupOpen = this.state.collapseOpen['entities']
 		const groupArrow = groupOpen ? faAngleDown : faAngleRight
 		const groupActive = allEntityPages.includes(this.props.page)
-		const subLinks = entitypages.map( (p,i) => <Link href="/entity/[...type_and_name]" as={`/entity/${p.entity_type}/all`} key={"subentitylink_"+i}><a className={"collapse-item" + (this.props.page == `/entity/${p.entity_type}/all` ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
+		const subLinks = entitypages.map( (p,i) => <Link href="/entity/[...type_and_name]" as={`/entity/${p.entity_type}/all`} key={"subentitylink_"+i} prefetch={false}><a className={"collapse-item" + (this.props.page == `/entity/${p.entity_type}/all` ? ' active' : '')}><MyToolTip text={p.description} container={this.container}><div>{p.name}</div></MyToolTip></a></Link> )
 		
 		const entitylinks = 
 			<MyToolTip text="Lists of different biomedical entities (e.g. Drugs) mentioned in published articles" container={this.container}>
@@ -204,7 +204,7 @@ export default class Sidebar extends Component {
 	<ul className={"navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " + showClass} id="accordionSidebar" style={{position:"relative"}} ref={this.container}>
 
 		{/* Sidebar - Brand */}
-		<Link href="/index" as="/">
+		<Link href="/index" as="/" prefetch={false}>
 			<a className="sidebar-brand d-flex align-items-center justify-content-center">
 				<div>
 					<FontAwesomeIcon icon={faViruses} size="2x" width="0" />
@@ -219,7 +219,7 @@ export default class Sidebar extends Component {
 		{/* Nav Item - Dashboard */}
 		<MyToolTip text="Overview of the coronavirus literature" container={this.container}>
 			<li className={this.props.page=='/' ? "nav-item active" : "nav-item"}>
-				<Link href="/index" as="/">
+				<Link href="/index" as="/" prefetch={false}>
 					<a className="nav-link">
 						<span style={{marginRight: "0.25rem"}} >
 							<FontAwesomeIcon className="sideicon" icon={faTachometerAlt} fixedWidth width="0" />
@@ -236,7 +236,7 @@ export default class Sidebar extends Component {
 		<div className="tour-trending m-0 p-0">
 		<MyToolTip text="Articles from the last two weeks that are receiving attention in the media and on social media" container={this.container}>
 			<li className={this.props.page=='/trending' ? "nav-item active mb-0" : "nav-item mb-0"}>
-				<Link href="/trending" as="/trending">
+				<Link href="/trending" as="/trending" prefetch={false}>
 					<a className="nav-link">
 						<span style={{marginRight: "0.25rem"}}>
 							<FontAwesomeIcon className="sideicon" icon={faChartLine} fixedWidth width="0" />
@@ -262,7 +262,7 @@ export default class Sidebar extends Component {
 			
 			<MyToolTip text="A set of frequently asked questions to answer common inquiries about CoronaCentral and the methods used to build it." container={this.container}>
 				<li className={this.props.page=='/faqs' ? "nav-item active" : "nav-item"}>
-					<Link href="/faqs" as="/faqs">
+					<Link href="/faqs" as="/faqs" prefetch={false}>
 						<a className="nav-link">
 							<span style={{marginRight: "0.25rem"}}>
 								<FontAwesomeIcon className="sideicon" icon={faQuestionCircle} fixedWidth width="0" />
@@ -275,7 +275,7 @@ export default class Sidebar extends Component {
 			
 			<MyToolTip text="Help us improve this resource by providing feedback or suggestions for the website or specific papers" container={this.container}>
 				<li className={this.props.page=='/feedback' ? "nav-item active" : "nav-item"}>
-					<Link href="/feedback" as="/feedback">
+					<Link href="/feedback" as="/feedback" prefetch={false}>
 						<a className="nav-link">
 							<span style={{marginRight: "0.25rem"}}>
 								<FontAwesomeIcon className="sideicon" icon={faEnvelopeOpenText} fixedWidth width="0" />
