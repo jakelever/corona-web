@@ -302,7 +302,7 @@ export default class Home extends Component {
 	
 	render() {
 		
-		const defaultColumns = ["category","journal","publish_timestamp","title","altmetric_score_1day"]
+		const defaultColumns = ["topic","articletype","journal","publish_timestamp","title","altmetric_score_1day"]
 		const trendingTableTitle = <Link href="/trending" as="/trending" prefetch={false}><a>Recent & Trending Articles</a></Link>
 		const trendingTable = <CustomTable defaultColumns={defaultColumns} data={this.props.recentTrending} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" paginationPerPage={3} paginationRowsPerPageOptions={[3, 10, 15, 20, 25, 30]} title={trendingTableTitle} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
@@ -457,7 +457,7 @@ export default class Home extends Component {
 						<div className="card-body">
 						  <p>
 						  
-							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>category</b> from the left, or <b>search</b> above.
+							This resource surveys published papers and preprints for <b>SARS-CoV-2</b>, <b>MERS-CoV</b> and <b>SARS-CoV</b>. Select a <b>topic / article type</b> from the left, or <b>search</b> above.
 						  </p>
 						  <p>
 							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly making improvements and value <Link href="/feedback" as="/feedback" prefetch={false}><a>feedback</a></Link>. To get a daily update on the coronavirus literature, <a href="https://twitter.com/coronacentralai" target="_blank">follow us on Twitter!</a>
@@ -550,7 +550,7 @@ export default class Home extends Component {
 								if (elems.length > 0) {
 									//const page_info = pages
 									const index = elems[0]._index
-									const label = categoryPlotData.labels[index]
+									const label = topicPlotData.labels[index]
 									const page_infos = pages.filter(p => (p.name == label || ('altname' in p && p.altname == label)))
 									if (page_infos.length == 1) {
 										Router.push("/[id]",'/' + page_infos[0].page)
