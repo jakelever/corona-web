@@ -216,7 +216,7 @@ export default class CustomTable extends Component {
 			var entity_type = column
 			
 			var pageMapping = {}
-			if (entity_type == 'category') {
+			if (entity_type == 'topic' || entity_type == 'articletype') {
 				pages.forEach(p => {pageMapping[p.name] = p.page})
 				pages.filter(p => 'altname' in p).forEach(p => {pageMapping[p.altname] = p.page})
 			}
@@ -236,8 +236,14 @@ export default class CustomTable extends Component {
 				wrap: true,
 				cell: row => {
 					var entities; 
-					if (entity_type == 'category') {
-						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i}>{e.name.replace('/',' / ')}</a></Link> )
+					if (entity_type == 'topic' || entity_type == 'articletype') {
+						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => {
+							const cleanerName = e.name.replace('/',' / ')
+							if (e.name in pageMapping)
+								return <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i}>{cleanerName}</a></Link>
+							else
+								return <span key={'entitylink_'+i}>{cleanerName}</span>
+						})
 					} else if (entity_type == 'Virus') {
 						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => e.name )
 					} else {
@@ -443,8 +449,15 @@ export default class CustomTable extends Component {
 		var columnsToShow = selectedColumns.slice()
 		columnsToShow.push("flagandlink")
 		
+		/*
+		This weird notation is used to reorder some of the columns so that Virus, Article Type 
+		and Topic appear on the left, and Date, Journal, Title, etc appear on the right. If the
+		user adds more columns, they'll then appear in the middle between these two groups.
+		*/
 		const orderRemapping = {
 			'Virus':'!start 1',
+			'articletype':'!start 2',
+			'topic':'!start 3',
 			'date':'~end 1',
 			'journal':'~end 2',
 			'title':'~end 3',

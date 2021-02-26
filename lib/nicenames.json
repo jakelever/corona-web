@@ -15,6 +15,8 @@
 	"Vaccine Type": "Vaccine Types",
 	"Virus": "Virus",
 	"category": "Categories",
+	"topic": "Topics",
+	"articletype": "Article Type(s)",
 	"title": "Title",
 	"is_preprint": "Is Preprint",
 	"publish_year": "Publish Year",

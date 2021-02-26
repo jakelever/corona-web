@@ -44,7 +44,7 @@ export default class Page extends Component {
 
 	render() {
 					
-		const defaultColumns = ["Virus","category","journal","publish_timestamp","title","altmetric_score_1day"]
+		const defaultColumns = ["articletype","topic","journal","publish_timestamp","title","altmetric_score_1day"]
 		
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 

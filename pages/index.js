@@ -18,7 +18,7 @@ import toursteps from '../lib/toursteps.json'
 import viruscolors from '../lib/viruscolors.json'
 
 import { getPopularLocations, getJournalCounts, getPreprintCounts } from '../lib/db-index'
-import { getCategoryCountsByVirus, getSummaryStatistics, getVirusByDate } from '../lib/db-index'
+import { getTopicCountsByVirus, getArticleTypeCountsByVirus, getSummaryStatistics, getVirusByDate } from '../lib/db-index'
 import { getRecentTrendingDocuments } from '../lib/db-index'
 import { getEntityChartData } from '../lib/db-index'
 
@@ -28,7 +28,7 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
 import { faBrain } from '@fortawesome/free-solid-svg-icons'
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
-import { faShieldVirus } from '@fortawesome/free-solid-svg-icons'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 
 import _ from 'lodash'
@@ -162,7 +162,8 @@ export async function getStaticProps({ params }) {
 	const journalCounts = await getJournalCounts(30)
 	
 	const preprintCounts = await getPreprintCounts()
-	const categoryCounts = await getCategoryCountsByVirus()
+	const topicCounts = await getTopicCountsByVirus()
+	const articletypeCounts = await getArticleTypeCountsByVirus()
 	const popularLocations = await getPopularLocations()
 	
 	const recentTrending = await getRecentTrendingDocuments()
@@ -179,7 +180,8 @@ export async function getStaticProps({ params }) {
 			geneticvariationData,
 			virallineagesData,
 			preprintCounts,
-			categoryCounts,
+			topicCounts,
+			articletypeCounts,
 			popularLocations,
 			recentTrending
 		}
@@ -357,31 +359,47 @@ export default class Home extends Component {
 		const numberToShow_col9 = decideBarchartCountUsingWidth(this.state.col9Width)
 		
 		const selected_viruses = this.state.viruses.length == 0 ? ['SARS-CoV-2','MERS-CoV','SARS-CoV'] : this.state.viruses
-		this.props.categoryCounts.forEach( row => {			
+		this.props.topicCounts.forEach( row => {			
 			row['total'] = ( selected_viruses.includes('SARS-CoV-2') ? row['SARS-CoV-2'] : 0 ) +
 				( selected_viruses.includes('MERS-CoV') ? row['MERS-CoV'] : 0 ) +
 				( selected_viruses.includes('SARS-CoV') ? row['SARS-CoV'] : 0 )
 				
 		})
 		
-		const sortedCategoryCounts = this.props.categoryCounts.sort( (a,b) => b['total']-a['total'] )
+		const sortedTopicCounts = this.props.topicCounts.sort( (a,b) => b['total']-a['total'] )
 		
-		const categoryPlotDatasets = selected_viruses.map( v => {
-			var dataset = {'label':v, 'data':sortedCategoryCounts.map( c => c[v] )}
+		const topicPlotDatasets = selected_viruses.map( v => {
+			var dataset = {'label':v, 'data':sortedTopicCounts.map( c => c[v] )}
 			var rgb = viruscolors[v]
 			dataset.backgroundColor = "rgba("+rgb+", 0.9)"
 			dataset.borderColor = "rgba("+rgb+", 0.9)"
 			return dataset
 		} )
 		
-		const categoryPlotData = {
-							  labels:sortedCategoryCounts.map( c => c['category'] ),
-							  datasets:categoryPlotDatasets
+		const topicPlotData = {
+							  labels:sortedTopicCounts.map( c => c['topic'] ),
+							  datasets:topicPlotDatasets
 						  }
+						  
+						  
+		this.props.articletypeCounts.forEach( row => {			
+			row['total'] = ( selected_viruses.includes('SARS-CoV-2') ? row['SARS-CoV-2'] : 0 ) +
+				( selected_viruses.includes('MERS-CoV') ? row['MERS-CoV'] : 0 ) +
+				( selected_viruses.includes('SARS-CoV') ? row['SARS-CoV'] : 0 )
+				
+		})
+		const sortedArticleTypeCounts = this.props.articletypeCounts.sort( (a,b) => b['total']-a['total'] )
+		
+		const articletypeColors = ['#bebada','#8dd3c7','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f','#ffffb3']
+		const articletypePlotData = {
+							  labels:sortedArticleTypeCounts.map( a => a['articletype'] ),
+							  datasets:[{data:sortedArticleTypeCounts.map( a => a['total'] ), 'backgroundColor':sortedArticleTypeCounts.map((c,i) => articletypeColors[i%articletypeColors.length])}]
+						  }
+						  
 		
 		const journalChartData = {
-				labels:this.props.journalCounts.map(c => c.name).slice(0,numberToShow_col9),
-				datasets:[{data:this.props.journalCounts.map(c => c.count).slice(0,numberToShow_col9),backgroundColor:'#fbb4ae'}]
+				labels:this.props.journalCounts.map(c => c.name).slice(0,numberToShow_col6),
+				datasets:[{data:this.props.journalCounts.map(c => c.count).slice(0,numberToShow_col6),backgroundColor:'#fbb4ae'}]
 				}
 				
 		const drugChart = this.chartifyEntityData('Drug',this.props.drugData,numberToShow_col6)
@@ -508,18 +526,18 @@ export default class Home extends Component {
 				<div className="row">
 
 					
-					<div className="tour-categories col-md-12">
+					<div className="tour-topics col-md-12">
 						<div className="card shadow mb-4" style={{minHeight:"700px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">
-									Categories
+									Topics
 								</h6>
 								
 							</div>
 							<div className="card-body">
 
 								<HorizontalBar 
-						  data={categoryPlotData}
+						  data={topicPlotData}
 						  options={{ 
 						    maintainAspectRatio: false,
 							legend: { display: true }, 
@@ -604,8 +622,8 @@ export default class Home extends Component {
 							<div className="card-body">
 								<div className="row no-gutters align-items-center">
 									<div className="col mr-2">
-										<div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Categories Curated</div>
-										<div className="h5 mb-0 font-weight-bold text-gray-800">{this.props.summaryStatistics.categoryCount}</div>
+										<div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Topics Curated</div>
+										<div className="h5 mb-0 font-weight-bold text-gray-800">{this.props.summaryStatistics.topicCount}</div>
 									</div>
 									<div className="col-auto text-gray-300">
 										<FontAwesomeIcon icon={faLightbulb} size="2x" width="0" />
@@ -621,11 +639,11 @@ export default class Home extends Component {
 							<div className="card-body">
 								<div className="row no-gutters align-items-center">
 									<div className="col mr-2">
-										<div className="text-xs font-weight-bold text-info text-uppercase mb-1"># of Coronaviruses</div>
-										<div className="h5 mb-0 font-weight-bold text-gray-800">3</div>
+										<div className="text-xs font-weight-bold text-info text-uppercase mb-1"># of Article Types</div>
+										<div className="h5 mb-0 font-weight-bold text-gray-800">{this.props.summaryStatistics.articletypeCount}</div>
 									</div>
 									<div className="col-auto text-gray-300">
-										<FontAwesomeIcon icon={faShieldVirus} size="2x" width="0" />
+										<FontAwesomeIcon icon={faPen} size="2x" width="0" />
 									</div>
 								</div>
 							</div>
@@ -636,10 +654,29 @@ export default class Home extends Component {
 								
 				<div className="row tour-sources">
 
+					<div className="col-md-3">
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
+							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 className="m-0 font-weight-bold text-primary">Article Types</h6>
+								
+							</div>
+							<div className="card-body">
+							<Doughnut
+									data={articletypePlotData}
+									options={{ 
+										maintainAspectRatio: false,
+										legend: { fontSize: 10}, 
+										cutoutPercentage: 70,  
+										}}
+							/>
+							
+							</div>
+						</div>
+					</div>
 					
 
-					<div className="col-md-9">
-						<div className="card shadow mb-4" style={{minHeight:"400px"}} ref={this.panelCol9}>
+					<div className="col-md-6">
+						<div className="card shadow mb-4" style={{minHeight:"400px"}}>
 							<div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 className="m-0 font-weight-bold text-primary">Journals / Preprint Servers</h6>
 								

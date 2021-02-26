@@ -8,6 +8,7 @@ import { groupBy } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
+import niceNames from '../lib/nicenames.json'
 import pages from '../lib/pages.json'
 
 export default class Search extends Component {
@@ -45,7 +46,7 @@ export default class Search extends Component {
 			if (entity_type == 'search') {
 				url = "/search/" + this.state.input
 				Router.push("/search/[...query]",url)
-			} else if (entity_type == 'category' && entity_name in this.pageMapping) {
+			} else if ((entity_type == 'topic' || entity_type == 'articletype') && entity_name in this.pageMapping) {
 				const url = "/" + this.pageMapping[entity_name]
 				Router.push("/[id]",url)
 			} else if (entity_type == 'Paper') {
@@ -72,13 +73,14 @@ export default class Search extends Component {
 	render() {
 		
 		const renderSearchRow = (option, props, index) => {
+			const typeName = option.type in niceNames ? niceNames[option.type] : option.type
 			return [
 			<Highlighter key="name" search={props.text}>
 				{option.name}
 			</Highlighter>,
 			option.type == 'search' ? '' : <div key="type" style={{float:"right"}}>
 				<Badge variant="secondary">
-					{option.type}
+					{typeName}
 				</Badge>
 			</div>,
 			];

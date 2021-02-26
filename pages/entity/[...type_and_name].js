@@ -319,7 +319,7 @@ export default class EntityPage extends Component {
 	}
 
 	renderSinglePage() {					
-		const defaultColumns = ["Virus","category","journal","publish_timestamp","title","altmetric_score"]
+		const defaultColumns = ["Virus","articletype","topic","journal","publish_timestamp","title","altmetric_score"]
 			
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
