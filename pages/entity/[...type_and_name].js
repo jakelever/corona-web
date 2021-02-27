@@ -36,7 +36,12 @@ export async function getStaticPaths() {
 		return {params: {type_and_name: [e.entity_type,e.entity_name]}}
 	} )*/
 	
-	const paths = []
+	// Make path for listings pages
+	const paths = entitypages.map( e => {
+		return {params: {type_and_name: [e.entity_type,'all']}}
+	} )
+	
+	//const paths = []
 	
 	return {
 		paths,

@@ -15,15 +15,15 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 import { Bar } from 'react-chartjs-2';
 
 export async function getStaticPaths() {
-	/*const paths = pages.map(function(p) {
+	const paths = pages.map(function(p) {
 		return { params: {id: p.page} }
-	} )*/
+	} )
 	
-	const paths = []
+	//const paths = []
 	
 	return {
 		paths,
-		fallback: true
+		fallback: false
 	}
 }
 
