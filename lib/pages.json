@@ -291,7 +291,7 @@
 		"group": "Other Articles",
 		"description": "Research that is a meta-analysis examining and combining results of other research studies",
 		"extra_table_columns": [
-			"category"
+			"topic"
 		]
 	},
 	{
@@ -302,7 +302,7 @@
 		"group": "Other Articles",
 		"description": "Commentary, editorials and other short articles that are not original research",
 		"extra_table_columns": [
-			"category"
+			"topic"
 		]
 	},
 	
@@ -342,7 +342,7 @@
 		"name": "Retractions",
 		"page": "retractions",
 		"altname": "Retracted",
-		"show_nonresearch": true,
+		"is_articletype": true,
 		"group": "Other Articles",
 		"description": "Articles that have been withdrawn by the authors or the journal"
 	},
