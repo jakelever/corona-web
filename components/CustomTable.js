@@ -66,7 +66,7 @@ export default class CustomTable extends Component {
 			flagModalDoc: null,
 			showColumnSelector: false,
 			selectedColumns: defaultColumns,
-			columnsToHideWhenSmall: ['Virus','journal','publish_timestamp'],
+			columnsToHideWhenSmall: ['Virus','topic','articletype','journal','publish_timestamp'],
 			filters: {},
 			ranges: {}
 			}
@@ -212,6 +212,53 @@ export default class CustomTable extends Component {
 					button: true,
 					width: "80px"
 				}
+		} else if (column == 'topic_and_articletype') {
+			var pageMapping = {}
+			pages.forEach(p => {pageMapping[p.name] = p.page})
+			pages.filter(p => 'altname' in p).forEach(p => {pageMapping[p.altname] = p.page})
+			
+			metadata = {
+				id: column,
+				name: column in niceNames ? niceNames[column] : column,
+				sortable: false,
+				//width: '10%',
+				style: {
+				  fontSize: '15px',
+				  paddingLeft: '4px',
+				  paddingRight: '4px',
+				  paddingTop: '16px',
+				  paddingBottom: '16px'
+				},
+				wrap: true,
+				cell: row => {
+					const topics = row.entities.filter( e => e.type=='topic' ).map( (e,i) => {
+						const cleanerName = e.name.replace('/',' / ')
+						if (e.name in pageMapping)
+							return <Link key={'topiclink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i} prefetch={false}>{cleanerName}</a></Link>
+						else
+							return <span key={'topiclink_'+i}>{cleanerName}</span>
+					})
+					
+					const articletypes = row.entities.filter( e => e.type=='articletype' ).map( (e,i) => {
+						const cleanerName = e.name.replace('/',' / ')
+						if (e.name in pageMapping)
+							return <Link key={'articletypelink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i} prefetch={false}>{cleanerName}</a></Link>
+						else
+							return <span key={'articletypelink_'+i}>{cleanerName}</span>
+					})
+					
+					
+					var topicsCombined = topics.length > 0 ? topics.reduce((prev, curr) => [prev, ', ', curr]) : ''
+					var articletypesCombined = articletypes.length > 0 ? articletypes.reduce((prev, curr) => [prev, ', ', curr]) : ''
+					
+					if (articletypesCombined)
+						return <div>{topicsCombined} [{articletypesCombined}]</div>
+					else
+						return <div>{topicsCombined}</div>
+						
+				},
+				grow: 2
+			}
 		} else if (isEntity) {
 			var entity_type = column
 			
@@ -438,8 +485,12 @@ export default class CustomTable extends Component {
 
 	render() {				
 		var selectedColumns = this.state.selectedColumns.slice()
-		if (!this.props.windowWidth || this.props.windowWidth < 992)
+		if (!this.props.windowWidth || this.props.windowWidth < 992) {
+			if (selectedColumns.includes("topic") || selectedColumns.includes("articletype")) {
+				selectedColumns.push("topic_and_articletype")
+			}
 			selectedColumns = selectedColumns.filter( c => !this.state.columnsToHideWhenSmall.includes(c) )
+		}
 		
 		/*if (this.props.showAltmetric1Day)
 			columnsToShow.push("altmetric_score_1day")

@@ -17,6 +17,7 @@
 	"category": "Categories",
 	"topic": "Topics",
 	"articletype": "Article Type(s)",
+	"topic_and_articletype": "Topics & Article Type(s)",
 	"title": "Title",
 	"is_preprint": "Is Preprint",
 	"publish_year": "Publish Year",
