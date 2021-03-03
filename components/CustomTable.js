@@ -66,7 +66,7 @@ export default class CustomTable extends Component {
 			flagModalDoc: null,
 			showColumnSelector: false,
 			selectedColumns: defaultColumns,
-			columnsToHideWhenSmall: ['Virus','topic','articletype','journal','publish_timestamp'],
+			columnsToHideWhenSmall: ['Virus','journal','publish_timestamp'],
 			filters: {},
 			ranges: {}
 			}
@@ -483,12 +483,11 @@ export default class CustomTable extends Component {
 		this.updateFilters(newFilters)
 	}*/
 
-	render() {				
+	render() {
+		const isMobileSize = (!this.props.windowWidth || this.props.windowWidth < 992)
+		
 		var selectedColumns = this.state.selectedColumns.slice()
-		if (!this.props.windowWidth || this.props.windowWidth < 992) {
-			if (selectedColumns.includes("topic") || selectedColumns.includes("articletype")) {
-				selectedColumns.push("topic_and_articletype")
-			}
+		if (isMobileSize) {
 			selectedColumns = selectedColumns.filter( c => !this.state.columnsToHideWhenSmall.includes(c) )
 		}
 		
@@ -499,6 +498,11 @@ export default class CustomTable extends Component {
 		
 		var columnsToShow = selectedColumns.slice()
 		columnsToShow.push("flagandlink")
+		
+		if (isMobileSize && (columnsToShow.includes("topic") || columnsToShow.includes("articletype"))) {
+			columnsToShow = columnsToShow.filter( c => (c != 'topic' && c != 'articletype') )
+			columnsToShow.push("topic_and_articletype")
+		}
 		
 		/*
 		This weird notation is used to reorder some of the columns so that Virus, Article Type 
