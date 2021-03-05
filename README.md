@@ -41,6 +41,3 @@ To build and run the production server:
 npm run build
 npm run start
 ```
-
-The [pokeWebsite.py](https://github.com/jakelever/corona-ml/blob/master/pokeWebsite.py) script in the ML repo can be used to get the website to build the important category pages.
-
