@@ -15,7 +15,7 @@
 </a>
 </p>
 
-This is a [Next.js](https://nextjs.org/) website for CoronaCentral. The text mining and machine learning pipeline is kept in a [separate Github repo](https://github.com/jakelever/corona-ml).
+This is a [Next.js](https://nextjs.org/) website for the CoronaCentral website available at: https://coronacentral.ai. The text mining and machine learning pipeline is kept in a [separate Github repo](https://github.com/jakelever/corona-ml).
 
 ## Setup
 
