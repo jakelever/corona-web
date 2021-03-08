@@ -15,7 +15,7 @@
 </a>
 </p>
 
-This is a [Next.js](https://nextjs.org/) website for CoronaCentral. The text mining and machine learning pipeline is kept in a [separate Github repo](https://github.com/jakelever/corona-ml).
+This is a [Next.js](https://nextjs.org/) website for the CoronaCentral website available at: https://coronacentral.ai. The text mining and machine learning pipeline is kept in a [separate Github repo](https://github.com/jakelever/corona-ml).
 
 ## Setup
 
@@ -41,6 +41,3 @@ To build and run the production server:
 npm run build
 npm run start
 ```
-
-The [pokeWebsite.py](https://github.com/jakelever/corona-ml/blob/master/pokeWebsite.py) script in the ML repo can be used to get the website to build the important category pages.
-
