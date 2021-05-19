@@ -72,7 +72,7 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: Who created this resource?</b></p>
-								<p>A: This was created by <a href="https://twitter.com/jakelever0" target="_blank">Jake Lever</a>, a postdoctoral researcher, supervised by <a href="https://rbaltman.people.stanford.edu/" target="_blank">Russ Altman</a> in the <a href="http://helix.stanford.edu/" target="_blank">Helix Group</a> at Stanford University.</p>
+								<p>A: This was created by <a href="https://twitter.com/jakelever0" target="_blank">Jake Lever</a>, during his postdoctoral work supervised by <a href="https://rbaltman.people.stanford.edu/" target="_blank">Russ Altman</a> in the <a href="http://helix.stanford.edu/" target="_blank">Helix Group</a> at Stanford University. He is now a lecturer in the <a href="https://www.gla.ac.uk/schools/computing/" target="_blank">School of Computer Science</a> at the <a href="https://www.gla.ac.uk" target="_blank">University of Glasgow</a></p>
 							</div>
 							
 							<hr />
