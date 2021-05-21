@@ -234,7 +234,7 @@ export default class CustomTable extends Component {
 					const topics = row.entities.filter( e => e.type=='topic' ).map( (e,i) => {
 						const cleanerName = e.name.replace('/',' / ')
 						if (e.name in pageMapping)
-							return <Link key={'topiclink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i} prefetch={false}>{cleanerName}</a></Link>
+							return <Link key={'topiclink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`} prefetch={false}><a key={'entity_'+i}>{cleanerName}</a></Link>
 						else
 							return <span key={'topiclink_'+i}>{cleanerName}</span>
 					})
@@ -242,7 +242,7 @@ export default class CustomTable extends Component {
 					const articletypes = row.entities.filter( e => e.type=='articletype' ).map( (e,i) => {
 						const cleanerName = e.name.replace('/',' / ')
 						if (e.name in pageMapping)
-							return <Link key={'articletypelink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i} prefetch={false}>{cleanerName}</a></Link>
+							return <Link key={'articletypelink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`} prefetch={false}><a key={'entity_'+i}>{cleanerName}</a></Link>
 						else
 							return <span key={'articletypelink_'+i}>{cleanerName}</span>
 					})
@@ -287,7 +287,7 @@ export default class CustomTable extends Component {
 						entities = row.entities.filter( e => e.type==entity_type ).map( (e,i) => {
 							const cleanerName = e.name.replace('/',' / ')
 							if (e.name in pageMapping)
-								return <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`}><a key={'entity_'+i} prefetch={false}>{cleanerName}</a></Link>
+								return <Link key={'entitylink_'+i} href="/[id]" as={`/${pageMapping[e.name]}`} prefetch={false}><a key={'entity_'+i}>{cleanerName}</a></Link>
 							else
 								return <span key={'entitylink_'+i}>{cleanerName}</span>
 						})
