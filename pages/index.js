@@ -463,7 +463,7 @@ export default class Home extends Component {
 							<a href="" onClick={event => {this.closeTourToast(); this.startTour(); event.preventDefault()}}>Take a tour!</a> We are constantly making improvements and value <Link href="/feedback" as="/feedback" prefetch={false}><a>feedback</a></Link>. To get a daily update on the coronavirus literature, <a href="https://twitter.com/coronacentralai" target="_blank">follow us on Twitter!</a>
 						  </p>
 						  <p>
-							Read the <a href="https://doi.org/10.1101/2020.12.21.423860" target="_blank">Preprint!</a> Supported by:
+							Read the <a href="https://doi.org/10.1073/pnas.2100766118" target="_blank">paper</a> or get the <a href="https://doi.org/10.5281/zenodo.4383289" target="_blank">data</a>! Supported by:
 						  </p>
 						  <div style={{maxWidth:"250px"}}>
 							<a href="https://www.czbiohub.org/" target="_blank"><img width="100%" src="/CZBiohub.jpg" alt="Chan Zuckerberg Biohub" /></a>

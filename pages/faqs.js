@@ -86,25 +86,31 @@ export default class FAQs extends Component {
 							
 							<div>
 								<p><b>Q: Where can I get more details?</b></p>
-								<p>A: There is now a preprint available at <a href="https://doi.org/10.1101/2020.12.21.423860">bioRxiv</a>. The code for the analysis also available at <a href="https://github.com/jakelever/corona-ml">https://github.com/jakelever/corona-ml</a>.</p>
+								<p>A: This work has been published in <a href="https://doi.org/10.1073/pnas.2100766118" target="_blank">PNAS</a>. The preprint is also available at <a href="https://doi.org/10.1101/2020.12.21.423860">bioRxiv</a>. The code for the analysis also available at <a href="https://github.com/jakelever/corona-ml">https://github.com/jakelever/corona-ml</a>.</p>
 							</div>
 							
 							<hr />
 							
 							<div>
 								<p><b>Q: How do I cite this research?</b></p>
-								<p>A: Please cite the preprint at <a href="https://doi.org/10.1101/2020.12.21.423860">bioRxiv</a>. Below is some Bibtex if that's helpful.
+								<p>A: Please cite the <a href="https://doi.org/10.1073/pnas.2100766118">PNAS paper</a>. Below is some Bibtex if that's helpful.
 								</p>
 								<div style={{backgroundColor:"#eeeeee"}}>
 									<pre>
 @article {'{'}coronacentral,{'\n'}
-{'   '}author = {'{'}Lever, Jake and Altman, Russ B{'}'},{'\n'}
+{'   '}author = {'{'}Lever, Jake and Altman, Russ B.{'}'},{'\n'}
 {'   '}title = {'{'}Analyzing the vast coronavirus literature with {'{'}C{'}'}orona{'{'}C{'}'}entral{'}'},{'\n'}
-{'   '}year = {'{'}2020{'}'},{'\n'}
-{'   '}doi = {'{'}10.1101/2020.12.21.423860{'}'},{'\n'}
-{'   '}publisher = {'{'}Cold Spring Harbor Laboratory{'}'},{'\n'}
-{'   '}journal = {'{'}bioRxiv{'}'}{'\n'}
-{'}'}{'\n'}
+{'   '}volume = {'{'}118{'}'},{'\n'}
+{'   '}number = {'{'}23{'}'},{'\n'}
+{'   '}elocation-id = {'{'}e2100766118{'}'},{'\n'}
+{'   '}year = {'{'}2021{'}'},{'\n'}
+{'   '}doi = {'{'}10.1073/pnas.2100766118{'}'},{'\n'}
+{'   '}publisher = {'{'}National Academy of Sciences{'}'},{'\n'}
+{'   '}issn = {'{'}0027-8424{'}'},{'\n'}
+{'   '}URL = {'{'}https://www.pnas.org/content/118/23/e2100766118{'}'},{'\n'}
+{'   '}eprint = {'{'}https://www.pnas.org/content/118/23/e2100766118.full.pdf{'}'},{'\n'}
+{'   '}journal = {'{'}Proceedings of the National Academy of Sciences{'}'}{'\n'}
+}{'\n'}
 									</pre>
 								</div>
 							</div>
