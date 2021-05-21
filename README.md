@@ -7,8 +7,8 @@
 <a href="https://doi.org/10.5281/zenodo.4383289">
    <img src="https://img.shields.io/badge/data-download-blue.svg" />
 </a>
-<a href="https://doi.org/10.1101/2020.12.21.423860">
-   <img src="https://img.shields.io/badge/bioRxiv-preprint-67baea.svg" />
+<a href="https://doi.org/10.1073/pnas.2100766118">
+   <img src="https://img.shields.io/badge/PNAS-paper-67baea.svg" />
 </a>
 <a href="https://github.com/jakelever/corona-ml">
    <img src="https://img.shields.io/badge/ml-code-darkgreen.svg" />
