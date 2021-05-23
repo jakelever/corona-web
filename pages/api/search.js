@@ -13,10 +13,17 @@ export default async (req, res) => {
 	
 	const documents = await searchDocuments(req.query.q)
 	
-	const entityResults = entities.map(e => { return {name:e.entity_name,type:e.entity_type} } )
+	var uniqueEntityResults = {}
+	entities.forEach( e => {
+		var combined = e.entity_name + '|' + e.entity_type
+		uniqueEntityResults[combined] = {name:e.entity_name,type:e.entity_type}
+	})
+	
+	uniqueEntityResults = Object.values(uniqueEntityResults)
+	
 	const docResults = documents.map(d => { return {name:d.title,type:'Paper',doi:d.doi,pubmed_id:d.pubmed_id,cord_uid:d.cord_uid,url:d.url} } )
 	
-	const results = entityResults.concat(docResults)
+	const results = uniqueEntityResults.concat(docResults)
 	
 	res.statusCode = 200
 	res.end(JSON.stringify(results))
