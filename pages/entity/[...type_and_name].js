@@ -329,7 +329,7 @@ export default class EntityPage extends Component {
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
 		var imgOrMap = ''
-		if (this.props.entity.entity_type == 'Location') {
+		if (this.props.entity.entity_type == 'Location' && 'latitude' in this.props.entity && 'longitude' in this.props.entity ) {
 			
 			const position = [ this.props.entity.latitude, this.props.entity.longitude ]
 			imgOrMap = <div style={{width:"100%",height:"200px"}}>
