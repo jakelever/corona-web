@@ -44,7 +44,8 @@ export default class Search extends Component {
 			const entity_type = selected[0].type
 			
 			if (entity_type == 'search') {
-				url = "/search/" + this.state.input
+				const trimmedSearch = this.state.input.replace(/^["\ ]+/, '').replace(/["\ ]+$/, '')
+				url = "/search/" + trimmedSearch
 				Router.push("/search/[...query]",url)
 			} else if ((entity_type == 'topic' || entity_type == 'articletype') && entity_name in this.pageMapping) {
 				const url = "/" + this.pageMapping[entity_name]
@@ -115,8 +116,10 @@ export default class Search extends Component {
 			return <Menu {...menuProps}>{items}</Menu>
 		}*/
 		
+		const trimmedSearch = this.state.input.replace(/^["\ ]+/, '').replace(/["\ ]+$/, '')
+		
 		const optionsWithGeneralSearch = [
-		{'name':'Search for papers containing "'+this.state.input+'"', 'type':'search'},
+		{'name':'Search for papers containing "'+trimmedSearch+'"', 'type':'search'},
 		...this.state.options
 		]
 		
@@ -159,7 +162,7 @@ export default class Search extends Component {
 						if (event.key == 'Enter' && this.state.input) {
 							//console.log(this.state.input)
 							
-							const url = "/search/" + this.state.input
+							const url = "/search/" + trimmedSearch
 							Router.push("/search/[...query]",url)
 						}
 					}}
@@ -169,7 +172,7 @@ export default class Search extends Component {
 				<div className="input-group-append">
 					<button className="btn btn-primary" type="button" onClick={ event => {
 						if (this.state.input) {
-							const url = "/search/" + this.state.input
+							const url = "/search/" + trimmedSearch
 							Router.push("/search/[...query]",url)
 						}
 					}}>
