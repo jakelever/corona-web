@@ -1,9 +1,11 @@
 #!/bin/bash
 set -ex
 
+rm -f core.*
+
 python updateSitemap.js
 
-rm -fr build_to_delete tmp_build
+sudo rm -fr build_to_delete tmp_build
 
 echo "module.exports = { distDir: 'tmp_build' }" > next.config.js
 npm run build
@@ -17,4 +19,7 @@ mv tmp_build .next
 
 # Restart server
 
-rm -fr build_to_delete
+sudo rm -fr build_to_delete
+
+sudo pm2 restart next
+
