@@ -44,9 +44,9 @@ export default class Page extends Component {
 
 	render() {
 					
-		const defaultColumns = ["articletype","topic","journal","publish_timestamp","title","altmetric_score_1day"]
+		const defaultColumns = ["articletype","topic","journal","publish_timestamp","title"]
 		
-		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} showAltmetric1Day sort="altmetric_score_1day" altmetricHide="md" viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
+		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} sort="publish_timestamp" viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 
 		return (
 			<Layout title="Trending" page="/trending" viruses={this.state.viruses} updateViruses={this.updateViruses} handleResize={this.handleResize}>

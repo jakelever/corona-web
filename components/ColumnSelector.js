@@ -27,7 +27,7 @@ export default class ColumnSelector extends Component {
 		
 		this.entityTypes = [...new Set(this.props.data.map( doc => doc.entities.map( e => e.type) ).flat())].sort()
 		
-		this.topChoices = ['Virus','articletype','topic','journal','is_preprint','publish_timestamp','altmetric_score_1day','altmetric_score']
+		this.topChoices = ['Virus','articletype','topic','journal','is_preprint','publish_timestamp']
 		this.otherChoices = this.entityTypes.filter(et => !this.topChoices.includes(et))
 		
 		this.state = {

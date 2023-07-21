@@ -69,7 +69,7 @@ export default class Page extends Component {
 		if (!this.props.tabledata)
 			return <Layout error404={true} handleResize={this.handleResize}></Layout>
 		
-		const defaultColumns = ["Virus","articletype","topic","journal","publish_timestamp","title","altmetric_score"]
+		const defaultColumns = ["Virus","articletype","topic","journal","publish_timestamp","title"]
 				
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 

@@ -91,8 +91,7 @@ export default class Page extends Component {
 				...extraColumns,
 				"journal",
 				"publish_timestamp",
-				"title",
-				"altmetric_score"
+				"title"
 			]
 		
 		var barChart = <div></div>
@@ -157,7 +156,7 @@ export default class Page extends Component {
 					</div>)
 		}
 				
-		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
+		const table = <CustomTable defaultColumns={defaultColumns} sort="publish_timestamp" data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 
 		return (
 			<Layout title={this.props.page_info.name} page={this.props.page_info.page} viruses={this.state.viruses} updateViruses={this.updateViruses} showVirusSelector handleResize={this.handleResize}>

@@ -324,9 +324,9 @@ export default class EntityPage extends Component {
 	}
 
 	renderSinglePage() {					
-		const defaultColumns = ["Virus","articletype","topic","journal","publish_timestamp","title","altmetric_score"]
+		const defaultColumns = ["Virus","articletype","topic","journal","publish_timestamp","title"]
 			
-		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
+		const table = <CustomTable defaultColumns={defaultColumns} sort="publish_timestamp" data={this.props.tabledata} viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 		
 		var imgOrMap = ''
 		if (this.props.entity.entity_type == 'Location' && 'latitude' in this.props.entity && 'longitude' in this.props.entity ) {
