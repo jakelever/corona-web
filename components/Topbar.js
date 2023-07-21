@@ -189,11 +189,7 @@ export default class Topbar extends Component {
 			
 			
             { this.props.showVirusSelector ? <li className="d-none d-sm-inline-block nav-item" style={{width:"1em"}}></li> : <></> }
-			
-			<NavLink className="d-none d-sm-inline-block" href="https://twitter.com/coronacentralai" target="_blank">
-				<FontAwesomeIcon icon={faTwitter} size="lg" width="0" />
-			</NavLink>
-			
+						
 			<li className="nav-item dropdown no-arrow d-sm-none">
 			
 				
