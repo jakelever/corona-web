@@ -19,7 +19,7 @@ import viruscolors from '../lib/viruscolors.json'
 
 import { getPopularLocations, getJournalCounts, getPreprintCounts } from '../lib/db-index'
 import { getTopicCountsByVirus, getArticleTypeCountsByVirus, getSummaryStatistics, getVirusByDate } from '../lib/db-index'
-import { getRecentTrendingDocuments } from '../lib/db-index'
+import { getRecentDocuments } from '../lib/db-index'
 import { getEntityChartData } from '../lib/db-index'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -166,7 +166,7 @@ export async function getStaticProps({ params }) {
 	const articletypeCounts = await getArticleTypeCountsByVirus()
 	const popularLocations = await getPopularLocations()
 	
-	const recentTrending = await getRecentTrendingDocuments()
+	const recentTrending = await getRecentDocuments()
 	
 	return {
 		props: {

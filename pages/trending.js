@@ -49,11 +49,11 @@ export default class Page extends Component {
 		const table = <CustomTable defaultColumns={defaultColumns} data={this.props.tabledata} sort="publish_timestamp" viruses={this.state.viruses} updateViruses={this.updateViruses} windowWidth={this.state.windowWidth} />
 
 		return (
-			<Layout title="Trending" page="/trending" viruses={this.state.viruses} updateViruses={this.updateViruses} handleResize={this.handleResize}>
+			<Layout title="Recent" page="/trending" viruses={this.state.viruses} updateViruses={this.updateViruses} handleResize={this.handleResize}>
 		
 				{/* Page Heading */}
 				<div className="flex align-items-center justify-content-between mb-4 titlepadding" ref={this.shareDiv} style={{position:"relative"}}>
-					<h1 className="h3 mb-0 text-gray-800">Trending</h1>
+					<h1 className="h3 mb-0 text-gray-800">Recent</h1>
 					<SharePopover title="Check out the latest trending coronavirus research articles at CoronaCentral!" url="https://coronacentral.ai/trending" container={this.shareDiv}>
 						<a href="#" onClick={event => event.preventDefault()} className="inline-block btn btn-sm btn-info shadow-sm" target="_blank">
 							<span className="text-white-50"><FontAwesomeIcon icon={faShareAlt} size="sm" width="0" /></span> Share
@@ -62,7 +62,7 @@ export default class Page extends Component {
 				</div>
 				
 				<div className="d-sm-flex align-items-center justify-content-between mb-4 titlepadding">
-					<h6 className="h6 mb-0 text-gray-800">Articles from the last two weeks that are receiving attention in the media and on social media</h6>
+					<h6 className="h6 mb-0 text-gray-800">Articles from the last two weeks across all topics and article types</h6>
 				</div>
 
 								

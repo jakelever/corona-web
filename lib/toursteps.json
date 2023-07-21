@@ -5,7 +5,7 @@
 	},
 	{
 		"selector": ".tour-trending",
-		"content": "The sidebar provides links to see a slice of the coronavirus literature. This link shows currently trending publications."
+		"content": "The sidebar provides links to see a slice of the coronavirus literature. This link shows recently published/preprinted articles."
 	},
 	{
 		"selector": ".tour-categories",

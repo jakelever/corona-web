@@ -234,14 +234,14 @@ export default class Sidebar extends Component {
 		<hr className="sidebar-divider my-0" />
 		
 		<div className="tour-trending m-0 p-0">
-		<MyToolTip text="Articles from the last two weeks that are receiving attention in the media and on social media" container={this.container}>
+		<MyToolTip text="Articles from the last two weeks across all topics and article types" container={this.container}>
 			<li className={this.props.page=='/trending' ? "nav-item active mb-0" : "nav-item mb-0"}>
 				<Link href="/trending" as="/trending" prefetch={false}>
 					<a className="nav-link">
 						<span style={{marginRight: "0.25rem"}}>
 							<FontAwesomeIcon className="sideicon" icon={faChartLine} fixedWidth width="0" />
 						</span>
-						<span> Trending</span>
+						<span> Recent</span>
 					</a>
 				</Link>
 			</li>
