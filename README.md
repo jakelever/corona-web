@@ -1,9 +1,6 @@
 # CoronaCentral Web Viewer
 
 <p>
-<a href="https://coronacentral.ai/">
-   <img src="https://img.shields.io/badge/corona-central-b01515.svg" />
-</a>
 <a href="https://doi.org/10.5281/zenodo.4383289">
    <img src="https://img.shields.io/badge/data-download-blue.svg" />
 </a>
@@ -15,7 +12,7 @@
 </a>
 </p>
 
-This is a [Next.js](https://nextjs.org/) website for the CoronaCentral website available at: https://coronacentral.ai. The text mining and machine learning pipeline is kept in a [separate Github repo](https://github.com/jakelever/corona-ml).
+This is a [Next.js](https://nextjs.org/) website for the CoronaCentral website. The website is no longer online. The text mining and machine learning pipeline is kept in a [separate Github repo](https://github.com/jakelever/corona-ml).
 
 ## Setup
 
